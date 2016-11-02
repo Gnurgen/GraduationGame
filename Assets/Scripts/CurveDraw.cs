@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CurveDraw : MonoBehaviour {
 
-	public float points;
+	//public Vector3[] points;
 
 	public GameObject line;
 	private bool drawing;
@@ -20,7 +20,7 @@ public class CurveDraw : MonoBehaviour {
 		drawing = false;
 		curvePoints = new List<Vector3> ();
 		mesh = new Mesh ();
-		points = new Vector3[500];
+		vertices = new Vector3[500];
 		indicies = new int[800];
 		verticeIndex = 0;
 		indicieIndex = 0;
@@ -62,7 +62,7 @@ public class CurveDraw : MonoBehaviour {
 		verticeIndex++;
 		vertices[verticeIndex] = p;
 		verticeIndex++;
-		mesh.vertices = points;
+		mesh.vertices = vertices;
 
 		indicies[indicieIndex] = 0;
 		indicieIndex++;
@@ -76,7 +76,7 @@ public class CurveDraw : MonoBehaviour {
 		indicieIndex++;
 		indicies[indicieIndex] = 1;
 		indicieIndex++;
-		mesh.SetIndices (indicies);
+		mesh.triangles = indicies;
 		line.GetComponent<MeshFilter> ().mesh = mesh;
 	}
 
