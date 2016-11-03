@@ -9,8 +9,8 @@ public class CurveDraw : MonoBehaviour {
 	public GameObject line;
 	private bool drawing;
 	private List<Vector3> curvePoints;
-	private int verticeIndex;
-	private int indicieIndex;
+	public int verticeIndex;
+	public int indicieIndex;
 	private Mesh mesh;
 	private Vector3[] vertices;
 	private int[] indicies;
@@ -95,17 +95,17 @@ public class CurveDraw : MonoBehaviour {
 		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * -Vector3.forward + newPoint;
 		verticeIndex++;
 
-		indicies [indicieIndex] = verticeIndex - 1;
-		indicieIndex++;
 		indicies [indicieIndex] = verticeIndex - 2;
 		indicieIndex++;
 		indicies [indicieIndex] = verticeIndex - 3;
 		indicieIndex++;
-		indicies [indicieIndex] = verticeIndex - 1;
-		indicieIndex++;
-		indicies [indicieIndex] = verticeIndex - 0;
+		indicies [indicieIndex] = verticeIndex - 4;
 		indicieIndex++;
 		indicies [indicieIndex] = verticeIndex - 2;
+		indicieIndex++;
+		indicies [indicieIndex] = verticeIndex - 1;
+		indicieIndex++;
+		indicies [indicieIndex] = verticeIndex - 3;
 		indicieIndex++;
 		mesh.vertices = vertices;
 		mesh.triangles = indicies;
@@ -127,6 +127,10 @@ public class CurveDraw : MonoBehaviour {
 			}
 			indicies = temp;
 		}
+	}
+
+	public Vector3[] GetPoints(){
+		return vertices;
 	}
 		
 }
