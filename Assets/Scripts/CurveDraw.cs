@@ -22,7 +22,10 @@ public class CurveDraw : MonoBehaviour {
 		curvePoints = new List<Vector3> ();
 		mesh = new Mesh ();
 		vertices = new Vector3[500];
+<<<<<<< HEAD
 		indicies = new int[800];
+=======
+>>>>>>> f3147d5ba693b6bf1e844249f3e32488790ce040
 		indicies = new int[1500];
 		verticeIndex = 0;
 		indicieIndex = 0;
