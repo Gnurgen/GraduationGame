@@ -10,7 +10,7 @@ public class GameManager {
 
     private DataManager _data;
     private GameObject _player;
-    private InputManager _inputManager;
+    //private InputManager _inputManager;
     private EventManager _eventManager;
 
     private GameObject _wheel;
@@ -37,7 +37,7 @@ public class GameManager {
             return _data;
         }
     }
-
+/*
     public InputManager input
     {
         get
@@ -47,7 +47,7 @@ public class GameManager {
             return _inputManager;
         }
     }
-
+*/
     public EventManager events
     {
         get
