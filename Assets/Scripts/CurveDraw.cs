@@ -14,6 +14,7 @@ public class CurveDraw : MonoBehaviour {
 	private Mesh mesh;
 	private Vector3[] vertices;
 	private int[] indicies;
+	private float angle;
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +22,11 @@ public class CurveDraw : MonoBehaviour {
 		curvePoints = new List<Vector3> ();
 		mesh = new Mesh ();
 		vertices = new Vector3[500];
+<<<<<<< HEAD
 		indicies = new int[800];
+=======
+		indicies = new int[1500];
+>>>>>>> origin/CurveDrawing
 		verticeIndex = 0;
 		indicieIndex = 0;
 	}
@@ -36,10 +41,11 @@ public class CurveDraw : MonoBehaviour {
 		curvePoints = new List<Vector3> (); 
 	}
 
-	void AddPoint(Vector3 p){
+	public void AddPoint(Vector3 p){
 		if (curvePoints.Count == 0) {
 			InitializeMesh (p);
 		} else {
+			Debug.Log ("Added point");
 			DrawNewPoint (p);
 		}
 		curvePoints.Add (p);
@@ -81,7 +87,46 @@ public class CurveDraw : MonoBehaviour {
 	}
 
 	void DrawNewPoint(Vector3 newPoint){
+		CheckArraySizes ();
 		Vector3 previousPoint = curvePoints [curvePoints.Count - 1];
+		angle = Mathf.Atan2(newPoint.z - previousPoint.z, previousPoint.x - newPoint.x) * 180 / Mathf.PI;
+		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward + newPoint;
+		verticeIndex++;
+		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * -Vector3.forward + newPoint;
+		verticeIndex++;
+
+		indicies [indicieIndex] = verticeIndex - 1;
+		indicieIndex++;
+		indicies [indicieIndex] = verticeIndex - 2;
+		indicieIndex++;
+		indicies [indicieIndex] = verticeIndex - 3;
+		indicieIndex++;
+		indicies [indicieIndex] = verticeIndex - 1;
+		indicieIndex++;
+		indicies [indicieIndex] = verticeIndex - 0;
+		indicieIndex++;
+		indicies [indicieIndex] = verticeIndex - 2;
+		indicieIndex++;
+		mesh.vertices = vertices;
+		mesh.triangles = indicies;
+		line.GetComponent<MeshFilter> ().mesh = mesh;
+	}
+
+	void CheckArraySizes(){
+		if (verticeIndex >= vertices.Length - 2) {
+			Vector3[] temp = new Vector3[vertices.Length + 200];
+			for (int i = 0; i < verticeIndex; i++) {
+				temp [i] = vertices [i];
+			}
+			vertices = temp;
+		}
+		if (indicieIndex >= indicies.Length - 2) {
+			int[] temp = new int[indicies.Length + 200];
+			for (int i = 0; i < indicieIndex; i++) {
+				temp [i] = indicies [i];
+			}
+			indicies = temp;
+		}
 	}
 		
 }
