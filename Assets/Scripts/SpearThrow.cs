@@ -20,7 +20,7 @@ public class SpearThrow : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		drawTool = GetComponent<CurveDraw> ();
-		im = GetComponent<InputManager> ();
+        im = FindObjectOfType<InputManager>();
 		if (im == null) {
 			Debug.Log ("The InputManager component is not attached");
 		}
@@ -37,6 +37,7 @@ public class SpearThrow : MonoBehaviour {
 	}
 
 	public void UseAbility(){
+        Debug.Log("ABILITY USED!");
 		if (currentCooldown < 0) {
 			// Take over input
 			active = true;
@@ -44,7 +45,7 @@ public class SpearThrow : MonoBehaviour {
 			initialized = false;
 			im.curState = InputManager.InputState.draw;
 			im.OnDrag += GetNewPoints;
-			im.OnTouchEnd += GetRelease;
+            Invoke("Sub2Release", 0.5f);
 		}
 	}
 
@@ -54,17 +55,20 @@ public class SpearThrow : MonoBehaviour {
 		im.curState = InputManager.InputState.move;
 		im.OnTouchEnd -= GetRelease;
 		im.OnDrag -= GetNewPoints;
-		drawTool.CleanUp ();
 		ThrowSpear (drawTool.GetPoints());
-	}
+        drawTool.CleanUp();
+    }
 
 	void GetNewPoints(Vector3 p){
 		if (active && currentDrawLength < drawLength) {
 			if (!initialized) {
-				lastPoint = p;
-			}
+                lastPoint = p;
+                initialized = true;
+
+            }
 			currentDrawLength += Vector3.Distance (lastPoint, p);
 			drawTool.AddPoint (p);
+            lastPoint = p;
 		}
 	}
 
@@ -72,4 +76,9 @@ public class SpearThrow : MonoBehaviour {
 		GameObject spear = Instantiate (spearPrefab) as GameObject;
 		spear.GetComponent<SpearController> ().SetParameters(ps,spearSpeed);
 	}
+
+    private void Sub2Release()
+    {
+        im.OnTouchEnd += GetRelease;
+    }
 }

@@ -5,10 +5,12 @@ public class InputManager : MonoBehaviour
 {
     public enum InputState {draw, move, menu};
 	public InputState curState;
+    public float middleScreenDistance;
 
     [SerializeField]
     private float _minSwipeSpeed, _minSwipeDist, _doubleTapTime, _minDoubleTapDist, _distPointResolution;
-    private Vector2 origPos, endPos, curPos;
+    private Vector2 origPos, endPos;
+    public Vector2 curPos;
     private float _dragDist, _dragSpeed, _dTapTimer;
     private int h, w;
     private bool _dTap = false, _isSwipe = false, _isDrag = false;
@@ -18,7 +20,7 @@ public class InputManager : MonoBehaviour
     private Vector3 worldPoint, swipeDir;
 
     public delegate void InputDelegate(Vector3 p);
-    public event InputDelegate OnDrag, OnTap, OnDoubleTap, OnSwipe, OnTouchBegin, OnTouchEnd;
+    public event InputDelegate OnDrag, OnTap, OnDoubleTap, OnSwipe, OnTouchBegin, OnTouchEnd, OnMiddleTap;
 
 
     //public delegate void 
@@ -126,6 +128,11 @@ public class InputManager : MonoBehaviour
 
     private void PostTouchBeginEvent()
     {
+        if(MiddleScreenTap(origPos, middleScreenDistance))
+        {
+            OnMiddleTap(Vector3.zero);
+            return;
+        }
         if (OnTouchBegin != null)
             OnTouchBegin(getWorldPoint(origPos));
     }
@@ -133,5 +140,10 @@ public class InputManager : MonoBehaviour
     {
         if (OnTouchEnd != null)
             OnTouchEnd(getWorldPoint(endPos));
+    }
+
+    public bool MiddleScreenTap(Vector2 p, float distance)
+    {
+        return Vector2.Distance(p, new Vector2((float)w / 2f, (float)h / 2f)) < distance;
     }
 }

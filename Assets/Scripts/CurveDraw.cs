@@ -15,7 +15,7 @@ public class CurveDraw : MonoBehaviour {
 	private Vector3[] vertices;
 	private int[] indicies;
 	private float angle;
-    InputManager TMA;
+
     // Use this for initialization
     void Start () {
 		drawing = false;
@@ -25,8 +25,6 @@ public class CurveDraw : MonoBehaviour {
 		indicies = new int[1500];
 		verticeIndex = 0;
 		indicieIndex = 0;
-        TMA = FindObjectOfType<InputManager>();
-        TMA.OnDrag += AddPoint;
 	}
 	
 	// Update is called once per frame
@@ -43,7 +41,6 @@ public class CurveDraw : MonoBehaviour {
 		if (curvePoints.Count == 0) {
 			InitializeMesh (p);
 		} else {
-			Debug.Log ("Added point");
 			DrawNewPoint (p);
 		}
 		curvePoints.Add (p);
@@ -58,11 +55,19 @@ public class CurveDraw : MonoBehaviour {
 	}
 
 	void InitializeMesh(Vector3 p){
-		line = new GameObject ();
+        if (line != null)
+            if (line.GetComponent<MeshFilter>() != null)
+                line.GetComponent<MeshFilter>().mesh.Clear();
+
+        line = new GameObject ();
 		line.AddComponent<MeshFilter> ();
 		line.AddComponent<MeshRenderer> ();
 		mesh = new Mesh ();
 		mesh.name = line.GetInstanceID().ToString();
+        vertices = new Vector3[500];
+        indicies = new int[1500];
+        verticeIndex = 0;
+        indicieIndex = 0;
 
         p = new Vector3(p.x, 0, p.z);
 		vertices[verticeIndex] = p;
@@ -141,6 +146,7 @@ public class CurveDraw : MonoBehaviour {
 
 	public void CleanUp(){
 		Destroy (line);
+        curvePoints = new List<Vector3>();
 	}
 		
 }
