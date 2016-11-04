@@ -6,7 +6,7 @@ public class CurveDraw : MonoBehaviour {
 
 	//public Vector3[] points;
 
-	public GameObject line;
+	private GameObject line;
 	private bool drawing;
 	private List<Vector3> curvePoints;
 	public int verticeIndex;
@@ -58,6 +58,12 @@ public class CurveDraw : MonoBehaviour {
 	}
 
 	void InitializeMesh(Vector3 p){
+		line = new GameObject ();
+		line.AddComponent<MeshFilter> ();
+		line.AddComponent<MeshRenderer> ();
+		mesh = new Mesh ();
+		mesh.name = line.GetInstanceID().ToString();
+
         p = new Vector3(p.x, 0, p.z);
 		vertices[verticeIndex] = p;
 		verticeIndex++;
@@ -129,8 +135,12 @@ public class CurveDraw : MonoBehaviour {
 		}
 	}
 
-	public Vector3[] GetPoints(){
-		return vertices;
+	public List<Vector3> GetPoints(){
+		return curvePoints;
+	}
+
+	public void CleanUp(){
+		Destroy (line);
 	}
 		
 }
