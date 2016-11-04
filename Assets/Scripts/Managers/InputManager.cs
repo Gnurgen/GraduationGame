@@ -4,7 +4,8 @@ using System.Collections;
 public class InputManager : MonoBehaviour
 {
     public enum InputState {draw, move, menu};
-    public InputState curState;
+	public InputState curState;
+
     [SerializeField]
     private float _minSwipeSpeed, _minSwipeDist, _doubleTapTime, _minDoubleTapDist, _distPointResolution;
     private Vector2 origPos, endPos, curPos;
