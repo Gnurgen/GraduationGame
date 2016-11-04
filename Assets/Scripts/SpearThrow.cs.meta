@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: e4ac28e7d42cb5b48b750505357c3333
-timeCreated: 1478252173
+timeCreated: 1478263411
 licenseType: Pro
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - spearPrefab: {fileID: 1000010104253210, guid: 602f20d21cf40c942b7483b60d6fad32,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
