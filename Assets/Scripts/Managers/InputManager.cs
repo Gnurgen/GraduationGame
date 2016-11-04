@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
     private Vector3 worldPoint, swipeDir;
 
     public delegate void InputDelegate(Vector3 p);
-    public static event InputDelegate OnDrag, OnTap, OnDoubleTap, OnSwipe, OnTouchBegin, OnTouchEnd;
+    public event InputDelegate OnDrag, OnTap, OnDoubleTap, OnSwipe, OnTouchBegin, OnTouchEnd;
 
 
     //public delegate void 
@@ -47,7 +47,7 @@ public class InputManager : MonoBehaviour
                         PostDoubleTapEvent();
                 }
                 endPos = Input.touches[0].position;
-                if (!_isSwipe || !_isDrag)
+                if (!_isSwipe && !_isDrag)
                     PostTapEvent();
                 else if (_isSwipe)
                     PostSwipeEvent();

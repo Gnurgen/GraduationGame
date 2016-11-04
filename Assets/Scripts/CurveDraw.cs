@@ -15,7 +15,7 @@ public class CurveDraw : MonoBehaviour {
 	private Vector3[] vertices;
 	private int[] indicies;
 	private float angle;
-    TestMoveAtk TMA;
+    InputManager TMA;
     // Use this for initialization
     void Start () {
 		drawing = false;
@@ -25,7 +25,7 @@ public class CurveDraw : MonoBehaviour {
 		indicies = new int[1500];
 		verticeIndex = 0;
 		indicieIndex = 0;
-        TMA = FindObjectOfType<TestMoveAtk>();
+        TMA = FindObjectOfType<InputManager>();
         TMA.OnDrag += AddPoint;
 	}
 	
