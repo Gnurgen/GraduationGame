@@ -15,9 +15,9 @@ public class CurveDraw : MonoBehaviour {
 	private Vector3[] vertices;
 	private int[] indicies;
 	private float angle;
-
-	// Use this for initialization
-	void Start () {
+    TestMoveAtk TMA;
+    // Use this for initialization
+    void Start () {
 		drawing = false;
 		curvePoints = new List<Vector3> ();
 		mesh = new Mesh ();
@@ -25,6 +25,8 @@ public class CurveDraw : MonoBehaviour {
 		indicies = new int[1500];
 		verticeIndex = 0;
 		indicieIndex = 0;
+        TMA = FindObjectOfType<TestMoveAtk>();
+        TMA.OnDrag += AddPoint;
 	}
 	
 	// Update is called once per frame
@@ -56,6 +58,7 @@ public class CurveDraw : MonoBehaviour {
 	}
 
 	void InitializeMesh(Vector3 p){
+        p = new Vector3(p.x, 0, p.z);
 		vertices[verticeIndex] = p;
 		verticeIndex++;
 		vertices[verticeIndex] = p;
@@ -83,12 +86,13 @@ public class CurveDraw : MonoBehaviour {
 	}
 
 	void DrawNewPoint(Vector3 newPoint){
-		CheckArraySizes ();
+        newPoint = new Vector3(newPoint.x, 0.1f, newPoint.z);
+        CheckArraySizes ();
 		Vector3 previousPoint = curvePoints [curvePoints.Count - 1];
 		angle = Mathf.Atan2(newPoint.z - previousPoint.z, previousPoint.x - newPoint.x) * 180 / Mathf.PI;
-		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward + newPoint;
-		verticeIndex++;
 		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * -Vector3.forward + newPoint;
+		verticeIndex++;
+		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward + newPoint;
 		verticeIndex++;
 
 		indicies [indicieIndex] = verticeIndex - 2;
@@ -110,14 +114,14 @@ public class CurveDraw : MonoBehaviour {
 
 	void CheckArraySizes(){
 		if (verticeIndex >= vertices.Length - 2) {
-			Vector3[] temp = new Vector3[vertices.Length + 200];
+			Vector3[] temp = new Vector3[vertices.Length + 100];
 			for (int i = 0; i < verticeIndex; i++) {
 				temp [i] = vertices [i];
 			}
 			vertices = temp;
 		}
 		if (indicieIndex >= indicies.Length - 2) {
-			int[] temp = new int[indicies.Length + 200];
+			int[] temp = new int[indicies.Length + 300];
 			for (int i = 0; i < indicieIndex; i++) {
 				temp [i] = indicies [i];
 			}
