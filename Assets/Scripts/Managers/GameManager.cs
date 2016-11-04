@@ -8,13 +8,22 @@ public class GameManager {
 
     private static GameManager _instance;
 
-    private DataManager _data;
-    private GameObject _player;
-    //private InputManager _inputManager;
+    private AudioManager _audioManager;
     private EventManager _eventManager;
+    private GameObject _player;
+    private Menu _menu;
+    private Settings settings = new Settings(Language.None);
+    private float prevTimeScale;
+    private bool paused = false;
 
-    private GameObject _wheel;
-    private GameObject _skills;
+    private struct Settings{
+        public Language language;
+
+        public Settings(Language language)
+        {
+            this.language = language;
+        }
+    };
 
     public enum Language { None, English, Danish };
 
@@ -28,26 +37,16 @@ public class GameManager {
         }
     }
 
-    public DataManager data
+    public AudioManager audio
     {
         get
         {
-            if (_data == null)
-                _data = new DataManager();
-            return _data;
+            if (_audioManager == null)
+                _audioManager = Object.FindObjectOfType(typeof(AudioManager)) as AudioManager;
+            return _audioManager;
         }
     }
-/*
-    public InputManager input
-    {
-        get
-        {
-            if (_inputManager == null)
-                _inputManager = Object.FindObjectOfType(typeof(InputManager)) as InputManager;
-            return _inputManager;
-        }
-    }
-*/
+
     public EventManager events
     {
         get
@@ -68,17 +67,59 @@ public class GameManager {
         }
     }
 
+    private Menu menu
+    {
+        get
+        {
+            if (_menu == null)
+                _menu = Object.FindObjectOfType(typeof(Menu)) as Menu;
+            return _menu;
+        }
+    }
+
+    private void setGameSpeed(float speed)
+    {
+        if (!paused)
+            Time.timeScale = speed;
+    }
+
+    private void pauseGame()
+    {
+        prevTimeScale = Time.timeScale;
+        Time.timeScale = 0.0f;
+        paused = true;
+    }
+
+    private void resumeGame()
+    {
+        Time.timeScale = prevTimeScale;
+        paused = false;
+    }
+
+    public void showMenu()
+    {
+        pauseGame();
+    }
+
+    public void hideMenu()
+    {
+        resumeGame();
+    }
+
     public Language language
     {
         get
         {
-            return data.language;
+            if (settings.language == Language.None)
+                settings.language = (Language)PlayerPrefs.GetInt("language", 1);
+            return settings.language;
         }
         set
         {
-            data.language = value;
+            if (value != Language.None)
+                PlayerPrefs.SetInt("language", (int)value);
+            settings.language = value;
         }
     }
-
 
 }
