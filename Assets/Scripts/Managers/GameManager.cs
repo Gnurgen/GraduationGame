@@ -10,9 +10,12 @@ public class GameManager {
 
     private AudioManager _audioManager;
     private EventManager _eventManager;
+    private InputManager _inputManager;
     private GameObject _player;
     private Menu _menu;
+
     private Settings settings = new Settings(Language.None);
+
     private float prevTimeScale;
     private bool paused = false;
 
@@ -54,6 +57,16 @@ public class GameManager {
             if (_eventManager == null)
                 _eventManager = Object.FindObjectOfType(typeof(EventManager)) as EventManager;
             return _eventManager;
+        }
+    }
+
+    public InputManager input
+    {
+        get
+        {
+            if (_inputManager == null)
+                _inputManager = Object.FindObjectOfType(typeof(InputManager)) as InputManager;
+            return _inputManager;
         }
     }
 
