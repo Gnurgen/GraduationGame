@@ -42,18 +42,18 @@ public class SpearThrow : MonoBehaviour {
 			active = true;
 			currentDrawLength = 0;
 			initialized = false;
-			InputManager.InputState = InputManager.InputState.draw;
-			InputManager.OnDrag += GetNewPoints;
-			InputManager.OnTouchEnd += GetRelease;
+			im.curState = InputManager.InputState.draw;
+			im.OnDrag += GetNewPoints;
+			im.OnTouchEnd += GetRelease;
 		}
 	}
 
 	void GetRelease(Vector3 p){
 		active = false;
 		currentCooldown = cooldown;
-		InputManager.InputState = InputManager.InputState.move;
-		InputManager.OnTouchEnd -= GetRelease;
-		InputManager.OnDrag -= GetNewPoints;
+		im.curState = InputManager.InputState.move;
+		im.OnTouchEnd -= GetRelease;
+		im.OnDrag -= GetNewPoints;
 		drawTool.CleanUp ();
 		ThrowSpear (drawTool.GetPoints());
 	}

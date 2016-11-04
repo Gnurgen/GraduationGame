@@ -4,7 +4,8 @@ using System.Collections;
 public class InputManager : MonoBehaviour
 {
     public enum InputState {draw, move, menu};
-    public InputState curState;
+	public InputState curState;
+
     [SerializeField]
     private float _minSwipeSpeed, _minSwipeDist, _doubleTapTime, _minDoubleTapDist, _distPointResolution;
     private Vector2 origPos, endPos, curPos;
@@ -17,7 +18,7 @@ public class InputManager : MonoBehaviour
     private Vector3 worldPoint, swipeDir;
 
     public delegate void InputDelegate(Vector3 p);
-    public static event InputDelegate OnDrag, OnTap, OnDoubleTap, OnSwipe, OnTouchBegin, OnTouchEnd;
+    public event InputDelegate OnDrag, OnTap, OnDoubleTap, OnSwipe, OnTouchBegin, OnTouchEnd;
 
 
     //public delegate void 
