@@ -10,17 +10,14 @@ public class InputManager : MonoBehaviour
     private Vector2 origPos, endPos, curPos;
     private float _dragDist, _dragSpeed, _dTapTimer;
     private int h, w;
-    private bool _dTap = false, _isSwipe = false, _isDrag = false;
+    private bool _dTap = false, _isSwipe = false;
     private Camera myCam;
     private Ray ray;
     private RaycastHit hit;
-    private Vector3 worldPoint, swipeDir;
+    private Vector3 worldPoint;
 
-    public delegate void InputDelegate(Vector3 p);
-    public static event InputDelegate OnDrag, OnTap, OnDoubleTap, OnSwipe, OnTouchBegin, OnTouchEnd;
-
-
-    //public delegate void 
+    public delegate void DragDelegate(Vector3 p);
+    public event DragDelegate OnDrag;
     
     void Start()
     {
@@ -28,6 +25,7 @@ public class InputManager : MonoBehaviour
         h = Screen.height;
         w = Screen.width;
     }
+
 
     void Update()
     {
@@ -37,7 +35,6 @@ public class InputManager : MonoBehaviour
             {
                 origPos = Input.touches[0].position;
                 curPos = origPos;
-                PostTouchBeginEvent();
             }
             if (Input.touches[0].phase == TouchPhase.Ended)
             {
@@ -47,14 +44,12 @@ public class InputManager : MonoBehaviour
                         PostDoubleTapEvent();
                 }
                 endPos = Input.touches[0].position;
-                if (!_isSwipe || !_isDrag)
+                if (!_isSwipe)
                     PostTapEvent();
                 else if (_isSwipe)
                     PostSwipeEvent();
                 _dTapTimer = 0;
                 _isSwipe = false;
-                _isDrag = false;
-                PostTouchEndEvent();
             }
             if (Input.touches[0].phase == TouchPhase.Moved)
             {
@@ -85,52 +80,42 @@ public class InputManager : MonoBehaviour
         ray = Camera.main.ScreenPointToRay(p);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             worldPoint = hit.point;
-        return worldPoint;
+        return p;
     }
 
     private void PostNextDragPoint()
     {
         print("PostNextDragPoint");
         _dragDist = 0;
-        _isDrag = true;
+        Vector3 inputPos = curPos;
+        ray = Camera.main.ScreenPointToRay(inputPos);
+        /*
+         var scrPoint : Vector3 = Vector3(x, y, 0);
+         var ray : Ray = Camera.main.ScreenPointToRay(scrPoint);
+         var hit : RaycastHit; 
+        
+        if (Physics.Raycast(ray, hit))
+        {
+            var hitPoint : Vector3 = hit.point;
+        } */
         if (OnDrag != null)
-            OnDrag(getWorldPoint(curPos));
+            OnDrag(worldPos);
 
     }
 
     private void PostDoubleTapEvent()
     {
         print("PostDoubleTapEvent");
-        if (OnDoubleTap != null)
-            OnDoubleTap(getWorldPoint(origPos));
     }
 
     private void PostSwipeEvent()
     {
         print("PostSwipeEvent");
         _dragDist = 0;
-        swipeDir = curPos - origPos;
-        swipeDir.z = swipeDir.y;
-        swipeDir.y = 0;
-        if (OnSwipe != null)
-            OnSwipe(swipeDir);
     }
 
     private void PostTapEvent()
     {
         print("PostTapEvent");
-        if (OnTap != null)
-            OnTap(getWorldPoint(origPos));
-    }
-
-    private void PostTouchBeginEvent()
-    {
-        if (OnTouchBegin != null)
-            OnTouchBegin(getWorldPoint(origPos));
-    }
-    private void PostTouchEndEvent()
-    {
-        if (OnTouchEnd != null)
-            OnTouchEnd(getWorldPoint(endPos));
     }
 }
