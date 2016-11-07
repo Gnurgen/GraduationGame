@@ -7,7 +7,7 @@ public class PlayerControls : MonoBehaviour {
     private NavMeshAgent navMeshAgent;
     InputManager IM;
     public AnimationCurve DashCurve;
-    bool dashing, attacking;
+    public bool dashing, attacking;
     public float dashingSpeed;
     float dashingDis, dashingStartDis;
     float cameraRotation;
@@ -54,9 +54,10 @@ public class PlayerControls : MonoBehaviour {
         if (!dashing && !attacking)
         {
             anim.SetTrigger("Attack");
-            navMeshAgent.Stop();
+            navMeshAgent.ResetPath();
             transform.LookAt(transform.position + point);
-            transform.Rotate(Vector3.up, cameraRotation);
+            transform.rotation *= Quaternion.Euler(0, 45,0);
+            attacking = true;
         }
     }
     void Update()
@@ -77,7 +78,6 @@ public class PlayerControls : MonoBehaviour {
         {
             anim.SetBool("Run", false);
         }
-
     }
   
 }

@@ -12,7 +12,7 @@ public class CurveTest : MonoBehaviour {
 	void Start () {
 		currentDelay = delay;
 		index = 0;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

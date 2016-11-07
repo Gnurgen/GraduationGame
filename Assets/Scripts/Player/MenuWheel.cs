@@ -5,7 +5,7 @@ public class MenuWheel : MonoBehaviour {
     public GameObject[] listOfButtons;
     GameObject[] listOfButtons2; 
 
-    private float radius = 70;
+    private float radius = 170;
     private float nullRadius = 10;
     private float screenWidth = 1000;
     private float angle, length;
@@ -18,15 +18,19 @@ public class MenuWheel : MonoBehaviour {
     private float cos1, cos2, sin1, sin2;
 
     //TEST STUFF
-    public GameObject testObject;
+  //  public GameObject testObject;
     private Vector2 test;
-    public bool wheelClicked = true;
-    public bool mouseRelease = false;
+    private bool wheelClicked = false;
+    private bool mouseRelease = false;
     private int currentButton;
     private int selectedButton;
 
+    private SpearThrow ability;
+    private InputManager im;
+
     void Start()
     {
+        ability = FindObjectOfType<SpearThrow>();
         nrOptions = listOfButtons.Length;
         listOfButtons2 = new GameObject[nrOptions];
 
@@ -34,10 +38,14 @@ public class MenuWheel : MonoBehaviour {
         minMax = new float[nrOptions * 2];
         angle = 2 * Mathf.PI / nrOptions;
         drawWheel();
+        im = FindObjectOfType<InputManager>();
+        im.OnMiddleTap += OnClick;
+        im.OnTouchEnd += OnRelease;
+        Wheel.SetActive(false);
     }
 
     void Update()    {
-        test = testObject.transform.position;
+        test = im.curPos-new Vector2(Screen.width/2, Screen.height/2);
         if (wheelClicked == true)
         {
             Wheel.SetActive(true);
@@ -70,6 +78,8 @@ public class MenuWheel : MonoBehaviour {
             listOfButtons2[i] = Instantiate(listOfButtons[i]) as GameObject;
             listOfButtons2[i].transform.parent = GameObject.Find("Wheel").transform;
             listOfButtons2[i].transform.localPosition = new Vector3(Mathf.Cos(cos1+Mathf.PI) * radius, Mathf.Sin(sin1 + Mathf.PI) * radius, 0);
+            listOfButtons2[i].transform.localScale = Vector3.one*10;
+            listOfButtons2[i].transform.localRotation = Quaternion.identity;
             coordinates[i + 1] = new Vector2(Mathf.Cos(cos2) * screenWidth, Mathf.Sin(sin2) * screenWidth);
         }
 
@@ -138,6 +148,7 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 0:
                 Debug.Log("Button 1 selected");
+                ability.UseAbility();
                 break;
             case 1:
                 Debug.Log("Button 2 selected");
@@ -160,5 +171,19 @@ public class MenuWheel : MonoBehaviour {
         }
 
     }
-  
+    
+    void OnClick(Vector3 p)
+    {
+        Debug.Log("MENU!!");
+        wheelClicked = true;
+    }
+
+    void OnRelease(Vector3 p)
+    {
+        if (wheelClicked)
+        {
+            Debug.Log("Nikolais rynkede røvhul");
+            mouseRelease = true;
+        }
+    }
 }

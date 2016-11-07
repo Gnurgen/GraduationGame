@@ -6,8 +6,8 @@ public class SpearController : MonoBehaviour {
 
 	public float distance;
 	private float speed;
-	private int index;
-	private Vector3[] points;
+	public int index;
+	public Vector3[] points;
 
 	// Use this for initialization
 	void Start () {
@@ -17,11 +17,12 @@ public class SpearController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (index < points.Length) {
-			if (Vector3.Distance (transform.position, points [index]) < distance) {
-				index++;
-			}
 			transform.LookAt (points [index]);
-			transform.position = Vector3.MoveTowards (transform.position, points [index], speed * Time.deltaTime);
+            transform.position += transform.forward * speed * Time.deltaTime;
+            if (Vector3.Distance(transform.position, points[index]) < distance)
+            {
+                index++;
+            }
 		} else {
 			Destroy (gameObject);
 		}
