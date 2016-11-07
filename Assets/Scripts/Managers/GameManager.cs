@@ -30,7 +30,7 @@ public class GameManager {
 
     public enum Language { None, English, Danish };
 
-    public static GameManager instance
+    public static GameManager game
     {
         get
         {
@@ -40,7 +40,7 @@ public class GameManager {
         }
     }
 
-    public AudioManager audio
+    public AudioManager audioManager
     {
         get
         {
@@ -50,7 +50,15 @@ public class GameManager {
         }
     }
 
-    public EventManager events
+    public static AudioManager audio
+    {
+        get
+        {
+            return game.audioManager;
+        }
+    }
+
+    public EventManager eventManager
     {
         get
         {
@@ -60,13 +68,29 @@ public class GameManager {
         }
     }
 
-    public InputManager input
+    public static EventManager events
+    {
+        get
+        {
+            return game.eventManager;
+        }
+    }
+
+    public InputManager inputManager
     {
         get
         {
             if (_inputManager == null)
                 _inputManager = Object.FindObjectOfType(typeof(InputManager)) as InputManager;
             return _inputManager;
+        }
+    }
+
+    public static InputManager input
+    {
+        get
+        {
+            return game.inputManager;
         }
     }
 
@@ -98,14 +122,13 @@ public class GameManager {
 
     private void pauseGame()
     {
-        prevTimeScale = Time.timeScale;
         Time.timeScale = 0.0f;
         paused = true;
     }
 
     private void resumeGame()
     {
-        Time.timeScale = prevTimeScale;
+        Time.timeScale = 1.0f;
         paused = false;
     }
 
