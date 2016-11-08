@@ -1,0 +1,39 @@
+State Group	ID	Name			Wwise Object Path	Notes
+	766723505	Game_State			\Default Work Unit\Game_State	
+	1229948536	Environment			\Default Work Unit\Environment	
+
+State	ID	Name	State Group			Notes
+	210928257	In_Battle	Game_State			
+	304575330	Out_Of_Battle	Game_State			
+	748895195	None	Game_State			
+	878736223	In_Ability_Wheel	Game_State			
+	1362486867	After_Boss	Game_State			
+	1415091186	In_Main_Menu	Game_State			
+	2874168282	In_Intro_Cutscene	Game_State			
+	3788403633	In_Skill_Tree	Game_State			
+	3853226033	In_Ability_Control	Game_State			
+	3858937137	In_Ending_Cutscene	Game_State			
+	175046638	Outer	Environment			
+	525391897	Core_Corridor	Environment			
+	748895195	None	Environment			
+	1592175108	Inner_Corridor	Environment			
+	1778842195	Inner	Environment			
+	2571765635	Outer_Corridor	Environment			
+	3787826988	Core	Environment			
+	4063189299	Corridor	Environment			
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	85412153	Ambience			\Default Work Unit\Master Audio Bus\Environmental\Ambience	
+	348963605	Reverb			\Default Work Unit\Master Audio Bus\Environmental\Reverb	
+	393239870	SFX			\Default Work Unit\Master Audio Bus\Environmental\SFX	
+	805203703	Master Secondary Bus			\Default Work Unit\Master Secondary Bus	
+	1973600711	Environmental			\Default Work Unit\Master Audio Bus\Environmental	
+	2764240573	Combat			\Default Work Unit\Master Audio Bus\Environmental\SFX\Combat	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
+	3859886410	System			\Default Work Unit\Master Audio Bus\System	
+	3991942870	Music			\Default Work Unit\Master Audio Bus\Music	
+
+Auxiliary Bus	ID	Name			Wwise Object Path	Notes
+	3633416828	Hall			\Default Work Unit\Master Audio Bus\Environmental\Reverb\Hall	
+	4063189299	Corridor			\Default Work Unit\Master Audio Bus\Environmental\Reverb\Corridor	
+

@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EventManager : MonoBehaviour {
+public class EventManager : MonoBehaviour
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     //################################################################    #### #### ####    ####  ###  #### ### ####################################################
     //################################################################ #######  ### #### ####### # # # ##### # #####################################################
@@ -19,77 +22,213 @@ public class EventManager : MonoBehaviour {
     //################################################################ ####### ## # #### ####### ##### ###### ######################################################
     //################################################################    #### ###  ####    #### ##### ###### ######################################################
 
-    public delegate void EnemyAttackAction(int Type, GameObject enemyID);  
-    public event EnemyAttackAction OnEnemy1Attack;
-    public void Enemy1Attack(int i,  GameObject Id)
+    public delegate void EnemyAction(GameObject enemyID);
+    public event EnemyAction OnEnemyAttack;
+    public event EnemyAction OnEnemyAggro;
+    public event EnemyAction OnEnemyDeath;
+    public void EnemyAttack(GameObject Id)
     {
-        if (OnEnemy1Attack != null)
-            OnEnemy1Attack(i,Id);
+        if (OnEnemyAttack != null)
+            OnEnemyAttack(Id);
+    }
+    public void EnemyAggro(GameObject Id)
+    {
+        if (OnEnemyAggro != null)
+            OnEnemyAggro(Id);
+    }
+    public void EnemyDeath(GameObject Id)
+    {
+        if (OnEnemyDeath != null)
+            OnEnemyDeath(Id);
+    }
+
+    public delegate void EnemyHitAction(GameObject enemyID, float dmg);
+    public event EnemyHitAction OnEnemyHit;
+    public void EnemyHit(GameObject Id, float dmg)
+    {
+        if (OnEnemyHit != null)
+            OnEnemyHit(Id, dmg);
     }
 
     //##############################################################################################################################################################
-    //##############################################################################################################################################################
-    //#################################################################################player#######################################################################
-    //##############################################################################################################################################################
+    //################################################################################        ######################################################################
+    //################################################################################ PLAYER ######################################################################
+    //################################################################################        ######################################################################
     //##############################################################################################################################################################
 
-    public delegate void PlayerHealth(int value);
-    public event PlayerHealth OnPlayerTakeDamage;
-    public event PlayerHealth OnPlayerRecover;
-    public void PlayerTakeDamage(int i)
-    {
-        if (OnPlayerTakeDamage != null)
-            OnPlayerTakeDamage(i);
-    }
-    public void PlayerRecover(int i)
-    {
-        if (OnPlayerRecover != null)
-            OnPlayerRecover(i);
-    }
-    public delegate void PlayerExperience(int value);
-    public event PlayerExperience OnPlayerExperienceGet;
-    public event PlayerExperience OnPlayerLevelUp;
-    public void PlayerExperienceGet(int i)
-    {
-        if (OnPlayerExperienceGet != null)
-            OnPlayerExperienceGet(i);
-    }
-    public void PlayerLevelUp(int i)
-    {
-        if (OnPlayerLevelUp != null)
-            OnPlayerLevelUp(i);
-    }
-    public delegate void PlayerMovement(Vector2 position);
-    public event PlayerMovement OnPlayerMove;
-    public event PlayerMovement OnPlayerDash;
-    public event PlayerMovement OnPlayerAttack;
-    public void PlayerMove(Vector2 pos)
-    {
-        if (OnPlayerMove != null)
-            OnPlayerMove(pos);
-    }
-    public void PlayerDash(Vector2 pos)
-    {
-        if (OnPlayerDash != null)
-            OnPlayerDash(pos);
-    }
-    public void PlayerAttack(Vector2 pos)
+    public delegate void PlayerAction(GameObject Id);
+    public event PlayerAction OnPlayerAttack;
+    public event PlayerAction OnPlayerDashBegin;
+    public event PlayerAction OnPlayerDashEnd;
+    public event PlayerAction OnPlayerHit;
+    public event PlayerAction OnPlayerDeath;
+    public event PlayerAction OnPlayerMove;
+    public event PlayerAction OnPlayerIdle;
+
+    public void PlayerAttack(GameObject Id)
     {
         if (OnPlayerAttack != null)
-            OnPlayerAttack(pos);
+            OnPlayerAttack(Id);
     }
-    public delegate void PlayerMenu();
-    public event PlayerMenu OnPlayerMenuOpen;
-    public event PlayerMenu OnPlayerMenuClose;
-    public void PlayerMenuOpen()
+    public void PlayerDashBegin(GameObject Id)
     {
-        if (OnPlayerMenuOpen != null)
-            OnPlayerMenuOpen();
+        if (OnPlayerDashBegin != null)
+            OnPlayerDashBegin(Id);
     }
-    public void PlayerMenuClose()
+    public void PlayerDashEnd(GameObject Id)
     {
-        if (OnPlayerMenuClose != null)
-            OnPlayerMenuClose();
+        if (OnPlayerDashEnd != null)
+            OnPlayerDashEnd(Id);
+    }
+    public void PlayerHit(GameObject Id)
+    {
+        if (OnPlayerHit != null)
+            OnPlayerHit(Id);
+    }
+    public void PlayerDeath(GameObject Id)
+    {
+        if (OnPlayerDeath != null)
+            OnPlayerDeath(Id);
+    }
+    public void PlayerMove(GameObject Id)
+    {
+        if (OnPlayerMove != null)
+            OnPlayerMove(Id);
+    }
+    public void PlayerIdle(GameObject Id)
+    {
+        if (OnPlayerIdle != null)
+            OnPlayerIdle(Id);
+    }
+
+
+    //##############################################################################################################################################################
+    //#################################################################################     ########################################################################
+    //################################################################################# GUI ########################################################################
+    //#################################################################################     ########################################################################
+    //##############################################################################################################################################################
+
+
+    public delegate void GUIActionChoice(int option);
+    public event GUIActionChoice OnWheelSelect;
+    public event GUIActionChoice OnWheelHover;
+    public event GUIActionChoice OnDrawComplete;
+    public event GUIActionChoice OnLevelUp;
+
+    public delegate void GUIAction();
+    public event GUIAction OnWheelOpen;
+    public event GUIAction OnMenuOpen;
+    public event GUIAction OnMenuClose;
+    public event GUIAction OnSave;
+
+    public void WheelSelect(int i)
+    {
+        if (OnWheelSelect != null)
+            OnWheelSelect(i);
+    }
+    public void WheelHover(int i)
+    {
+        if (OnWheelHover != null)
+            OnWheelHover(i);
+    }
+    public void DrawComplete(int i)
+    {
+        if (OnDrawComplete!= null)
+            OnDrawComplete(i);
+    }
+    public void LevelUp(int i)
+    {
+        if (OnLevelUp!= null)
+            OnLevelUp(i);
+    }
+    public void WheelOpen()
+    {
+        if (OnWheelOpen != null)
+            OnWheelOpen();
+    }
+    public void MenuOpen()
+    {
+        if (OnMenuOpen != null)
+            OnMenuOpen();
+    }
+    public void MenuClose()
+    {
+        if (OnMenuClose != null)
+            OnMenuClose();
+    }
+    public void Save()
+    {
+        if (OnSave != null)
+            OnSave();
+    }
+
+    //##############################################################################################################################################################
+    //#############################################################################             ####################################################################
+    //############################################################################# ENVIRONMENT ####################################################################
+    //#############################################################################             ####################################################################
+    //##############################################################################################################################################################
+
+    public delegate void RoomAction(int roomID);
+    public event RoomAction OnRoomComplete;
+    public event RoomAction OnRoomEnter;
+    public event RoomAction OnRoomExit;
+
+    public delegate void MapAction();
+    public event MapAction OnMapComplete;
+
+    public delegate void ObjectDestroyAction(GameObject GO);
+    public event ObjectDestroyAction OnObjDestroyed;
+
+    public delegate void ResourceAction(GameObject GO, int amount);
+    public event ResourceAction OnResourceDrop;
+    public event ResourceAction OnResourcePickup;
+
+    public void RoomComplete(int i)
+    {
+        if (OnRoomComplete != null)
+            OnRoomComplete(i);
+    }
+    public void RoomEnter(int i)
+    {
+        if (OnRoomEnter != null)
+            OnRoomEnter(i);
+    }
+    public void RoomExit(int i)
+    {
+        if (OnRoomExit != null)
+            OnRoomExit(i);
+    }
+
+    public void MapComplete()
+    {
+        if (OnMapComplete!= null)
+            OnMapComplete();
+    }
+    public void ResourceDrop(GameObject go, int i)
+    {
+        if (OnResourceDrop!= null)
+            OnResourceDrop(go,i);
+    }
+    public void ResourcePickup(GameObject go, int i)
+    {
+        if (OnResourcePickup != null)
+            OnResourcePickup(go, i);
+    }
+
+    //##############################################################################################################################################################
+    //#############################################################################             ####################################################################
+    //#############################################################################    GAME     ####################################################################
+    //#############################################################################             ####################################################################
+    //##############################################################################################################################################################
+
+    public delegate void CheckPointAction();
+    public event CheckPointAction OnCheckPoint;
+
+    public void CheckPoint()
+    {
+        if (OnCheckPoint != null)
+            OnCheckPoint();
     }
 
 }
+

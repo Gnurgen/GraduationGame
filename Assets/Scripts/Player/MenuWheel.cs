@@ -9,7 +9,9 @@ public class MenuWheel : MonoBehaviour {
     private float nullRadius = 10;
     private float screenWidth = 1000;
     private float angle, length;
-    
+    private Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
+    private float centerDistance = 30.0f;
+
     private int nrOptions;
     public GameObject Wheel;
     private Vector2[] coordinates;
@@ -26,7 +28,8 @@ public class MenuWheel : MonoBehaviour {
     private int selectedButton;
 
     private SpearThrow ability;
-    private InputManager im;
+    private InputManager IM;
+    int ID;
 
     void Start()
     {
@@ -38,14 +41,15 @@ public class MenuWheel : MonoBehaviour {
         minMax = new float[nrOptions * 2];
         angle = 2 * Mathf.PI / nrOptions;
         drawWheel();
-        im = FindObjectOfType<InputManager>();
-        im.OnMiddleTap += OnClick;
-        im.OnTouchEnd += OnRelease;
+        IM = GameManager.input;
+        IM.OnFirstTouchBeginSub(checkIfCenter, ID);
+        IM.OnFirstTouchEndSub(OnRelease, ID);
+        IM.OnFirstTouchMoveSub(updateMouse, ID);
         Wheel.SetActive(false);
     }
 
     void Update()    {
-        test = im.curPos-new Vector2(Screen.width/2, Screen.height/2);
+       
         if (wheelClicked == true)
         {
             Wheel.SetActive(true);
@@ -172,18 +176,26 @@ public class MenuWheel : MonoBehaviour {
 
     }
     
-    void OnClick(Vector3 p)
+    void OnClick()
     {
         Debug.Log("MENU!!");
+        IM.TakeControl(ID);
         wheelClicked = true;
     }
 
-    void OnRelease(Vector3 p)
+    void OnRelease(Vector2 p)
     {
         if (wheelClicked)
         {
-            Debug.Log("Nikolais rynkede røvhul");
             mouseRelease = true;
+            IM.ReleaseControl(ID);
         }
+    }
+    void checkIfCenter(Vector2 touchPos) {
+        if (Vector2.Distance(center, touchPos) <= centerDistance)
+            OnClick();
+    }
+    void updateMouse(Vector2 touchPos) {
+        test = touchPos - new Vector2(Screen.width / 2, Screen.height / 2);
     }
 }
