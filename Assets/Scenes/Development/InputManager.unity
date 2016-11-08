@@ -249,6 +249,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1495125057}
   - 114: {fileID: 1495125056}
+  - 114: {fileID: 1495125058}
   m_Layer: 0
   m_Name: SCRIPTS
   m_TagString: Untagged
@@ -268,11 +269,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curState: 0
+  middleScreenDistance: 0
   _minSwipeSpeed: 2.7
   _minSwipeDist: 0.05
   _doubleTapTime: 0.2
   _minDoubleTapDist: 0.1
   _distPointResolution: 0.02
+  curPos: {x: 0, y: 0}
 --- !u!4 &1495125057
 Transform:
   m_ObjectHideFlags: 0
@@ -286,3 +289,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!114 &1495125058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1495125055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5a86aa6541df84e8a43059ee5b0d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _slowedTimeScale: 0.5
+  _timeChangeDuration: 1
