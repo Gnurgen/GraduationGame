@@ -21,6 +21,16 @@ public class TimeManager : MonoBehaviour {
     [SerializeField]
     private float _slowedTimeScale, _timeChangeDuration;
 
+    private void Subscribe()
+    {
+        GameManager.events.OnMenuClose += Resume;
+        GameManager.events.OnWheelOpen += SlowTime;
+        GameManager.events.OnWheelSelect += NormalTime;
+        GameManager.events.OnDrawComplete += NormalTime;
+        print("TimeManager subscribed");
+    }
+
+
 	void Update () {
         if(_doTimeChange)
         {
@@ -36,31 +46,34 @@ public class TimeManager : MonoBehaviour {
         }
     }
 
-    public void Pause()
+    private void Pause()
     {
         _paused = true;
         prevTimeScale = Time.timeScale;
         Time.timeScale = 0f;
     }
-    public void Resume()
+    private void Resume()
     {
         _paused = false;
         Time.timeScale = prevTimeScale;
     }
 
-    public void SlowTime()
+    private void SlowTime()
     {
         _slow = true;
         _doTimeChange = true;
         prevTimeScale = Time.timeScale;
         tarTimeScale = _slowedTimeScale;
     }
-    public void NormalTime()
+    private void NormalTime(int i)
     {
+        if (i == 10)
+            return;
         _slow = false;
         _doTimeChange = true;
         prevTimeScale = Time.timeScale;
         tarTimeScale = 1f;
+
     }
     public void SetTimeScale(float t)
     {

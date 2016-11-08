@@ -13,12 +13,16 @@ public class GameManager {
     private InputManager _inputManager;
     private TimeManager _timeManager;
     private GameObject _player;
+    private GameObject _managers;
     private Menu _menu;
     private int _score, _experience, _playerLevel;
 
     public GameManager()
     {
-        _instance = new GameManager();
+        Debug.Log("GameManager constructed");
+        _instance = this;
+        _managers = GameObject.Find("Managers");
+        _managers.SendMessage("Subscribe");
         menu.gameObject.SetActive(false);
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
@@ -67,7 +71,6 @@ public class GameManager {
     private Settings settings = new Settings(Language.None);
 
     private float prevTimeScale;
-    private bool paused = false;
 
     private struct Settings{
         public Language language;
