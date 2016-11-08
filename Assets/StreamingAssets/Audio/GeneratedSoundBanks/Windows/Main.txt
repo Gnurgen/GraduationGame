@@ -15,12 +15,12 @@ Event	ID	Name			Wwise Object Path	Notes
 	1292313331	Circle_Ability_Play			\Default Work Unit\Circle_Ability_Play	
 	1389849668	Player_Respawn_Play			\Default Work Unit\Player_Respawn_Play	
 	1433984317	Boss_Beam_Target_Play			\Default Work Unit\Boss_Beam_Target_Play	
-	1460805868	Boss_Rain_Target_Stop			\Default Work Unit\Boss_Rain_Target_Stop	
 	1543198181	Environmental_Ambience_Stop			\Default Work Unit\Environmental_Ambience_Stop	
 	1715783110	Pickup_Play			\Default Work Unit\Pickup_Play	
 	1758886478	Boss_Missile_Target_Play			\Default Work Unit\Boss_Missile_Target_Play	
 	1825762123	Ability_Grab_Play			\Default Work Unit\Ability_Grab_Play	
 	1855658509	Draw_Ability_Play			\Default Work Unit\Draw_Ability_Play	
+	2160362136	Level_Up_Play			\Default Work Unit\Level_Up_Play	
 	2174485018	Dash_Play			\Default Work Unit\Dash_Play	
 	2211246548	Boss_Missile_Move_Stop			\Default Work Unit\Boss_Missile_Move_Stop	
 	2227190561	Ability_Slot_Play			\Default Work Unit\Ability_Slot_Play	
@@ -30,7 +30,6 @@ Event	ID	Name			Wwise Object Path	Notes
 	2348472398	Player_Death_Play			\Default Work Unit\Player_Death_Play	
 	2401642071	Boss_Shield_Up_Play			\Default Work Unit\Boss_Shield_Up_Play	
 	2770920781	Spear_Target_Play			\Default Work Unit\Spear_Target_Play	
-	2802002224	Boss_Missile_Target_Stop			\Default Work Unit\Boss_Missile_Target_Stop	
 	2813179063	Environmental_Ambience_Play			\Default Work Unit\Environmental_Ambience_Play	
 	2880001405	Spear_Play			\Default Work Unit\Spear_Play	
 	2907375116	Boss_Rain_Play			\Default Work Unit\Boss_Rain_Play	
@@ -112,6 +111,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	408232039	Spear_Hit_Destructible	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Spear_Hit_Destrucible_50BCAB02.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear_Hit_Destructible		33202
 	437258669	Spear	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Spear_7C9D2307.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear		67652
 	442489187	Boss_Missile_Move	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Missile_Move_4B8CC0C5.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss_Missile_Move		29984
+	482045922	Level_Up	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Level_Up_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Level_Up		18944
 	494802499	Player_Respawn	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Player_Respawn_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Player_Respawn		28224
 	500779542	Music_After_Boss	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Music_After_Boss_4B8CC0C5.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\Music_After_Boss\Music_After_Boss\Music_After_Boss		35104
 	501342181	Boss_Missile_Hit_Wall	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Missile_Hit_Wall_9E69E797.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Missile Target\Boss_Missile_Hit_Wall		37344

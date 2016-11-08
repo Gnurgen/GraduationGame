@@ -35,12 +35,10 @@
 				<Event Id="2211246548" Name="Boss_Missile_Move_Stop" ObjectPath="\Events\Default Work Unit\Boss_Missile_Move_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="3257950136" Name="Boss_Missile_Play" ObjectPath="\Events\Default Work Unit\Boss_Missile_Play"/>
 				<Event Id="1758886478" Name="Boss_Missile_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Missile_Target_Play"/>
-				<Event Id="2802002224" Name="Boss_Missile_Target_Stop" ObjectPath="\Events\Default Work Unit\Boss_Missile_Target_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="169826302" Name="Boss_Rain_Move_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Move_Play"/>
 				<Event Id="1207719104" Name="Boss_Rain_Move_Stop" ObjectPath="\Events\Default Work Unit\Boss_Rain_Move_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="2907375116" Name="Boss_Rain_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Play"/>
 				<Event Id="4044112498" Name="Boss_Rain_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Target_Play"/>
-				<Event Id="1460805868" Name="Boss_Rain_Target_Stop" ObjectPath="\Events\Default Work Unit\Boss_Rain_Target_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="650062122" Name="Boss_Shield_Down_Play" ObjectPath="\Events\Default Work Unit\Boss_Shield_Down_Play"/>
 				<Event Id="2401642071" Name="Boss_Shield_Up_Play" ObjectPath="\Events\Default Work Unit\Boss_Shield_Up_Play"/>
 				<Event Id="3906322206" Name="Button_Menu_Play" ObjectPath="\Events\Default Work Unit\Button_Menu_Play"/>
@@ -64,6 +62,7 @@
 				<Event Id="3151436706" Name="Enemy_Shield_Play" ObjectPath="\Events\Default Work Unit\Enemy_Shield_Play"/>
 				<Event Id="2813179063" Name="Environmental_Ambience_Play" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Play"/>
 				<Event Id="1543198181" Name="Environmental_Ambience_Stop" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Stop" MaxAttenuation="0.000000"/>
+				<Event Id="2160362136" Name="Level_Up_Play" ObjectPath="\Events\Default Work Unit\Level_Up_Play"/>
 				<Event Id="220652244" Name="Mark_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Mark_Ability_Control_Play"/>
 				<Event Id="2308852762" Name="Mark_Ability_Play" ObjectPath="\Events\Default Work Unit\Mark_Ability_Play"/>
 				<Event Id="350081739" Name="Music_System_Play" ObjectPath="\Events\Default Work Unit\Music_System_Play"/>
@@ -190,6 +189,10 @@
 				<File Id="442489187" Language="SFX">
 					<ShortName>Boss_Missile_Move.wav</ShortName>
 					<Path>SFX\Boss_Missile_Move_4B8CC0C5.wem</Path>
+				</File>
+				<File Id="482045922" Language="SFX">
+					<ShortName>Level_Up.wav</ShortName>
+					<Path>SFX\Level_Up_9E69E797.wem</Path>
 				</File>
 				<File Id="494802499" Language="SFX">
 					<ShortName>Player_Respawn.wav</ShortName>

@@ -2013,6 +2013,25 @@
 								<ActiveSource Name="Pickup" ID="{63D11A9C-AC88-4262-86DB-847246ED1D8B}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
+						<Sound Name="Level_Up" ID="{A100E4BE-0539-41D6-B736-A389F9A8DE38}" ShortID="425995503" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Level_Up" ID="{67447268-757E-4BBF-8709-ED97A62C7219}" ShortID="482045922">
+									<Language>SFX</Language>
+									<AudioFile>Level_Up.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Level_Up" ID="{67447268-757E-4BBF-8709-ED97A62C7219}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</ActorMixer>
 			</ChildrenList>

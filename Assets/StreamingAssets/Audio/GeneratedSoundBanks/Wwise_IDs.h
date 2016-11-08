@@ -27,12 +27,10 @@ namespace AK
         static const AkUniqueID BOSS_MISSILE_MOVE_STOP = 2211246548U;
         static const AkUniqueID BOSS_MISSILE_PLAY = 3257950136U;
         static const AkUniqueID BOSS_MISSILE_TARGET_PLAY = 1758886478U;
-        static const AkUniqueID BOSS_MISSILE_TARGET_STOP = 2802002224U;
         static const AkUniqueID BOSS_RAIN_MOVE_PLAY = 169826302U;
         static const AkUniqueID BOSS_RAIN_MOVE_STOP = 1207719104U;
         static const AkUniqueID BOSS_RAIN_PLAY = 2907375116U;
         static const AkUniqueID BOSS_RAIN_TARGET_PLAY = 4044112498U;
-        static const AkUniqueID BOSS_RAIN_TARGET_STOP = 1460805868U;
         static const AkUniqueID BOSS_SHIELD_DOWN_PLAY = 650062122U;
         static const AkUniqueID BOSS_SHIELD_UP_PLAY = 2401642071U;
         static const AkUniqueID BUTTON_MENU_PLAY = 3906322206U;
@@ -56,6 +54,7 @@ namespace AK
         static const AkUniqueID ENEMY_SHIELD_PLAY = 3151436706U;
         static const AkUniqueID ENVIRONMENTAL_AMBIENCE_PLAY = 2813179063U;
         static const AkUniqueID ENVIRONMENTAL_AMBIENCE_STOP = 1543198181U;
+        static const AkUniqueID LEVEL_UP_PLAY = 2160362136U;
         static const AkUniqueID MARK_ABILITY_CONTROL_PLAY = 220652244U;
         static const AkUniqueID MARK_ABILITY_PLAY = 2308852762U;
         static const AkUniqueID MUSIC_SYSTEM_PLAY = 350081739U;
