@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{5791A00B-9E72-4E8C-BCEE-4A7BE2F1B78C}" SchemaVersion="72">
+	<States>
+		<WorkUnit Name="Default Work Unit" ID="{5791A00B-9E72-4E8C-BCEE-4A7BE2F1B78C}" PersistMode="Standalone">
+			<ChildrenList>
+				<StateGroup Name="Environment" ID="{A2CE9294-A568-484B-A9BD-EDE5989682F8}">
+					<ChildrenList>
+						<State Name="None" ID="{8EE8FBF9-1B8C-4395-AD7A-C3F988D92988}"/>
+						<State Name="Outer" ID="{9184888C-57A6-4102-A790-4259F29C2B1D}"/>
+						<State Name="Inner" ID="{3BFC3B6B-0C54-4704-87EC-FADC4A3C3C91}"/>
+						<State Name="Core" ID="{C7F8A48F-2110-4892-A56D-98A7510AF00A}"/>
+						<State Name="Corridor" ID="{B834F917-EB71-4A78-ADB3-2D17A1C3E744}"/>
+						<State Name="Inner_Corridor" ID="{5A1F885D-3D5E-40EE-82F2-C2AA73F5EBE2}"/>
+						<State Name="Outer_Corridor" ID="{C83CC402-AC50-4F2B-B8E7-1003AAEFF275}"/>
+						<State Name="Core_Corridor" ID="{61DFD48D-DAE8-4B2D-A123-C96D46BA3DA4}"/>
+					</ChildrenList>
+				</StateGroup>
+				<StateGroup Name="Game_State" ID="{EDAB1CD6-5EF8-4F5E-A996-EA864D5DA94D}">
+					<ChildrenList>
+						<State Name="None" ID="{CC932773-212D-4642-8291-AA75D8060298}"/>
+						<State Name="Out_Of_Battle" ID="{10976562-EC0F-47A9-8CF8-DC416E7D6159}"/>
+						<State Name="In_Battle" ID="{DBB5DC3C-9564-4B7F-9537-1FBA490F0703}"/>
+						<State Name="In_Ability_Wheel" ID="{BD0C1C2D-7071-41C4-B29A-972EDB518CB7}"/>
+						<State Name="In_Ability_Control" ID="{3C98993B-6B1B-4F53-9396-7F93DD6E85AB}"/>
+						<State Name="In_Skill_Tree" ID="{574DA987-A1E3-4B33-A125-7E742366056B}"/>
+						<State Name="In_Main_Menu" ID="{30AAF2FF-C440-41EE-863A-7B205A9F269D}"/>
+						<State Name="In_Intro_Cutscene" ID="{FF09B547-76FF-48B8-AFD8-C42D9E47136E}"/>
+						<State Name="In_Ending_Cutscene" ID="{FD711EA9-1883-459A-8A00-52C7B657A8EE}"/>
+						<State Name="After_Boss" ID="{FEDBABB8-02C3-4013-A4C0-173144D0D528}"/>
+					</ChildrenList>
+				</StateGroup>
+			</ChildrenList>
+		</WorkUnit>
+	</States>
+</WwiseDocument>
