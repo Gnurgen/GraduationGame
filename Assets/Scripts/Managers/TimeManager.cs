@@ -18,9 +18,9 @@ public class TimeManager : MonoBehaviour {
             return _slow;
         }
     }
-
     [SerializeField]
     private float _slowedTimeScale, _timeChangeDuration;
+
 	void Update () {
         if(_doTimeChange)
         {
@@ -34,7 +34,7 @@ public class TimeManager : MonoBehaviour {
             }
             Time.timeScale = prevTimeScale + (tarTimeScale - prevTimeScale) * _normTime; //Change timescale linearly
         }
-	}
+    }
 
     public void Pause()
     {

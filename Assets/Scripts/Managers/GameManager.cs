@@ -11,9 +11,19 @@ public class GameManager {
     private AudioManager _audioManager;
     private EventManager _eventManager;
     private InputManager _inputManager;
+    private TimeManager _timeManager;
     private GameObject _player;
     private Menu _menu;
     private int _score, _experience, _playerLevel;
+
+    public GameManager()
+    {
+        _instance = new GameManager();
+        menu.gameObject.SetActive(false);
+        events.OnLevelUp += PlayerLevelUp;
+        events.OnMenuOpen += showMenu;
+        events.OnMenuClose += hideMenu;
+    }
 
     public int Score
     {
@@ -37,7 +47,8 @@ public class GameManager {
             _experience = value;
             if (_experience > ExperienceForNextLevel())
             {
-               // events.level();
+                Experience = _experience - ExperienceForNextLevel();
+                events.LevelUp(1);
             }
         }
     }
@@ -74,7 +85,7 @@ public class GameManager {
         get
         {
             if (_instance == null)
-                _instance = new GameManager();
+                new GameManager();
             return _instance;
         }
     }
@@ -94,6 +105,23 @@ public class GameManager {
         get
         {
             return game.audioManager;
+        }
+    }
+
+    public TimeManager timeManager
+    {
+        get
+        {
+            if(_timeManager == null)
+                _timeManager = Object.FindObjectOfType(typeof(TimeManager)) as TimeManager;
+            return _timeManager;
+        }
+    }
+    public static TimeManager time
+    {
+        get
+        {
+            return game.timeManager;
         }
     }
 
@@ -153,14 +181,19 @@ public class GameManager {
         }
     }
 
-    public void showMenu()
+    private void showMenu()
     {
-
+        menu.gameObject.SetActive(true);
     }
 
-    public void hideMenu()
+    private void hideMenu()
     {
+        menu.gameObject.SetActive(false);
+    }
 
+    private void PlayerLevelUp(int i)
+    {
+        PlayerLevel += i;
     }
 
     public Language language
@@ -179,9 +212,9 @@ public class GameManager {
         }
     }
 
-    public int ExperienceForNextLevel()
+    public int ExperienceForNextLevel() //Make a level-algorithm
     {
-        int exp = 0;
+        int exp = 4 + PlayerLevel * (PlayerLevel - 1);
         return exp;
     }
 }
