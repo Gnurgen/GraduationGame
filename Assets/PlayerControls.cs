@@ -11,6 +11,7 @@ public class PlayerControls : MonoBehaviour {
     public float dashingSpeed;
     float dashingDis, dashingStartDis;
     float cameraRotation;
+	int ID;
 
 
     private float navmeshSpeed;
@@ -18,9 +19,9 @@ public class PlayerControls : MonoBehaviour {
     // Use this for initialization
     void Start () {
         IM = FindObjectOfType<InputManager>();
-        IM.OnTap += MoveTo;
-        IM.OnSwipe += AttackDir;
-        IM.OnDoubleTap += DashTo;
+		IM.OnTapSub (MoveTo, ID);
+		IM.OnSwipeSub (AttackDir, ID);
+		IM.OnDoubleTapSub (DashTo, ID);
         cameraRotation = FindObjectOfType<Camera>().transform.rotation.y;
 	}
 	
@@ -31,7 +32,7 @@ public class PlayerControls : MonoBehaviour {
         navmeshSpeed = navMeshAgent.speed;
     }
 
-    void MoveTo(Vector3 point)
+    void MoveTo(Vector2 point)
     {
         if(!dashing && !attacking)
         {
@@ -39,23 +40,23 @@ public class PlayerControls : MonoBehaviour {
             navMeshAgent.destination = point;
         }
     }
-    void DashTo(Vector3 point)
+    void DashTo(Vector2 point)
     {
         if (!dashing && !attacking)
         {
             anim.SetTrigger("Dash");
             dashing = true;
-            dashingStartDis = Vector3.Distance(transform.position, point);
+			dashingStartDis = Vector3.Distance(transform.position, IM.GetWorldPoint(point));
             navMeshAgent.destination = point;
         }
     }
-    void AttackDir(Vector3 point)
+	void AttackDir(InputManager.Swipe swipe)
     {
         if (!dashing && !attacking)
         {
             anim.SetTrigger("Attack");
             navMeshAgent.ResetPath();
-            transform.LookAt(transform.position + point);
+			transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end));
             transform.rotation *= Quaternion.Euler(0, 45,0);
             attacking = true;
         }
