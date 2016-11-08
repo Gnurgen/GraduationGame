@@ -13,6 +13,45 @@ public class GameManager {
     private InputManager _inputManager;
     private GameObject _player;
     private Menu _menu;
+    private int _score, _experience, _playerLevel;
+
+    public int Score
+    {
+        get
+        {
+            return _score;
+        }
+        set
+        {
+            _score = value;
+        }
+    }
+    public int Experience
+    {
+        get
+        {
+            return _experience;
+        }
+        set
+        {
+            _experience = value;
+            if (_experience > ExperienceForNextLevel())
+            {
+               // events.level();
+            }
+        }
+    }
+    public int PlayerLevel
+    {
+        get
+        {
+            return _playerLevel;
+        }
+        set
+        {
+            _playerLevel = value;
+        }
+    }
 
     private Settings settings = new Settings(Language.None);
 
@@ -114,32 +153,14 @@ public class GameManager {
         }
     }
 
-    private void setGameSpeed(float speed)
-    {
-        if (!paused)
-            Time.timeScale = speed;
-    }
-
-    private void pauseGame()
-    {
-        Time.timeScale = 0.0f;
-        paused = true;
-    }
-
-    private void resumeGame()
-    {
-        Time.timeScale = 1.0f;
-        paused = false;
-    }
-
     public void showMenu()
     {
-        pauseGame();
+
     }
 
     public void hideMenu()
     {
-        resumeGame();
+
     }
 
     public Language language
@@ -158,4 +179,9 @@ public class GameManager {
         }
     }
 
+    public int ExperienceForNextLevel()
+    {
+        int exp = 0;
+        return exp;
+    }
 }
