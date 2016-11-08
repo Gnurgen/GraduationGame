@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}" SchemaVersion="72">
+	<Busses>
+		<WorkUnit Name="Default Work Unit" ID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}" PersistMode="Standalone">
+			<ChildrenList>
+				<Bus Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}">
+					<ChildrenList>
+						<Bus Name="Environmental" ID="{98F534A0-9171-41CB-821C-C1C719B16A8F}">
+							<ChildrenList>
+								<Bus Name="SFX" ID="{81064A31-8B87-4288-990F-22A6A30286EA}">
+									<ChildrenList>
+										<Bus Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}"/>
+									</ChildrenList>
+								</Bus>
+								<Bus Name="Ambience" ID="{E0ED3AAC-5D12-4754-884F-822F3795C409}"/>
+								<Bus Name="Reverb" ID="{D46D1F4E-7B0C-4E95-B699-E0091B07CAA0}">
+									<ChildrenList>
+										<AuxBus Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}"/>
+										<AuxBus Name="Corridor" ID="{60FC85E4-77AE-473E-B8E5-A664620C1417}"/>
+									</ChildrenList>
+								</Bus>
+							</ChildrenList>
+						</Bus>
+						<Bus Name="System" ID="{909CFBA4-03A9-4867-A99A-0C85F0B67BDD}"/>
+						<Bus Name="Music" ID="{955DDBE7-C44B-4BCD-8BA9-847D9E52C1F8}"/>
+					</ChildrenList>
+				</Bus>
+				<Bus Name="Master Secondary Bus" ID="{D2E0BC7E-7B3F-4FFE-A670-FAE02761B631}"/>
+				<MotionBus Name="Master Motion Bus" ID="{20A630BA-3398-4676-B927-1004DFE41FD8}"/>
+			</ChildrenList>
+		</WorkUnit>
+	</Busses>
+</WwiseDocument>
