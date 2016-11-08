@@ -8,7 +8,7 @@ public class LevelUpGUI : MonoBehaviour
     private Vector3 mousePos;
     public bool clicked = false;
     public bool released = false;
-
+    private bool isCard = false;
 
     //Real stuff
     public GameObject levelUpGUI;
@@ -19,6 +19,7 @@ public class LevelUpGUI : MonoBehaviour
     private GameObject selectedCard;
     private int selectedCardNum;
     private Vector3 selectedCardPos;
+    private Vector3 tempPos;
 
     void Start()
     {
@@ -38,7 +39,6 @@ public class LevelUpGUI : MonoBehaviour
     void Update()
     {
         mousePos = testMouse.transform.position;
-       // Debug.Log(mousePos);
         if (clicked == true)
             selectedCard.transform.position = mousePos;
         if (clicked == true && released == true)
@@ -54,23 +54,41 @@ public class LevelUpGUI : MonoBehaviour
                 selectedCard = cards[i];
                 selectedCardPos = selectedCard.transform.position;
                 selectedCardNum = i;
+                isCard = true;
                 clicked = true;
             }
-
+            if (slotColliders[i].bounds.Contains(mousePos))
+            {
+               // Debug.Log("Card " + i + " selected");
+                selectedCard = slots[i];
+                selectedCardPos = selectedCard.transform.position;
+                selectedCardNum = i;
+                isCard = false;
+                clicked = true;
+            }
         }
     }
     void release()
     {
         clicked = false;
         released = false;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++) 
         {
-            if (slotColliders[i].bounds.Contains(mousePos))
+            if (slotColliders[i].bounds.Contains(mousePos)&& isCard == true)
             {
                 skillSelected(selectedCardNum ,i);
             }
+            else if (slotColliders[i].bounds.Contains(mousePos) && isCard == false && i != selectedCardNum)
+            {
+                tempPos = slots[i].transform.position;
+                //Debug.Log("Card " + i + " pending switch");
+                slots[i].transform.position = selectedCardPos;
+                selectedCard.transform.position = tempPos;
+                selectedCardPos = tempPos;
+            }
             else
             {
+               
                 selectedCard.transform.position = selectedCardPos;
             }
 
@@ -78,7 +96,7 @@ public class LevelUpGUI : MonoBehaviour
     }
     void skillSelected(int cardNum, int slotNum)
     {
-        Debug.Log("Card #" + cardNum + " Has been moved to slot #" + slotNum);
+       // Debug.Log("Card #" + cardNum + " Has been moved to slot #" + slotNum);
         levelUpGUI.SetActive(false);
     }
     public void testRelease() {
