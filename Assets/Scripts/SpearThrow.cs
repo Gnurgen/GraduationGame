@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SpearThrow : MonoBehaviour {
-
+    /*
 	public GameObject spearPrefab;
 	public float spearSpeed;
 	public float drawLength;
@@ -35,9 +35,9 @@ public class SpearThrow : MonoBehaviour {
 		currentCooldown = currentCooldown - Time.deltaTime;
 		
 	}
-
+    */
 	public void UseAbility(){
-        Debug.Log("ABILITY USED!");
+   /*     Debug.Log("ABILITY USED!");
 		if (currentCooldown < 0) {
 			// Take over input
 			active = true;
@@ -46,9 +46,9 @@ public class SpearThrow : MonoBehaviour {
 			im.curState = InputManager.InputState.draw;
 			im.OnDrag += GetNewPoints;
             Invoke("Sub2Release", 0.5f);
-		}
+		}*/
 	}
-
+    /*
 	void GetRelease(Vector3 p){
 		active = false;
 		currentCooldown = cooldown;
@@ -80,5 +80,5 @@ public class SpearThrow : MonoBehaviour {
     private void Sub2Release()
     {
         im.OnTouchEnd += GetRelease;
-    }
+    }*/
 }
