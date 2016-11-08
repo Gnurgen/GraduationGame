@@ -397,7 +397,7 @@ public class InputManager : MonoBehaviour {
 
 	public Vector3 GetWorldPoint(Vector2 pos)
 	{
-		return Vector3.zero;
+		return Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 0));
 	}
 
 	public void OnFirstTouchBeginSub(Vector2Delegate vd, int ID)
