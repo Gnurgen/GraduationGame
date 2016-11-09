@@ -11,13 +11,66 @@ public class GameManager {
     private AudioManager _audioManager;
     private EventManager _eventManager;
     private InputManager _inputManager;
+    private TimeManager _timeManager;
     private GameObject _player;
+    private GameObject _managers;
     private Menu _menu;
+    private int _score, _experience, _playerLevel;
+
+    public GameManager()
+    {
+        Debug.Log("GameManager constructed");
+        _instance = this;
+        _managers = GameObject.Find("Managers");
+        _managers.SendMessage("Subscribe");
+        menu.gameObject.SetActive(false);
+        events.OnLevelUp += PlayerLevelUp;
+        events.OnMenuOpen += showMenu;
+        events.OnMenuClose += hideMenu;
+    }
+
+    public int Score
+    {
+        get
+        {
+            return _score;
+        }
+        set
+        {
+            _score = value;
+        }
+    }
+    public int Experience
+    {
+        get
+        {
+            return _experience;
+        }
+        set
+        {
+            _experience = value;
+            if (_experience > ExperienceForNextLevel())
+            {
+                Experience = _experience - ExperienceForNextLevel();
+                events.LevelUp(1);
+            }
+        }
+    }
+    public int PlayerLevel
+    {
+        get
+        {
+            return _playerLevel;
+        }
+        set
+        {
+            _playerLevel = value;
+        }
+    }
 
     private Settings settings = new Settings(Language.None);
 
     private float prevTimeScale;
-    private bool paused = false;
 
     private struct Settings{
         public Language language;
@@ -30,17 +83,17 @@ public class GameManager {
 
     public enum Language { None, English, Danish };
 
-    public static GameManager instance
+    public static GameManager game
     {
         get
         {
             if (_instance == null)
-                _instance = new GameManager();
+                new GameManager();
             return _instance;
         }
     }
 
-    public AudioManager audio
+    public AudioManager audioManager
     {
         get
         {
@@ -50,7 +103,32 @@ public class GameManager {
         }
     }
 
-    public EventManager events
+    public static AudioManager audio
+    {
+        get
+        {
+            return game.audioManager;
+        }
+    }
+
+    public TimeManager timeManager
+    {
+        get
+        {
+            if(_timeManager == null)
+                _timeManager = Object.FindObjectOfType(typeof(TimeManager)) as TimeManager;
+            return _timeManager;
+        }
+    }
+    public static TimeManager time
+    {
+        get
+        {
+            return game.timeManager;
+        }
+    }
+
+    public EventManager eventManager
     {
         get
         {
@@ -60,13 +138,29 @@ public class GameManager {
         }
     }
 
-    public InputManager input
+    public static EventManager events
+    {
+        get
+        {
+            return game.eventManager;
+        }
+    }
+
+    public InputManager inputManager
     {
         get
         {
             if (_inputManager == null)
                 _inputManager = Object.FindObjectOfType(typeof(InputManager)) as InputManager;
             return _inputManager;
+        }
+    }
+
+    public static InputManager input
+    {
+        get
+        {
+            return game.inputManager;
         }
     }
 
@@ -90,33 +184,19 @@ public class GameManager {
         }
     }
 
-    private void setGameSpeed(float speed)
+    private void showMenu()
     {
-        if (!paused)
-            Time.timeScale = speed;
+        menu.gameObject.SetActive(true);
     }
 
-    private void pauseGame()
+    private void hideMenu()
     {
-        prevTimeScale = Time.timeScale;
-        Time.timeScale = 0.0f;
-        paused = true;
+        menu.gameObject.SetActive(false);
     }
 
-    private void resumeGame()
+    private void PlayerLevelUp(int i)
     {
-        Time.timeScale = prevTimeScale;
-        paused = false;
-    }
-
-    public void showMenu()
-    {
-        pauseGame();
-    }
-
-    public void hideMenu()
-    {
-        resumeGame();
+        PlayerLevel += i;
     }
 
     public Language language
@@ -135,4 +215,9 @@ public class GameManager {
         }
     }
 
+    public int ExperienceForNextLevel() //Make a level-algorithm
+    {
+        int exp = 4 + PlayerLevel * (PlayerLevel - 1);
+        return exp;
+    }
 }
