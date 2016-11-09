@@ -7,20 +7,40 @@ public class InputManager : MonoBehaviour {
 	// ----- Method wrappers for subscribing to input -----
 	public delegate void Vector2Delegate(Vector2 points);
 	public delegate void SwipeDelegate(Swipe swipe);
+	enum State
+	{
+		Touch, Mouse
+	};
+
+	// ----- Mouse Variables -----
+	private bool mouseIsDown;
+	// Previous interaction
+	private Vector3 mouseBegin;
+	private float mouseBeginTime;
+	private Vector3 lastValidMouseMovePoint;
+	private Vector3 mouseEnd;
+	private float mouseEndTime;
+	private bool mouseTap;
+	private bool mouseAnalysed;
+	// Current Interaction
+	private bool previousMouseTap;
+	private float previousMouseTapTime;
 
 	// ----- Inspector Variables -----
 	[SerializeField]
-	private float distanceToMove;
+	private State inputState = State.Touch;
 	[SerializeField]
-	private float tapTime;
+	private float distanceToMove = 20f;
 	[SerializeField]
-	private float tapDistance;
+	private float tapTime = 0.5f;
 	[SerializeField]
-	private float doubleTapTime;
+	private float tapDistance = 20f;
 	[SerializeField]
-	private float swipeTime;
+	private float doubleTapTime = 0.5f;
 	[SerializeField]
-	private float swipeMinDistance;
+	private float swipeTime = 0.5f;
+	[SerializeField]
+	private float swipeMinDistance = 20f;
 
 	// ----- Keeps track of current and previous input -----
 	private TouchSession currentTouchSession;
@@ -77,69 +97,100 @@ public class InputManager : MonoBehaviour {
 		swipeMethods = new List<MethodSwipeID> ();
 		owner = -1;
 		idCount = 0;
+		previousMouseTap = false;
+		mouseTap = false;
+		mouseAnalysed = true;
 	}
 
 	void Update () {
-		if(Input.touches.Length == 0)
-		{ // If no fingers are touching the screen, and current session is not clean, analyse it and clean it.
-			if(!currentTouchSession.IsCleanSession())
-			{
-				// Do the analysis for tap and swipe.
-				AdvancedInputAnalysis ();
-				// Rotate the sessions so the current session becomes the previous one,
-				// and the previous one becomes the current one, but cleaned so its ready for new input.
-				TouchSession temp = previousTouchSession;
-				previousTouchSession = currentTouchSession;
-				currentTouchSession = temp;
-				currentTouchSession.CleanSession ();
-			}
-		} 
-		else 
-		{ // Finger are touching the screen, add their down and up to the current session, and pass the initial fingers up, move and down along.
-			// Save and pass on the input here.
-			foreach(Touch t in Input.touches)
-			{
-				switch(t.phase)
-				{
-				case TouchPhase.Began:
-					if(currentTouchSession.FirstTouchID() == -1)
-					{
-						currentTouchSession.AddFirstTouchBegin (t);
-						lastValidFirstMovePoint = t.position;
-						OnFirstTouchBegin (t);
-					}
-					else if(currentTouchSession.SecondTouchID() == -1)
-					{
-						currentTouchSession.AddSecondTouchBegin (t);
-						lastValidSecondMovePoint = t.position;
-						OnSecondTouchBegin (t);
-					}
-					break;
-				case TouchPhase.Moved:
-					if(t.fingerId == currentTouchSession.FirstTouchID() && Vector2.Distance(t.position, lastValidFirstMovePoint) > distanceToMove)
-					{
-						lastValidFirstMovePoint = t.position;
-						OnFirstTouchMove (t);
+		if (inputState == State.Touch) {
+			// Support for touch input
+			if (Input.touches.Length == 0) { // If no fingers are touching the screen, and current session is not clean, analyse it and clean it.
+				if (!currentTouchSession.IsCleanSession ()) {
+					// Do the analysis for tap and swipe.
+					AdvancedInputAnalysis ();
+					// Rotate the sessions so the current session becomes the previous one,
+					// and the previous one becomes the current one, but cleaned so its ready for new input.
+					TouchSession temp = previousTouchSession;
+					previousTouchSession = currentTouchSession;
+					currentTouchSession = temp;
+					currentTouchSession.CleanSession ();
+				}
+			} else { // Finger are touching the screen, add their down and up to the current session, and pass the initial fingers up, move and down along.
+				// Save and pass on the input here.
+				foreach (Touch t in Input.touches) {
+					switch (t.phase) {
+					case TouchPhase.Began:
+						if (currentTouchSession.FirstTouchID () == -1) {
+							currentTouchSession.AddFirstTouchBegin (t);
+							lastValidFirstMovePoint = t.position;
+							OnFirstTouchBegin (t);
+						} else if (currentTouchSession.SecondTouchID () == -1) {
+							currentTouchSession.AddSecondTouchBegin (t);
+							lastValidSecondMovePoint = t.position;
+							OnSecondTouchBegin (t);
+						}
+						break;
+					case TouchPhase.Moved:
+						if (t.fingerId == currentTouchSession.FirstTouchID () && Vector2.Distance (t.position, lastValidFirstMovePoint) > distanceToMove) {
+							lastValidFirstMovePoint = t.position;
+							OnFirstTouchMove (t);
 
+						} else if (t.fingerId == currentTouchSession.SecondTouchID () && Vector2.Distance (t.position, lastValidSecondMovePoint) > distanceToMove) {
+							lastValidSecondMovePoint = t.position;
+							OnSecondTouchMove (t);
+						}
+						break;
+					case TouchPhase.Ended:
+						if (t.fingerId == currentTouchSession.FirstTouchID ()) {
+							currentTouchSession.AddFirstTouchEnd (t);
+							OnFirstTouchEnd (t);
+						} else if (t.fingerId == currentTouchSession.SecondTouchID ()) {
+							currentTouchSession.AddSecondTouchEnd (t);
+							OnSecondTouchEnd (t);
+						}
+						break;
 					}
-					else if(t.fingerId == currentTouchSession.SecondTouchID() && Vector2.Distance(t.position, lastValidSecondMovePoint) > distanceToMove)
-					{
-						lastValidSecondMovePoint = t.position;
-						OnSecondTouchMove (t);
+				}
+			}
+		}
+		else 
+		{
+			// Support for mouse input.
+			if (!mouseIsDown && !mouseAnalysed) {
+				// Advanced analysis
+				mouseAnalysed = true;
+				mouseTap = IsMouseTap ();
+				if (mouseTap) {
+					OnMouseTap (mouseEnd);
+					if (previousMouseTap && mouseEndTime - previousMouseTapTime < doubleTapTime) {
+						OnMouseDoubleTap (mouseEnd);
 					}
-					break;
-				case TouchPhase.Ended:
-					if(t.fingerId == currentTouchSession.FirstTouchID())
-					{
-						currentTouchSession.AddFirstTouchEnd (t);
-						OnFirstTouchEnd (t);
+				}
+				if (IsMouseSwipe ()) {
+					OnMouseSwipe (mouseBegin, mouseEnd);
+				}
+				previousMouseTap = mouseTap;
+				previousMouseTapTime = mouseEndTime;
+
+			} else {
+				if (Input.GetMouseButtonDown (0)) {
+					mouseIsDown = true;
+					mouseAnalysed = false;
+					mouseBegin = Input.mousePosition;
+					mouseBeginTime = Time.unscaledTime;
+					lastValidMouseMovePoint = Input.mousePosition;
+					OnMouseBegin (mouseBegin);
+				} else if (Input.GetMouseButton (0)) {
+					if (Vector3.Distance (Input.mousePosition, lastValidMouseMovePoint) > distanceToMove) {
+						lastValidMouseMovePoint = Input.mousePosition;
+						OnMouseMove (lastValidMouseMovePoint);
 					}
-					else if(t.fingerId == currentTouchSession.SecondTouchID())
-					{
-						currentTouchSession.AddSecondTouchEnd (t);
-						OnSecondTouchEnd (t);
-					}
-					break;
+				} else if (Input.GetMouseButtonUp (0)) {
+					mouseEnd = Input.mousePosition;
+					mouseEndTime = Time.unscaledTime;
+					mouseIsDown = false;
+					OnMouseEnd (mouseEnd);
 				}
 			}
 		}
@@ -176,9 +227,18 @@ public class InputManager : MonoBehaviour {
 		}
 	}
 
+	/*
+	 * Helper methods to determine when an interaction is a tap, doubletap or a swipe.
+	 */
+
 	bool IsTap(SingleTouchSession sts)
 	{
 		return sts.endTime - sts.beginTime < tapTime && Vector2.Distance (sts.begin.position, sts.end.position) < tapDistance;
+	}
+
+	bool IsMouseTap()
+	{
+		return mouseEndTime - mouseBeginTime < swipeTime && Vector3.Distance (mouseBegin, mouseEnd) < tapDistance;
 	}
 
 	bool IsDoubleTap(SingleTouchSession sts1, SingleTouchSession sts2)
@@ -191,9 +251,13 @@ public class InputManager : MonoBehaviour {
 		return sts.endTime -sts.beginTime < swipeTime && Vector2.Distance(sts.begin.position, sts.end.position) > swipeMinDistance;
 	}
 
+	bool IsMouseSwipe()
+	{
+		return mouseEndTime - mouseBeginTime < swipeTime && Vector3.Distance (mouseBegin, mouseEnd) > swipeMinDistance;
+	}
+
 	void OnFirstTouchBegin(Touch t)
 	{
-		Debug.Log ("First Touch Begin");
 		if (firstTouchBeginMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
@@ -211,7 +275,6 @@ public class InputManager : MonoBehaviour {
 
 	void OnSecondTouchBegin(Touch t)
 	{
-		Debug.Log ("Second Touch Begin");
 		if (secondTouchBeginMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in secondTouchBeginMethods) {
@@ -229,7 +292,6 @@ public class InputManager : MonoBehaviour {
 
 	void OnFirstTouchMove(Touch t)
 	{
-		Debug.Log ("First Touch Move");
 		if (firstTouchMoveMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
@@ -247,7 +309,6 @@ public class InputManager : MonoBehaviour {
 
 	void OnSecondTouchMove(Touch t)
 	{
-		Debug.Log ("Second Touch Move");
 		if (secondTouchMoveMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in secondTouchMoveMethods) {
@@ -265,7 +326,6 @@ public class InputManager : MonoBehaviour {
 
 	void OnFirstTouchEnd(Touch t)
 	{
-		Debug.Log ("First Touch End");
 		if (firstTouchEndMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in firstTouchEndMethods) {
@@ -283,7 +343,6 @@ public class InputManager : MonoBehaviour {
 
 	void OnSecondTouchEnd(Touch t)
 	{
-		Debug.Log ("Second Touch End");
 		if (secondTouchEndMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in secondTouchEndMethods) {
@@ -301,7 +360,6 @@ public class InputManager : MonoBehaviour {
 
 	void OnTap(Touch t)
 	{
-		Debug.Log ("Tap");
 		if (tapMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in tapMethods) {
@@ -319,7 +377,6 @@ public class InputManager : MonoBehaviour {
 
 	void OnDoubleTap(Touch tp, Touch tc)
 	{
-		Debug.Log ("Double Tap");
 		if (doubleTapMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in doubleTapMethods) {
@@ -337,11 +394,126 @@ public class InputManager : MonoBehaviour {
 
 	void OnSwipe(Touch p1, Touch p2)
 	{
-		Debug.Log ("Swipe");
 		if (swipeMethods.Count > 0) {
 			Swipe s = new Swipe ();
 			s.begin = p1.position;
 			s.end = p2.position;
+			if (owner < 0) {
+				foreach (MethodSwipeID msi in swipeMethods) {
+					msi.method (s);
+				}
+			} else {
+				foreach (MethodSwipeID msi in swipeMethods) {
+					if (msi.id == owner) {
+						msi.method (s);
+					}
+				}
+			}
+		}
+	}
+
+
+	/*
+	 * Mouse trigger methods.
+	 * 
+	 * 
+	 */
+	void OnMouseBegin(Vector3 p)
+	{
+		if (firstTouchBeginMethods.Count > 0) {
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
+		}
+	}
+
+	void OnMouseMove(Vector3 p)
+	{
+		if (firstTouchMoveMethods.Count > 0) {
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
+		}
+	}
+
+	void OnMouseEnd(Vector3 p)
+	{
+		if (firstTouchEndMethods.Count > 0) {
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in firstTouchEndMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in firstTouchEndMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
+		}
+	}
+
+	void OnMouseTap(Vector3 p)
+	{
+		if (tapMethods.Count > 0) {
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in tapMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in tapMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
+		}
+	}
+
+	void OnMouseDoubleTap(Vector3 p)
+	{
+		if (doubleTapMethods.Count > 0) {
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in doubleTapMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in doubleTapMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
+		}
+	}
+
+	void OnMouseSwipe(Vector3 p1, Vector3 p2)
+	{
+		if (swipeMethods.Count > 0) {
+			Swipe s = new Swipe ();
+			s.begin = new Vector2 (p1.x,p1.y);
+			s.end = new Vector2 (p2.x,p2.y);
 			if (owner < 0) {
 				foreach (MethodSwipeID msi in swipeMethods) {
 					msi.method (s);

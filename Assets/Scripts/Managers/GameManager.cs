@@ -15,7 +15,7 @@ public class GameManager {
     private GameObject _player;
     private GameObject _managers;
     private Menu _menu;
-    private int _score, _experience, _playerLevel;
+    private static int _score, _experience, _playerLevel;
 
     public GameManager()
     {
@@ -29,7 +29,7 @@ public class GameManager {
         events.OnMenuClose += hideMenu;
     }
 
-    public int Score
+    public static int score
     {
         get
         {
@@ -40,7 +40,7 @@ public class GameManager {
             _score = value;
         }
     }
-    public int Experience
+    public static int experience
     {
         get
         {
@@ -51,12 +51,12 @@ public class GameManager {
             _experience = value;
             if (_experience > ExperienceForNextLevel())
             {
-                Experience = _experience - ExperienceForNextLevel();
+                experience = _experience - ExperienceForNextLevel();
                 events.LevelUp(1);
             }
         }
     }
-    public int PlayerLevel
+    public static int playerLevel
     {
         get
         {
@@ -164,13 +164,20 @@ public class GameManager {
         }
     }
 
-    public GameObject player
+    public GameObject Player
     {
         get
         {
             if (_player == null)
                 _player = GameObject.FindWithTag("Player");
             return _player;
+        }
+    }
+    public static GameObject player
+    {
+        get
+        {
+            return game.Player;
         }
     }
 
@@ -196,7 +203,7 @@ public class GameManager {
 
     private void PlayerLevelUp(int i)
     {
-        PlayerLevel += i;
+        playerLevel += i;
     }
 
     public Language language
@@ -215,9 +222,9 @@ public class GameManager {
         }
     }
 
-    public int ExperienceForNextLevel() //Make a level-algorithm
+    public static int ExperienceForNextLevel() //Make an experience per level-algorithm
     {
-        int exp = 4 + PlayerLevel * (PlayerLevel - 1);
+        int exp = 4 + playerLevel * (playerLevel - 1);
         return exp;
     }
 }
