@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEditor;
 
 public class Health : MonoBehaviour {
     [SerializeField]
-    private int _baseHealth, _healthPerResourcePickUp;
+    private int _baseHealth;
     [SerializeField]
     private int _healthIncreasePerLevelInPercentage;
-
+    [Space(6)]
+    [Header("Player only:")]
+    [SerializeField]
+    private int _healthPerResourcePickUp;
     [SerializeField]
     private bool _fullHealthOnLevelUp = false;
     private int _health, _maxHealth;
@@ -47,12 +51,12 @@ public class Health : MonoBehaviour {
     {
         if (_isPlayer)
         {
-            GameManager.events.OnEnemyHit += decreaseHealth;
+            GameManager.events.OnEnemyAttackHit += decreaseHealth;
             GameManager.events.OnResourcePickup += increaseHealth;
             GameManager.events.OnLevelUp += levelUp;
         }
         else
-            GameManager.events.OnPlayerHit += decreaseHealth;
+            GameManager.events.OnPlayerAttackHit += decreaseHealth;
     }
 
     private void decreaseHealth(GameObject Id, int val)

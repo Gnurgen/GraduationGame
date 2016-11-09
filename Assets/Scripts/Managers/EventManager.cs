@@ -43,11 +43,11 @@ public class EventManager : MonoBehaviour
     }
 
     public delegate void EnemyHitAction(GameObject enemyID, int dmg);
-    public event EnemyHitAction OnEnemyHit;
+    public event EnemyHitAction OnEnemyAttackHit;
     public void EnemyHit(GameObject Id, int dmg)
     {
-        if (OnEnemyHit != null)
-            OnEnemyHit(Id, dmg);
+        if (OnEnemyAttackHit != null)
+            OnEnemyAttackHit(Id, dmg);
     }
 
     //##############################################################################################################################################################
@@ -64,7 +64,7 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnPlayerMove;
     public event PlayerAction OnPlayerIdle;
     public delegate void PlayerHitAction(GameObject Id, GameObject tar, int val);
-    public event PlayerHitAction OnPlayerHit;
+    public event PlayerHitAction OnPlayerAttackHit;
 
 
     public void PlayerAttack(GameObject Id)
@@ -84,8 +84,8 @@ public class EventManager : MonoBehaviour
     }
     public void PlayerHit(GameObject Id, GameObject tar, int val)
     {
-        if (OnPlayerHit != null)
-            OnPlayerHit(Id, tar, val);
+        if (OnPlayerAttackHit != null)
+            OnPlayerAttackHit(Id, tar, val);
     }
     public void PlayerDeath(GameObject Id)
     {
