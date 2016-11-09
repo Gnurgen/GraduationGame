@@ -29,6 +29,8 @@ public class MenuWheel : MonoBehaviour {
 
     private SpearThrow ability;
     private InputManager IM;
+    private EventManager EM;
+
     int ID;
 
     void Start()
@@ -42,6 +44,7 @@ public class MenuWheel : MonoBehaviour {
         angle = 2 * Mathf.PI / nrOptions;
         drawWheel();
         IM = GameManager.input;
+        EM = GameManager.events;
         IM.OnFirstTouchBeginSub(checkIfCenter, ID);
         IM.OnFirstTouchEndSub(OnRelease, ID);
         IM.OnFirstTouchMoveSub(updateMouse, ID);
@@ -51,13 +54,8 @@ public class MenuWheel : MonoBehaviour {
     void Update()    {
        
         if (wheelClicked == true)
-        {
-            Wheel.SetActive(true);
+        {           
             checkWhichState();
-            if (mouseRelease == true)
-            {
-                select();
-            }
         }
     }
 
@@ -111,18 +109,16 @@ public class MenuWheel : MonoBehaviour {
 
     private int checkWhichField(Vector2 mousePos) {
         currentButton = 0;
-
         bool[] myList = new bool[nrOptions];
+
         for (int i = 0; i < nrOptions; i++)
         {
             myList[i] = rightOfLine(mousePos, coordinates[i + 1]);
         }
-
         for (int i = 0; i < nrOptions; i++)
             if (myList[i] == true && myList[(i + 1)%nrOptions] == false)
                 currentButton = i;
-            
-                   
+                          
         return currentButton;
 
     }
@@ -140,8 +136,12 @@ public class MenuWheel : MonoBehaviour {
             return true;
     }
 
-    void select() {
-        selectedButton = currentButton;
+    void select(Vector2 touchPos) {
+        if (Vector2.Distance(center, touchPos) <= centerDistance)
+            selectedButton = 10;
+        else
+            selectedButton = currentButton;
+
         wheelClicked = false;
         Wheel.SetActive(false);
         mouseRelease = false;
@@ -152,16 +152,23 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 0:
                 Debug.Log("Button 1 selected");
+                EM.WheelSelect(0);
                 ability.UseAbility();
                 break;
             case 1:
                 Debug.Log("Button 2 selected");
+                EM.WheelSelect(1);
                 break;
             case 2:
                 Debug.Log("Button 3 selected");
+                EM.WheelSelect(2);
                 break;
             case 3:
                 Debug.Log("Button 4 selected");
+                EM.WheelSelect(3);
+                break;
+            case 10:
+                EM.WheelSelect(10);
                 break;
 
         }
@@ -180,14 +187,15 @@ public class MenuWheel : MonoBehaviour {
     {
         Debug.Log("MENU!!");
         IM.TakeControl(ID);
+        Wheel.SetActive(true);
         wheelClicked = true;
     }
 
-    void OnRelease(Vector2 p)
+    void OnRelease(Vector2 touchPos)
     {
         if (wheelClicked)
         {
-            mouseRelease = true;
+            select(touchPos);
             IM.ReleaseControl(ID);
         }
     }
