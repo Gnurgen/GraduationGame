@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class AudioManager : MonoBehaviour {
 
@@ -16,11 +17,116 @@ public class AudioManager : MonoBehaviour {
         indestructible = "Indestructible",
         player = "Player";
 
+    // ######################################################################################################################################
+    // ##########################################################                            ################################################
+    // ##########################################################  Subscribe to EventManager ################################################
+    // ##########################################################                            ################################################
+    // ######################################################################################################################################
+
     void Subscribe()
     {
-        GameManager.events.OnEnemyAttack += EnemyAttackPlay;
+
+        GameManager.events.OnEnemyAggro += EnemyChatterPlay;
+        GameManager.events.OnEnemyDeath += EnemyDeathPlay; // IS MISSING Kommer
+        GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
+        GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
+        GameManager.events.OnPlayerDashBegin += DashPlay;
+        GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
+        GameManager.events.OnPlayerDeath += PlayerDeathPlay;
+        GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
+        GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
+        GameManager.events.OnWheelOpen += AbilityWheelOpenSub; 
+        GameManager.events.OnWheelSelect += AbilityWheelSelectPlay; // IS MISSING kommer
+        GameManager.events.OnWheelHover += AbilityWheelHoverPlay; // IS MISSING kommer
+        GameManager.events.OnLevelUp += LevelUpPlaySub;
+        GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
+        GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
+        GameManager.events.OnObjDestroyed += ObjectDestroyPlaySub; // IS MISSING -> speartargetplay
+        GameManager.events.OnResourcePickup += PickupPlaySub;
+        GameManager.events.OnCheckPoint += CheckPointPlaySub;
+
         print("AudioManager Subscribed");
     }
+
+    private void ObjectDestroyPlaySub(GameObject GO)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void PlayerAttackHitPlaySub(GameObject GO, GameObject Tar, int i)
+    {
+        PlayerSpearAttackTargetPlay(GO, Tar.tag);
+    }
+
+    private void CheckPointPlaySub()
+    {
+        CheckPointPlay(GameManager.player);
+    }
+
+    private void PickupPlaySub(GameObject GO, int amount)
+    {
+        PickupPlay(GO);
+    }
+
+    private void ObjectDestroyPlay(GameObject GO)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void MenuClosePlaySub()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void MenuOpenPlaySub()
+    {
+        throw new NotImplementedException();
+    }
+
+    private void LevelUpPlaySub(int i)
+    {
+        LevelUpPlay(GameManager.player);
+    }
+    private void AbilityWheelHoverPlay(int option)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void AbilityWheelSelectPlay(int option)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void AbilityWheelOpenSub()
+    {
+        AbilityWheelOpen(gameObject);
+    }
+
+    private void PlayerMoveStop(GameObject Id)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void PlayerMovePlay(GameObject Id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void EnemyAttackHitPlaySub(GameObject enemyID, int dmg)
+    {
+        if (enemyID.tag == "Melee")
+            EnemyMeleeHitPlayerPlay(GameManager.player);
+        else if (enemyID.tag == "Ranged")
+            EnemyRangedTargetPlay(GameManager.player, "Player");
+    }
+
+    public void EnemyDeathPlay(GameObject enemyID)
+    {
+        throw new NotImplementedException();
+    }
+
+
+
 
     // ######################################################################################################################################
     // ##########################################################                       #####################################################
@@ -115,12 +221,6 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Boss_Missile_Target_Play", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void BossMissileTargetStop(GameObject GO)
-    {
-        //Boss's blob stops its sound of it hitting a target
-        AkSoundEngine.PostEvent("Boss_Missile_Target_Stop", GO);
-        AkSoundEngine.RenderAudio();
-    }
     public void BossRainMovePlay(GameObject GO)
     {
         //Boss's rain plays a sound of it moving (continuous sound)
@@ -144,12 +244,6 @@ public class AudioManager : MonoBehaviour {
         //Boss's rain plays a sound when hitting a target (Continuous sound)
         AkSoundEngine.SetSwitch("Target", tag, GO);
         AkSoundEngine.PostEvent("Boss_Rain_Target_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void BossRainTargetStop(GameObject GO)
-    {
-        //Stops the Boss's rain sound when hitting a target
-        AkSoundEngine.PostEvent("Boss_Rain_Target_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
 
@@ -262,6 +356,7 @@ public class AudioManager : MonoBehaviour {
     // ##########################################################  Enemy Sounds  ############################################################
     // ##########################################################                ############################################################
     // ######################################################################################################################################
+
     public void EnemyChatterPlay(GameObject GO)
     {
         //Enemies random growls (continuous sound)
@@ -269,11 +364,6 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.RenderAudio();
     }
 
-    private void EnemyAttackPlay(GameObject GO){
-        if (GO.tag == "Ranged")
-            EnemyRangedPlay(GO);
-
-    }
     public void EnemyChatterStop(GameObject GO)
     {
         //Enemies random growls stops 
@@ -345,6 +435,11 @@ public class AudioManager : MonoBehaviour {
     public void PickupPlay(GameObject GO)
     {
         AkSoundEngine.PostEvent("Pickup_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+    public void LevelUpPlay(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Level_Up_Play", GO);
         AkSoundEngine.RenderAudio();
     }
     // ######################################################################################################################################
