@@ -118,6 +118,7 @@ public class AudioManager : MonoBehaviour {
             EnemyMeleeHitPlayerPlay(GameManager.player);
         else if (enemyID.tag == "Ranged")
             EnemyRangedTargetPlay(GameManager.player, "Player");
+
     }
 
     public void EnemyDeathPlay(GameObject enemyID)
