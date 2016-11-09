@@ -12,8 +12,7 @@ public class RoomEditor : Editor {
     {
         RoomBuilder workbench = new GameObject("Workbench").AddComponent<RoomBuilder>();
         Undo.RegisterCreatedObjectUndo(workbench, "Created room builder workbench");
-        GameObject[] selection = { workbench.gameObject };
-        Selection.objects = selection;
+        Selection.objects = new Object[] { workbench.gameObject };
     }
 
     [MenuItem("Tools/Room Builder/Create Building Blocks/Enemies", false, 1)]
@@ -43,9 +42,12 @@ public class RoomEditor : Editor {
 
         GUILayout.Space(10);
         GUILayout.Label("Room Size");
-        workbench.roomSize.x = EditorGUILayout.IntSlider("   Width", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
-        workbench.roomSize.y = EditorGUILayout.IntSlider("   Depth", (int)workbench.roomSize.y, 1, workbench.roomUnits.GetLength(1));
+        Vector2 roomSize = workbench.roomSize;
+        roomSize.x = EditorGUILayout.IntSlider("   Width", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
+        roomSize.y = EditorGUILayout.IntSlider("   Depth", (int)workbench.roomSize.y, 1, workbench.roomUnits.GetLength(1));
+        workbench.roomSize = roomSize;
 
+        /*
         GUILayout.Space(10);
         int index = EditorGUILayout.IntSlider("Room List", workbench.roomIndex, 0, RoomBuilder.list.Count);
 
@@ -71,6 +73,7 @@ public class RoomEditor : Editor {
                 workbench.roomIndex = index;
             }
         }
+        */
 
         GUILayout.Space(10);
         if (GUILayout.Button("Commit"))
@@ -93,35 +96,33 @@ public class RoomEditor : Editor {
 
     private static void createBuildingBlocks(string tag)
     {
+        ;
+
         Bounds bounds;
         GameObject prefab;
         GameObject parent = null;
-        List<GameObject> objectList = Resources.FindObjectsOfTypeAll(typeof(GameObject)).Cast<GameObject>().Where(c => c.gameObject.tag == tag).ToList();
+        List<GameObject> objectList = Resources.LoadAll(tag).Cast<GameObject>().Where(c => c.gameObject.tag == tag).ToList();
         float offset = 0;
 
         for (int i = 0; i < objectList.Count; i++)
         {
-            if (PrefabUtility.GetPrefabParent(objectList[i]) == null)
+            if (parent == null)
             {
-                if (parent == null)
-                {
-                    parent = new GameObject(tag + " Building Blocks");
-                    Undo.RegisterCreatedObjectUndo(parent, "Created parent for " + tag + " building blocks");
-                    GameObject[] selection = { parent };
-                    Selection.objects = selection;
-                }
-
-                prefab = PrefabUtility.InstantiatePrefab(objectList[i]) as GameObject;
-                Undo.RegisterCreatedObjectUndo(prefab, "Created " + tag + " building blocks");
-                bounds = prefab.GetComponent<MeshFilter>().sharedMesh.bounds;
-
-                prefab.transform.position = new Vector3(offset, bounds.extents.y, 0);
-                offset += bounds.extents.x + 1;
-                prefab.transform.parent = parent.transform;
-                BuildingBlock bb = prefab.AddComponent<BuildingBlock>();
-                bb.prefab = objectList[i];
-                PrefabUtility.DisconnectPrefabInstance(prefab);
+                parent = new GameObject(tag + " Building Blocks");
+                Undo.RegisterCreatedObjectUndo(parent, "Created parent for " + tag + " building blocks");
+                Selection.objects = new Object[] { parent };
             }
+
+            prefab = PrefabUtility.InstantiatePrefab(objectList[i]) as GameObject;
+            Undo.RegisterCreatedObjectUndo(prefab, "Created " + tag + " building blocks");
+            bounds = prefab.GetComponent<MeshFilter>().sharedMesh.bounds;
+
+            prefab.transform.position = new Vector3(offset, bounds.extents.y, 0);
+            offset += bounds.extents.x + 1;
+            prefab.transform.parent = parent.transform;
+            BuildingBlock bb = prefab.AddComponent<BuildingBlock>();
+            bb.prefab = objectList[i];
+            PrefabUtility.DisconnectPrefabInstance(prefab);
         }
     }
 }

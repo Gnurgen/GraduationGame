@@ -9,7 +9,7 @@ public class ReplaceAnything : EditorWindow {
     private static bool _useRotation = true;
     private static bool _useScale = true;
 
-    [MenuItem("Tools/Replace Anything",false,0)]
+    [MenuItem("Tools/Replace Anything",false,21)]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(ReplaceAnything));
