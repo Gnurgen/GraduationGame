@@ -29,6 +29,7 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyDeath += EnemyDeathPlay; // IS MISSING Kommer
         GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
+        GameManager.events.OnEnemyRangedMiss += EnemyRangedAttackMissPlaySub;
         GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
         GameManager.events.OnPlayerDashBegin += DashPlay;
         GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
@@ -46,6 +47,11 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnCheckPoint += CheckPointPlaySub;
 
         print("AudioManager Subscribed");
+    }
+
+    private void EnemyRangedAttackMissPlaySub(GameObject enemyID)
+    {
+        EnemyRangedTargetPlay(enemyID, "Indestructable");
     }
 
     private void ObjectDestroyPlaySub(GameObject GO)

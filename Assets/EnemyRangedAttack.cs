@@ -32,15 +32,15 @@ public class EnemyRangedAttack : MonoBehaviour {
         if (col.tag == "Indestructable")
         {
             targetHit = true;
-            Invoke("PoolItself", 20f);
-            GameManager.events.EnemyAttackHit(enemyID, -1);
+            Invoke("PoolItSelf", 20f);
+            GameManager.events.EnemyRangedMiss(gameObject);
         }
         if (col.tag == "Player")
         {
             targetHit = true;
             transform.SetParent(col.transform,true);
             GameManager.events.EnemyAttackHit(enemyID, dmg);
-            Invoke("PoolItself", 20f);
+            Invoke("PoolItSelf", 20f);
         }
     }
     public void setSpecs(float speed, GameObject enemyID, int damage)
