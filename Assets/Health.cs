@@ -47,12 +47,12 @@ public class Health : MonoBehaviour {
     {
         if (_isPlayer)
         {
-            GameManager.events.OnEnemyHit += decreaseHealth;
+            GameManager.events.OnEnemyAttackHit += decreaseHealth;
             GameManager.events.OnResourcePickup += increaseHealth;
             GameManager.events.OnLevelUp += levelUp;
         }
         else
-            GameManager.events.OnPlayerHit += decreaseHealth;
+            GameManager.events.OnPlayerAttackHit += decreaseHealth;
     }
 
     private void decreaseHealth(GameObject Id, int val)
