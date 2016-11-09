@@ -4,33 +4,118 @@ using System.Collections.Generic;
 
 public class RoomBuilder : MonoBehaviour {
 
-    private static List<RoomBuilder> _list = new List<RoomBuilder>();
+    public const int MAX_UNIT_SIZE = 3;
+
+    private static RoomTile _defaultTile;
+    private static RoomWall _defaultWall;
 
     public string roomName = "New Room";
     public int roomIndex = 0;
-    public bool roomModified = true;
-    public Vector2 roomSize = new Vector2(1,1);
-    public RoomUnit[,] roomUnits = new RoomUnit[4,4];
+    public bool roomModified = false;
+    public RoomUnit[,] roomUnits = new RoomUnit[MAX_UNIT_SIZE, MAX_UNIT_SIZE];
 
     private List<GameObject> objectList = new List<GameObject>();
+    private Vector2 _roomSize = new Vector2(1, 1);
 
-    public static List<RoomBuilder> list
+    public Vector2 roomSize
     {
         get
         {
-            _list.Add(null);
-            _list.Add(null);
-            return new List<RoomBuilder>(_list);
+            return _roomSize;
+        }
+        set
+        {
+            if (_roomSize != value)
+            {
+                _roomSize = value;
+                for(int i = 0; i < roomUnits.GetLength(0); i++)
+                {
+                    for (int j = 0; j < roomUnits.GetLength(1); j++)
+                    {
+                        if (!roomUnits[i, j])
+                        {
+                            if (i < _roomSize.x && j < _roomSize.y)
+                            {
+                                roomUnits[i, j] = createRoomUnit();
+                                roomUnits[i, j].transform.position = new Vector3(transform.position.x + i * RoomUnit.TILE_RATIO, transform.position.y, transform.position.z + j * RoomUnit.TILE_RATIO);
+
+                            }
+                        }
+                        else
+                        {
+                            if (i < _roomSize.x && j < _roomSize.y)
+                            {
+                                roomUnits[i, j].gameObject.SetActive(true);
+                            }
+                            else
+                                roomUnits[i, j].gameObject.SetActive(false);
+                        }
+                        if (roomUnits[i, j] && roomUnits[i, j].gameObject.activeInHierarchy)
+                            roomUnits[i, j].setWallDisplay(i == 0, j == 0, roomUnits.GetLength(0) - i == 1, roomUnits.GetLength(1) - j == 1);
+                    }
+                }
+            }
         }
     }
 
-    // Use this for initialization
-    void Start() {
+    public static RoomTile defaultTile
+    {
+        get
+        {
+            if (!_defaultTile)
+            {
+                Object[] objects = Resources.LoadAll("Tile");
+                for (int i = 0; i < objects.Length && !_defaultTile; i++)
+                {
+                    RoomTile tile = (objects[i] as GameObject).GetComponent<RoomTile>();
+                    if (tile.isDefault)
+                        _defaultTile = tile;
+                }
+
+                if (!_defaultTile)
+                    Debug.LogError("Unable to find default tile prefab in resources.");
+            }
+            return _defaultTile;
+        }
     }
 
-    // Update is called once per frame
+    public static RoomWall defaultWall
+    {
+        get
+        {
+            if (!_defaultWall)
+            {
+                Object[] objects = Resources.LoadAll("Wall");
+                for (int i = 0; i < objects.Length && !_defaultWall; i++)
+                {
+                    RoomWall wall = (objects[i] as GameObject).GetComponent<RoomWall>();
+                    if (wall.isDefault)
+                        _defaultWall = wall;
+                }
+
+                if (!_defaultWall)
+                    Debug.LogError("Unable to find default wall prefab in resources.");
+            }
+            return _defaultWall;
+        }
+    }
+
+    void Reset() {
+        roomUnits[0, 0] = createRoomUnit();
+    }
+
+    void Start()
+    {
+
+    }
+
     void Update () {
-	
 	}
 
+    private RoomUnit createRoomUnit()
+    {
+        RoomUnit unit = new GameObject("RoomUnit").AddComponent<RoomUnit>();
+        unit.transform.parent = transform;
+        return unit;
+    }
 }

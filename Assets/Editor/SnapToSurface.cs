@@ -4,7 +4,7 @@ using System.Collections;
 
 public class SnapToSurface : Editor{
 
-    [MenuItem("Tools/Snap to Surface %w", false,0)]
+    [MenuItem("Tools/Snap to Surface %w", false,22)]
     public static void Snap()
     {
         Object[] objects = Selection.objects;
