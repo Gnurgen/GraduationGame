@@ -28,32 +28,34 @@ public class AudioManager : MonoBehaviour {
 
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyDeath += EnemyDeathPlay; // IS MISSING Kommer
-        GameManager.events.OnEnemyHit += EnemyHitPlay; // IS MISSING -> speartargetplay
+        GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
         GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
         GameManager.events.OnPlayerDashBegin += DashPlay;
-        GameManager.events.OnPlayerHit += PlayerHitPlaySub; // lave funktion som tjekker enemy
+        GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
         GameManager.events.OnPlayerDeath += PlayerDeathPlay;
         GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
         GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
-        GameManager.events.OnWheelOpen += AbilityWheelOpenSub; // den kommer
-        GameManager.events.OnWheelSelect += AbilityWheelSelectPlay; // IS MISSING er der ( er wheelopen)
+        GameManager.events.OnWheelOpen += AbilityWheelOpenSub; 
+        GameManager.events.OnWheelSelect += AbilityWheelSelectPlay; // IS MISSING kommer
         GameManager.events.OnWheelHover += AbilityWheelHoverPlay; // IS MISSING kommer
         GameManager.events.OnLevelUp += LevelUpPlaySub;
         GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
         GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
-        GameManager.events.OnObjDestroyed += ObjectDestroyPlay; // IS MISSING -> speartargetplay
+        GameManager.events.OnObjDestroyed += ObjectDestroyPlaySub; // IS MISSING -> speartargetplay
         GameManager.events.OnResourcePickup += PickupPlaySub;
         GameManager.events.OnCheckPoint += CheckPointPlaySub;
 
         print("AudioManager Subscribed");
     }
 
-    private void PlayerHitPlaySub(GameObject GO)
+    private void ObjectDestroyPlaySub(GameObject GO)
     {
-        if (GO.tag == "Melee")
-            EnemyMeleeHitPlayerPlay(GameManager.player);
-        else if (GO.tag == "Ranged")
-            EnemyRangedTargetPlay(GameManager.player, "Player");
+        throw new NotImplementedException();
+    }
+
+    private void PlayerAttackHitPlaySub(GameObject GO, GameObject Tar, int i)
+    {
+        PlayerSpearAttackTargetPlay(GO, Tar.tag);
     }
 
     private void CheckPointPlaySub()
@@ -71,11 +73,6 @@ public class AudioManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    private void SavePlay()
-    {
-        throw new NotImplementedException();
-    }
-
     private void MenuClosePlaySub()
     {
         throw new NotImplementedException();
@@ -88,7 +85,7 @@ public class AudioManager : MonoBehaviour {
 
     private void LevelUpPlaySub(int i)
     {
-     //   LevelUpPlay(GameManager.player);
+        LevelUpPlay(GameManager.player);
     }
     private void AbilityWheelHoverPlay(int option)
     {
@@ -115,9 +112,12 @@ public class AudioManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    public void EnemyHitPlay(GameObject enemyID, float dmg)
+    public void EnemyAttackHitPlaySub(GameObject enemyID, int dmg)
     {
-        throw new NotImplementedException();
+        if (enemyID.tag == "Melee")
+            EnemyMeleeHitPlayerPlay(GameManager.player);
+        else if (enemyID.tag == "Ranged")
+            EnemyRangedTargetPlay(GameManager.player, "Player");
     }
 
     public void EnemyDeathPlay(GameObject enemyID)
