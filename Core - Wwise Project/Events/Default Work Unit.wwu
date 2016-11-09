@@ -64,33 +64,11 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="Boss_Missile_Target_Stop" ID="{576B80D8-251B-4674-AF6B-5ABEA800F185}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{2CD1DC99-F7D6-40A8-BB61-21E954DC4954}" ShortID="22197118" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{1DE1319C-C1FE-4818-87AC-0857AD5E016B}" Global="false">
-									<ObjectRef Name="Boss Missile Target" ID="{26712AF6-1339-4C1B-926B-F1F1767162F0}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Event Name="Boss_Rain_Target_Play" ID="{B4A9906A-854D-4730-AC50-9140B6CBD89C}">
 					<ChildrenList>
 						<Action Name="Play" ID="{721FF816-A4EE-4536-A53D-A3EBD3764D2A}" ShortID="740328660" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{EF1DF335-93D6-439E-AABB-C6259000BF79}" Global="false">
-									<ObjectRef Name="Boss Rain Target" ID="{8D02DC58-C9FA-464C-8DED-C4E588312C8D}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Boss_Rain_Target_Stop" ID="{3128DF73-ABA3-452A-90C9-E989853B044D}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{E714462A-641C-4F9E-A2A2-D6683D59020E}" ShortID="121487036" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{3BAC65B9-F31F-4C61-ADBE-504177BC432A}" Global="false">
 									<ObjectRef Name="Boss Rain Target" ID="{8D02DC58-C9FA-464C-8DED-C4E588312C8D}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
@@ -576,6 +554,17 @@
 							<ElementList>
 								<Element ID="{11AFD2D7-36AA-4990-8481-AC000BDF7F96}" Global="false">
 									<ObjectRef Name="Music_System" ID="{A4F52877-5710-4651-8A27-3C56936AEE9B}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Level_Up_Play" ID="{AD3488E9-A504-4A4B-A573-ED052EE4A555}">
+					<ChildrenList>
+						<Action Name="Play" ID="{2C8E5ACF-A6D1-4C11-931A-3D8A222E9757}" ShortID="226700270" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{5B51151E-BEB8-4E12-B7FF-3CBC5AE06615}" Global="false">
+									<ObjectRef Name="Level_Up" ID="{A100E4BE-0539-41D6-B736-A389F9A8DE38}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>

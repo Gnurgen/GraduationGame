@@ -63,7 +63,7 @@ public class InputManager : MonoBehaviour {
 	private List<MethodVectorID> doubleTapMethods;
 	private List<MethodSwipeID>  swipeMethods;
 
-	public struct MethodVectorID
+    public struct MethodVectorID
 	{
 		public int id;
 		public Vector2Delegate method;
