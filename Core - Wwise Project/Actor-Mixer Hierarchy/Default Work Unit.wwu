@@ -1249,6 +1249,29 @@
 										</Sound>
 									</ChildrenList>
 								</RandomSequenceContainer>
+								<Sound Name="Enemy_Death" ID="{EC2C0244-CAAE-4F38-9EA0-A3E57A268DC0}" ShortID="320224881" Type="SoundFX">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Enemy_Death" ID="{1A079D2F-5021-41D9-BE5B-6A0D39C1428C}" ShortID="761651021">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="1.45535714285714E-02"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.170094866071428"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Enemy_Death.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Enemy_Death" ID="{1A079D2F-5021-41D9-BE5B-6A0D39C1428C}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Player" ID="{1959CC9B-3C3C-47B1-BFB3-A2E87050B0DE}" ShortID="776205002">
@@ -1927,31 +1950,146 @@
 										<ActiveSource Name="Button_Start_Game" ID="{B2ED9A6F-FBC2-42E7-BADA-C0D9CD4B8DA8}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
-								<Sound Name="Button_Wheel" ID="{A4A2F0FF-7EFF-4DF4-A983-CBF968123827}" ShortID="907675658" Type="SoundFX">
+								<Sound Name="Button_Wheel_Hover" ID="{53A6C1C5-F902-4E50-B680-A088B2CE3CFB}" ShortID="1027403685" Type="SoundFX">
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 										</Reference>
 										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+											<ObjectRef Name="System" ID="{909CFBA4-03A9-4867-A99A-0C85F0B67BDD}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="Button_Wheel" ID="{8A21823B-64DA-4F48-9C29-643B665DE5DD}" ShortID="125548903">
+										<AudioFileSource Name="Button_Wheel_Hover" ID="{F4FE8B1D-E9F8-4DDE-8C88-D8F43794DC71}" ShortID="55832679">
 											<PropertyList>
-												<Property Name="FadeInDuration" Type="Real64" Value="1.35714285714286E-02"/>
-												<Property Name="TrimBegin" Type="Real64" Value="0.217991071428571"/>
+												<Property Name="FadeInDuration" Type="Real64" Value="1.33482142857143E-02"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.186875"/>
 											</PropertyList>
 											<Language>SFX</Language>
-											<AudioFile>Button_Wheel.wav</AudioFile>
+											<AudioFile>Button_Wheel_Hover.wav</AudioFile>
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="Button_Wheel" ID="{8A21823B-64DA-4F48-9C29-643B665DE5DD}" Platform="Linked"/>
+										<ActiveSource Name="Button_Wheel_Hover" ID="{F4FE8B1D-E9F8-4DDE-8C88-D8F43794DC71}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Button_Wheel_Select" ID="{F357AF57-E34A-4D35-8FDD-D392340036AA}" ShortID="250867007" Type="SoundFX">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="System" ID="{909CFBA4-03A9-4867-A99A-0C85F0B67BDD}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Button_Wheel_Select" ID="{D581F505-A645-48AE-B93C-BC79BBF7A58E}" ShortID="314800765">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="1.65401785714286E-02"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.185758928571428"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Button_Wheel_Select.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Button_Wheel_Select" ID="{D581F505-A645-48AE-B93C-BC79BBF7A58E}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
 						</ActorMixer>
+						<Sound Name="Menu_Close" ID="{1E606772-CFE5-488B-8806-F9639344DA00}" ShortID="603386623" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Menu_Close" ID="{F6CB067C-1B00-40CC-92FF-7C25AFD7F1A7}" ShortID="77503931">
+									<PropertyList>
+										<Property Name="FadeInDuration" Type="Real64" Value="1.60323660714286E-02"/>
+										<Property Name="TrimBegin" Type="Real64" Value="0.159380580357143"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Menu_Close.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Menu_Close" ID="{F6CB067C-1B00-40CC-92FF-7C25AFD7F1A7}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Menu_Open" ID="{E6F243E4-8073-42B0-86B8-4A926879115C}" ShortID="665939633" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Menu_Open" ID="{4BCB79E5-0B91-41F5-A5DD-5879E8D14A1D}" ShortID="784204649">
+									<PropertyList>
+										<Property Name="FadeInDuration" Type="Real64" Value="9.77678571428572E-03"/>
+										<Property Name="TrimBegin" Type="Real64" Value="0.158872767857143"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Menu_Open.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Menu_Open" ID="{4BCB79E5-0B91-41F5-A5DD-5879E8D14A1D}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Wheel_Close" ID="{F1A7AE63-CE19-40EF-837D-A12E1B347389}" ShortID="713179494" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Wheel_Close" ID="{B60228EB-1CBA-42B7-A3C9-6E067F6602DC}" ShortID="392426319">
+									<PropertyList>
+										<Property Name="FadeInDuration" Type="Real64" Value="0.017265625"/>
+										<Property Name="TrimBegin" Type="Real64" Value="0.159453125"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Wheel_Close.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Wheel_Close" ID="{B60228EB-1CBA-42B7-A3C9-6E067F6602DC}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Wheel_Open" ID="{8071A830-1A94-4973-B6ED-D662AED0870C}" ShortID="186956251" Type="SoundFX">
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Wheel_Open" ID="{8DF5E484-C68E-458B-9F5E-7CD8F8250C7D}" ShortID="743145374">
+									<PropertyList>
+										<Property Name="FadeInDuration" Type="Real64" Value="1.74330357142857E-02"/>
+										<Property Name="TrimBegin" Type="Real64" Value="0.162444196428571"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Wheel_Open.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Wheel_Open" ID="{8DF5E484-C68E-458B-9F5E-7CD8F8250C7D}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 				</ActorMixer>
 				<ActorMixer Name="SFX" ID="{BFCE14C4-5D9E-4DF2-B57D-8856307A995F}" ShortID="228960186">

@@ -35,7 +35,8 @@ namespace AK
         static const AkUniqueID BOSS_SHIELD_UP_PLAY = 2401642071U;
         static const AkUniqueID BUTTON_MENU_PLAY = 3906322206U;
         static const AkUniqueID BUTTON_START_GAME_PLAY = 789154922U;
-        static const AkUniqueID BUTTON_WHEEL_PLAY = 3789878710U;
+        static const AkUniqueID BUTTON_WHEEL_HOVER_PLAY = 3837168167U;
+        static const AkUniqueID BUTTON_WHEEL_SELECT_PLAY = 378387809U;
         static const AkUniqueID CHECKPOINT_PLAY = 3390114776U;
         static const AkUniqueID CIRCLE_ABILITY_CONTROL_PLAY = 2990023069U;
         static const AkUniqueID CIRCLE_ABILITY_CONTROL_STOP = 880897803U;
@@ -47,6 +48,7 @@ namespace AK
         static const AkUniqueID DRAW_ABILITY_STOP = 2972852827U;
         static const AkUniqueID ENEMY_CHATTER_PLAY = 2311308570U;
         static const AkUniqueID ENEMY_CHATTER_STOP = 3751864356U;
+        static const AkUniqueID ENEMY_DEATH_PLAY = 4192965245U;
         static const AkUniqueID ENEMY_MELEE_HIT_PLAYER_PLAY = 1233116581U;
         static const AkUniqueID ENEMY_MELEE_PLAY = 2339069971U;
         static const AkUniqueID ENEMY_RANGED_PLAY = 4072057392U;
@@ -57,6 +59,8 @@ namespace AK
         static const AkUniqueID LEVEL_UP_PLAY = 2160362136U;
         static const AkUniqueID MARK_ABILITY_CONTROL_PLAY = 220652244U;
         static const AkUniqueID MARK_ABILITY_PLAY = 2308852762U;
+        static const AkUniqueID MENU_CLOSE_PLAY = 1206082786U;
+        static const AkUniqueID MENU_OPEN_PLAY = 900962796U;
         static const AkUniqueID MUSIC_SYSTEM_PLAY = 350081739U;
         static const AkUniqueID MUSIC_SYSTEM_STOP = 3509289057U;
         static const AkUniqueID PICKUP_PLAY = 1715783110U;
@@ -64,6 +68,8 @@ namespace AK
         static const AkUniqueID PLAYER_RESPAWN_PLAY = 1389849668U;
         static const AkUniqueID SPEAR_PLAY = 2880001405U;
         static const AkUniqueID SPEAR_TARGET_PLAY = 2770920781U;
+        static const AkUniqueID WHEEL_CLOSE_PLAY = 3056915868U;
+        static const AkUniqueID WHEEL_OPEN_PLAY = 2645717374U;
     } // namespace EVENTS
 
     namespace STATES

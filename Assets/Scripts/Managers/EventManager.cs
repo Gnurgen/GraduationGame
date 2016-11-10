@@ -237,6 +237,12 @@ public class EventManager : MonoBehaviour
         if (OnCheckPoint != null)
             OnCheckPoint();
     }
-
+    public delegate void PoolAction(GameObject go);
+    public event PoolAction OnPoolObject;
+    public void PoolObject(GameObject go)
+    {
+        if (OnPoolObject != null)
+            OnPoolObject(go);
+    }
 }
 
