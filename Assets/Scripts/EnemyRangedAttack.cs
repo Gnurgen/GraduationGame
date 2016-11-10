@@ -59,7 +59,7 @@ public class EnemyRangedAttack : MonoBehaviour {
     }
     void PoolItSelf()
     {
-        print("I Should pool myself, but I destroy myself");
+        GameManager.events.PoolObject(gameObject);
         Destroy(gameObject);
     } 
 }

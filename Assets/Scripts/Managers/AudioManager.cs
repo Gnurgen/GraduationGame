@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour {
     {
 
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
-        GameManager.events.OnEnemyDeath += EnemyDeathPlay; // IS MISSING Kommer done
+        GameManager.events.OnEnemyDeath += EnemyDeathPlay; 
         GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
         GameManager.events.OnEnemyRangedMiss += EnemyRangedAttackMissPlaySub;
         GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
@@ -37,8 +37,8 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
         GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
         GameManager.events.OnWheelOpen += AbilityWheelOpenSub; 
-        GameManager.events.OnWheelSelect += AbilityWheelSelectPlay; // IS MISSING kommer 
-        GameManager.events.OnWheelHover += AbilityWheelHoverPlay; // IS MISSING kommer
+        GameManager.events.OnWheelSelect += AbilityWheelSelectPlaySub; 
+        GameManager.events.OnWheelHover += AbilityWheelHoverPlaySub; 
         GameManager.events.OnLevelUp += LevelUpPlaySub;
         GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
         GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
@@ -90,19 +90,22 @@ public class AudioManager : MonoBehaviour {
     {
         LevelUpPlay(GameManager.player);
     }
-    private void AbilityWheelHoverPlay(int option)
+    private void AbilityWheelHoverPlaySub(int option)
     {
-        throw new NotImplementedException();
+        AbilityWheelHoverPlay(gameObject);
     }
 
-    private void AbilityWheelSelectPlay(int option)
+    private void AbilityWheelSelectPlaySub(int option)
     {
-        throw new NotImplementedException();
+        if (option == 10)
+            AbilityWheelClosePlay(gameObject);
+        else
+            AbilityWheelSelectPlay(gameObject);
     }
 
     private void AbilityWheelOpenSub()
     {
-        AbilityWheelOpen(gameObject);
+        AbilityWheelOpenPlay(gameObject);
     }
 
     private void PlayerMoveStop(GameObject Id)
@@ -123,14 +126,6 @@ public class AudioManager : MonoBehaviour {
             EnemyRangedTargetPlay(GameManager.player, "Player");
 
     }
-
-    public void EnemyDeathPlay(GameObject enemyID)
-    {
-        throw new NotImplementedException();
-    }
-
-
-
 
     // ######################################################################################################################################
     // ##########################################################                       #####################################################
@@ -168,7 +163,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Ability_Swap_Play", GO);
         AkSoundEngine.RenderAudio();
     }
-
+    
     // ######################################################################################################################################
     // ##########################################################              ##############################################################
     // ##########################################################  Boss sounds ##############################################################
@@ -281,10 +276,27 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Button_Start_Menu_Play", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void AbilityWheelOpen(GameObject GO)
+    public void AbilityWheelOpenPlay(GameObject GO)
     {
         //When opening the Ability Wheel
-        AkSoundEngine.PostEvent("Button_Wheel_Play", GO);
+        AkSoundEngine.PostEvent("Wheel_Open_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+    public void AbilityWheelClosePlay(GameObject GO)
+    {
+        //When opening the Ability Wheel
+        AkSoundEngine.PostEvent("Wheel_Close_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+    public void AbilityWheelHoverPlay(GameObject GO)
+    {
+        //When opening the Ability Wheel
+        AkSoundEngine.PostEvent("Button_Wheel_Hover_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+    public void AbilityWheelSelectPlay(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Button_Wheel_Select_play", GO);
         AkSoundEngine.RenderAudio();
     }
     public void CheckPointPlay(GameObject GO)
@@ -403,6 +415,13 @@ public class AudioManager : MonoBehaviour {
     {
         //Shield of enemy (IDK)
         AkSoundEngine.PostEvent("Enemy_Shield_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+    public void EnemyDeathPlay(GameObject GO)
+    {
+        //Enemie Dies and stops his chatter
+        AkSoundEngine.PostEvent("Enemy_Chatter_Stop", GO);
+        AkSoundEngine.PostEvent("Enemy_Death_Play", GO);
         AkSoundEngine.RenderAudio();
     }
 
