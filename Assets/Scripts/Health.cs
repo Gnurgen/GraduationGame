@@ -7,16 +7,9 @@ public class Health : MonoBehaviour {
     private int _baseHealth;
     [SerializeField]
     private int _healthIncreasePerLevelInPercentage;
-    [Space(6)]
-    [Header("Player only:")]
-    [SerializeField]
-    private int _healthPerResourcePickUp;
-    [SerializeField]
-    private bool _fullHealthOnLevelUp = false;
+    private int _healthPerRes;
+    private bool _healthOnLevel = false;
     private int _health, _maxHealth;
-
-    private const string _enemyTag = "Enemy";
-    private const string _bossTag = "Boss";
     private const string _playerTag = "Player";
     private bool _isPlayer = false;
 
@@ -38,55 +31,57 @@ public class Health : MonoBehaviour {
             return _isPlayer;
         }
     }
-    
-    void Awake()
+
+    public void setHealthVars(int multiplier)
     {
+        _baseHealth = 
+        _health = _baseHealth;
+        _maxHealth = _health;
+        _isPlayer = gameObject.tag == _playerTag;
+        Subscribe();
+    }
+    public void setHealthVars(int _resHealth, bool levelUpHealth)
+    {
+        _healthPerRes = _resHealth;
+        _healthOnLevel = levelUpHealth;
         _health = _baseHealth;
         _maxHealth = _health;
         _isPlayer = gameObject.tag == _playerTag;
         Subscribe();
     }
 
-    void Subscribe()
+    private void Subscribe()
     {
         if (_isPlayer)
         {
-            GameManager.events.OnEnemyAttackHit += decreaseHealth;
             GameManager.events.OnResourcePickup += increaseHealth;
             GameManager.events.OnLevelUp += levelUp;
         }
-        else
-            GameManager.events.OnPlayerAttackHit += decreaseHealth;
     }
 
-    private void decreaseHealth(GameObject Id, int val)
+    private void decreaseHealth(int val)
     {
         _health -= val;
-    }
-    private void decreaseHealth(GameObject Id, GameObject me, int val)
-    {
-        if (me == gameObject)
+        if (_health <= 0)
         {
-            _health -= val;
-            if (_health >= 0)
-            {
+            if (_isPlayer)
+                GameManager.events.PlayerDeath(gameObject);
+            else
                 GameManager.events.EnemyDeath(gameObject);
-                enabled = false;
-            }
         }
     }
+
     private void increaseHealth(GameObject Id, int val)
     {
-        _health += _healthPerResourcePickUp;
+        _health += _healthPerRes;
         if (_health > _maxHealth)
             _health = _maxHealth;
-        if (_health <= 0)
-            GameManager.events.PlayerDeath(gameObject);
+
     }
     private void levelUp(int id)
     {
         _maxHealth *= _healthIncreasePerLevelInPercentage;
-        if(_fullHealthOnLevelUp)
+        if(_healthOnLevel)
             _health = _maxHealth;
     }
 }
