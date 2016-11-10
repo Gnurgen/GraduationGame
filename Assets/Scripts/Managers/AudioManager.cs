@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour {
     {
 
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
-        GameManager.events.OnEnemyDeath += EnemyDeathPlay; // IS MISSING Kommer
+        GameManager.events.OnEnemyDeath += EnemyDeathPlay; // IS MISSING Kommer done
         GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
         GameManager.events.OnEnemyRangedMiss += EnemyRangedAttackMissPlaySub;
         GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
@@ -37,7 +37,7 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
         GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
         GameManager.events.OnWheelOpen += AbilityWheelOpenSub; 
-        GameManager.events.OnWheelSelect += AbilityWheelSelectPlay; // IS MISSING kommer
+        GameManager.events.OnWheelSelect += AbilityWheelSelectPlay; // IS MISSING kommer 
         GameManager.events.OnWheelHover += AbilityWheelHoverPlay; // IS MISSING kommer
         GameManager.events.OnLevelUp += LevelUpPlaySub;
         GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
@@ -56,7 +56,7 @@ public class AudioManager : MonoBehaviour {
 
     private void ObjectDestroyPlaySub(GameObject GO)
     {
-        throw new NotImplementedException();
+        PlayerSpearAttackTargetPlay(GO, GO.tag);
     }
 
     private void PlayerAttackHitPlaySub(GameObject GO, GameObject Tar, int i)
@@ -74,10 +74,7 @@ public class AudioManager : MonoBehaviour {
         PickupPlay(GO);
     }
 
-    private void ObjectDestroyPlay(GameObject GO)
-    {
-        throw new NotImplementedException();
-    }
+
 
     private void MenuClosePlaySub()
     {
