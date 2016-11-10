@@ -63,6 +63,10 @@ public class InputManager : MonoBehaviour {
 	private List<MethodVectorID> doubleTapMethods;
 	private List<MethodSwipeID>  swipeMethods;
 
+	// ----- Screen to world point Variables -----
+	private Ray ray;
+	private RaycastHit hit;
+
     public struct MethodVectorID
 	{
 		public int id;
@@ -414,10 +418,11 @@ public class InputManager : MonoBehaviour {
 
 
 	/*
+	 * 
 	 * Mouse trigger methods.
 	 * 
 	 * 
-	 */
+	*/
 	void OnMouseBegin(Vector3 p)
 	{
 		if (firstTouchBeginMethods.Count > 0) {
@@ -569,7 +574,11 @@ public class InputManager : MonoBehaviour {
 
 	public Vector3 GetWorldPoint(Vector2 pos)
 	{
-		return Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 0));
+		ray = Camera.main.ScreenPointToRay (pos);
+		if (Physics.Raycast (ray, out hit, Mathf.Infinity))
+			return hit.point;
+		return Vector3.down*100;
+		//return Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 10));
 	}
 
 	public void OnFirstTouchBeginSub(Vector2Delegate vd, int ID)

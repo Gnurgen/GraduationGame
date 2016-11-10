@@ -2,31 +2,34 @@
 using System.Collections;
 
 public class MenuWheel : MonoBehaviour {
+    //Public stuff for game designer/art
     public GameObject[] listOfButtons;
-    GameObject[] listOfButtons2; 
+    public float radiusForImages = 170.0f;
+    private float radiusForDeadZone = 100.0f;
+    private float responseWidth = 1000.0f;
+    private float centerDistance = 50.0f;
 
-    private float radius = 170;
-    private float nullRadius = 10;
-    private float screenWidth = 1000;
-    private float angle, length;
-    private Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
-    private float centerDistance = 30.0f;
 
+    //Private variables
     private int nrOptions;
     public GameObject Wheel;
-    private Vector2[] coordinates;
-    private float[] minMax;
-    private Vector2 a, b, c;
-    private float cos1, cos2, sin1, sin2;
-
-    //TEST STUFF
-  //  public GameObject testObject;
-    private Vector2 test;
+    GameObject[] listOfButtons2; 
     private bool wheelClicked = false;
     private bool mouseRelease = false;
     private int currentButton;
     private int selectedButton;
+    private Vector2 tempTouchPos;
 
+    
+    //Calulating circle
+    private Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
+    private Vector2[] coordinates;
+    private float[] minMax;
+    private Vector2 a, b, c;
+    private float angle, length;
+    private float cos1, cos2, sin1, sin2;
+   
+    //Managers
     private SpearThrow ability;
     private InputManager IM;
     int ID;
@@ -41,7 +44,7 @@ public class MenuWheel : MonoBehaviour {
         minMax = new float[nrOptions * 2];
         angle = 2 * Mathf.PI / nrOptions;
         drawWheel();
-        IM = GameManager.input;
+        IM = FindObjectOfType<InputManager>();
         IM.OnFirstTouchBeginSub(checkIfCenter, ID);
         IM.OnFirstTouchEndSub(OnRelease, ID);
         IM.OnFirstTouchMoveSub(updateMouse, ID);
@@ -81,15 +84,15 @@ public class MenuWheel : MonoBehaviour {
   
             listOfButtons2[i] = Instantiate(listOfButtons[i]) as GameObject;
             listOfButtons2[i].transform.parent = GameObject.Find("Wheel").transform;
-            listOfButtons2[i].transform.localPosition = new Vector3(Mathf.Cos(cos1+Mathf.PI) * radius, Mathf.Sin(sin1 + Mathf.PI) * radius, 0);
+            listOfButtons2[i].transform.localPosition = new Vector3(Mathf.Cos(cos1+Mathf.PI) * radiusForImages, Mathf.Sin(sin1 + Mathf.PI) * radiusForImages, 0);
             listOfButtons2[i].transform.localScale = Vector3.one*10;
             listOfButtons2[i].transform.localRotation = Quaternion.identity;
-            coordinates[i + 1] = new Vector2(Mathf.Cos(cos2) * screenWidth, Mathf.Sin(sin2) * screenWidth);
+            coordinates[i + 1] = new Vector2(Mathf.Cos(cos2) * responseWidth, Mathf.Sin(sin2) * responseWidth);
         }
 
     }
     void checkWhichState() {       
-        switch (checkWhichField(test))
+        switch (checkWhichField(tempTouchPos))
         {
             case 0:
                 hover(0);               
@@ -103,6 +106,9 @@ public class MenuWheel : MonoBehaviour {
             case 3:
                 hover(3);
                 break;
+            case 10:
+                hover(10);
+                break;
             default:
                 Debug.Log("Button Out of Bound");
                 break;
@@ -110,18 +116,23 @@ public class MenuWheel : MonoBehaviour {
     }
 
     private int checkWhichField(Vector2 mousePos) {
-        currentButton = 0;
+         
 
-        bool[] myList = new bool[nrOptions];
-        for (int i = 0; i < nrOptions; i++)
-        {
-            myList[i] = rightOfLine(mousePos, coordinates[i + 1]);
+        if (Vector2.Distance(Vector2.zero, mousePos) < radiusForDeadZone) {
+            Debug.Log("No select");
+            currentButton = 10;
         }
+        else {
+            bool[] myList = new bool[nrOptions];
+            for (int i = 0; i < nrOptions; i++)
+            {
+                myList[i] = rightOfLine(mousePos, coordinates[i + 1]);
+            }
 
-        for (int i = 0; i < nrOptions; i++)
-            if (myList[i] == true && myList[(i + 1)%nrOptions] == false)
-                currentButton = i;
-            
+            for (int i = 0; i < nrOptions; i++)
+                if (myList[i] == true && myList[(i + 1) % nrOptions] == false)
+                    currentButton = i;
+        }
                    
         return currentButton;
 
@@ -152,7 +163,7 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 0:
                 Debug.Log("Button 1 selected");
-                ability.UseAbility();
+                //ability.UseAbility();
                 break;
             case 1:
                 Debug.Log("Button 2 selected");
@@ -163,7 +174,9 @@ public class MenuWheel : MonoBehaviour {
             case 3:
                 Debug.Log("Button 4 selected");
                 break;
-
+            case 10:
+                Debug.Log("Nothing selected");
+                break;
         }
     }
     void hover(int exception) {
@@ -196,6 +209,6 @@ public class MenuWheel : MonoBehaviour {
             OnClick();
     }
     void updateMouse(Vector2 touchPos) {
-        test = touchPos - new Vector2(Screen.width / 2, Screen.height / 2);
+        tempTouchPos = touchPos - new Vector2(Screen.width / 2, Screen.height / 2);
     }
 }
