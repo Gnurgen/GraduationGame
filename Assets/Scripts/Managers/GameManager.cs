@@ -150,7 +150,7 @@ public class GameManager {
     {
         get
         {
-            if (_inputManager == null)
+			if (_inputManager == null)
                 _inputManager = Object.FindObjectOfType(typeof(InputManager)) as InputManager;
             return _inputManager;
         }
