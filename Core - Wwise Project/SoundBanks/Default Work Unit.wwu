@@ -15,7 +15,9 @@
 						<ObjectRef Name="Enemy_Melee_Hit_Player_Play" ID="{4615B66F-3842-4202-9FB7-D98B0F1E3B05}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Missile_Play" ID="{92A11D7E-80C1-424E-A550-A5F0EEDB5766}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Beam_Play" ID="{B2DF52C3-BDB9-4352-966F-634CF2D78AC2}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Menu_Close_Play" ID="{6A146299-26B4-4358-988F-54B7615BA0D1}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Beam_Target_Stop" ID="{1D90B352-097E-4395-9551-05E06D009842}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Enemy_Death_Play" ID="{DF609008-FE9B-43EB-A007-4946F727D3F9}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Player_Death_Play" ID="{A19950F9-F84D-4500-9249-A71A8298942C}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Draw_Ability_Control_Play" ID="{B69E6988-92CF-45F2-8CCA-9C23C28014E5}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Environmental_Ambience_Play" ID="{99462587-113B-4609-B0DD-7E0C2E76EDA7}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
@@ -36,9 +38,9 @@
 						<ObjectRef Name="Button_Start_Game_Play" ID="{70F51D59-0D5C-49CF-89D6-F2F2BE65AB1E}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Shield_Up_Play" ID="{A8E85E7E-59EF-49E6-B87B-EA9E1A5999FF}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Shield_Down_Play" ID="{9EC23F94-68D9-4A09-B807-0ADE8259B3C3}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Menu_Open_Play" ID="{00884564-CDA7-4A29-9113-52AC12CDD50D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Level_Up_Play" ID="{AD3488E9-A504-4A4B-A573-ED052EE4A555}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Beam_Stop" ID="{F66F4FB0-EBC4-4A89-86DB-AFEB9F94E748}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
-						<ObjectRef Name="Button_Wheel_Play" ID="{24EE1856-8954-4AAB-9870-2CBE4EFBCD07}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Missile_Move_Stop" ID="{AE201F62-3E44-4AE7-B25A-A265C6CB0137}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Draw_Ability_Stop" ID="{D3D4C2DE-7448-4B5E-A6E3-B8749BAD41FE}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Spear_Target_Play" ID="{81FD7E0D-6A25-4B7E-B71B-23B11208C0CC}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
@@ -52,10 +54,14 @@
 						<ObjectRef Name="Music_System_Stop" ID="{D056B9F1-AA51-4D7A-A3CC-970487D35846}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Player_Respawn_Play" ID="{9DAF49A4-4569-4DB7-ADBF-09CB53E9CC2A}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Rain_Move_Play" ID="{B35C0CE7-A9CB-4DF5-8CDC-537180D648DF}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Wheel_Close_Play" ID="{ED71231C-818E-4E1E-9C7A-E0DDFDB02E2E}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Circle_Ability_Control_Play" ID="{D5BD6912-5CDF-4E56-91E5-77DC00C3A2D4}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Ability_Swap_Play" ID="{33B06743-4F12-4EB5-BD62-140DB090830E}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Button_Menu_Play" ID="{786D9BDF-350E-4EBF-9251-E7D38FD9A30D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Enemy_Ranged_Play" ID="{78ECDFF8-1800-4F10-BBBA-5FE068AD6A41}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Wheel_Open_Play" ID="{CBAE2359-7FA3-4F49-8E3C-D18A5C360E36}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Button_Wheel_Select_Play" ID="{D993222A-9F6F-4F86-9A5E-37F3F1A7F069}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Button_Wheel_Hover_Play" ID="{EE5BE2A7-40BC-4FB8-9CDA-C7A104E9D0AF}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>

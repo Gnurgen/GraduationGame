@@ -7,9 +7,15 @@ public class saveLoad : MonoBehaviour {
     float playerHealth;
     int playerLVL;
     float playerXP;
-
+   
     //Manager 
+    public InputManager IM;
+    private int ID;
 
+    void Awake() {
+        IM = GameManager.input;
+        ID = GameManager.input.GetID();
+    }
 
     public void save () {
         Debug.Log("Save");
@@ -23,8 +29,7 @@ public class saveLoad : MonoBehaviour {
         PlayerPrefs.SetFloat("Player Position Y", playerPos.y);
         PlayerPrefs.SetFloat("Player Position Z", playerPos.z);
         PlayerPrefs.SetInt("Player Level", playerLVL);
-
-        closeMenu();
+        
 	}
 
     public void load() {
@@ -33,12 +38,28 @@ public class saveLoad : MonoBehaviour {
         print(PlayerPrefs.GetFloat("Player XP"));
         print(new Vector3(PlayerPrefs.GetFloat("Player Position X"), PlayerPrefs.GetFloat("Player Position Y"), PlayerPrefs.GetFloat("Player Position Z")));
         print(PlayerPrefs.GetInt("Player Level"));
-
-        closeMenu();
+        
     }
 
-    void closeMenu() {
+    public void closeMenu() {
         gameObject.SetActive(false);
+        allowTouch();
     }
-	
+
+    public void openMenu()
+    {
+        gameObject.SetActive(true);
+        terminateTouch();
+    }
+
+    void terminateTouch()
+    {
+        Debug.Log("Terminate Touch");
+        IM.TakeControl(ID);
+    }
+
+    void allowTouch()
+    {
+        IM.ReleaseControl(ID);
+    }
 }

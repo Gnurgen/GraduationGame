@@ -18,6 +18,7 @@ public class killme : MonoBehaviour {
         {
             Instantiate(RD,transform.position,transform.rotation);
             Destroy(transform.parent.parent.gameObject);
+            GameManager.events.ResourceDrop(gameObject, 5);
         }
     }
 }
