@@ -33,18 +33,18 @@ public class RoomWallEditor : Editor
             for (i = 0; i < prefabs.Length; i++)
             {
                 prefab = (prefabs[i] as GameObject).GetComponent<RoomWall>();
-                strList[i] = prefab.prefabInstance;
+                strList[i] = prefab.referenceName;
                 for (j = 0; j < objects.Length; j++)
                 {
                     wall = (objects[j] as GameObject).GetComponent<RoomWall>();
-                    if (wall.prefabInstance == prefab.prefabInstance)
+                    if (wall.referenceName == prefab.referenceName)
                     {
                         if (selectionName == null)
                         {
-                            selectionName = wall.prefabInstance;
+                            selectionName = wall.referenceName;
                             selectionIndex = i;
                         }
-                        else if (selectionName != wall.prefabInstance)
+                        else if (selectionName != wall.referenceName)
                             selectionIndex = -1;
                     }
                 }
