@@ -23,7 +23,7 @@ public class GameManager {
         _instance = this;
         _managers = GameObject.Find("Managers");
         _managers.SendMessage("Subscribe");
-        menu.gameObject.SetActive(false);
+        //menu.gameObject.SetActive(false);
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
