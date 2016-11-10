@@ -14,7 +14,12 @@ public class EnemyRangedAttack : MonoBehaviour {
         rig = GetComponent<Rigidbody>();
     }
     // Update is called once per frame
-
+    void OnEnable()
+    {
+        GetComponent<BoxCollider>().enabled = true;
+        targetHit = false;
+        step = 0;
+    }
     
     void FixedUpdate()
     {
@@ -34,12 +39,14 @@ public class EnemyRangedAttack : MonoBehaviour {
             targetHit = true;
             Invoke("PoolItSelf", 20f);
             GameManager.events.EnemyRangedMiss(gameObject);
+            GetComponent<BoxCollider>().enabled = false;
         }
         if (col.tag == "Player")
         {
             targetHit = true;
             transform.SetParent(col.transform,true);
             GameManager.events.EnemyAttackHit(enemyID, dmg);
+            GetComponent<BoxCollider>().enabled = false;
             Invoke("PoolItSelf", 20f);
         }
     }
