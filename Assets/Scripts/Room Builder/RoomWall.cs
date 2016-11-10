@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RoomWall : MonoBehaviour {
 
-    public string prefabInstance;
+    public string referenceName;
     public bool isDefault;
     public bool hasDoor;
 

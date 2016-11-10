@@ -33,18 +33,18 @@ public class RoomTileEditor : Editor
             for (i = 0; i < prefabs.Length; i++)
             {
                 prefab = (prefabs[i] as GameObject).GetComponent<RoomTile>();
-                strList[i] = prefab.prefabInstance;
+                strList[i] = prefab.referenceName;
                 for(j = 0; j < objects.Length; j++)
                 {
                     tile = (objects[j] as GameObject).GetComponent<RoomTile>();
-                    if (tile.prefabInstance == prefab.prefabInstance)
+                    if (tile.referenceName == prefab.referenceName)
                     {
                         if (selectionName == null)
                         {
-                            selectionName = tile.prefabInstance;
+                            selectionName = tile.referenceName;
                             selectionIndex = i;
                         }
-                        else if (selectionName != tile.prefabInstance)
+                        else if (selectionName != tile.referenceName)
                             selectionIndex = -1;
                     }
                 }
