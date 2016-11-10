@@ -47,9 +47,9 @@ public class EventManager : MonoBehaviour
         if (OnEnemyRangedMiss != null)
             OnEnemyRangedMiss(Id);
     }
-    public delegate void EnemyAttackHitAction(GameObject enemyID, int dmg);
+    public delegate void EnemyAttackHitAction(GameObject enemyID, float dmg);
     public event EnemyAttackHitAction OnEnemyAttackHit;
-    public void EnemyAttackHit(GameObject Id, int dmg)
+    public void EnemyAttackHit(GameObject Id, float dmg)
     {
         if (OnEnemyAttackHit != null)
             OnEnemyAttackHit(Id, dmg);

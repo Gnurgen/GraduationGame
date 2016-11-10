@@ -118,7 +118,7 @@ public class AudioManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    public void EnemyAttackHitPlaySub(GameObject enemyID, int dmg)
+    public void EnemyAttackHitPlaySub(GameObject enemyID, float dmg)
     {
         if (enemyID.tag == "Melee")
             EnemyMeleeHitPlayerPlay(GameManager.player);
