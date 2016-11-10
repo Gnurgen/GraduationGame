@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RoomBuilder : MonoBehaviour {
 
@@ -51,7 +52,7 @@ public class RoomBuilder : MonoBehaviour {
                                 roomUnits[i, j].gameObject.SetActive(false);
                         }
                         if (roomUnits[i, j] && roomUnits[i, j].gameObject.activeInHierarchy)
-                            roomUnits[i, j].setWallDisplay(i == 0, j == 0, roomUnits.GetLength(0) - i == 1, roomUnits.GetLength(1) - j == 1);
+                            roomUnits[i, j].setWallDisplay(i == 0, j == 0, _roomSize.x - i == 1, _roomSize.y - j == 1);
                     }
                 }
             }
@@ -111,6 +112,43 @@ public class RoomBuilder : MonoBehaviour {
 
     void Update () {
 	}
+
+    public void AddRoomObject(GameObject go)
+    {
+        go.transform.parent = transform;
+    }
+
+    /*
+    public void AddRoomObject(GameObject go)
+    {
+        refreshObjectList();
+        if (objectList.IndexOf(go) < 0)
+        {
+            objectList.Add(go);
+            Debug.Log("Added " + go.name + " to room");
+        }
+    }
+ 
+    public Object[] GetObjects()
+    {
+        refreshObjectList();
+        Object[] objects = new Object[objectList.Count];
+        for (int i = 0; i < objectList.Count ; i++)
+            objects[i] = objectList[i];
+        return objects;
+    }
+
+    public int GetObjectsNum()
+    {
+        refreshObjectList();
+        return objectList.Count;
+    }
+
+    private void refreshObjectList()
+    {
+        objectList = objectList.Where(item => item != null).ToList();
+    }
+    */
 
     private RoomUnit createRoomUnit()
     {

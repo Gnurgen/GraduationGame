@@ -23,7 +23,7 @@ public class GameManager {
         _instance = this;
         _managers = GameObject.Find("Managers");
         _managers.SendMessage("Subscribe");
-        menu.gameObject.SetActive(false);
+        //menu.gameObject.SetActive(false);
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
@@ -150,7 +150,7 @@ public class GameManager {
     {
         get
         {
-            if (_inputManager == null)
+			if (_inputManager == null)
                 _inputManager = Object.FindObjectOfType(typeof(InputManager)) as InputManager;
             return _inputManager;
         }
