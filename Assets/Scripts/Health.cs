@@ -59,7 +59,7 @@ public class Health : MonoBehaviour {
         }
     }
 
-    private void decreaseHealth(int val)
+    public void decreaseHealth(int val)
     {
         _health -= val;
         if (_health <= 0)
