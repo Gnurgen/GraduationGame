@@ -46,6 +46,7 @@ public class EnemyRangedAttack : MonoBehaviour {
             targetHit = true;
             transform.SetParent(col.transform,true);
             GameManager.events.EnemyAttackHit(enemyID, dmg);
+            col.GetComponent<Health>().decreaseHealth(dmg);
             GetComponent<BoxCollider>().enabled = false;
             Invoke("PoolItSelf", 20f);
         }
@@ -58,8 +59,7 @@ public class EnemyRangedAttack : MonoBehaviour {
 
     }
     void PoolItSelf()
-    {
-        GameManager.events.PoolObject(gameObject);
+    { 
         Destroy(gameObject);
     } 
 }

@@ -2,12 +2,22 @@
 using System.Collections;
 
 public class EnemyStats : Health {
-    [SerializeField]
-    private float _baseDamage;
 
-    private enum Setting {_1x, _2x, _3x,_4x, _5x}
-    [SerializeField]
-    private Setting strength;
+    [Range(1,5)]
+    public int strength = 1;
+    public float aggroRange;
+    public float turnRate;
+    public float damage;
+    public float damagePerLevel;
+    public float moveSpeed;
+    public float moveSpeedPerLevel;
+    public float attackRange;
+    public float attackRangePerLevel;
+    public float attackSpeed;
+    public float attackSpeedPerLevel;
+
+
+
     void Awake()
     {
        setHealthVars(strength.GetHashCode()+1);
