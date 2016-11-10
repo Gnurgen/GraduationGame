@@ -47,6 +47,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (!dashing && !attacking)
         {
+            GameManager.events.PlayerDashBegin(gameObject);
             anim.SetTrigger("Dash");
             dashing = true;
 			dashingStartDis = Vector3.Distance(transform.position, IM.GetWorldPoint(point));
