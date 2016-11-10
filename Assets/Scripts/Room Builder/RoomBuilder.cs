@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class RoomBuilder : MonoBehaviour {
 
@@ -11,8 +10,7 @@ public class RoomBuilder : MonoBehaviour {
     private static RoomWall _defaultWall;
 
     public string roomName = "New Room";
-    public int roomIndex = 0;
-    public bool roomModified = false;
+    public int mapIndex = 0;
     public RoomUnit[,] roomUnits = new RoomUnit[MAX_UNIT_SIZE, MAX_UNIT_SIZE];
 
     private List<GameObject> objectList = new List<GameObject>();
