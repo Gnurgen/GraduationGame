@@ -13,6 +13,9 @@ public class PlayerControls : MonoBehaviour {
     float cameraRotation;
 	int ID;
 
+	//test
+	Vector3 ray;
+
 
     private float navmeshSpeed;
 
@@ -56,8 +59,8 @@ public class PlayerControls : MonoBehaviour {
         {
             anim.SetTrigger("Attack");
             navMeshAgent.ResetPath();
-			transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end));
-            transform.rotation *= Quaternion.Euler(0, 45,0);
+			transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end) - IM.GetWorldPoint (swipe.begin));
+			ray = transform.position + IM.GetWorldPoint (swipe.end) - IM.GetWorldPoint (swipe.begin);
             attacking = true;
         }
     }
@@ -79,6 +82,8 @@ public class PlayerControls : MonoBehaviour {
         {
             anim.SetBool("Run", false);
         }
+
+		Debug.DrawRay (transform.position, ray);
     }
   
 }
