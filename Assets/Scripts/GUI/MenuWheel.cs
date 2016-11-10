@@ -44,7 +44,8 @@ public class MenuWheel : MonoBehaviour {
         minMax = new float[nrOptions * 2];
         angle = 2 * Mathf.PI / nrOptions;
         drawWheel();
-        IM = FindObjectOfType<InputManager>();
+        IM = GameManager.input;
+        ID = IM.GetID();
         IM.OnFirstTouchBeginSub(checkIfCenter, ID);
         IM.OnFirstTouchEndSub(OnRelease, ID);
         IM.OnFirstTouchMoveSub(updateMouse, ID);
