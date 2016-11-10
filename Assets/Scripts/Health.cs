@@ -3,10 +3,8 @@ using System.Collections;
 using UnityEditor;
 
 public class Health : MonoBehaviour {
-    [SerializeField]
-    private int _baseHealth;
-    [SerializeField]
-    private int _healthIncreasePerLevelInPercentage;
+    public int _baseHealth;
+    public int _healthIncreasePerLevelInPercentage;
     private int _healthPerRes;
     private bool _healthOnLevel = false;
     private int _health, _maxHealth;
