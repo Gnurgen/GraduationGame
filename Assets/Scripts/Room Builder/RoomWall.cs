@@ -3,12 +3,12 @@ using System.Collections;
 
 public class RoomWall : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public bool isDefault;
+
+    void Start () {
 	
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}
