@@ -37,7 +37,7 @@ public class PlayerControls : MonoBehaviour {
         if(!dashing && !attacking)
         {
             anim.SetBool("Run",true);
-            navMeshAgent.destination = point;
+			navMeshAgent.destination = IM.GetWorldPoint (point);
         }
     }
     void DashTo(Vector2 point)
