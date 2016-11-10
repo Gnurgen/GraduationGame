@@ -10,15 +10,37 @@ public class RoomUnit : MonoBehaviour {
     private RoomWall[] walls = new RoomWall[4];
 
 	void Reset() {
+        int i;
         RoomTile tilePrefab = RoomBuilder.defaultTile;
         RoomWall wallPrefab = RoomBuilder.defaultWall;
 
-        for (int i = 0; i < tiles.Length; i++)
+        GameObject parent = new GameObject("Tiles");
+        parent.transform.position = transform.position;
+        parent.transform.parent = transform;
+        for (i = 0; i < tiles.Length; i++)
         {
             tiles[i] = PrefabUtility.InstantiatePrefab(tilePrefab) as RoomTile;
             tiles[i].transform.position = new Vector3(transform.position.x + (i % TILE_RATIO), transform.position.y, transform.position.z + Mathf.Floor(i/ TILE_RATIO));
-            tiles[i].transform.parent = transform;
+            tiles[i].transform.parent = parent.transform;
+            tiles[i].index = i;
         }
+
+        parent = new GameObject("Walls");
+        parent.transform.position = transform.position;
+        parent.transform.parent = transform;
+        for (i = 0; i < walls.Length; i++)
+        {
+            walls[i] = PrefabUtility.InstantiatePrefab(wallPrefab) as RoomWall;
+            walls[i].transform.parent = parent.transform;
+            walls[i].index = i;
+        }
+        walls[0].transform.position = new Vector3(transform.position.x +  5.0f, transform.position.y, transform.position.z -  0.5f);
+        walls[1].transform.position = new Vector3(transform.position.x -  0.5f, transform.position.y, transform.position.z +  5.0f);
+        walls[2].transform.position = new Vector3(transform.position.x +  5.0f, transform.position.y, transform.position.z + 10.5f);
+        walls[3].transform.position = new Vector3(transform.position.x + 10.5f, transform.position.y, transform.position.z +  5.0f);
+
+        walls[1].transform.Rotate(Vector3.up * 90);
+        walls[3].transform.Rotate(Vector3.up * 90);
     }
 
     void Start()
@@ -31,8 +53,21 @@ public class RoomUnit : MonoBehaviour {
 
     }
 
+    public void ReplaceTile(RoomTile tile, int index)
+    {
+        tiles[index] = tile;
+    }
+
+    public void ReplaceWall(RoomWall wall, int index)
+    {
+        walls[index] = wall;
+    }
+
     public void setWallDisplay(bool top, bool left, bool bottom, bool right)
     {
-
+        walls[0].gameObject.SetActive(left);
+        walls[1].gameObject.SetActive(top);
+        walls[2].gameObject.SetActive(right);
+        walls[3].gameObject.SetActive(bottom);
     }
 }

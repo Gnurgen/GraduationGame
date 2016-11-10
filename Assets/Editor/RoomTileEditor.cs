@@ -21,27 +21,30 @@ public class RoomTileEditor : Editor
         {
             Object[] objects = Selection.objects;
             Object[] selection = new Object[objects.Length];
+            Object[] prefabs = Resources.LoadAll("Tile");
+            RoomTile prefab;
 
-            Object[] tiles = Resources.LoadAll("Tile");
-            string[] strList = new string[tiles.Length];
+            string[] strList = new string[prefabs.Length];
             string selectionName = null;
             int selectionIndex = 0;
             int j;
             int i;
 
-            for (i = 0; i < tiles.Length; i++)
+            for (i = 0; i < prefabs.Length; i++)
             {
-                strList[i] = tiles[i].name;
+                prefab = (prefabs[i] as GameObject).GetComponent<RoomTile>();
+                strList[i] = prefab.prefabInstance;
                 for(j = 0; j < objects.Length; j++)
                 {
-                    if (objects[j].name == tiles[i].name)
+                    tile = (objects[j] as GameObject).GetComponent<RoomTile>();
+                    if (tile.prefabInstance == prefab.prefabInstance)
                     {
                         if (selectionName == null)
                         {
-                            selectionName = tiles[i].name;
+                            selectionName = tile.prefabInstance;
                             selectionIndex = i;
                         }
-                        else if (selectionName != tiles[i].name)
+                        else if (selectionName != tile.prefabInstance)
                             selectionIndex = -1;
                     }
                 }
@@ -55,7 +58,7 @@ public class RoomTileEditor : Editor
 
                 for (i = 0; i < objects.Length; i++)
                 {
-                    newTile = PrefabUtility.InstantiatePrefab(tiles[selected] as GameObject) as GameObject;
+                    newTile = PrefabUtility.InstantiatePrefab(prefabs[selected] as GameObject) as GameObject;
                     obj = objects[i] as GameObject;
                     Undo.RegisterCreatedObjectUndo(newTile, "Created replacement tile");
 
@@ -64,6 +67,8 @@ public class RoomTileEditor : Editor
                     newTile.transform.localScale = obj.transform.localScale;
                     newTile.transform.parent = obj.transform.parent;
                     newTile.transform.SetSiblingIndex(obj.transform.GetSiblingIndex());
+
+                    obj.transform.parent.transform.parent.GetComponent<RoomUnit>().ReplaceTile(newTile.GetComponent<RoomTile>(), obj.GetComponent<RoomTile>().index);
 
                     Undo.DestroyObjectImmediate(obj);
                     selection[i] = newTile;
