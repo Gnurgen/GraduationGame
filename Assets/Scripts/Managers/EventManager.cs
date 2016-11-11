@@ -69,7 +69,7 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnPlayerMove;
     public event PlayerAction OnPlayerIdle;
 
-    public delegate void PlayerAttackHitAction(GameObject Id, GameObject tar, int val);
+    public delegate void PlayerAttackHitAction(GameObject Id, GameObject tar, float val);
     public event PlayerAttackHitAction OnPlayerAttackHit;
 
 
@@ -88,7 +88,7 @@ public class EventManager : MonoBehaviour
         if (OnPlayerDashEnd != null)
             OnPlayerDashEnd(Id);
     }
-    public void PlayerAttackHit(GameObject Id, GameObject tar, int val)
+    public void PlayerAttackHit(GameObject Id, GameObject tar, float val)
     {
         if (OnPlayerAttackHit != null)
             OnPlayerAttackHit(Id, tar, val);
