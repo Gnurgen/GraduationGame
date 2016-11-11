@@ -9,7 +9,9 @@ public class EnemyHealthBars : MonoBehaviour {
     public float health;
     private float scale;
     public GameObject enemy;
-	void Start () {
+    Vector3 position;
+
+    void Start () {
 
     }
     void Update() {
@@ -23,6 +25,8 @@ public class EnemyHealthBars : MonoBehaviour {
     }
 
     void healthPosition() {
-        gameObject.transform.position = enemy.transform.position;
+        position = enemy.transform.position;
+        gameObject.transform.position = position;
+        gameObject.transform.position.z = 700;
     }
 }
