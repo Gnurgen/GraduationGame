@@ -27,6 +27,6 @@ public class EnemyHealthBars : MonoBehaviour {
     void healthPosition() {
         position = enemy.transform.position;
         gameObject.transform.position = position;
-        gameObject.transform.position.z = 700;
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 700);
     }
 }
