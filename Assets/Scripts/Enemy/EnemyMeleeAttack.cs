@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyMeleeAttack : MonoBehaviour {
 
     private Transform body;
-    private int dmg;
+    private float dmg;
     private Collider myCol;
     void Start()
     {

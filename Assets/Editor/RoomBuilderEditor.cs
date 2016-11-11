@@ -49,7 +49,7 @@ public class RoomEditor : Editor {
             Selection.objects = new Object[] { workbench.gameObject };
     }
 
-    [MenuItem("Tools/Room Builder/Add Selection %&e", false, 20)]
+    [MenuItem("Tools/Room Builder/Add Selection %&e", false, 21)]
     public static void AddToRoom()
     {
         RoomBuilder workbench = FindObjectOfType<RoomBuilder>() as RoomBuilder;
@@ -62,6 +62,17 @@ public class RoomEditor : Editor {
                     workbench.AddRoomObject(objects[i] as GameObject);
             }
         }
+    }
+
+    [MenuItem("Tools/Room Builder/Update References", false, 22)]
+    public static void UpdateRoomReferences()
+    {
+        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().ToList();
+        // For each [decoration|enemy|destructible] 
+        // if reference == prefab
+        // replace object with prefab
+        // end for
+        // overwrite room
     }
 
     override public void OnInspectorGUI()
