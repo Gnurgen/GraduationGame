@@ -112,6 +112,16 @@ public class RoomBuilder : MonoBehaviour {
             if (tiles[i].referenceName == "Default Tile")
                 tiles[i].gameObject.layer = 8;
         }
+
+
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            if(transform.GetChild(i).tag == "Melee")
+            {
+                transform.GetChild(i).GetComponent<CapsuleCollider>().isTrigger = false;
+            }
+        }
+
     }
 
     void Update () {

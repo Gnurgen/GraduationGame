@@ -146,6 +146,8 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
+
+
         StartCoroutine("DelayedScan");
 
     }

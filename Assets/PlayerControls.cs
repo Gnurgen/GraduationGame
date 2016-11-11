@@ -10,6 +10,8 @@ public class PlayerControls : MonoBehaviour {
     public bool dashing, attacking;
     public float dashingSpeed;
     public float moveSpeed;
+    public float damage = 10;
+    public float attackRange = 1;
     float dashingDis, dashingStartDis;
     float cameraRotation;
 	int ID;
@@ -86,9 +88,20 @@ public class PlayerControls : MonoBehaviour {
             GameManager.events.PlayerAttack(gameObject);
             attacking = true;
             // do attack;
-            Debug.Log("Attack blob");
             transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end) - IM.GetWorldPoint(swipe.begin));
+            Collider[] hit = Physics.OverlapSphere(transform.position, attackRange);
 
+            foreach(Collider c in hit)
+            {
+                if(c.tag == "Melee")
+                {
+                    c.GetComponent<Health>().decreaseHealth(damage);
+                    GameManager.events.PlayerAttackHit(gameObject, c.gameObject, damage);
+                }
+            }
+
+
+            currentAttackSpeed = attackSpeed;
             attacking = false;
         }
         //if (!dashing && !attacking)

@@ -20,7 +20,7 @@ public class PlayerBlobPickUp : MonoBehaviour {
         {
             if(objCols[i].tag == "Blob")
             {
-                if (Vector3.Distance(transform.position, objCols[i].transform.position) < 0.25f)
+                if (Vector3.Distance(transform.position, objCols[i].transform.position) < 2f)
                 {
                     GameManager.events.ResourcePickup(objCols[i].gameObject, 1);
                     
