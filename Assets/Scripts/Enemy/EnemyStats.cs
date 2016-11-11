@@ -12,8 +12,10 @@ public class EnemyStats : Health {
     public float damagePerLevel;
     public float moveSpeed;
     public float moveSpeedPerLevel;
-    public float attackRange;
+    public float attackDist;
     public float attackRangePerLevel;
+    public float attackBredthInRadians;
+    public float attackBredthPerLevel;
     public float attackSpeed;
     public float attackSpeedPerLevel;
 
