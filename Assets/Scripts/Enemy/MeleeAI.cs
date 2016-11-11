@@ -60,7 +60,6 @@ public class MeleeAI : EnemyStats {
 	{
         for (;;)
         {
-            Debug.Log("Idle");
             if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
             {
                 target = GameManager.player;

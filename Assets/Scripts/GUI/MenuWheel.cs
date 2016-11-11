@@ -162,6 +162,8 @@ public class MenuWheel : MonoBehaviour {
         Wheel.SetActive(false);
         mouseRelease = false;
 
+        GameManager.events.WheelSelect(selectedButton);
+
         switch (selectedButton) {
             default:
                 Debug.Log("Button not found");
@@ -181,10 +183,12 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 10:
                 Debug.Log("Nothing selected");
+                
                 break;
         }
     }
     void hover(int exception) {
+        GameManager.events.WheelHover(exception);
         for (int i = 0; i < nrOptions; i++) {
             if(i != exception)
                 listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOff();
@@ -196,6 +200,7 @@ public class MenuWheel : MonoBehaviour {
     
     void OnClick()
     {
+        GameManager.events.WheelOpen();
         updateMouse(new Vector2(Screen.width / 2, Screen.height / 2));
         IM.TakeControl(ID);
         wheelClicked = true;

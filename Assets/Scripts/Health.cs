@@ -69,7 +69,11 @@ public class Health : MonoBehaviour {
                 print("øv :( (pik)spiller er død \n #  #\n#   #\n ###");
             }
             else
+            {
                 GameManager.events.EnemyDeath(gameObject);
+                GameManager.events.ResourceDrop(gameObject, 3); // AMOUNT OF BLOBS DROPS
+                Destroy(gameObject);
+            }
         }
     }
 

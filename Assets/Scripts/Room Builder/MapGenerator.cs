@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Pathfinding;
 
 public class MapGenerator : MonoBehaviour {
 
@@ -145,6 +146,15 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
+        StartCoroutine("DelayedScan");
+
+    }
+
+    IEnumerator DelayedScan()
+    {
+        yield return new WaitForSeconds(2f);
+        AstarPath p = FindObjectOfType<AstarPath>();
+        AstarPath.active.Scan();
     }
 
     void Update() {

@@ -31,6 +31,7 @@ public class SpearController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        
         if(col.tag == "Melee" || col.tag == "Ranged")
         {
             col.GetComponent<Health>().decreaseHealth(damage);

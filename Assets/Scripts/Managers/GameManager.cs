@@ -13,6 +13,7 @@ public class GameManager {
     private InputManager _inputManager;
     private TimeManager _timeManager;
     private GameObject _player;
+    private PoolManager _poolManager;
     private GameObject _managers;
     private Menu _menu;
     private static int _score, _experience, _playerLevel;
@@ -27,6 +28,12 @@ public class GameManager {
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
+        events.OnPlayerDeath += PlayerDeath;
+    }
+
+    private void PlayerDeath(GameObject Id)
+    {
+        Application.Quit();
     }
 
     public static int score
@@ -71,6 +78,7 @@ public class GameManager {
     private Settings settings = new Settings(Language.None);
 
     private float prevTimeScale;
+   
 
     private struct Settings{
         public Language language;
@@ -161,6 +169,23 @@ public class GameManager {
         get
         {
             return game.inputManager;
+        }
+    }
+    public PoolManager poolManager
+    {
+        get
+        {
+            if (_poolManager == null)
+                _poolManager = Object.FindObjectOfType(typeof(PoolManager)) as PoolManager;
+            return _poolManager;
+        }
+    }
+
+    public static PoolManager pool
+    {
+        get
+        {
+            return game.poolManager;
         }
     }
 

@@ -86,7 +86,8 @@ public class PlayerControls : MonoBehaviour {
             GameManager.events.PlayerAttack(gameObject);
             attacking = true;
             // do attack;
-            Debug.Log("Attack");
+            Debug.Log("Attack blob");
+            transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end) - IM.GetWorldPoint(swipe.begin));
 
             attacking = false;
         }

@@ -67,7 +67,7 @@ public class TimeManager : MonoBehaviour {
     }
     private void NormalTime(int i)
     {
-        if (i == 10)
+        if (i != 10)
             return;
         _slow = false;
         _doTimeChange = true;

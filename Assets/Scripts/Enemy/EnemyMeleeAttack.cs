@@ -20,7 +20,6 @@ public class EnemyMeleeAttack : MonoBehaviour {
         if (body.tag == "Melee")
         {
             dmg = body.GetComponent<EnemyStats>().damage;
-            body.SendMessage("RegisterWeapon");
         }
         else
         {

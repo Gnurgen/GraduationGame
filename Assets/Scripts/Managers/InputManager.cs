@@ -117,7 +117,7 @@ public class InputManager : MonoBehaviour {
 					// and the previous one becomes the current one, but cleaned so its ready for new input.
 					TouchSession temp = previousTouchSession;
 					previousTouchSession = currentTouchSession;
-					currentTouchSession = temp;
+                    currentTouchSession = temp;
 					currentTouchSession.CleanSession ();
 				}
 			} else { // Finger are touching the screen, add their down and up to the current session, and pass the initial fingers up, move and down along.
@@ -207,16 +207,17 @@ public class InputManager : MonoBehaviour {
 		{
 			OnTap (currentTouchSession.GetFirstTouch().end);
 			if(previousTouchSession.FirstTouchID() != -1 && IsTap(previousTouchSession.GetFirstTouch()) && IsDoubleTap(previousTouchSession.GetFirstTouch(), currentTouchSession.GetFirstTouch()))
-			{
-				OnDoubleTap (previousTouchSession.GetFirstTouch().end, currentTouchSession.GetFirstTouch().end);
+            {
+                OnDoubleTap (previousTouchSession.GetFirstTouch().end, currentTouchSession.GetFirstTouch().end);
 			}
 		} else if(IsSwipe(currentTouchSession.GetFirstTouch()))
-		{
-			OnSwipe (currentTouchSession.GetFirstTouch().begin, currentTouchSession.GetFirstTouch().end);
+        {
+            OnSwipe (currentTouchSession.GetFirstTouch().begin, currentTouchSession.GetFirstTouch().end);
 		}
 		// Analyse second touch finger
-		if(currentTouchSession.SecondTouchID() != -1)
+		/*if(currentTouchSession.SecondTouchID() != -1)
 		{
+            Debug.Log("TWO TOUCH");
 			if(IsTap(currentTouchSession.GetSecondTouch()))
 			{
 				OnTap (currentTouchSession.GetSecondTouch().end);
@@ -226,9 +227,9 @@ public class InputManager : MonoBehaviour {
 				}
 			} else if(IsSwipe(currentTouchSession.GetSecondTouch()))
 			{
-				OnSwipe (currentTouchSession.GetSecondTouch().begin, currentTouchSession.GetSecondTouch().end);
+				//OnSwipe (currentTouchSession.GetSecondTouch().begin, currentTouchSession.GetSecondTouch().end);
 			}
-		}
+		}*/
 	}
 
 	/*
@@ -398,8 +399,9 @@ public class InputManager : MonoBehaviour {
 
 	void OnSwipe(Touch p1, Touch p2)
 	{
+        Debug.Log("NIKOLAI SUTTER PIKKE PÅ KRISTOFFER; JA DER ER FLERE END EN");
 		if (swipeMethods.Count > 0) {
-			Swipe s = new Swipe ();
+            Swipe s = new Swipe ();
 			s.begin = p1.position;
 			s.end = p2.position;
 			if (owner < 0) {
