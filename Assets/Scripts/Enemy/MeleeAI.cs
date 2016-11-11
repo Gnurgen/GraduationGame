@@ -5,6 +5,7 @@ using Pathfinding;
 
 [RequireComponent (typeof(Seeker))]
 [RequireComponent (typeof(CharacterController))]
+[RequireComponent (typeof(Rigidbody))]
 public class MeleeAI : EnemyStats {
 
 
@@ -14,23 +15,19 @@ public class MeleeAI : EnemyStats {
     private Vector3 targetPositionAtPath;
     private Path path;
     private int pathIndex;
-    private float nextPointDistance = 1;
+    private float nextPointDistance = 2;
     private float recalcPathRange;
     private bool waitingForPath;
+    private bool moving;
+    private Vector3 yZero = new Vector3(1,0,1);
 
-    private int calls = 0, updcalls = 0;
-
-	// Use this for initialization
+   	// Use this for initialization
 	void Start () {
 		seeker = GetComponent<Seeker> ();
         cc = GetComponent<CharacterController>();
+        moving = false;
         StartCoroutine("StateHandler");
 	}
-
-    void Update()
-    {
-        updcalls++;
-    }
 
 	IEnumerator StateHandler()
 	{
@@ -38,15 +35,15 @@ public class MeleeAI : EnemyStats {
         {
             if(target == null)
             {
-                StartCoroutine("Idle");
+                yield return StartCoroutine("Idle");
             }
             if(target != null && Vector3.Distance(transform.position, target.transform.position) > attackRange)
             {
-                StartCoroutine("Chasing");
+                yield return StartCoroutine("Chasing");
             }
             if(target != null && Vector3.Distance(transform.position, target.transform.position) < attackRange)
             {
-                StartCoroutine("Attacking");
+                yield return StartCoroutine("Attacking");
             }
             yield return null;
         }
@@ -57,7 +54,8 @@ public class MeleeAI : EnemyStats {
 	{
         for (;;)
         {
-            if(Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
+            Debug.Log("Idle");
+            if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
             {
                 target = GameManager.player;
                 yield break;
@@ -71,61 +69,78 @@ public class MeleeAI : EnemyStats {
         // If there is a target and it is within aggro range
         for (;;)
         {
+            Debug.Log("Chasing");
             // If there is no target, stop chasing;
-            if(target == null)
+            if (target == null)
             {
                 yield break;
             }
 
-            // If there target got outside the aggro range, remvoe it and stop chasing
             if(Vector3.Distance(transform.position, target.transform.position) > aggroRange)
             {
                 target = null;
                 yield break;
             }
 
-            if(!waitingForPath)
+            if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
+            {
+                yield break;
+            }
+            // If there target got outside the aggro range, remvoe it and stop chasing
+            //if(Vector3.Distance(transform.position, target.transform.position) > aggroRange)
+            //{
+            //    target = null;
+            //    yield break;
+            //}
+
+            if (!waitingForPath)
             {
                 if(path == null || Vector3.Distance(targetPositionAtPath, target.transform.position) > recalcPathRange)
                 {
                     seeker.StartPath(transform.position, target.transform.position, ReceivePath);
                     waitingForPath = true;
+                    goto skip;
                 }
-                else
+
+                if (pathIndex < path.vectorPath.Count - 1)
                 {
                     if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
                     {
                         pathIndex++;
                     }
-
-                    if(pathIndex < path.vectorPath.Count)
-                    {
-                        // Rotate towards the current path point and move towards it
-                        Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
-                        dir = Vector3.Normalize(dir);
-                        Debug.Log(updcalls + " : " + calls);
-                        calls++;
-                        //dir *= moveSpeed * Time.deltaTime;
-                        //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(transform.position, path.vectorPath[pathIndex]), Time.deltaTime * turnRate);
-                        transform.position += dir * moveSpeed * Time.deltaTime;
-                            
-                            //Vector3.MoveTowards(transform.position, path.vectorPath[pathIndex], moveSpeed * Time.deltaTime);
-                        
-                        //cc.SimpleMove(dir / cc.velocity.magnitude);
-            
-                    }
                 }
+                // Rotate towards the current path point and move towards it
+                Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
+                dir *= moveSpeed * 0.02f;
+                //transform.LookAt(path.vectorPath[pathIndex] );
+                //Debug.Log(path.vectorPath[pathIndex]);
+                //transform.position = Vector3.MoveTowards(transform.position, path.vectorPath[pathIndex], 0.02f * moveSpeed);
+                //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(Vector3.Scale(transform.position, yZero)+Vector3.up, Vector3.Scale(path.vectorPath[pathIndex], yZero)+Vector3.up), Time.fixedDeltaTime * turnRate);
+                // Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(Vector3.Scale(transform.position, yZero) + Vector3.up, Vector3.Scale(path.vectorPath[pathIndex], yZero) + Vector3.up), turnRate * 0.02f);
+                // transform.position += transform.forward * moveSpeed * 0.02f;
+                cc.SimpleMove(dir);
+                
             }
-
-            yield return new WaitForSeconds(Time.unscaledDeltaTime);
+            skip:
+            yield return new WaitForSeconds(0.02f);
         }
     }
 
 	IEnumerator Attacking()
 	{
-		while (target != null && target != null && Vector3.Distance (transform.position, target.transform.position) < attackRange)
+		for(;;)
 		{
+            Debug.Log("Attacking");
 			// Define attacking
+            if(target == null)
+            {
+                yield break;
+            }
+            if(Vector3.Distance(transform.position, target.transform.position) > attackRange)
+            {
+                yield break;
+            }
+
 
 			yield return null;
 		}
@@ -146,6 +161,7 @@ public class MeleeAI : EnemyStats {
             {
                 pathIndex++;
             }
+            moving = true;
         }
         else
         {
