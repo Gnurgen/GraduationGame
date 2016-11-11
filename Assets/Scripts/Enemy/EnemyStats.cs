@@ -3,6 +3,7 @@ using System.Collections;
 
 public class EnemyStats : Health {
 
+
     [Range(1,5)]
     public int strength = 1;
     public float aggroRange;
@@ -15,6 +16,7 @@ public class EnemyStats : Health {
     public float attackRangePerLevel;
     public float attackSpeed;
     public float attackSpeedPerLevel;
+
 
 
 
