@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections;
 
 public class RoomUnit : MonoBehaviour {
-
+    
     public const int TILE_RATIO = 11;
 
     private RoomTile[] tiles = new RoomTile[TILE_RATIO * TILE_RATIO];
     private RoomWall[] walls = new RoomWall[4];
 
-	void Reset() {
+#if UNITY_EDITOR
+    void Reset() {
         int i;
         RoomTile tilePrefab = RoomBuilder.defaultTile;
         RoomWall wallPrefab = RoomBuilder.defaultWall;
@@ -42,7 +45,7 @@ public class RoomUnit : MonoBehaviour {
         walls[1].transform.Rotate(Vector3.up * 90);
         walls[3].transform.Rotate(Vector3.up * 90);
     }
-
+#endif
     void Start()
     {
 

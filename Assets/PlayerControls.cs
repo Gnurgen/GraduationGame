@@ -48,6 +48,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if(!dashing && !attacking)
         {
+            GameManager.events.PlayerMove(gameObject);
             shouldMove = true;
             target = IM.GetWorldPoint(point);
             seeker.StartPath(transform.position, target, ReceivePath);
@@ -100,7 +101,8 @@ public class PlayerControls : MonoBehaviour {
     {
         currentDashCooldown -= Time.fixedDeltaTime;
         currentAttackSpeed -= Time.fixedDeltaTime;
-        if (waitingForPath && shouldMove)
+        
+        if (waitingForPath && shouldMove && false) // DET ER IKKE MED NU
         {
             if(Vector3.Distance(transform.position, target) > nextPointDistance)
             {
@@ -120,7 +122,7 @@ public class PlayerControls : MonoBehaviour {
         }
         else if (!waitingForPath && shouldMove)
         {
-            Debug.Log("Moving");
+           
             if (pathIndex < path.vectorPath.Count - 1)
             {
                 if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
@@ -165,6 +167,7 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Dash()
     {
+        print("dash");
         for(;;)
         {
             if(Vector3.Distance(transform.position, target) < nextPointDistance)
@@ -180,9 +183,9 @@ public class PlayerControls : MonoBehaviour {
             if (dir.y > 180) //If point is to the right, convert degrees to minus
                 dir.y -= 360;
             transform.Rotate(dir);
-            transform.position += transform.forward * moveSpeed * dashingSpeed * Time.fixedDeltaTime;
+            transform.position += transform.forward  * dashingSpeed * Time.fixedDeltaTime;
 
-            yield return null;
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
     }
 }
