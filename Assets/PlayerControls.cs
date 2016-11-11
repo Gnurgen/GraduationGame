@@ -5,7 +5,7 @@ using Pathfinding;
 public class PlayerControls : MonoBehaviour {
 
     private Animator anim;
-    InputManager IM;
+    private InputManager IM;
     public AnimationCurve DashCurve;
     public bool dashing, attacking;
     public float dashingSpeed;
@@ -13,6 +13,8 @@ public class PlayerControls : MonoBehaviour {
     float dashingDis, dashingStartDis;
     float cameraRotation;
 	int ID;
+    public float attackSpeed;
+    public float dashCooldown;
 
     // Pathfinding
     private Path path;
@@ -22,6 +24,8 @@ public class PlayerControls : MonoBehaviour {
     private int pathIndex;
     private bool shouldMove;
     private Vector3 target;
+    private float currentDashCooldown;
+    private float currentAttackSpeed;
 
 	//test
 	Vector3 ray;
@@ -61,10 +65,14 @@ public class PlayerControls : MonoBehaviour {
     }
     void DashTo(Vector2 point)
     {
-        shouldMove = false;
-        target = IM.GetWorldPoint(point);
-        dashing = true;
-        StartCoroutine("Dash");
+        if(currentDashCooldown < 0)
+        {
+            shouldMove = false;
+            target = IM.GetWorldPoint(point);
+            dashing = true;
+            StartCoroutine("Dash");
+            currentDashCooldown = dashCooldown;
+        }
 
        // if (!dashing && !attacking)
         //{
@@ -76,6 +84,10 @@ public class PlayerControls : MonoBehaviour {
     }
 	void AttackDir(InputManager.Swipe swipe)
     {
+        if(currentAttackSpeed < 0)
+        {
+
+        }
         //if (!dashing && !attacking)
         //{
         //    anim.SetTrigger("Attack");
@@ -86,6 +98,8 @@ public class PlayerControls : MonoBehaviour {
     }
     void FixedUpdate()
     {
+        currentDashCooldown -= Time.fixedDeltaTime;
+        currentAttackSpeed -= Time.fixedDeltaTime;
         if (waitingForPath && shouldMove)
         {
             Vector3 dir = (target - transform.position).normalized;
@@ -103,7 +117,7 @@ public class PlayerControls : MonoBehaviour {
                     pathIndex++;
                 }
             }
-            Vector3 dir = (path.vectorPath[pathIndex] - transform.position).normalized;
+            Vector3 dir = Vector3.Normalize(path.vectorPath[pathIndex] - transform.position);
             dir *= moveSpeed * Time.fixedDeltaTime;
             transform.position += dir;
         }
