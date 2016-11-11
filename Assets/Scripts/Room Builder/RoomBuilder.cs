@@ -111,6 +111,23 @@ public class RoomBuilder : MonoBehaviour {
     void Update () {
 	}
 
+    public int[] getHashIndex()
+    {
+        if (roomUnits[0, 0] == null)
+        {
+            RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
+            if (units.Length > 0)
+                roomUnits[0, 0] = units[0];
+        }
+        bool[] hasDoorList = roomUnits[0, 0].getDoors();
+        return new int[] {
+                hasDoorList[0] ? 1 : 0,
+                hasDoorList[1] ? 1 : 0,
+                hasDoorList[2] ? 1 : 0,
+                hasDoorList[3] ? 1 : 0
+            };
+    }
+
     public void AddRoomObject(GameObject go)
     {
         go.transform.parent = transform;
