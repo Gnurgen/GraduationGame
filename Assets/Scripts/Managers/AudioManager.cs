@@ -34,8 +34,8 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnPlayerDashBegin += DashPlay;
         GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
         GameManager.events.OnPlayerDeath += PlayerDeathPlay;
-        GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
-        GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
+      //  GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
+      //  GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
         GameManager.events.OnWheelOpen += AbilityWheelOpenSub; 
         GameManager.events.OnWheelSelect += AbilityWheelSelectPlaySub; 
         GameManager.events.OnWheelHover += AbilityWheelHoverPlaySub; 
