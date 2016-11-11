@@ -7,9 +7,9 @@ public class saveLoad : MonoBehaviour {
     float playerHealth;
     int playerLVL;
     float playerXP;
-   
+    public GameObject menu;
     //Manager 
-    public InputManager IM;
+    InputManager IM;
     private int ID;
 
     void Awake() {
@@ -42,13 +42,18 @@ public class saveLoad : MonoBehaviour {
     }
 
     public void closeMenu() {
-        gameObject.SetActive(false);
+        menu.SetActive(false);
         allowTouch();
     }
 
     public void openMenu()
     {
-        gameObject.SetActive(true);
+        if (menu.activeSelf)
+        {
+            closeMenu();
+            return;
+        }
+        menu.SetActive(true);
         terminateTouch();
     }
 

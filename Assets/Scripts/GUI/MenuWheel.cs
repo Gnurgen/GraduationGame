@@ -4,10 +4,10 @@ using System.Collections;
 public class MenuWheel : MonoBehaviour {
     //Public stuff for game designer/art
     public GameObject[] listOfButtons;
-    public float radiusForImages = 170.0f;
+    public float radiusForImages = 370.0f;
     private float radiusForDeadZone = 100.0f;
     private float responseWidth = 1000.0f;
-    private float centerDistance = 50.0f;
+    private float centerDistance = 100.0f;
 
 
     //Private variables
@@ -51,6 +51,10 @@ public class MenuWheel : MonoBehaviour {
         IM.OnFirstTouchMoveSub(updateMouse, ID);
         Wheel.SetActive(false);
     }
+    
+       
+        
+   
 
     void Update()    {
        
@@ -117,8 +121,8 @@ public class MenuWheel : MonoBehaviour {
     }
 
     private int checkWhichField(Vector2 mousePos) {
-         
 
+        currentButton = 10;
         if (Vector2.Distance(Vector2.zero, mousePos) < radiusForDeadZone) {
             Debug.Log("No select");
             currentButton = 10;
@@ -192,7 +196,7 @@ public class MenuWheel : MonoBehaviour {
     
     void OnClick()
     {
-        Debug.Log("MENU!!");
+        updateMouse(new Vector2(Screen.width / 2, Screen.height / 2));
         IM.TakeControl(ID);
         wheelClicked = true;
     }
