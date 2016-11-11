@@ -20,6 +20,8 @@ public class MeleeAI : EnemyStats {
     private bool waitingForPath;
     private bool moving;
     private Vector3 yZero = new Vector3(1,0,1);
+    private int behindPointCheck = 10;
+    private float mySpeed;
 
    	// Use this for initialization
 	void Start () {
@@ -27,7 +29,9 @@ public class MeleeAI : EnemyStats {
         cc = GetComponent<CharacterController>();
         moving = false;
         StartCoroutine("StateHandler");
+        mySpeed = moveSpeed;
 	}
+
 
 	IEnumerator StateHandler()
 	{
@@ -37,11 +41,11 @@ public class MeleeAI : EnemyStats {
             {
                 yield return StartCoroutine("Idle");
             }
-            if(target != null && Vector3.Distance(transform.position, target.transform.position) > attackRange)
+            if(target != null && Vector3.Distance(transform.position, target.transform.position) > attackDist)
             {
                 yield return StartCoroutine("Chasing");
             }
-            if(target != null && Vector3.Distance(transform.position, target.transform.position) < attackRange)
+            if(target != null && Vector3.Distance(transform.position, target.transform.position) < attackDist)
             {
                 yield return StartCoroutine("Attacking");
             }
@@ -82,7 +86,7 @@ public class MeleeAI : EnemyStats {
                 yield break;
             }
 
-            if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
+            if (Vector3.Distance(transform.position, target.transform.position) < attackDist)
             {
                 yield break;
             }
@@ -111,18 +115,17 @@ public class MeleeAI : EnemyStats {
                 }
                 // Rotate towards the current path point and move towards it
                 Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
-                dir *= moveSpeed * 0.02f;
-                //transform.LookAt(path.vectorPath[pathIndex] );
-                //Debug.Log(path.vectorPath[pathIndex]);
-                //transform.position = Vector3.MoveTowards(transform.position, path.vectorPath[pathIndex], 0.02f * moveSpeed);
-                //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.FromToRotation(Vector3.Scale(transform.position, yZero)+Vector3.up, Vector3.Scale(path.vectorPath[pathIndex], yZero)+Vector3.up), Time.fixedDeltaTime * turnRate);
-                // Quaternion.RotateTowards(transform.rotation, Quaternion.FromToRotation(Vector3.Scale(transform.position, yZero) + Vector3.up, Vector3.Scale(path.vectorPath[pathIndex], yZero) + Vector3.up), turnRate * 0.02f);
-                // transform.position += transform.forward * moveSpeed * 0.02f;
-                cc.SimpleMove(dir);
+                dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+                dir.x = 0;
+                dir.z = 0;
+                if (dir.y > 180) //If point is to the right, convert degrees to minus
+                    dir.y -= 360;
+                transform.Rotate(dir * turnRate * Time.fixedDeltaTime);
+                transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
                 
             }
             skip:
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
     }
 
@@ -130,19 +133,27 @@ public class MeleeAI : EnemyStats {
 	{
 		for(;;)
 		{
-            Debug.Log("Attacking");
 			// Define attacking
             if(target == null)
             {
                 yield break;
             }
-            if(Vector3.Distance(transform.position, target.transform.position) > attackRange)
+            if(Vector3.Distance(transform.position, target.transform.position) > attackDist)
             {
                 yield break;
             }
 
+            Vector3 dir = (target.transform.position - transform.position).normalized;
+            if (Vector3.Dot(dir, transform.forward) > Mathf.Cos(attackBredthInRadians))
+                print("attack");
+            dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+            dir.x = 0;
+            dir.z = 0;
+            if (dir.y > 180) //If point is to the right, convert degrees to minus
+                dir.y -= 360;
+            transform.Rotate(dir * turnRate * Time.fixedDeltaTime);
 
-			yield return null;
+                yield return null;
 		}
 	}
 
@@ -157,10 +168,7 @@ public class MeleeAI : EnemyStats {
             {
                 targetPositionAtPath = target.transform.position;
             }
-            while(IsBehind(path.vectorPath[pathIndex]))
-            {
-                pathIndex++;
-            }
+           // AnalysePath();
             moving = true;
         }
         else
@@ -172,8 +180,20 @@ public class MeleeAI : EnemyStats {
         }
     }
 
-    bool IsBehind(Vector3 p)
+    void AnalysePath()
     {
-        return false;
+        Vector3 dir = (path.vectorPath[pathIndex] - transform.position).normalized;
+        if(Vector3.Dot(dir, transform.forward) < 0)
+        {
+            ++pathIndex;
+            if (behindPointCheck+pathIndex>= path.vectorPath.Count)
+                behindPointCheck = path.vectorPath.Count-pathIndex;
+            for(int x = pathIndex; x<behindPointCheck+pathIndex; ++x)
+            {
+                dir = (path.vectorPath[x] - transform.position).normalized;
+                if (Vector3.Dot(dir, transform.forward) < 0)
+                    ++pathIndex;
+            }
+        }
     }
 }
