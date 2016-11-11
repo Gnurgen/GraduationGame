@@ -1,17 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Pathfinding;
 
 public class PlayerControls : MonoBehaviour {
 
     private Animator anim;
-    private NavMeshAgent navMeshAgent;
     InputManager IM;
     public AnimationCurve DashCurve;
     public bool dashing, attacking;
     public float dashingSpeed;
+    public float moveSpeed;
     float dashingDis, dashingStartDis;
     float cameraRotation;
 	int ID;
+
+    // Pathfinding
+    private Path path;
+    private Seeker seeker;
+    private float nextPointDistance = 1;
+    private bool waitingForPath;
+    private int pathIndex;
+    private bool shouldMove;
+    private Vector3 target;
 
 	//test
 	Vector3 ray;
@@ -26,65 +36,111 @@ public class PlayerControls : MonoBehaviour {
 		IM.OnSwipeSub (AttackDir, ID);
 		IM.OnDoubleTapSub (DashTo, ID);
         cameraRotation = FindObjectOfType<Camera>().transform.rotation.y;
+        seeker = GetComponent<Seeker>();
+        shouldMove = false;
 	}
 	
 	void Awake()
     {
         anim = GetComponent<Animator>();
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        navmeshSpeed = navMeshAgent.speed;
     }
 
     void MoveTo(Vector2 point)
     {
         if(!dashing && !attacking)
         {
-            anim.SetBool("Run",true);
-			navMeshAgent.destination = IM.GetWorldPoint (point);
+            shouldMove = true;
+            target = IM.GetWorldPoint(point);
+            seeker.StartPath(transform.position, target, ReceivePath);
+            waitingForPath = true;
         }
+        //if(!dashing && !attacking)
+        //{
+        //    anim.SetBool("Run",true);
+        //}
     }
     void DashTo(Vector2 point)
     {
-        if (!dashing && !attacking)
-        {
-            GameManager.events.PlayerDashBegin(gameObject);
-            anim.SetTrigger("Dash");
-            dashing = true;
-			dashingStartDis = Vector3.Distance(transform.position, IM.GetWorldPoint(point));
-            navMeshAgent.destination = point;
-        }
+        shouldMove = false;
+        target = IM.GetWorldPoint(point);
+        dashing = true;
+        StartCoroutine("Dash");
+
+       // if (!dashing && !attacking)
+        //{
+        //    gamemanager.events.playerdashbegin(gameobject);
+        //    anim.settrigger("dash");
+        //    dashing = true;
+		//	dashingstartdis = vector3.distance(transform.position, im.getworldpoint(point));
+        //}
     }
 	void AttackDir(InputManager.Swipe swipe)
     {
-        if (!dashing && !attacking)
+        //if (!dashing && !attacking)
+        //{
+        //    anim.SetTrigger("Attack");
+		//	transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end) - IM.GetWorldPoint (swipe.begin));
+		//	ray = transform.position + IM.GetWorldPoint (swipe.end) - IM.GetWorldPoint (swipe.begin);
+        //    attacking = true;
+        //}
+    }
+    void FixedUpdate()
+    {
+        if (waitingForPath && shouldMove)
         {
-            anim.SetTrigger("Attack");
-            navMeshAgent.ResetPath();
-			transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end) - IM.GetWorldPoint (swipe.begin));
-			ray = transform.position + IM.GetWorldPoint (swipe.end) - IM.GetWorldPoint (swipe.begin);
-            attacking = true;
+            Vector3 dir = (target - transform.position).normalized;
+            dir *= moveSpeed * Time.fixedDeltaTime;
+            transform.position += dir;
+            //cc.SimpleMove(dir);
+        }
+        else if (!waitingForPath && shouldMove)
+        {
+            Debug.Log("Moving");
+            if (pathIndex < path.vectorPath.Count - 1)
+            {
+                if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
+                {
+                    pathIndex++;
+                }
+            }
+            Vector3 dir = (path.vectorPath[pathIndex] - transform.position).normalized;
+            dir *= moveSpeed * Time.fixedDeltaTime;
+            transform.position += dir;
         }
     }
-    void Update()
+
+    void ReceivePath(Path path)
     {
-        if(dashing)
+        if (!path.error)
         {
-            dashingDis = Vector3.Distance(transform.position, navMeshAgent.destination);
-            navMeshAgent.speed = navMeshAgent.speed + dashingSpeed * DashCurve.Evaluate(1 - dashingDis/dashingStartDis);
-            if (dashingDis <= 0.02f)
+            this.path = path;
+            waitingForPath = false;
+            pathIndex = 0;
+            while (IsBehind(path.vectorPath[pathIndex]))
             {
-                
-                dashing = false;
-                navMeshAgent.speed = navmeshSpeed;
-                anim.SetBool("Run",false);
+                pathIndex++;
             }
         }
-        if(navMeshAgent.remainingDistance < 0.1f)
-        {
-            anim.SetBool("Run", false);
-        }
-
-		Debug.DrawRay (transform.position, ray);
     }
-  
+
+    bool IsBehind(Vector3 p)
+    {
+        return false;
+    }
+
+    IEnumerator Dash()
+    {
+        for(;;)
+        {
+            if(Vector3.Distance(transform.position, target) < 1)
+            {
+                dashing = false;
+                yield break;
+            }
+            Vector3 dir = (target - transform.position).normalized;
+            dir *= moveSpeed * dashingSpeed * Time.deltaTime;
+            transform.position += dir;
+            yield return null;
+        }
+    }
 }
