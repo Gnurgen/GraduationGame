@@ -141,7 +141,6 @@ public class MapGenerator : MonoBehaviour {
                     {
                         go = Instantiate(list[Random.Range(0, list.Count-1)].gameObject);
                         go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i, 0, - RoomUnit.TILE_RATIO * j);
-                        Debug.Log((RoomUnit.TILE_RATIO * i) + ", " + (RoomUnit.TILE_RATIO * j) + ": " + doors[0] + ", " + doors[1] + ", " + doors[2] + ", " + doors[3]);
                     }
                 }
             }

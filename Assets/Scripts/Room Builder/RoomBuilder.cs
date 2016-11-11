@@ -119,7 +119,7 @@ public class RoomBuilder : MonoBehaviour {
             if (units.Length > 0)
                 roomUnits[0, 0] = units[0];
         }
-        bool[] hasDoorList = roomUnits[0, 0].getDoors();
+        bool[] hasDoorList = roomUnits[0, 0].GetDoors();
         return new int[] {
                 hasDoorList[0] ? 1 : 0,
                 hasDoorList[1] ? 1 : 0,
