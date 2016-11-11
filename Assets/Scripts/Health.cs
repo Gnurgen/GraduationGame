@@ -57,7 +57,9 @@ public class Health : MonoBehaviour {
         }
     }
 
+
     public void decreaseHealth(float val)
+
     {
         _health -= val;
         if (_health <= 0)
