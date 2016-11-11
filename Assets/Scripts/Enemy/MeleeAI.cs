@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Pathfinding;
 
 [RequireComponent (typeof(Seeker))]
-[RequireComponent (typeof(CharacterController))]
 [RequireComponent (typeof(Rigidbody))]
 public class MeleeAI : EnemyStats {
 
-
 	public GameObject target;
+    private Animator animator;
+    //private Animation animation;
 	private Seeker seeker;
     private CharacterController cc;
     private Vector3 targetPositionAtPath;
@@ -25,6 +25,8 @@ public class MeleeAI : EnemyStats {
 
    	// Use this for initialization
 	void Start () {
+       // animation = GetComponent<Animation>();
+        animator = GetComponent<Animator>();
 		seeker = GetComponent<Seeker> ();
         cc = GetComponent<CharacterController>();
         moving = false;
@@ -73,7 +75,6 @@ public class MeleeAI : EnemyStats {
         // If there is a target and it is within aggro range
         for (;;)
         {
-            Debug.Log("Chasing");
             // If there is no target, stop chasing;
             if (target == null)
             {
@@ -120,7 +121,12 @@ public class MeleeAI : EnemyStats {
                 dir.z = 0;
                 if (dir.y > 180) //If point is to the right, convert degrees to minus
                     dir.y -= 360;
-                transform.Rotate(dir * turnRate * Time.fixedDeltaTime);
+                if (dir.y > 1)
+                    transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
+                else if (dir.y < -1)
+                    transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
+                else
+                    transform.Rotate(dir);
                 transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
                 
             }
@@ -144,15 +150,28 @@ public class MeleeAI : EnemyStats {
             }
 
             Vector3 dir = (target.transform.position - transform.position).normalized;
-            if (Vector3.Dot(dir, transform.forward) > Mathf.Cos(attackBredthInRadians))
-                print("attack");
+            if (Vector3.Dot(dir, transform.forward) >= 0.8f)
+            {
+                animator.SetTrigger("Attack");
+                Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
+                while(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                {
+                    yield return null; 
+                }
+                Weapon.GetComponent<EnemyMeleeAttack>().Swing(false);
+                yield break;
+            }
             dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
             dir.x = 0;
             dir.z = 0;
             if (dir.y > 180) //If point is to the right, convert degrees to minus
                 dir.y -= 360;
-            transform.Rotate(dir * turnRate * Time.fixedDeltaTime);
-
+            if (dir.y > 1)
+                transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
+            else if (dir.y < -1)
+                transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
+            else
+                transform.Rotate(dir);
                 yield return null;
 		}
 	}

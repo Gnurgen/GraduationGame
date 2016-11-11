@@ -4,9 +4,9 @@ using Pathfinding;
 
 public class PlayerControls : MonoBehaviour {
 
-    private Animator anim;
+   
     private InputManager IM;
-    public AnimationCurve DashCurve;
+   
     public bool dashing, attacking;
     public float dashingSpeed;
     public float moveSpeed;
@@ -41,7 +41,7 @@ public class PlayerControls : MonoBehaviour {
 	
 	void Awake()
     {
-        anim = GetComponent<Animator>();
+       
     }
 
     void MoveTo(Vector2 point)
@@ -63,6 +63,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if(currentDashCooldown < 0)
         {
+            GameManager.events.PlayerDashBegin(gameObject);
             shouldMove = false;
             target = IM.GetWorldPoint(point);
             dashing = true;
@@ -82,10 +83,10 @@ public class PlayerControls : MonoBehaviour {
     {
         if(currentAttackSpeed < 0)
         {
+            GameManager.events.PlayerAttack(gameObject);
             attacking = true;
             // do attack;
             Debug.Log("Attack");
-
 
             attacking = false;
         }
@@ -117,6 +118,7 @@ public class PlayerControls : MonoBehaviour {
             }
             else
             {
+                GameManager.events.PlayerIdle(gameObject);
                 shouldMove = false;
             }
         }
@@ -133,6 +135,7 @@ public class PlayerControls : MonoBehaviour {
             else if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
             {
                 shouldMove = false;
+                GameManager.events.PlayerIdle(gameObject);
             }
             dir = (path.vectorPath[pathIndex] - transform.position).normalized;
             dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
@@ -168,10 +171,12 @@ public class PlayerControls : MonoBehaviour {
     IEnumerator Dash()
     {
         print("dash");
+       
         for(;;)
         {
             if(Vector3.Distance(transform.position, target) < nextPointDistance)
             {
+                GameManager.events.PlayerDashEnd(gameObject);
                 dashing = false;
                 yield break;
             }
@@ -180,8 +185,6 @@ public class PlayerControls : MonoBehaviour {
             dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
             dir.x = 0;
             dir.z = 0;
-            if (dir.y > 180) //If point is to the right, convert degrees to minus
-                dir.y -= 360;
             transform.Rotate(dir);
             transform.position += transform.forward  * dashingSpeed * Time.fixedDeltaTime;
 

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 7efa59f61db05514bbea77a68a5d543b
-timeCreated: 1478854034
+guid: 91ad8c43ba026b740adbfec2c2c65411
+timeCreated: 1478876329
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -152,6 +152,8 @@ ModelImporter:
     7400000: Idle
     7400002: Run
     7400004: Attack
+    7400006: Dash
+    7400008: PowerAttack
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -185,7 +187,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -357,7 +359,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -522,7 +524,351 @@ ModelImporter:
       name: Attack
       takeName: Take 001
       firstFrame: 165
-      lastFrame: 196
+      lastFrame: 200
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: character_grp
+        weight: 1
+      - path: character_grp/character_grp_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt/left_foot_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt/left_foot_jnt/left_toe_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_backSide_base_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_backSide_base_jnt/cape_back_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_backSide_base_jnt/cape_back_a_jnt/cape_back_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_frontSide_base_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_frontSide_base_jnt/cape_front_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_frontSide_base_jnt/cape_front_a_jnt/cape_front_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_leftSide_base_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_leftSide_base_jnt/cape_leftShoulder_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_leftSide_base_jnt/cape_leftShoulder_jnt/cape_leftElbow_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_rightSide_base_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_rightSide_base_jnt/cape_rightShoulder_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_rightSide_base_jnt/cape_rightShoulder_jnt/cape_rightElbow_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_fingers_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_fingers_a_jnt/left_fingers_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_fingers_a_jnt/left_fingers_b_jnt/left_fingers_tip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt/left_thumb_tip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headEnd_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_left_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_left_a_jnt/headLeaf_left_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_left_a_jnt/headLeaf_left_b_jnt/headLeaf_left_c_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_left_a_jnt/headLeaf_left_b_jnt/headLeaf_left_c_jnt/headLeaf_left_end_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_middle_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_middle_a_jnt/headLeaf_middle_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_middle_a_jnt/headLeaf_middle_b_jnt/headLeaf_middle_c_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_middle_a_jnt/headLeaf_middle_b_jnt/headLeaf_middle_c_jnt/headLeaf_middle_end_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_right_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_right_a_jnt/headLeaf_right_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_right_a_jnt/headLeaf_right_b_jnt/headLeaf_right_c_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_right_a_jnt/headLeaf_right_b_jnt/headLeaf_right_c_jnt/headLeaf_right_end_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_fingers_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_fingers_a_jnt/right_fingers_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_fingers_a_jnt/right_fingers_b_jnt/right_fingers_tip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt/right_thumb_tip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt/right_foot_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt/right_foot_jnt/right_toe_jnt
+        weight: 1
+      - path: spear_grp
+        weight: 1
+      - path: spear_grp/spear_grp_jnt
+        weight: 1
+      - path: spear_grp/spear_grp_jnt/root_jnt 1
+        weight: 1
+      - path: spear_grp/spear_grp_jnt/root_jnt 1/end_jnt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: Dash
+      takeName: Take 001
+      firstFrame: 220
+      lastFrame: 305
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: character_grp
+        weight: 1
+      - path: character_grp/character_grp_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt/left_foot_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt/left_foot_jnt/left_toe_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_backSide_base_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_backSide_base_jnt/cape_back_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_backSide_base_jnt/cape_back_a_jnt/cape_back_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_frontSide_base_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_frontSide_base_jnt/cape_front_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_frontSide_base_jnt/cape_front_a_jnt/cape_front_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_leftSide_base_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_leftSide_base_jnt/cape_leftShoulder_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_leftSide_base_jnt/cape_leftShoulder_jnt/cape_leftElbow_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_rightSide_base_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_rightSide_base_jnt/cape_rightShoulder_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/cape_root_jnt/cape_rightSide_base_jnt/cape_rightShoulder_jnt/cape_rightElbow_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_fingers_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_fingers_a_jnt/left_fingers_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_fingers_a_jnt/left_fingers_b_jnt/left_fingers_tip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/left_clavecle_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt/left_thumb_tip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headEnd_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_left_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_left_a_jnt/headLeaf_left_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_left_a_jnt/headLeaf_left_b_jnt/headLeaf_left_c_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_left_a_jnt/headLeaf_left_b_jnt/headLeaf_left_c_jnt/headLeaf_left_end_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_middle_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_middle_a_jnt/headLeaf_middle_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_middle_a_jnt/headLeaf_middle_b_jnt/headLeaf_middle_c_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_middle_a_jnt/headLeaf_middle_b_jnt/headLeaf_middle_c_jnt/headLeaf_middle_end_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_right_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_right_a_jnt/headLeaf_right_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_right_a_jnt/headLeaf_right_b_jnt/headLeaf_right_c_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/neck_jnt/head_jnt/headLeaf_right_a_jnt/headLeaf_right_b_jnt/headLeaf_right_c_jnt/headLeaf_right_end_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_fingers_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_fingers_a_jnt/right_fingers_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_fingers_a_jnt/right_fingers_b_jnt/right_fingers_tip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/spine_c_jnt/torso_jnt/right_clavecle_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt/right_thumb_tip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt/right_foot_jnt
+        weight: 1
+      - path: character_grp/character_grp_jnt/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt/right_foot_jnt/right_toe_jnt
+        weight: 1
+      - path: spear_grp
+        weight: 1
+      - path: spear_grp/spear_grp_jnt
+        weight: 1
+      - path: spear_grp/spear_grp_jnt/root_jnt 1
+        weight: 1
+      - path: spear_grp/spear_grp_jnt/root_jnt 1/end_jnt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: PowerAttack
+      takeName: Take 001
+      firstFrame: 308
+      lastFrame: 350
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
