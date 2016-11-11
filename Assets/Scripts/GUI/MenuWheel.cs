@@ -30,13 +30,13 @@ public class MenuWheel : MonoBehaviour {
     private float cos1, cos2, sin1, sin2;
    
     //Managers
-    private SpearThrow ability;
+    private FlyingSpear ability;
     private InputManager IM;
     int ID;
 
     void Start()
     {
-        ability = FindObjectOfType<SpearThrow>();
+        ability = FindObjectOfType<FlyingSpear>();
         nrOptions = listOfButtons.Length;
         listOfButtons2 = new GameObject[nrOptions];
 
@@ -168,7 +168,7 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 0:
                 Debug.Log("Button 1 selected");
-                //ability.UseAbility();
+                ability.UseAbility();
                 break;
             case 1:
                 Debug.Log("Button 2 selected");

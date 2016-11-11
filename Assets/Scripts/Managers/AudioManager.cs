@@ -59,7 +59,7 @@ public class AudioManager : MonoBehaviour {
         PlayerSpearAttackTargetPlay(GO, GO.tag);
     }
 
-    private void PlayerAttackHitPlaySub(GameObject GO, GameObject Tar, int i)
+    private void PlayerAttackHitPlaySub(GameObject GO, GameObject Tar, float i)
     {
         PlayerSpearAttackTargetPlay(GO, Tar.tag);
     }

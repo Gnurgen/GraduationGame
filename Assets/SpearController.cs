@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class SpearController : MonoBehaviour {
 
 	public float distance;
+    private float damage;
 	private float speed;
 	public int index;
 	public Vector3[] points;
@@ -28,10 +29,20 @@ public class SpearController : MonoBehaviour {
 		}
 	}
 
-	public void SetParameters(List<Vector3> ps, float speed){
+    void OnTriggerEnter(Collider col)
+    {
+        if(col.tag == "Melee" || col.tag == "Ranged")
+        {
+            col.GetComponent<Health>().decreaseHealth(damage);
+            GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
+        }
+    }
+
+	public void SetParameters(List<Vector3> ps, float speed, float damage){
 		points = ps.ToArray ();
 		transform.position = points[0];
 		index = 1;
 		this.speed = speed;
+        this.damage = damage;
 	}
 }

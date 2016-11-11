@@ -105,11 +105,34 @@ public class RoomBuilder : MonoBehaviour {
 
     void Start()
     {
+        RoomTile[] tiles = GetComponentsInChildren<RoomTile>();
 
+        for(int i = 0; i < tiles.Length; i++)
+        {
+            if (tiles[i].referenceName == "Default Tile")
+                tiles[i].gameObject.layer = 8;
+        }
     }
 
     void Update () {
 	}
+
+    public int[] getHashIndex()
+    {
+        if (roomUnits[0, 0] == null)
+        {
+            RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
+            if (units.Length > 0)
+                roomUnits[0, 0] = units[0];
+        }
+        bool[] hasDoorList = roomUnits[0, 0].GetDoors();
+        return new int[] {
+                hasDoorList[0] ? 1 : 0,
+                hasDoorList[1] ? 1 : 0,
+                hasDoorList[2] ? 1 : 0,
+                hasDoorList[3] ? 1 : 0
+            };
+    }
 
     public void AddRoomObject(GameObject go)
     {
