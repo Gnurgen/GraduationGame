@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections;
 
 public class RoomUnit : MonoBehaviour {
-
+    
     public const int TILE_RATIO = 11;
 
     private RoomTile[] tiles = new RoomTile[TILE_RATIO * TILE_RATIO];
-    private RoomWall[] walls;
+    private RoomWall[] walls = new RoomWall[4];
 
-
-	void Reset() {
-        walls = new RoomWall[4];
-
+#if UNITY_EDITOR
+    void Reset() {
         int i;
         RoomTile tilePrefab = RoomBuilder.defaultTile;
         RoomWall wallPrefab = RoomBuilder.defaultWall;
@@ -45,34 +45,15 @@ public class RoomUnit : MonoBehaviour {
         walls[1].transform.Rotate(Vector3.up * 90);
         walls[3].transform.Rotate(Vector3.up * 90);
     }
-
+#endif
     void Start()
     {
+
     }
 
     void Update()
     {
 
-    }
-
-    public bool[] getDoors()
-    {
-        if (walls == null)
-        {
-            walls = new RoomWall[4];
-            RoomWall[] wallList = GetComponentsInChildren<RoomWall>();
-            walls[0] = wallList[3];
-            walls[1] = wallList[0];
-            walls[2] = wallList[1];
-            walls[3] = wallList[2];
-        }
-
-        return new bool[] {
-            walls[0] != null && walls[0].hasDoor,
-            walls[1] != null && walls[1].hasDoor,
-            walls[2] != null && walls[2].hasDoor,
-            walls[3] != null && walls[3].hasDoor
-        };
     }
 
     public void ReplaceTile(RoomTile tile, int index)
