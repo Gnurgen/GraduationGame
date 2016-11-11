@@ -175,7 +175,7 @@ public class RoomEditor : Editor {
 
             prefab = PrefabUtility.InstantiatePrefab(objectList[i]) as GameObject;
             Undo.RegisterCreatedObjectUndo(prefab, "Created " + tag + " building blocks");
-            bounds = prefab.GetComponent<MeshFilter>().sharedMesh.bounds;
+            bounds = prefab.GetComponentInChildren<MeshFilter>().sharedMesh.bounds;
 
             prefab.transform.position = new Vector3(offset, bounds.extents.y, 0);
             offset += bounds.extents.x + 1;
@@ -185,4 +185,5 @@ public class RoomEditor : Editor {
 //            PrefabUtility.DisconnectPrefabInstance(prefab);
         }
     }
+
 }
