@@ -19,19 +19,14 @@ public class PlayerControls : MonoBehaviour {
     // Pathfinding
     private Path path;
     private Seeker seeker;
-    private float nextPointDistance = 1;
+    private float nextPointDistance = 1.2f;
     private bool waitingForPath;
     private int pathIndex;
     private bool shouldMove;
     private Vector3 target;
     private float currentDashCooldown;
     private float currentAttackSpeed;
-
-	//test
-	Vector3 ray;
-
-
-    private float navmeshSpeed;
+    private Vector3 dir;
 
     // Use this for initialization
     void Start () {
@@ -86,7 +81,12 @@ public class PlayerControls : MonoBehaviour {
     {
         if(currentAttackSpeed < 0)
         {
+            attacking = true;
+            // do attack;
+            Debug.Log("Attack");
 
+
+            attacking = false;
         }
         //if (!dashing && !attacking)
         //{
@@ -102,10 +102,21 @@ public class PlayerControls : MonoBehaviour {
         currentAttackSpeed -= Time.fixedDeltaTime;
         if (waitingForPath && shouldMove)
         {
-            Vector3 dir = (target - transform.position).normalized;
-            dir *= moveSpeed * Time.fixedDeltaTime;
-            transform.position += dir;
-            //cc.SimpleMove(dir);
+            if(Vector3.Distance(transform.position, target) > nextPointDistance)
+            {
+                dir = (target - transform.position).normalized;
+                dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+                dir.x = 0;
+                dir.z = 0;
+                if (dir.y > 180) //If point is to the right, convert degrees to minus
+                    dir.y -= 360;
+                transform.Rotate(dir);
+                transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
+            }
+            else
+            {
+                shouldMove = false;
+            }
         }
         else if (!waitingForPath && shouldMove)
         {
@@ -117,9 +128,19 @@ public class PlayerControls : MonoBehaviour {
                     pathIndex++;
                 }
             }
-            Vector3 dir = Vector3.Normalize(path.vectorPath[pathIndex] - transform.position);
-            dir *= moveSpeed * Time.fixedDeltaTime;
-            transform.position += dir;
+            else if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
+            {
+                shouldMove = false;
+            }
+            dir = (path.vectorPath[pathIndex] - transform.position).normalized;
+            dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+            dir.x = 0;
+            dir.z = 0;
+            if (dir.y > 180) //If point is to the right, convert degrees to minus
+                dir.y -= 360;
+            transform.Rotate(dir);
+            transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
+
         }
     }
 
@@ -146,14 +167,21 @@ public class PlayerControls : MonoBehaviour {
     {
         for(;;)
         {
-            if(Vector3.Distance(transform.position, target) < 1)
+            if(Vector3.Distance(transform.position, target) < nextPointDistance)
             {
                 dashing = false;
                 yield break;
             }
-            Vector3 dir = (target - transform.position).normalized;
-            dir *= moveSpeed * dashingSpeed * Time.deltaTime;
-            transform.position += dir;
+
+            dir = (target - transform.position).normalized;
+            dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+            dir.x = 0;
+            dir.z = 0;
+            if (dir.y > 180) //If point is to the right, convert degrees to minus
+                dir.y -= 360;
+            transform.Rotate(dir);
+            transform.position += transform.forward * moveSpeed * dashingSpeed * Time.fixedDeltaTime;
+
             yield return null;
         }
     }
