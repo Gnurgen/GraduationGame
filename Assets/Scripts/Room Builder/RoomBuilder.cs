@@ -105,7 +105,13 @@ public class RoomBuilder : MonoBehaviour {
 
     void Start()
     {
+        RoomTile[] tiles = GetComponentsInChildren<RoomTile>();
 
+        for(int i = 0; i < tiles.Length; i++)
+        {
+            if (tiles[i].referenceName == "Default Tile")
+                tiles[i].gameObject.layer = 8;
+        }
     }
 
     void Update () {
