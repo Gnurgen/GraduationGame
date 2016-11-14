@@ -52,6 +52,19 @@ public class SpearController : MonoBehaviour {
 
         } else {
 			Destroy (gameObject);
+            for (int i = 0; i < gameIDIndex; i++)
+            {
+                if (i == 3)
+                    break;
+                else
+                {
+                    Destroy(gameID[gameIDIndex].GetComponent<SpringJoint>());
+
+                    // PREFAB FIX PLZ
+                    gameID[gameIDIndex].GetComponent<Rigidbody>().isKinematic = true;
+                    gameID[gameIDIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                }
+            }
 		}
 	}
 
@@ -78,6 +91,14 @@ public class SpearController : MonoBehaviour {
             {
                 gameID[gameIDIndex - 1].AddComponent<SpringJoint>();
                 gameID[gameIDIndex - 1].GetComponent<SpringJoint>().connectedBody = GetComponent<Rigidbody>();
+
+                // DET HER ER NOK FIXED I PREFABEN FREMOVER !!!! 
+                gameID[gameIDIndex - 1].GetComponent<CapsuleCollider>().isTrigger = false;
+                Rigidbody gameRig = gameID[gameIDIndex - 1].GetComponent<Rigidbody>();
+                gameRig.isKinematic = false;
+                gameRig.constraints = RigidbodyConstraints.FreezePositionY;
+                gameRig.constraints = RigidbodyConstraints.FreezeRotationX;
+                gameRig.constraints = RigidbodyConstraints.FreezeRotationZ;
             }
         }
     }
@@ -89,8 +110,5 @@ public class SpearController : MonoBehaviour {
 		this.speed = speed;
         this.damage = damage;
 	}
-    void AddGameID()
-    {
-        
-    }
+    
 }
