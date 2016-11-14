@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 71aaf6d8fd91d8d46a654ee5a9bac898
 timeCreated: 1479122905
+=======
+guid: d64adcfe65e02fe4db5e734c60c3340e
+timeCreated: 1478168027
+>>>>>>> HealthBar
 licenseType: Pro
 NativeFormatImporter:
   userData: 
