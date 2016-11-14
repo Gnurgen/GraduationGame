@@ -7,6 +7,7 @@ public class EnemyHealthBars : MonoBehaviour {
     private float maxHealth = 30.0f;
     [Range(0.0f,30)]
     public float health;
+    public float hightOfHealthbar;
     private float scale;
     public GameObject enemy;
     Vector3 position;
@@ -27,6 +28,6 @@ public class EnemyHealthBars : MonoBehaviour {
     void healthPosition() {
         position = enemy.transform.position;
         gameObject.transform.position = position;
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, 700);
+        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y+ hightOfHealthbar, 0);
     }
 }
