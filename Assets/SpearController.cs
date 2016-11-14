@@ -58,11 +58,15 @@ public class SpearController : MonoBehaviour {
                     break;
                 else
                 {
-                    Destroy(gameID[gameIDIndex].GetComponent<SpringJoint>());
+                    try
+                    {
+                        Destroy(gameID[i].GetComponent<SpringJoint>());
+                        gameID[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    }
+                    catch { };
 
                     // PREFAB FIX PLZ
-                    gameID[gameIDIndex].GetComponent<Rigidbody>().isKinematic = true;
-                    gameID[gameIDIndex].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    //gameID[i].GetComponent<Rigidbody>().isKinematic = true;
                 }
             }
 		}
@@ -87,18 +91,16 @@ public class SpearController : MonoBehaviour {
                 gameID[gameIDIndex] = col.gameObject;
                 gameIDIndex++;
             }
-            if(gameIDIndex<3)
+            if(gameIDIndex<4) // HOOKS 4-1 = 3 ENEMIES
             {
                 gameID[gameIDIndex - 1].AddComponent<SpringJoint>();
                 gameID[gameIDIndex - 1].GetComponent<SpringJoint>().connectedBody = GetComponent<Rigidbody>();
 
                 // DET HER ER NOK FIXED I PREFABEN FREMOVER !!!! 
-                gameID[gameIDIndex - 1].GetComponent<CapsuleCollider>().isTrigger = false;
+                //gameID[gameIDIndex - 1].GetComponent<CapsuleCollider>().isTrigger = false;
                 Rigidbody gameRig = gameID[gameIDIndex - 1].GetComponent<Rigidbody>();
                 gameRig.isKinematic = false;
-                gameRig.constraints = RigidbodyConstraints.FreezePositionY;
-                gameRig.constraints = RigidbodyConstraints.FreezeRotationX;
-                gameRig.constraints = RigidbodyConstraints.FreezeRotationZ;
+                gameRig.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
             }
         }
     }
