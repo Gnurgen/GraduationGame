@@ -25,29 +25,29 @@ public class AudioManager : MonoBehaviour {
 
     void Subscribe()
     {
-        /*
-        //GameManager.events.OnEnemyAggro += EnemyChatterPlay;
+        
+        GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyDeath += EnemyDeathPlay; 
         GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
         GameManager.events.OnEnemyRangedMiss += EnemyRangedAttackMissPlaySub;
         GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
         GameManager.events.OnPlayerDashBegin += DashPlay;
-        //GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
+        GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
         GameManager.events.OnPlayerDeath += PlayerDeathPlay;
       //  GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
       //  GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
-        //GameManager.events.OnWheelOpen += AbilityWheelOpenSub; 
-        //GameManager.events.OnWheelSelect += AbilityWheelSelectPlaySub; 
-        //GameManager.events.OnWheelHover += AbilityWheelHoverPlaySub; 
+        GameManager.events.OnWheelOpen += AbilityWheelOpenSub; 
+        GameManager.events.OnWheelSelect += AbilityWheelSelectPlaySub; 
+        GameManager.events.OnWheelHover += AbilityWheelHoverPlaySub; 
         GameManager.events.OnLevelUp += LevelUpPlaySub;
-        GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
-        GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
+        //GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
+        //GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
         GameManager.events.OnObjDestroyed += ObjectDestroyPlaySub; // IS MISSING -> speartargetplay
         GameManager.events.OnResourcePickup += PickupPlaySub;
         GameManager.events.OnCheckPoint += CheckPointPlaySub;
 
         print("AudioManager Subscribed");
-        */
+        
     }
 
     private void EnemyRangedAttackMissPlaySub(GameObject enemyID)
