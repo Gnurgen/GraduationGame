@@ -22,6 +22,7 @@ public class InputManager : MonoBehaviour {
 	private float mouseEndTime;
 	private bool mouseTap;
 	private bool mouseAnalysed;
+    private int fingersTouching;
 	// Current Interaction
 	private bool previousMouseTap;
 	private float previousMouseTapTime;
@@ -104,6 +105,7 @@ public class InputManager : MonoBehaviour {
 		previousMouseTap = false;
 		mouseTap = false;
 		mouseAnalysed = true;
+        fingersTouching = 0;
 	}
 
 	void Update () {
@@ -111,6 +113,7 @@ public class InputManager : MonoBehaviour {
 			foreach (Touch t in Input.touches) {
 				switch (t.phase) {
 				case TouchPhase.Began:
+                        fingersTouching += 1;
 					if (currentTouchSession.FirstTouchID () == -1) {
 						currentTouchSession.AddFirstTouchBegin (t);
 						lastValidFirstMovePoint = t.position;
@@ -122,25 +125,26 @@ public class InputManager : MonoBehaviour {
 					}
 					break;
 				case TouchPhase.Moved:
-					if (t.fingerId == currentTouchSession.FirstTouchID () && Vector2.Distance (t.position, lastValidFirstMovePoint) > distanceToMove) {
+					if (t.fingerId == currentTouchSession.FirstTouchID () && Vector2.Distance (t.position, lastValidFirstMovePoint) > distanceToMove && currentTouchSession.FirstFingerTouching()) {
 						lastValidFirstMovePoint = t.position;
 						OnFirstTouchMove (t);
 
-					} else if (t.fingerId == currentTouchSession.SecondTouchID () && Vector2.Distance (t.position, lastValidSecondMovePoint) > distanceToMove) {
+					} else if (t.fingerId == currentTouchSession.SecondTouchID () && Vector2.Distance (t.position, lastValidSecondMovePoint) > distanceToMove && currentTouchSession.SecondFingerTouching()) {
 						lastValidSecondMovePoint = t.position;
 						OnSecondTouchMove (t);
 					}
 					break;
 				case TouchPhase.Ended:
-					if (t.fingerId == currentTouchSession.FirstTouchID ()) {
+                        fingersTouching -= 1;
+					if (t.fingerId == currentTouchSession.FirstTouchID () && currentTouchSession.FirstFingerTouching()) {
 						currentTouchSession.AddFirstTouchEnd (t);
 						OnFirstTouchEnd (t);
-					} else if (t.fingerId == currentTouchSession.SecondTouchID ()) {
+					} else if (t.fingerId == currentTouchSession.SecondTouchID () && currentTouchSession.SecondFingerTouching()) {
 						currentTouchSession.AddSecondTouchEnd (t);
 						OnSecondTouchEnd (t);
 					}
-                        
-                    if(!currentTouchSession.FingerStillTouching()) // The last finger has lifted, do advanced input analysis
+
+                        if (fingersTouching == 0) // The last finger has lifted, do advanced input analysis
                         {
                             AdvancedInputAnalysis();
                             // Rotate the sessions so the current session becomes the previous one,
@@ -977,9 +981,14 @@ public class InputManager : MonoBehaviour {
 			return !hasFirstTouch && !hasSecondTouch;
 		}
 
-        public bool FingerStillTouching()
+        public bool FirstFingerTouching()
         {
-            return firstTouching || secondTouching;
+            return firstTouching;
+        }
+
+        public bool SecondFingerTouching()
+        {
+            return secondTouching;
         }
 	}
 
