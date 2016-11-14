@@ -79,7 +79,7 @@ public class FlyingSpear : MonoBehaviour, IAbility {
         GameObject s = Instantiate(spear) as GameObject;
         s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage);
         LR.CleanUp();
-        GameManager.events.DrawComplete(10);
+        GameManager.events.DrawComplete(10); // takes input 10 because it is complete.
         currentCooldown = cooldown;
     }
 
