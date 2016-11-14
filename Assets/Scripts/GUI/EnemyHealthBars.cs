@@ -7,17 +7,21 @@ public class EnemyHealthBars : MonoBehaviour {
     private float maxHealth = 30.0f;
     [Range(0.0f,30)]
     public float health;
-    public float hightOfHealthbar;
+    private float hightOfHealthbar = 180;
     private float scale;
-    public GameObject enemy;
+    private GameObject enemy;
+    private int type;
     Vector3 position;
-
+    private bool activated = false;
     void Start () {
 
     }
     void Update() {
-        updateHealthBar();//Could actually just call this whenever enemy takes damage
-        healthPosition();
+        if (activated == true)
+        {
+            healthPosition();
+            updateHealthBar();//Could actually just call this whenever enemy takes damage
+        }
     }
 
     void updateHealthBar() {
@@ -29,5 +33,10 @@ public class EnemyHealthBars : MonoBehaviour {
         position = enemy.transform.position;
         gameObject.transform.position = position;
         gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y+ hightOfHealthbar, 0);
+    }
+    public void getMyEnemy(GameObject myEnemy, int myType) {
+        enemy = myEnemy;
+        type = myType;
+        activated = true;   
     }
 }
