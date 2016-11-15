@@ -6,7 +6,7 @@ public class Health : MonoBehaviour {
     public float _healthIncreasePerLevelInPercentage;
     private float _healthPerRes;
     private bool _healthOnLevel = false;
-    private float _health, _maxHealth;
+    public float _health, _maxHealth;
     private const string _playerTag = "Player";
     private bool _isPlayer = false;
 
