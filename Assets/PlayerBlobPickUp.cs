@@ -4,7 +4,8 @@ using System.Collections;
 public class PlayerBlobPickUp : MonoBehaviour {
 
     [Header ("Pickup Radius")]
-    public float radius;
+    public float RadiusOfAttraction;
+    public float RadiusOfPickup;
 
     Collider[] objCols;
     // Use this for initialization
@@ -14,13 +15,13 @@ public class PlayerBlobPickUp : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        objCols = Physics.OverlapSphere(transform.position, radius);
+        objCols = Physics.OverlapSphere(transform.position, RadiusOfAttraction);
 
         for(int i = 0; i < objCols.Length;++i)
         {
             if(objCols[i].tag == "Blob")
             {
-                if (Vector3.Distance(transform.position, objCols[i].transform.position) < 2f)
+                if (Vector3.Distance(transform.position, objCols[i].transform.position) < RadiusOfPickup) 
                 {
                     GameManager.events.ResourcePickup(objCols[i].gameObject, 1);
                     

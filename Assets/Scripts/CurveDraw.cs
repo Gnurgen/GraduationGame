@@ -101,9 +101,9 @@ public class CurveDraw : MonoBehaviour {
         CheckArraySizes ();
 		Vector3 previousPoint = curvePoints [curvePoints.Count - 1];
 		angle = Mathf.Atan2(newPoint.z - previousPoint.z, previousPoint.x - newPoint.x) * 180 / Mathf.PI;
-		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * -Vector3.forward + newPoint;
+		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * -Vector3.forward/2 + newPoint;
 		verticeIndex++;
-		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward + newPoint;
+		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward/2 + newPoint;
 		verticeIndex++;
 
 		indicies [indicieIndex] = verticeIndex - 2;
