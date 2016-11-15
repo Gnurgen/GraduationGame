@@ -26,7 +26,7 @@ public class EnemyHealthBars : MonoBehaviour {
     void updateHealthBar() {
         health = enemy.GetComponent<Health>().health;
         scale = minSize+((maxSize-minSize)*(1-((maxHealth-health)/maxHealth))); 
-        gameObject.transform.localScale = new Vector3(scale, scale, 0); ;
+        gameObject.transform.localScale = new Vector3(scale, scale, 0); 
         if (health <= 0)
             gameObject.SetActive(false);
     }
