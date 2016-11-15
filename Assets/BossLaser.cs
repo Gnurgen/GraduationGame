@@ -6,6 +6,7 @@ public class BossLaser : MonoBehaviour {
     LineRenderer LR;
     Vector3[] LRPos = new Vector3[2];
     public float RotationSpeed = 5;
+    public float secondsOfLaser = 10;
     // Use this for initialization
     void Start () {
         LR = GetComponent<LineRenderer>();
@@ -27,29 +28,32 @@ public class BossLaser : MonoBehaviour {
 
     Ray ray;
     RaycastHit hit;
-    
+    public float laserDmg;
+
     IEnumerator ShootLaser()
     {
         Quaternion startPos = transform.rotation;
-        ray.origin = transform.position + Vector3.down;
-        ray.direction= transform.forward * 100;
-        bool shooting = true;
-        while(shooting)
+        ray.origin = transform.position + Vector3.down; // vector down because the laser is too high
+        float shooting = 0;
+        while(shooting < secondsOfLaser)
         {
+            shooting += 1 * Time.deltaTime;
             ray.direction = transform.forward * 100;
             Physics.Raycast(ray, out hit);
-            transform.GetChild(0).position = hit.point + Vector3.up;
+            transform.GetChild(0).position = hit.point + Vector3.up; // vector up to account for low raycast
             LR.SetPosition(1, transform.GetChild(0).position);
             transform.Rotate(Vector3.up,RotationSpeed * Time.deltaTime);
-            
-            if(transform.rotation.y <= 1  || transform.rotation.y >= -1)
+            if (hit.collider.tag == "Player")
             {
-                shooting = false;
-                transform.GetChild(0).position = transform.position;
-                LR.SetPosition(1, transform.GetChild(0).position);
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                print("lul");
+                GameManager.events.EnemyAttackHit(gameObject, laserDmg);
             }
+
             yield return null;
         }
+        transform.GetChild(0).position = transform.position;
+        LR.SetPosition(1, transform.GetChild(0).position);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        
     }
 }
