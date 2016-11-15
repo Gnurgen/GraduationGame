@@ -28,7 +28,7 @@ public class BossLaser : MonoBehaviour {
 
     Ray ray;
     RaycastHit hit;
-    public float laserDmg;
+    public float laserDmgPerSecond;
 
     IEnumerator ShootLaser()
     {
@@ -46,14 +46,15 @@ public class BossLaser : MonoBehaviour {
             if (hit.collider.tag == "Player")
             {
                 print("lul");
-                GameManager.events.EnemyAttackHit(gameObject, laserDmg);
+                GameManager.events.EnemyAttackHit(gameObject, laserDmgPerSecond);
+                hit.transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime);
             }
 
             yield return null;
         }
         transform.GetChild(0).position = transform.position;
         LR.SetPosition(1, transform.GetChild(0).position);
-        transform.rotation = Quaternion.Euler(0, 0, 0);
+        //transform.rotation = Quaternion.Euler(0, 0, 0);
         
     }
 }

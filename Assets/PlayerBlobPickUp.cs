@@ -3,9 +3,11 @@ using System.Collections;
 
 public class PlayerBlobPickUp : MonoBehaviour {
 
+    public float HealthGain = 1;
     [Header ("Pickup Radius")]
     public float RadiusOfAttraction;
     public float RadiusOfPickup;
+    
 
     Collider[] objCols;
     // Use this for initialization
@@ -24,7 +26,7 @@ public class PlayerBlobPickUp : MonoBehaviour {
                 if (Vector3.Distance(transform.position, objCols[i].transform.position) < RadiusOfPickup) 
                 {
                     GameManager.events.ResourcePickup(objCols[i].gameObject, 1);
-                    
+                    GetComponent<Health>().decreaseHealth(-HealthGain);
                     GameManager.events.PoolObject(objCols[i].gameObject);
 
                     objCols[i].gameObject.SetActive(false);
