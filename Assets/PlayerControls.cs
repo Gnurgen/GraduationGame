@@ -83,7 +83,7 @@ public class PlayerControls : MonoBehaviour {
         float currentAttackDuration = attackDuration;
         while(currentAttackDuration > 0)
         {
-            currentAttackDuration += Time.fixedDeltaTime;
+            currentAttackDuration -= Time.fixedDeltaTime;
             yield return new WaitForSeconds(0.02f);
         }
         StartCoroutine(Idle());
