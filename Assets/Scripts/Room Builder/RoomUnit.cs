@@ -72,10 +72,10 @@ public class RoomUnit : MonoBehaviour {
         }
         return new bool[]
         {
-            walls[0].hasDoor,
-            walls[1].hasDoor,
-            walls[2].hasDoor,
-            walls[3].hasDoor
+            walls.Length > 0 && walls[0].hasDoor,
+            walls.Length > 1 && walls[1].hasDoor,
+            walls.Length > 2 && walls[2].hasDoor,
+            walls.Length > 3 && walls[3].hasDoor
         };
     }
 

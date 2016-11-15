@@ -12,6 +12,9 @@ public class RoomBuilder : MonoBehaviour {
     public string roomName = "New Room";
     public int mapIndex = 0;
     public RoomUnit[,] roomUnits = new RoomUnit[MAX_UNIT_SIZE, MAX_UNIT_SIZE];
+    public bool isRewardRoom;
+    public bool isStartingRoom;
+    public bool isBossDoorRoom;
 
     private List<GameObject> objectList = new List<GameObject>();
     private Vector2 _roomSize = new Vector2(1, 1);
