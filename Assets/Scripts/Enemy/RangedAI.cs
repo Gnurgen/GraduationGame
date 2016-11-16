@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using Pathfinding;
 
-[RequireComponent (typeof(Seeker))]
-[RequireComponent (typeof(Rigidbody))]
-public class MeleeAI : EnemyStats {
+[RequireComponent(typeof(Seeker))]
+[RequireComponent(typeof(Rigidbody))]
+public class RangedAI : EnemyStats {
 
-
-    public GameObject Weapon;
+    public GameObject projectile;
     public GameObject target;
+    public float tooClose = 3;
+    public float projectileSpeed = 5;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
-	private Seeker seeker;
+    private Seeker seeker;
     private CharacterController cc;
     private Vector3 targetPositionAtPath;
     private Path path;
@@ -26,16 +26,17 @@ public class MeleeAI : EnemyStats {
     private Vector3 startPosition;
     private float currentAttackSpeed;
 
-   	// Use this for initialization
-	void Start () {
-       // animation = GetComponent<Animation>();
+    // Use this for initialization
+    void Start()
+    {
+        // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
-		seeker = GetComponent<Seeker> ();
+        seeker = GetComponent<Seeker>();
         StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
         startPosition = transform.position;
         currentAttackSpeed = 0;
-	}
+    }
 
     void Update()
     {
@@ -49,7 +50,7 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Waiting(float sec)
     {
-        while(sec > 0)
+        while (sec > 0)
         {
             sec -= Time.deltaTime;
             yield return null;
@@ -59,11 +60,11 @@ public class MeleeAI : EnemyStats {
     }
 
 
-	IEnumerator Idle()
-	{
+    IEnumerator Idle()
+    {
         for (;;)
         {
-            if(target != null)
+            if (target != null)
             {
                 path = null;
                 seeker.StartPath(transform.position, target.transform.position, ReceivePath);
@@ -83,7 +84,7 @@ public class MeleeAI : EnemyStats {
             }
             yield return null;
         }
-	}
+    }
 
     IEnumerator Reset()
     {
@@ -93,9 +94,9 @@ public class MeleeAI : EnemyStats {
         {
             yield return null;
         }
-        for(;;)
+        for (;;)
         {
-            if(Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
+            if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
             {
                 StartCoroutine(Chasing());
                 yield break;
@@ -131,12 +132,12 @@ public class MeleeAI : EnemyStats {
         }
     }
 
-	IEnumerator Chasing()
-	{
-        for(;;)
+    IEnumerator Chasing()
+    {
+        for (;;)
         {
             // If there is no longer a target go back to idle
-            if(target == null)
+            if (target == null)
             {
                 StartCoroutine(Idle());
                 yield break;
@@ -147,7 +148,8 @@ public class MeleeAI : EnemyStats {
             {
                 StartCoroutine(Reset());
                 yield break;
-            } else if(targetDist < attackDist)
+            }
+            else if (targetDist < attackDist)
             {
                 StartCoroutine(Attacking());
                 yield break;
@@ -193,12 +195,12 @@ public class MeleeAI : EnemyStats {
         }
     }
 
-	IEnumerator Attacking()
+    IEnumerator Attacking()
     {
         for (;;)
         {
             // If the target is no longer valid, go to idle
-            if(target == null)
+            if (target == null)
             {
                 StartCoroutine(Idle());
                 yield break;
@@ -215,15 +217,12 @@ public class MeleeAI : EnemyStats {
             Vector3 dir = (target.transform.position - transform.position).normalized;
             if (Vector3.Dot(dir, transform.forward) >= 0.8f)
             {
-                if(currentAttackSpeed < 0) {
-                    currentAttackSpeed = attackSpeed;
-                    animator.SetTrigger("Attack");
-                    Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
-                    while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-                    {
-                        yield return null;
-                    }
-                    Weapon.GetComponent<EnemyMeleeAttack>().Swing(false);
+                if (currentAttackSpeed < 0)
+                {
+                    GameObject proj = Instantiate(projectile) as GameObject;
+                    proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
+                    StartCoroutine(TacticalRetreat());
+                    yield break;
                 }
             }
             dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
@@ -239,11 +238,59 @@ public class MeleeAI : EnemyStats {
                 transform.Rotate(dir);
             yield return null;
         }
-	}
+    }
+
+    IEnumerator TacticalRetreat()
+    {
+        for (;;)
+        {
+            // If there is no longer a target, go back to idle
+            if (target == null)
+            {
+                StartCoroutine(Idle());
+                yield break;
+            }
+            targetDist = Vector3.Distance(transform.position, target.transform.position);
+            // If the target has moved outside attack distance, go to chasing it
+            if (targetDist > attackDist)
+            {
+                StartCoroutine(Chasing());
+                yield break;
+            }
+
+            // If ranged attack is ready again, go back to attacking
+            if(attackSpeed < 0)
+            {
+                StartCoroutine(Attacking());
+                yield break;
+            }
+
+            // If the target is too close, move further away
+            Vector3 dir = (target.transform.position - transform.position).normalized;
+            if (targetDist < tooClose)
+            {
+                transform.position += -dir * Time.deltaTime;
+            }
+            dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+            dir.x = 0;
+            dir.z = 0;
+            if (dir.y > 180) //If point is to the right, convert degrees to minus
+                dir.y -= 360;
+            if (dir.y > 1)
+                transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
+            else if (dir.y < -1)
+                transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
+            else
+                transform.Rotate(dir);
+
+            yield return null;
+
+        }
+    }
 
     void ReceivePath(Path path)
     {
-        if(!path.error)
+        if (!path.error)
         {
             this.path = path;
             waitingForPath = false;
@@ -252,19 +299,19 @@ public class MeleeAI : EnemyStats {
             {
                 targetPositionAtPath = target.transform.position;
             }
-           // AnalysePath();
+            // AnalysePath();
         }
     }
 
     void AnalysePath()
     {
         Vector3 dir = (path.vectorPath[pathIndex] - transform.position).normalized;
-        if(Vector3.Dot(dir, transform.forward) < 0)
+        if (Vector3.Dot(dir, transform.forward) < 0)
         {
             ++pathIndex;
-            if (behindPointCheck+pathIndex>= path.vectorPath.Count)
-                behindPointCheck = path.vectorPath.Count-pathIndex;
-            for(int x = pathIndex; x<behindPointCheck+pathIndex; ++x)
+            if (behindPointCheck + pathIndex >= path.vectorPath.Count)
+                behindPointCheck = path.vectorPath.Count - pathIndex;
+            for (int x = pathIndex; x < behindPointCheck + pathIndex; ++x)
             {
                 dir = (path.vectorPath[x] - transform.position).normalized;
                 if (Vector3.Dot(dir, transform.forward) < 0)

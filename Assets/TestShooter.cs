@@ -24,7 +24,7 @@ public class TestShooter : MonoBehaviour {
         {
             GameObject bul;
             bul = Instantiate(bullet, transform.position, transform.rotation) as GameObject;
-            bul.GetComponent<EnemyRangedAttack>().setSpecs(speed, gameObject, dmg);
+            bul.GetComponent<EnemyRangedAttack>().SetParameters(speed, gameObject, dmg);
         }
 	}
 }
