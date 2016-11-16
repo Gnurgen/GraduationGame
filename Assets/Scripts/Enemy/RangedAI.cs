@@ -219,6 +219,7 @@ public class RangedAI : EnemyStats {
             {
                 if (currentAttackSpeed < 0)
                 {
+                    currentAttackSpeed = attackSpeed;
                     GameObject proj = Instantiate(projectile) as GameObject;
                     proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
                     StartCoroutine(TacticalRetreat());
@@ -283,7 +284,7 @@ public class RangedAI : EnemyStats {
             else
                 transform.Rotate(dir);
 
-            yield return null;
+            yield return new WaitForSeconds(0.02f);
 
         }
     }

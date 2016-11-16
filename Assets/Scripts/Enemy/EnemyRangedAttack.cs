@@ -53,6 +53,7 @@ public class EnemyRangedAttack : MonoBehaviour {
     }
     public void SetParameters(float speed, GameObject enemyID, float damage)
     {
+        transform.position = enemyID.transform.position;
         this.enemyID = enemyID;
         this.speed = speed;
         dmg = damage;

@@ -25,11 +25,13 @@ public class PlayerControls : MonoBehaviour {
     private int id;
     private Camera mainCamera;
     private bool shouldMove;
+    private Rigidbody body;
 
     // Use this for initialization
     void Start () {
         im = FindObjectOfType<InputManager>();
         em = FindObjectOfType<EventManager>();
+        body = GetComponent<Rigidbody>();
         em.OnWheelOpen += disableMovement;
         em.OnWheelSelect += enableMovement;
         seeker = GetComponent<Seeker>();
@@ -69,7 +71,8 @@ public class PlayerControls : MonoBehaviour {
         em.PlayerMove(gameObject);
         while (state == State.Moving && shouldMove)
         {
-            transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
+            body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
+            body.velocity = Vector3.zero;
             yield return new WaitForSeconds(0.02f);
         }
         StartCoroutine(Idle());
