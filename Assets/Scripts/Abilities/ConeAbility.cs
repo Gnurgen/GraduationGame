@@ -67,9 +67,9 @@ public class ConeAbility : MonoBehaviour {
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized);
+        go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce);
         go.GetComponent<EnemyStats>().decreaseHealth(damage);
-        go.GetComponent<EnemyStats>().PauseFor(stunTime);
+        //go.GetComponent<EnemyStats>().PauseFor(stunTime);
         go.layer = 9;
     }
 }
