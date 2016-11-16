@@ -7,9 +7,8 @@ using Pathfinding;
 [RequireComponent (typeof(Rigidbody))]
 public class MeleeAI : EnemyStats {
 
-
     public GameObject Weapon;
-    public GameObject target;
+	public GameObject target;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
@@ -25,21 +24,24 @@ public class MeleeAI : EnemyStats {
     private float mySpeed;
     private Vector3 startPosition;
     private float currentAttackSpeed;
+    private Rigidbody body;
 
    	// Use this for initialization
 	void Start () {
        // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
 		seeker = GetComponent<Seeker> ();
+        body = GetComponent<Rigidbody>();
         StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
         startPosition = transform.position;
         currentAttackSpeed = 0;
 	}
 
-    void Update()
+    void FixedUpdate()
     {
-        currentAttackSpeed -= Time.deltaTime;
+        currentAttackSpeed -= Time.fixedDeltaTime;
+        body.velocity = Vector3.zero;
     }
 
     public void Taunt(GameObject newTarget)

@@ -53,6 +53,11 @@ public class PlayerControls : MonoBehaviour {
        
     }
 
+    void FixedUpdate()
+    {
+        body.velocity = Vector3.zero;
+    }
+
     IEnumerator Idle()
     {
         state = State.Idle;
@@ -72,7 +77,6 @@ public class PlayerControls : MonoBehaviour {
         while (state == State.Moving && shouldMove)
         {
             body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
-            body.velocity = Vector3.zero;
             yield return new WaitForSeconds(0.02f);
         }
         StartCoroutine(Idle());

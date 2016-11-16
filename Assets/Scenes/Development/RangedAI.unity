@@ -335,6 +335,11 @@ Prefab:
       propertyPath: m_Name
       value: monsterRanged
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012623781392, guid: c506c70d52e2a904d99d3533cb35a65e,
+        type: 2}
+      propertyPath: attackSpeed
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c506c70d52e2a904d99d3533cb35a65e, type: 2}
   m_IsPrefabParent: 0

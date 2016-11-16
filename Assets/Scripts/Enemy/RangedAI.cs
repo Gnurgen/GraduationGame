@@ -9,6 +9,7 @@ public class RangedAI : EnemyStats {
     public GameObject projectile;
     public GameObject target;
     public float tooClose = 3;
+    public float tooCloseSpeed = 2;
     public float projectileSpeed = 5;
     private float targetDist;
     private Animator animator;
@@ -25,6 +26,7 @@ public class RangedAI : EnemyStats {
     private float mySpeed;
     private Vector3 startPosition;
     private float currentAttackSpeed;
+    private Rigidbody body;
 
     // Use this for initialization
     void Start()
@@ -32,15 +34,17 @@ public class RangedAI : EnemyStats {
         // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
         seeker = GetComponent<Seeker>();
+        body = GetComponent<Rigidbody>();
         StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
         startPosition = transform.position;
         currentAttackSpeed = 0;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        currentAttackSpeed -= Time.deltaTime;
+        currentAttackSpeed -= Time.fixedDeltaTime;
+        body.velocity = Vector3.zero;
     }
 
     public void Taunt(GameObject newTarget)
@@ -213,17 +217,20 @@ public class RangedAI : EnemyStats {
                 yield break;
             }
 
-            // Check if facing the target, if not turn towards it, otherwise attack
             Vector3 dir = (target.transform.position - transform.position).normalized;
+            if (targetDist < tooClose)
+            {
+                transform.position += -dir * tooCloseSpeed * Time.deltaTime;
+            }
+
+            // Check if facing the target, if not turn towards it, otherwise attack
             if (Vector3.Dot(dir, transform.forward) >= 0.8f)
             {
                 if (currentAttackSpeed < 0)
                 {
                     currentAttackSpeed = attackSpeed;
-                    GameObject proj = Instantiate(projectile) as GameObject;
+                    GameObject proj = Instantiate(projectile,transform.position,transform.rotation) as GameObject;
                     proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
-                    StartCoroutine(TacticalRetreat());
-                    yield break;
                 }
             }
             dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
@@ -238,54 +245,6 @@ public class RangedAI : EnemyStats {
             else
                 transform.Rotate(dir);
             yield return null;
-        }
-    }
-
-    IEnumerator TacticalRetreat()
-    {
-        for (;;)
-        {
-            // If there is no longer a target, go back to idle
-            if (target == null)
-            {
-                StartCoroutine(Idle());
-                yield break;
-            }
-            targetDist = Vector3.Distance(transform.position, target.transform.position);
-            // If the target has moved outside attack distance, go to chasing it
-            if (targetDist > attackDist)
-            {
-                StartCoroutine(Chasing());
-                yield break;
-            }
-
-            // If ranged attack is ready again, go back to attacking
-            if(attackSpeed < 0)
-            {
-                StartCoroutine(Attacking());
-                yield break;
-            }
-
-            // If the target is too close, move further away
-            Vector3 dir = (target.transform.position - transform.position).normalized;
-            if (targetDist < tooClose)
-            {
-                transform.position += -dir * Time.deltaTime;
-            }
-            dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
-            dir.x = 0;
-            dir.z = 0;
-            if (dir.y > 180) //If point is to the right, convert degrees to minus
-                dir.y -= 360;
-            if (dir.y > 1)
-                transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
-            else if (dir.y < -1)
-                transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
-            else
-                transform.Rotate(dir);
-
-            yield return new WaitForSeconds(0.02f);
-
         }
     }
 
