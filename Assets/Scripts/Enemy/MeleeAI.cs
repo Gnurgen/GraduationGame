@@ -7,7 +7,9 @@ using Pathfinding;
 [RequireComponent (typeof(Rigidbody))]
 public class MeleeAI : EnemyStats {
 
+    public GameObject Weapon;
 	public GameObject target;
+    private float targetDist;
     private Animator animator;
     //private Animation animation;
 	private Seeker seeker;
@@ -18,102 +20,163 @@ public class MeleeAI : EnemyStats {
     private float nextPointDistance = 2;
     private float recalcPathRange;
     private bool waitingForPath;
-    private bool moving;
-    private Vector3 yZero = new Vector3(1,0,1);
     private int behindPointCheck = 10;
     private float mySpeed;
+    private Vector3 startPosition;
+    private float currentAttackSpeed;
+    private Rigidbody body;
 
    	// Use this for initialization
 	void Start () {
        // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
 		seeker = GetComponent<Seeker> ();
-        cc = GetComponent<CharacterController>();
-        moving = false;
-        StartCoroutine("StateHandler");
+        body = GetComponent<Rigidbody>();
+        StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
+        startPosition = transform.position;
+        currentAttackSpeed = 0;
 	}
 
+    void FixedUpdate()
+    {
+        currentAttackSpeed -= Time.fixedDeltaTime;
+        body.velocity = Vector3.zero;
+    }
 
-	IEnumerator StateHandler()
-	{
-        for(;;)
+    public void Taunt(GameObject newTarget)
+    {
+        target = newTarget;
+    }
+
+    IEnumerator Waiting(float sec)
+    {
+        while(sec > 0)
         {
-            if(target == null)
-            {
-                yield return StartCoroutine("Idle");
-            }
-            if(target != null && Vector3.Distance(transform.position, target.transform.position) > attackDist)
-            {
-                yield return StartCoroutine("Chasing");
-            }
-            if(target != null && Vector3.Distance(transform.position, target.transform.position) < attackDist)
-            {
-                yield return StartCoroutine("Attacking");
-            }
+            sec -= Time.deltaTime;
             yield return null;
         }
-	}
+        StartCoroutine(Idle());
+        yield break;
+    }
 
 
 	IEnumerator Idle()
 	{
         for (;;)
         {
+            if(target != null)
+            {
+                path = null;
+                seeker.StartPath(transform.position, target.transform.position, ReceivePath);
+                waitingForPath = true;
+                StartCoroutine(Chasing());
+                yield break;
+            }
+            // If the player has moved within aggro range, start chasing him
             if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
             {
                 target = GameManager.player;
+                path = null;
+                seeker.StartPath(transform.position, target.transform.position, ReceivePath);
+                waitingForPath = true;
+                StartCoroutine(Chasing());
                 yield break;
             }
             yield return null;
         }
 	}
 
+    IEnumerator Reset()
+    {
+        seeker.StartPath(transform.position, startPosition, ReceivePath);
+        waitingForPath = true;
+        while (waitingForPath)
+        {
+            yield return null;
+        }
+        for(;;)
+        {
+            if(Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
+            {
+                StartCoroutine(Chasing());
+                yield break;
+            }
+
+            if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
+            {
+                pathIndex++;
+                // If the previous target point was the final one in the path, go to idle
+                if (pathIndex == path.vectorPath.Count)
+                {
+                    StartCoroutine(Idle());
+                    yield break;
+                }
+            }
+
+            // Rotate and move towards the current target point in the path
+            Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
+            dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+            dir.x = 0;
+            dir.z = 0;
+            if (dir.y > 180) //If point is to the right, convert degrees to minus
+                dir.y -= 360;
+            if (dir.y > 1)
+                transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
+            else if (dir.y < -1)
+                transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
+            else
+                transform.Rotate(dir);
+            transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
 	IEnumerator Chasing()
 	{
-        // If there is a target and it is within aggro range
-        for (;;)
+        for(;;)
         {
-            // If there is no target, stop chasing;
-            if (target == null)
+            // If there is no longer a target go back to idle
+            if(target == null)
             {
+                StartCoroutine(Idle());
+                yield break;
+            }
+            targetDist = Vector3.Distance(transform.position, target.transform.position);
+            // If the target has moved outside the aggro range, go to idle, if withing attack range, go to attacking
+            if (targetDist > aggroRange)
+            {
+                StartCoroutine(Reset());
+                yield break;
+            } else if(targetDist < attackDist)
+            {
+                StartCoroutine(Attacking());
                 yield break;
             }
 
-            if(Vector3.Distance(transform.position, target.transform.position) > aggroRange)
+            if (!waitingForPath && Vector3.Distance(targetPositionAtPath, target.transform.position) > recalcPathRange)
             {
-                target = null;
-                yield break;
+                waitingForPath = true;
+                seeker.StartPath(transform.position, target.transform.position, ReceivePath);
             }
 
-            if (Vector3.Distance(transform.position, target.transform.position) < attackDist)
+            // If there is a path, follow it
+            if (path != null)
             {
-                yield break;
-            }
-            // If there target got outside the aggro range, remvoe it and stop chasing
-            //if(Vector3.Distance(transform.position, target.transform.position) > aggroRange)
-            //{
-            //    target = null;
-            //    yield break;
-            //}
-
-            if (!waitingForPath)
-            {
-                if(path == null || Vector3.Distance(targetPositionAtPath, target.transform.position) > recalcPathRange)
+                // If too close to the current target point in the path, move on to the next
+                if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
                 {
-                    seeker.StartPath(transform.position, target.transform.position, ReceivePath);
-                    waitingForPath = true;
-                    goto skip;
-                }
-
-                if (pathIndex < path.vectorPath.Count - 1)
-                {
-                    if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
+                    pathIndex++;
+                    // If the previous target point was the final one in the path, go to idle
+                    if (pathIndex == path.vectorPath.Count)
                     {
-                        pathIndex++;
+                        StartCoroutine(Idle());
+                        yield break;
                     }
                 }
-                // Rotate towards the current path point and move towards it
+
+                // Rotate and move towards the current target point in the path
                 Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
                 dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
                 dir.x = 0;
@@ -127,38 +190,43 @@ public class MeleeAI : EnemyStats {
                 else
                     transform.Rotate(dir);
                 transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
-                
             }
-            skip:
-            yield return new WaitForSeconds(Time.fixedDeltaTime);
+            yield return new WaitForSeconds(0.02f);
         }
     }
 
 	IEnumerator Attacking()
-	{
-		for(;;)
-		{
-			// Define attacking
+    {
+        for (;;)
+        {
+            // If the target is no longer valid, go to idle
             if(target == null)
             {
+                StartCoroutine(Idle());
                 yield break;
             }
-            if(Vector3.Distance(transform.position, target.transform.position) > attackDist)
+            targetDist = Vector3.Distance(transform.position, target.transform.position);
+            // If the target has moved outside attack distance, go to chasing it
+            if (targetDist > attackDist)
             {
+                StartCoroutine(Chasing());
                 yield break;
             }
 
+            // Check if facing the target, if not turn towards it, otherwise attack
             Vector3 dir = (target.transform.position - transform.position).normalized;
             if (Vector3.Dot(dir, transform.forward) >= 0.8f)
             {
-                animator.SetTrigger("Attack");
-                Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
-                while(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-                {
-                    yield return null; 
+                if(currentAttackSpeed < 0) {
+                    currentAttackSpeed = attackSpeed;
+                    animator.SetTrigger("Attack");
+                    Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
+                    while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                    {
+                        yield return null;
+                    }
+                    Weapon.GetComponent<EnemyMeleeAttack>().Swing(false);
                 }
-                Weapon.GetComponent<EnemyMeleeAttack>().Swing(false);
-                yield break;
             }
             dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
             dir.x = 0;
@@ -171,8 +239,8 @@ public class MeleeAI : EnemyStats {
                 transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
             else
                 transform.Rotate(dir);
-                yield return null;
-		}
+            yield return null;
+        }
 	}
 
     void ReceivePath(Path path)
@@ -187,14 +255,6 @@ public class MeleeAI : EnemyStats {
                 targetPositionAtPath = target.transform.position;
             }
            // AnalysePath();
-            moving = true;
-        }
-        else
-        {
-            if(target != null)
-            {
-                seeker.StartPath(transform.position, target.transform.position, ReceivePath);
-            }
         }
     }
 

@@ -6,7 +6,9 @@ using System.Collections.Generic;
 public class FlyingSpear : MonoBehaviour, IAbility {
 
     public GameObject spear;
-    public float damage;
+    public float baseDamage;
+    [Range(0, 100)]
+    public float DmgIncreasePerLvlPercentage;
     public float flyingSpeed;
     public float cooldown = 5;
     public float drawTimer;
@@ -14,7 +16,9 @@ public class FlyingSpear : MonoBehaviour, IAbility {
 
 
     private InputManager IM;
+    private EventManager EM;
     private CurveDraw LR;
+    public float damage;
     public float currentCooldown;
     public float currentDrawTimer;
     public float currentDrawLength;
@@ -27,12 +31,15 @@ public class FlyingSpear : MonoBehaviour, IAbility {
 
     // Use this for initialization
     void Start () {
+        damage = baseDamage;
         currentCooldown = 0;
         currentDrawLength = 0;
         currentDrawTimer = 0;
         IM = GameManager.input;
+        EM = GameManager.events;
         LR = GetComponent<CurveDraw>();
         ID = IM.GetID();
+        EM.OnLevelUp += levelUpSpear;
 	}
 	
 	// Update is called once per frame
@@ -79,7 +86,7 @@ public class FlyingSpear : MonoBehaviour, IAbility {
         GameObject s = Instantiate(spear) as GameObject;
         s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage);
         LR.CleanUp();
-        GameManager.events.DrawComplete(10);
+        GameManager.events.DrawComplete(10); // takes input 10 because it is complete.
         currentCooldown = cooldown;
     }
 
@@ -129,5 +136,8 @@ public class FlyingSpear : MonoBehaviour, IAbility {
             newPointAdded = true;
         }
         shouldDraw = false;
+    }
+    void levelUpSpear(int level) {
+        damage += damage * (DmgIncreasePerLvlPercentage / 100);
     }
 }
