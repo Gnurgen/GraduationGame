@@ -45,7 +45,6 @@ public class BossLaser : MonoBehaviour {
             transform.Rotate(Vector3.up,RotationSpeed * Time.deltaTime);
             if (hit.collider.tag == "Player")
             {
-                print("lul");
                 GameManager.events.EnemyAttackHit(gameObject, laserDmgPerSecond);
                 hit.transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime);
             }

@@ -6,15 +6,16 @@ public class MeteorShower : MonoBehaviour {
 
     public float MaxRangeOfAttack = 10;
     public float MinRangeOfAttack = 1;
-    public float AreaOfBoulder = 2;
+    public float AreaOfBoulder = 4;
     public float FallAnimationSeconds = 0.3f;
     public float FallTime = 4;
     public float SecondsOfExpanding= 1;
     public float HeightOfFall = 10;
     public GameObject Boulder, Fallarea;
+    public float Damage;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 	
 	}
 	
@@ -33,12 +34,12 @@ public class MeteorShower : MonoBehaviour {
     {
         Vector2 pos = Random.insideUnitCircle * (MaxRangeOfAttack - MinRangeOfAttack);
         Vector3 actual = new Vector3(pos.x+ MinRangeOfAttack, 0, pos.y+ MinRangeOfAttack);
-        GameObject FallArea = Instantiate(Fallarea, actual, Quaternion.identity) as GameObject;
+        GameObject fallArea = Instantiate(Fallarea, actual, Quaternion.identity) as GameObject;
         float step = SecondsOfExpanding;
         while(step > 0) // increase size of fallArea to areaBoulder in SecondsOfExpanding
         {
             step -= 1 * Time.deltaTime;
-            Fallarea.transform.localScale = new Vector3((step / SecondsOfExpanding) * AreaOfBoulder, .1f,(step / SecondsOfExpanding) * AreaOfBoulder);
+            fallArea.transform.localScale = new Vector3((SecondsOfExpanding - step) / SecondsOfExpanding * AreaOfBoulder, .1f, (SecondsOfExpanding - step) / SecondsOfExpanding * AreaOfBoulder);
             yield return null;
         }
         step = FallTime - SecondsOfExpanding;
@@ -50,13 +51,23 @@ public class MeteorShower : MonoBehaviour {
         }
 
         GameObject boulder = Instantiate(Boulder, actual+ Vector3.up * HeightOfFall, Quaternion.identity) as GameObject;
-
+       
         while(step>0) // Let the boulder fall HeightOfFall distance in FallAnimationSeconds
         {
             step -= 1 * Time.deltaTime;
-            boulder.transform.position = Vector3.Lerp(actual + Vector3.up * HeightOfFall, actual, step / FallAnimationSeconds);
+            boulder.transform.position = Vector3.Lerp(actual + Vector3.up * HeightOfFall, actual, 1 - step / FallAnimationSeconds);
             yield return null;
         }
-        Destroy(FallArea);
+        Collider[] hit = Physics.OverlapSphere(fallArea.transform.position, AreaOfBoulder);
+        for (int i = 0; i < hit.Length; i++)
+        {
+            if(hit[i].tag == "Player")
+            {
+                GameManager.events.EnemyAttackHit(gameObject, Damage);
+                hit[i].GetComponent<Health>().decreaseHealth(Damage);
+            }
+        }
+        
+        Destroy(fallArea);
     }
 }
