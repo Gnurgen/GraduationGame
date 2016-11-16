@@ -58,7 +58,7 @@ public class PlayerControls : MonoBehaviour {
         path = null;
         while(state == State.Idle)
         {
-            yield return new WaitForSeconds(0.02f);
+            yield return null;
         }
         yield break;
     }
@@ -70,7 +70,7 @@ public class PlayerControls : MonoBehaviour {
         while (state == State.Moving && shouldMove)
         {
             transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
-            yield return new WaitForSeconds(0.02f);
+            yield return null; 
         }
         StartCoroutine(Idle());
         yield break;
@@ -99,7 +99,7 @@ public class PlayerControls : MonoBehaviour {
         {
             currentDashDuration -= Time.fixedDeltaTime;
             transform.position += transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime;
-            yield return new WaitForSeconds(0.02f);
+            yield return null;
         }
         em.PlayerDashEnd(gameObject);
         StartCoroutine(Idle());
