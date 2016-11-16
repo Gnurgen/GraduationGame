@@ -4,15 +4,14 @@
 		<WorkUnit Name="Default Work Unit" ID="{5791A00B-9E72-4E8C-BCEE-4A7BE2F1B78C}" PersistMode="Standalone">
 			<ChildrenList>
 				<StateGroup Name="Environment" ID="{A2CE9294-A568-484B-A9BD-EDE5989682F8}">
+					<PropertyList>
+						<Property Name="DefaultTransitionTime" Type="Real64" Value="4"/>
+					</PropertyList>
 					<ChildrenList>
 						<State Name="None" ID="{8EE8FBF9-1B8C-4395-AD7A-C3F988D92988}"/>
-						<State Name="Outer" ID="{9184888C-57A6-4102-A790-4259F29C2B1D}"/>
-						<State Name="Inner" ID="{3BFC3B6B-0C54-4704-87EC-FADC4A3C3C91}"/>
-						<State Name="Core" ID="{C7F8A48F-2110-4892-A56D-98A7510AF00A}"/>
-						<State Name="Corridor" ID="{B834F917-EB71-4A78-ADB3-2D17A1C3E744}"/>
-						<State Name="Inner_Corridor" ID="{5A1F885D-3D5E-40EE-82F2-C2AA73F5EBE2}"/>
-						<State Name="Outer_Corridor" ID="{C83CC402-AC50-4F2B-B8E7-1003AAEFF275}"/>
-						<State Name="Core_Corridor" ID="{61DFD48D-DAE8-4B2D-A123-C96D46BA3DA4}"/>
+						<State Name="Big" ID="{C7F8A48F-2110-4892-A56D-98A7510AF00A}"/>
+						<State Name="Small" ID="{B834F917-EB71-4A78-ADB3-2D17A1C3E744}"/>
+						<State Name="Medium" ID="{61DFD48D-DAE8-4B2D-A123-C96D46BA3DA4}"/>
 					</ChildrenList>
 				</StateGroup>
 				<StateGroup Name="Game_State" ID="{EDAB1CD6-5EF8-4F5E-A996-EA864D5DA94D}">

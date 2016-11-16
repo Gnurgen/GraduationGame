@@ -65,12 +65,16 @@
 				<Event Id="2813179063" Name="Environmental_Ambience_Play" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Play"/>
 				<Event Id="1543198181" Name="Environmental_Ambience_Stop" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="2160362136" Name="Level_Up_Play" ObjectPath="\Events\Default Work Unit\Level_Up_Play"/>
+				<Event Id="1351188369" Name="Main_Menu_Music_Play" ObjectPath="\Events\Default Work Unit\Main_Menu_Music_Play"/>
+				<Event Id="2602603591" Name="Main_Menu_Music_Stop" ObjectPath="\Events\Default Work Unit\Main_Menu_Music_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="220652244" Name="Mark_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Mark_Ability_Control_Play"/>
 				<Event Id="2308852762" Name="Mark_Ability_Play" ObjectPath="\Events\Default Work Unit\Mark_Ability_Play"/>
 				<Event Id="1206082786" Name="Menu_Close_Play" ObjectPath="\Events\Default Work Unit\Menu_Close_Play"/>
 				<Event Id="900962796" Name="Menu_Open_Play" ObjectPath="\Events\Default Work Unit\Menu_Open_Play"/>
 				<Event Id="350081739" Name="Music_System_Play" ObjectPath="\Events\Default Work Unit\Music_System_Play"/>
 				<Event Id="3509289057" Name="Music_System_Stop" ObjectPath="\Events\Default Work Unit\Music_System_Stop" MaxAttenuation="0.000000"/>
+				<Event Id="789084040" Name="Pickup_Move_Play" ObjectPath="\Events\Default Work Unit\Pickup_Move_Play"/>
+				<Event Id="3166651386" Name="Pickup_Move_Stop" ObjectPath="\Events\Default Work Unit\Pickup_Move_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1715783110" Name="Pickup_Play" ObjectPath="\Events\Default Work Unit\Pickup_Play"/>
 				<Event Id="2348472398" Name="Player_Death_Play" ObjectPath="\Events\Default Work Unit\Player_Death_Play"/>
 				<Event Id="1389849668" Name="Player_Respawn_Play" ObjectPath="\Events\Default Work Unit\Player_Respawn_Play"/>
@@ -86,199 +90,191 @@
 				</File>
 				<File Id="8318211" Language="SFX">
 					<ShortName>Spear_Hit_Indestructible.wav</ShortName>
-					<Path>SFX\Spear_Hit_Indestructible_962A5225.wem</Path>
+					<Path>SFX\Spear_Hit_Indestructible_1EED65C9.wem</Path>
 				</File>
 				<File Id="26286231" Language="SFX">
 					<ShortName>Boss_Missile_Hit_Player.wav</ShortName>
-					<Path>SFX\Boss_Missile_Hit_Player_9E69E797.wem</Path>
+					<Path>SFX\Boss_Missile_Hit_Player_C47F2D1B.wem</Path>
 				</File>
 				<File Id="41734456" Language="SFX">
 					<ShortName>Spear_Hit_Enemy_Shield.wav</ShortName>
-					<Path>SFX\Spear_Hit_Enemy_Shield_0D07D6AC.wem</Path>
+					<Path>SFX\Spear_Hit_Enemy_Shield_675B1D38.wem</Path>
 				</File>
 				<File Id="55832679" Language="SFX">
 					<ShortName>Button_Wheel_Hover.wav</ShortName>
-					<Path>SFX\Button_Wheel_Hover_6E9F2BA6.wem</Path>
+					<Path>SFX\Button_Wheel_Hover_2E403D0A.wem</Path>
 				</File>
 				<File Id="66799420" Language="SFX">
 					<ShortName>Draw_Ability.wav</ShortName>
-					<Path>SFX\Draw_Ability_4B8CC0C5.wem</Path>
+					<Path>SFX\Draw_Ability_0ED39DC9.wem</Path>
+				</File>
+				<File Id="73345813" Language="SFX">
+					<ShortName>Ambience_5.wav</ShortName>
+					<Path>SFX\Ambience_5_C47F2D1B.wem</Path>
 				</File>
 				<File Id="77503931" Language="SFX">
 					<ShortName>Menu_Close.wav</ShortName>
-					<Path>SFX\Menu_Close_5064532D.wem</Path>
+					<Path>SFX\Menu_Close_865244D9.wem</Path>
+				</File>
+				<File Id="91948562" Language="SFX">
+					<ShortName>Ambience_3.wav</ShortName>
+					<Path>SFX\Ambience_3_C47F2D1B.wem</Path>
 				</File>
 				<File Id="97329504" Language="SFX">
 					<ShortName>Boss_Beam_Hit_Wall.wav</ShortName>
-					<Path>SFX\Boss_Beam_Hit_Wall_4B8CC0C5.wem</Path>
+					<Path>SFX\Boss_Beam_Hit_Wall_0ED39DC9.wem</Path>
 				</File>
-				<File Id="111310410" Language="SFX">
-					<ShortName>Music_In_Battle.wav</ShortName>
-					<Path>SFX\Music_In_Battle_4B8CC0C5.wem</Path>
+				<File Id="117927810" Language="SFX">
+					<ShortName>In Game Music - Gongs.wav</ShortName>
+					<Path>SFX\In Game Music - Gongs_0ED39DC9.wem</Path>
 				</File>
 				<File Id="134979899" Language="SFX">
 					<ShortName>Enemy_Ranged.wav</ShortName>
-					<Path>SFX\Enemy_Ranged_D3B60D95.wem</Path>
+					<Path>SFX\Enemy_Ranged_D8CE6611.wem</Path>
 				</File>
 				<File Id="145298223" Language="SFX">
 					<ShortName>Spear_Hit_Boss.wav</ShortName>
-					<Path>SFX\Spear_Hit_Boss_476F6876.wem</Path>
+					<Path>SFX\Spear_Hit_Boss_0AFBF8A2.wem</Path>
 				</File>
 				<File Id="145486535" Language="SFX">
 					<ShortName>Boss_Rain_Hit_Player.wav</ShortName>
-					<Path>SFX\Boss_Rain_Hit_Player_9E69E797.wem</Path>
-				</File>
-				<File Id="156796562" Language="SFX">
-					<ShortName>Ambience_In_Inner_Area.wav</ShortName>
-					<Path>SFX\Ambience_In_Inner_Area_9E69E797.wem</Path>
+					<Path>SFX\Boss_Rain_Hit_Player_C47F2D1B.wem</Path>
 				</File>
 				<File Id="193622691" Language="SFX">
 					<ShortName>Button_Start_Game.wav</ShortName>
-					<Path>SFX\Button_Start_Game_3DE23DB5.wem</Path>
+					<Path>SFX\Button_Start_Game_5CAE6989.wem</Path>
 				</File>
 				<File Id="196167360" Language="SFX">
 					<ShortName>Ability_Swap.wav</ShortName>
-					<Path>SFX\Ability_Swap_F6DFC676.wem</Path>
+					<Path>SFX\Ability_Swap_B0445A12.wem</Path>
 				</File>
 				<File Id="209859539" Language="SFX">
 					<ShortName>Draw_Ability_Control.wav</ShortName>
-					<Path>SFX\Draw_Ability_Control_4B8CC0C5.wem</Path>
+					<Path>SFX\Draw_Ability_Control_0ED39DC9.wem</Path>
+				</File>
+				<File Id="236484631" Language="SFX">
+					<ShortName>In Game Music - Main.wav</ShortName>
+					<Path>SFX\In Game Music - Main_0ED39DC9.wem</Path>
+				</File>
+				<File Id="239801717" Language="SFX">
+					<ShortName>Ambience_4.wav</ShortName>
+					<Path>SFX\Ambience_4_C47F2D1B.wem</Path>
 				</File>
 				<File Id="248240721" Language="SFX">
 					<ShortName>Enemy_Ranged_Hit_Player.wav</ShortName>
-					<Path>SFX\Enemy_Ranged_Hit_Player_9FC63240.wem</Path>
+					<Path>SFX\Enemy_Ranged_Hit_Player_D643B37C.wem</Path>
 				</File>
 				<File Id="252032107" Language="SFX">
 					<ShortName>Ability_Slot.wav</ShortName>
-					<Path>SFX\Ability_Slot_F1F7CA56.wem</Path>
-				</File>
-				<File Id="277415236" Language="SFX">
-					<ShortName>Enemy_Melee.wav</ShortName>
-					<Path>SFX\Enemy_Melee_895A0013.wem</Path>
-				</File>
-				<File Id="296661241" Language="SFX">
-					<ShortName>Music_In_Skill_Tree.wav</ShortName>
-					<Path>SFX\Music_In_Skill_Tree_4B8CC0C5.wem</Path>
+					<Path>SFX\Ability_Slot_C1365CE2.wem</Path>
 				</File>
 				<File Id="314800765" Language="SFX">
 					<ShortName>Button_Wheel_Select.wav</ShortName>
-					<Path>SFX\Button_Wheel_Select_270C75D1.wem</Path>
+					<Path>SFX\Button_Wheel_Select_785D9045.wem</Path>
 				</File>
 				<File Id="325711566" Language="SFX">
 					<ShortName>Boss_Beam.wav</ShortName>
-					<Path>SFX\Boss_Beam_4B8CC0C5.wem</Path>
+					<Path>SFX\Boss_Beam_0ED39DC9.wem</Path>
 				</File>
 				<File Id="335394518" Language="SFX">
 					<ShortName>Button_Menu.wav</ShortName>
-					<Path>SFX\Button_Menu_A2B4C0A4.wem</Path>
+					<Path>SFX\Button_Menu_C5CDED70.wem</Path>
 				</File>
 				<File Id="346959011" Language="SFX">
 					<ShortName>Boss_Shield_Up.wav</ShortName>
-					<Path>SFX\Boss_Shield_Up_9E69E797.wem</Path>
+					<Path>SFX\Boss_Shield_Up_C47F2D1B.wem</Path>
 				</File>
 				<File Id="349841009" Language="SFX">
 					<ShortName>Enemy_Chatter.wav</ShortName>
-					<Path>SFX\Enemy_Chatter_9E69E797.wem</Path>
-				</File>
-				<File Id="360667754" Language="SFX">
-					<ShortName>Ambience_In_Corridor.wav</ShortName>
-					<Path>SFX\Ambience_In_Corridor_9E69E797.wem</Path>
+					<Path>SFX\Enemy_Chatter_C47F2D1B.wem</Path>
 				</File>
 				<File Id="385179164" Language="SFX">
 					<ShortName>Spear_Hit_Boss_Shield.wav</ShortName>
-					<Path>SFX\Spear_Hit_Boss_Shield_4814BE3E.wem</Path>
+					<Path>SFX\Spear_Hit_Boss_Shield_C2C9820A.wem</Path>
 				</File>
 				<File Id="392426319" Language="SFX">
 					<ShortName>Wheel_Close.wav</ShortName>
-					<Path>SFX\Wheel_Close_6AA0D056.wem</Path>
+					<Path>SFX\Wheel_Close_A6480562.wem</Path>
 				</File>
 				<File Id="400851421" Language="SFX">
 					<ShortName>Checkpoint.wav</ShortName>
-					<Path>SFX\Checkpoint_9E69E797.wem</Path>
+					<Path>SFX\Checkpoint_C47F2D1B.wem</Path>
 				</File>
 				<File Id="408232039" Language="SFX">
 					<ShortName>Spear_Hit_Destrucible.wav</ShortName>
-					<Path>SFX\Spear_Hit_Destrucible_50BCAB02.wem</Path>
+					<Path>SFX\Spear_Hit_Destrucible_5C92FAC6.wem</Path>
 				</File>
-				<File Id="437258669" Language="SFX">
-					<ShortName>Spear.wav</ShortName>
-					<Path>SFX\Spear_7C9D2307.wem</Path>
+				<File Id="425836869" Language="SFX">
+					<ShortName>Ambience.wav</ShortName>
+					<Path>SFX\Ambience_C47F2D1B.wem</Path>
 				</File>
 				<File Id="442489187" Language="SFX">
 					<ShortName>Boss_Missile_Move.wav</ShortName>
-					<Path>SFX\Boss_Missile_Move_4B8CC0C5.wem</Path>
+					<Path>SFX\Boss_Missile_Move_0ED39DC9.wem</Path>
 				</File>
 				<File Id="482045922" Language="SFX">
 					<ShortName>Level_Up.wav</ShortName>
-					<Path>SFX\Level_Up_9E69E797.wem</Path>
+					<Path>SFX\Level_Up_C47F2D1B.wem</Path>
 				</File>
 				<File Id="494802499" Language="SFX">
 					<ShortName>Player_Respawn.wav</ShortName>
-					<Path>SFX\Player_Respawn_9E69E797.wem</Path>
+					<Path>SFX\Player_Respawn_C47F2D1B.wem</Path>
 				</File>
 				<File Id="500779542" Language="SFX">
 					<ShortName>Music_After_Boss.wav</ShortName>
-					<Path>SFX\Music_After_Boss_4B8CC0C5.wem</Path>
+					<Path>SFX\Music_After_Boss_0ED39DC9.wem</Path>
 				</File>
 				<File Id="501342181" Language="SFX">
 					<ShortName>Boss_Missile_Hit_Wall.wav</ShortName>
-					<Path>SFX\Boss_Missile_Hit_Wall_9E69E797.wem</Path>
+					<Path>SFX\Boss_Missile_Hit_Wall_C47F2D1B.wem</Path>
 				</File>
 				<File Id="532644430" Language="SFX">
 					<ShortName>Music_In_Intro_Cutscene.wav</ShortName>
-					<Path>SFX\Music_In_Intro_Cutscene_4B8CC0C5.wem</Path>
+					<Path>SFX\Music_In_Intro_Cutscene_0ED39DC9.wem</Path>
+				</File>
+				<File Id="547466270" Language="SFX">
+					<ShortName>In Game Music - Rhythm.wav</ShortName>
+					<Path>SFX\In Game Music - Rhythm_0ED39DC9.wem</Path>
 				</File>
 				<File Id="565054861" Language="SFX">
 					<ShortName>Ability_Hold.wav</ShortName>
-					<Path>SFX\Ability_Hold_4B8CC0C5.wem</Path>
+					<Path>SFX\Ability_Hold_0ED39DC9.wem</Path>
 				</File>
 				<File Id="568477832" Language="SFX">
 					<ShortName>Music_In_Ending_Cutscene.wav</ShortName>
-					<Path>SFX\Music_In_Ending_Cutscene_4B8CC0C5.wem</Path>
+					<Path>SFX\Music_In_Ending_Cutscene_0ED39DC9.wem</Path>
 				</File>
 				<File Id="574730426" Language="SFX">
 					<ShortName>Boss_Beam_Hit_Player.wav</ShortName>
-					<Path>SFX\Boss_Beam_Hit_Player_4B8CC0C5.wem</Path>
+					<Path>SFX\Boss_Beam_Hit_Player_0ED39DC9.wem</Path>
 				</File>
 				<File Id="577510896" Language="SFX">
 					<ShortName>Enemy_Ranged_Hit_Wall.wav</ShortName>
-					<Path>SFX\Enemy_Ranged_Hit_Wall_39E26348.wem</Path>
+					<Path>SFX\Enemy_Ranged_Hit_Wall_71DAFC6C.wem</Path>
 				</File>
 				<File Id="587867718" Language="SFX">
 					<ShortName>Boss_Missile_Hit_Self.wav</ShortName>
-					<Path>SFX\Boss_Missile_Hit_Self_9E69E797.wem</Path>
+					<Path>SFX\Boss_Missile_Hit_Self_C47F2D1B.wem</Path>
 				</File>
 				<File Id="592625524" Language="SFX">
 					<ShortName>Enemy_Melee_Hit_Player.wav</ShortName>
-					<Path>SFX\Enemy_Melee_Hit_Player_4CBA46A1.wem</Path>
+					<Path>SFX\Enemy_Melee_Hit_Player_CBBC3035.wem</Path>
 				</File>
 				<File Id="593519490" Language="SFX">
 					<ShortName>Spear_Hit_Enemy.wav</ShortName>
-					<Path>SFX\Spear_Hit_Enemy_6664DCFF.wem</Path>
-				</File>
-				<File Id="613977802" Language="SFX">
-					<ShortName>Ambience_In_Outer_Area.wav</ShortName>
-					<Path>SFX\Ambience_In_Outer_Area_9E69E797.wem</Path>
+					<Path>SFX\Spear_Hit_Enemy_CD768323.wem</Path>
 				</File>
 				<File Id="616539973" Language="SFX">
 					<ShortName>Pickup.wav</ShortName>
-					<Path>SFX\Pickup_26544432.wem</Path>
+					<Path>SFX\Pickup_0E2C7BFE.wem</Path>
 				</File>
 				<File Id="616878891" Language="SFX">
 					<ShortName>Enemy_Shield.wav</ShortName>
-					<Path>SFX\Enemy_Shield_0B815204.wem</Path>
-				</File>
-				<File Id="636056831" Language="SFX">
-					<ShortName>Music_In_Main_Menu.wav</ShortName>
-					<Path>SFX\Music_In_Main_Menu_4B8CC0C5.wem</Path>
-				</File>
-				<File Id="645352333" Language="SFX">
-					<ShortName>Music_Out_Of_Battle.wav</ShortName>
-					<Path>SFX\Music_Out_Of_Battle_4B8CC0C5.wem</Path>
+					<Path>SFX\Enemy_Shield_A6FC9190.wem</Path>
 				</File>
 				<File Id="667998553" Language="SFX">
 					<ShortName>Mark_Ability_Control.wav</ShortName>
-					<Path>SFX\Mark_Ability_Control_9E292ED3.wem</Path>
+					<Path>SFX\Mark_Ability_Control_8A0D636F.wem</Path>
 				</File>
 				<File Id="683796896" Language="SFX">
 					<ShortName>Boss_Presentation.wav</ShortName>
@@ -286,83 +282,79 @@
 				</File>
 				<File Id="690662978" Language="SFX">
 					<ShortName>Boss_Rain_Hit_Floor.wav</ShortName>
-					<Path>SFX\Boss_Rain_Hit_Floor_9E69E797.wem</Path>
+					<Path>SFX\Boss_Rain_Hit_Floor_C47F2D1B.wem</Path>
 				</File>
 				<File Id="743145374" Language="SFX">
 					<ShortName>Wheel_Open.wav</ShortName>
-					<Path>SFX\Wheel_Open_4359163C.wem</Path>
+					<Path>SFX\Wheel_Open_ECAC36E8.wem</Path>
 				</File>
 				<File Id="750327012" Language="SFX">
 					<ShortName>Boss_Rain.wav</ShortName>
-					<Path>SFX\Boss_Rain_9E69E797.wem</Path>
+					<Path>SFX\Boss_Rain_C47F2D1B.wem</Path>
+				</File>
+				<File Id="755656711" Language="SFX">
+					<ShortName>Ambience_1.wav</ShortName>
+					<Path>SFX\Ambience_1_C47F2D1B.wem</Path>
 				</File>
 				<File Id="755737202" Language="SFX">
 					<ShortName>Circle_Ability.wav</ShortName>
-					<Path>SFX\Circle_Ability_A50F3C31.wem</Path>
+					<Path>SFX\Circle_Ability_9AF7828D.wem</Path>
 				</File>
 				<File Id="761651021" Language="SFX">
 					<ShortName>Enemy_Death.wav</ShortName>
-					<Path>SFX\Enemy_Death_C5346948.wem</Path>
+					<Path>SFX\Enemy_Death_0F350AAC.wem</Path>
 				</File>
 				<File Id="784204649" Language="SFX">
 					<ShortName>Menu_Open.wav</ShortName>
-					<Path>SFX\Menu_Open_7D3351A2.wem</Path>
+					<Path>SFX\Menu_Open_35E30ACE.wem</Path>
 				</File>
 				<File Id="811420928" Language="SFX">
 					<ShortName>Boss_Shield_Down.wav</ShortName>
-					<Path>SFX\Boss_Shield_Down_9E69E797.wem</Path>
+					<Path>SFX\Boss_Shield_Down_C47F2D1B.wem</Path>
 				</File>
 				<File Id="816473991" Language="SFX">
 					<ShortName>Ability_Grab.wav</ShortName>
-					<Path>SFX\Ability_Grab_0E00D231.wem</Path>
+					<Path>SFX\Ability_Grab_BEBB193D.wem</Path>
 				</File>
 				<File Id="822169123" Language="SFX">
 					<ShortName>Player_Death.wav</ShortName>
-					<Path>SFX\Player_Death_9E69E797.wem</Path>
+					<Path>SFX\Player_Death_C47F2D1B.wem</Path>
 				</File>
 				<File Id="822788347" Language="SFX">
 					<ShortName>Boss_Missile.wav</ShortName>
-					<Path>SFX\Boss_Missile_9E69E797.wem</Path>
+					<Path>SFX\Boss_Missile_C47F2D1B.wem</Path>
 				</File>
 				<File Id="825476414" Language="SFX">
 					<ShortName>Ability_Appear.wav</ShortName>
-					<Path>SFX\Ability_Appear_9E69E797.wem</Path>
+					<Path>SFX\Ability_Appear_C47F2D1B.wem</Path>
 				</File>
 				<File Id="835280033" Language="SFX">
 					<ShortName>Circle_Ability_Control.wav</ShortName>
-					<Path>SFX\Circle_Ability_Control_4B8CC0C5.wem</Path>
+					<Path>SFX\Circle_Ability_Control_0ED39DC9.wem</Path>
 				</File>
 				<File Id="867334508" Language="SFX">
 					<ShortName>Boss_Missile_Hit_Enemy.wav</ShortName>
-					<Path>SFX\Boss_Missile_Hit_Enemy_9E69E797.wem</Path>
+					<Path>SFX\Boss_Missile_Hit_Enemy_C47F2D1B.wem</Path>
 				</File>
 				<File Id="879283342" Language="SFX">
 					<ShortName>Mark_Ability.wav</ShortName>
-					<Path>SFX\Mark_Ability_F9687B3C.wem</Path>
-				</File>
-				<File Id="882682419" Language="SFX">
-					<ShortName>Dash.wav</ShortName>
-					<Path>SFX\Dash_529CE9B7.wem</Path>
+					<Path>SFX\Mark_Ability_1954BE90.wem</Path>
 				</File>
 				<File Id="963882025" Language="SFX">
 					<ShortName>Boss_Rain_Move.wav</ShortName>
-					<Path>SFX\Boss_Rain_Move_4B8CC0C5.wem</Path>
+					<Path>SFX\Boss_Rain_Move_0ED39DC9.wem</Path>
 				</File>
-				<File Id="982879038" Language="SFX">
-					<ShortName>Music_In_Ability_Wheel.wav</ShortName>
-					<Path>SFX\Music_In_Ability_Wheel_4B8CC0C5.wem</Path>
+				<File Id="1011084308" Language="SFX">
+					<ShortName>Main Menu Music.wav</ShortName>
+					<Path>SFX\Main Menu Music_0ED39DC9.wem</Path>
 				</File>
-				<File Id="1015759270" Language="SFX">
-					<ShortName>Ambience_At_Core.wav</ShortName>
-					<Path>SFX\Ambience_At_Core_9E69E797.wem</Path>
-				</File>
-				<File Id="1023086781" Language="SFX">
-					<ShortName>Music_In_Ability_Control.wav</ShortName>
-					<Path>SFX\Music_In_Ability_Control_4B8CC0C5.wem</Path>
+				<File Id="1020289391" Language="SFX">
+					<ShortName>Ambience_2.wav</ShortName>
+					<Path>SFX\Ambience_2_C47F2D1B.wem</Path>
 				</File>
 				<File Id="1053373378" Language="SFX">
 					<ShortName>Boss_Beam_Hit_Enemy.wav</ShortName>
-					<Path>SFX\Boss_Beam_Hit_Enemy_4B8CC0C5.wem</Path>
+					<Path>SFX\Boss_Beam_Hit_Enemy_0ED39DC9.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
