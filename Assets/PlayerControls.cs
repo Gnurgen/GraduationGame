@@ -25,11 +25,13 @@ public class PlayerControls : MonoBehaviour {
     private int id;
     private Camera mainCamera;
     private bool shouldMove;
+    private Rigidbody body;
 
     // Use this for initialization
     void Start () {
         im = FindObjectOfType<InputManager>();
         em = FindObjectOfType<EventManager>();
+        body = GetComponent<Rigidbody>();
         em.OnWheelOpen += disableMovement;
         em.OnWheelSelect += enableMovement;
         seeker = GetComponent<Seeker>();
@@ -51,6 +53,11 @@ public class PlayerControls : MonoBehaviour {
        
     }
 
+    void FixedUpdate()
+    {
+        body.velocity = Vector3.zero;
+    }
+
     IEnumerator Idle()
     {
         state = State.Idle;
@@ -58,7 +65,7 @@ public class PlayerControls : MonoBehaviour {
         path = null;
         while(state == State.Idle)
         {
-            yield return null;
+            yield return new WaitForSeconds(0.02f);
         }
         yield break;
     }
@@ -69,8 +76,8 @@ public class PlayerControls : MonoBehaviour {
         em.PlayerMove(gameObject);
         while (state == State.Moving && shouldMove)
         {
-            transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
-            yield return null; 
+            body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
+            yield return new WaitForSeconds(0.02f);
         }
         StartCoroutine(Idle());
         yield break;
@@ -99,7 +106,7 @@ public class PlayerControls : MonoBehaviour {
         {
             currentDashDuration -= Time.fixedDeltaTime;
             transform.position += transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime;
-            yield return null;
+            yield return new WaitForSeconds(0.02f);
         }
         em.PlayerDashEnd(gameObject);
         StartCoroutine(Idle());
