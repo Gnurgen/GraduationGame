@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Health : MonoBehaviour {
     public float _baseHealth;
+    [Range(0,100)]
     public float _healthIncreasePerLevelInPercentage;
     private float _healthPerRes;
     private bool _healthOnLevel = false;
@@ -90,7 +91,7 @@ public class Health : MonoBehaviour {
     }
     public void levelUp(int id)
     {
-        _maxHealth *= _healthIncreasePerLevelInPercentage;
+        _maxHealth += _maxHealth * (_healthIncreasePerLevelInPercentage / 100);
         if(_healthOnLevel)
             _health = _maxHealth;
     }

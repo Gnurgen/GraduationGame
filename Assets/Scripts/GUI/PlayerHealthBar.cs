@@ -9,7 +9,7 @@ public class PlayerHealthBar : MonoBehaviour {
     public float fadeOutDuration = 10.0f;
 
     //Private stuff
-    private float currentHealth, maxHealth;
+    public float currentHealth, maxHealth;
     private GameObject player;
     private float scale;
     private float minSize = 0;
@@ -34,7 +34,7 @@ public class PlayerHealthBar : MonoBehaviour {
         imgRight.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
 
         EM.OnEnemyAttackHit += updatePlayerHealth;
-        EM.OnResourcePickup += updatePlayerHealth;
+        EM.OnLevelUp += levelupHealthbar;
     }
     
     void updatePlayerHealth(GameObject ID, float dmg) { 
@@ -47,19 +47,8 @@ public class PlayerHealthBar : MonoBehaviour {
             StartCoroutine(fadeHealthBar());
         }
     }
-    void updatePlayerHealth(GameObject ID, int dmg)
-    {
-        currentHealth = player.GetComponent<Health>().health;
-        scale = minSize + ((maxSize - minSize) * (1 - ((maxHealth - currentHealth) / maxHealth)));
-        if (currentHealth >= 0)
-        {
-            imgLeft.GetComponent<Image>().fillAmount = scale;
-            imgRight.GetComponent<Image>().fillAmount = scale;
-            StartCoroutine(fadeHealthBar());
-        }
-    }
 
-
+     
     IEnumerator fadeHealthBar()
     {
        imgLeft.GetComponent<Image>().CrossFadeAlpha(1, fadeInDuration, true);
@@ -67,5 +56,11 @@ public class PlayerHealthBar : MonoBehaviour {
        yield return new WaitForSeconds(timeBetweenFade);
        imgLeft.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
        imgRight.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
+    }
+
+    void levelupHealthbar(int lvl) {
+        maxHealth = player.GetComponent<Health>()._maxHealth;
+        currentHealth = maxHealth;
+        updatePlayerHealth(gameObject, 0);
     }
 }
