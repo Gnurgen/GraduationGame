@@ -35,7 +35,7 @@ public class EnemyMeleeAttack : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Player")
+        if(col.tag == "Player" || col.tag == "Destructable")
         {
             col.GetComponent<Health>().decreaseHealth(dmg);
             myCol.enabled = false;
