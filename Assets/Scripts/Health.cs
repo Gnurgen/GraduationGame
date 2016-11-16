@@ -6,7 +6,7 @@ public class Health : MonoBehaviour {
     public float _healthIncreasePerLevelInPercentage;
     private float _healthPerRes;
     private bool _healthOnLevel = false;
-    private float _health, _maxHealth;
+    public float _health, _maxHealth;
     private const string _playerTag = "Player";
     private bool _isPlayer = false;
 
@@ -68,11 +68,15 @@ public class Health : MonoBehaviour {
                 GameManager.events.PlayerDeath(gameObject);
                 print("øv :( (pik)spiller er død \n #  #\n#   #\n ###");
             }
+            else if (gameObject.tag == "Destructable") {
+                GameManager.events.ResourceDrop(gameObject, 3);
+                GameManager.events.ObjDestroyed(gameObject);
+                Destroy(gameObject);
+            }
             else
             {
                 GameManager.events.EnemyDeath(gameObject);
                 GameManager.events.ResourceDrop(gameObject, 3); // AMOUNT OF BLOBS DROPS
-                Destroy(gameObject);
             }
         }
     }

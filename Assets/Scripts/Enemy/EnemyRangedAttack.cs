@@ -41,7 +41,7 @@ public class EnemyRangedAttack : MonoBehaviour {
             GameManager.events.EnemyRangedMiss(gameObject);
             GetComponent<BoxCollider>().enabled = false;
         }
-        if (col.tag == "Player")
+        if (col.tag == "Player" || col.tag == "Destructable")
         {
             targetHit = true;
             transform.SetParent(col.transform,true);
