@@ -6,7 +6,7 @@ public class PlayerBlobPickUp : MonoBehaviour {
     public float HealthGain = 1;
     [Header ("Pickup Radius")]
     public float RadiusOfAttraction;
-    public float RadiusOfPickup;
+    private float RadiusOfPickup = 1.1f;
     
 
     Collider[] objCols;
