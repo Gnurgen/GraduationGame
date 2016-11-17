@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PluginInfo Project="Core - Wwise Project" Platform="iOS" BasePlatform="iOS">
-	<Plugins/>
+	<Plugins>
+		<Plugin Name="Wwise Silence" ID="6619138" DLL="SilenceGenerator"/>
+		<Plugin Name="SoundSeed Air/SoundSeed Woosh" ID="7864322" DLL="AkSoundSeedAir"/>
+	</Plugins>
 </PluginInfo>

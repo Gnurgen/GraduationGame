@@ -47,9 +47,9 @@ public class EventManager : MonoBehaviour
         if (OnEnemyRangedMiss != null)
             OnEnemyRangedMiss(Id);
     }
-    public delegate void EnemyAttackHitAction(GameObject enemyID, int dmg);
+    public delegate void EnemyAttackHitAction(GameObject enemyID, float dmg);
     public event EnemyAttackHitAction OnEnemyAttackHit;
-    public void EnemyAttackHit(GameObject Id, int dmg)
+    public void EnemyAttackHit(GameObject Id, float dmg)
     {
         if (OnEnemyAttackHit != null)
             OnEnemyAttackHit(Id, dmg);
@@ -69,7 +69,7 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnPlayerMove;
     public event PlayerAction OnPlayerIdle;
 
-    public delegate void PlayerAttackHitAction(GameObject Id, GameObject tar, int val);
+    public delegate void PlayerAttackHitAction(GameObject Id, GameObject tar, float val);
     public event PlayerAttackHitAction OnPlayerAttackHit;
 
 
@@ -88,7 +88,7 @@ public class EventManager : MonoBehaviour
         if (OnPlayerDashEnd != null)
             OnPlayerDashEnd(Id);
     }
-    public void PlayerAttackHit(GameObject Id, GameObject tar, int val)
+    public void PlayerAttackHit(GameObject Id, GameObject tar, float val)
     {
         if (OnPlayerAttackHit != null)
             OnPlayerAttackHit(Id, tar, val);
@@ -221,6 +221,11 @@ public class EventManager : MonoBehaviour
     {
         if (OnResourcePickup != null)
             OnResourcePickup(go, i);
+    }
+    public void ObjDestroyed(GameObject go)
+    {
+        if (OnResourcePickup != null)
+            OnObjDestroyed(go);
     }
 
     //##############################################################################################################################################################

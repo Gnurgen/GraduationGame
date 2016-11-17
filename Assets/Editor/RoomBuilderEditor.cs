@@ -49,7 +49,7 @@ public class RoomEditor : Editor {
             Selection.objects = new Object[] { workbench.gameObject };
     }
 
-    [MenuItem("Tools/Room Builder/Add Selection %&e", false, 20)]
+    [MenuItem("Tools/Room Builder/Add Selection %&e", false, 21)]
     public static void AddToRoom()
     {
         RoomBuilder workbench = FindObjectOfType<RoomBuilder>() as RoomBuilder;
@@ -62,6 +62,91 @@ public class RoomEditor : Editor {
                     workbench.AddRoomObject(objects[i] as GameObject);
             }
         }
+    }
+
+    [MenuItem("Tools/Room Builder/Update Room Resources/Walls", false, 22)]
+    public static void UpdateWallReferences()
+    {
+        int i;
+        int j;
+        int l;
+        int count = 0;
+        RoomWall[] roomWalls;
+        GameObject room;
+        List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
+        List<GameObject> walls = Resources.LoadAll("Wall").Cast<GameObject>().ToList();
+
+        for (i = 0; i < rooms.Count; i++)
+        {
+            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
+            roomWalls = room.GetComponentsInChildren<RoomWall>();
+
+            for (j = 0; j < roomWalls.Length; j++)
+            {
+                for (l = 0; l < walls.Count; l++)
+                {
+                    if (roomWalls[j].referenceName == walls[l].GetComponent<RoomWall>().referenceName)
+                    {
+                        replace(roomWalls[j].gameObject, walls[l]);
+                        count++;
+                    }
+                }
+            }
+            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
+            DestroyImmediate(room);
+        }
+
+        Debug.Log("Updated " + count + " objects");
+    }
+
+    [MenuItem("Tools/Room Builder/Update Room Resources/Tiles", false, 23)]
+    public static void UpdateTileReferences()
+    {
+        int i;
+        int j;
+        int l;
+        int count = 0;
+        RoomTile[] roomTiles;
+        GameObject room;
+        List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
+        List<GameObject> tiles = Resources.LoadAll("Tile").Cast<GameObject>().ToList();
+
+        for (i = 0; i < rooms.Count; i++)
+        {
+            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
+            roomTiles = room.GetComponentsInChildren<RoomTile>();
+
+            for (j = 0; j < roomTiles.Length; j++)
+            {
+                for (l = 0; l < tiles.Count; l++)
+                {
+                    if (roomTiles[j].referenceName == tiles[l].GetComponent<RoomTile>().referenceName)
+                    {
+                        replace(roomTiles[j].gameObject, tiles[l]);
+                        count++;
+                    }
+                }
+            }
+            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
+            DestroyImmediate(room);
+        }
+
+        Debug.Log("Updated " + count + " objects");
+    }
+    
+
+    private static void replace(GameObject original, GameObject replacement)
+    {
+        GameObject obj = Instantiate(replacement) as GameObject;
+        obj.name = original.name;
+        Undo.RegisterCreatedObjectUndo(obj, "Created replacement object");
+        obj.transform.position = original.transform.position;
+        obj.transform.rotation = original.transform.rotation;
+        obj.transform.localScale = original.transform.localScale;
+
+        obj.transform.parent = original.transform.parent;
+        obj.transform.SetSiblingIndex(original.transform.GetSiblingIndex());
+        Undo.DestroyObjectImmediate(original);
     }
 
     override public void OnInspectorGUI()
@@ -164,7 +249,7 @@ public class RoomEditor : Editor {
 
             prefab = PrefabUtility.InstantiatePrefab(objectList[i]) as GameObject;
             Undo.RegisterCreatedObjectUndo(prefab, "Created " + tag + " building blocks");
-            bounds = prefab.GetComponent<MeshFilter>().sharedMesh.bounds;
+            bounds = prefab.GetComponentInChildren<MeshFilter>().sharedMesh.bounds;
 
             prefab.transform.position = new Vector3(offset, bounds.extents.y, 0);
             offset += bounds.extents.x + 1;
@@ -174,4 +259,5 @@ public class RoomEditor : Editor {
 //            PrefabUtility.DisconnectPrefabInstance(prefab);
         }
     }
+
 }

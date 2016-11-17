@@ -1,19 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 
 public class Health : MonoBehaviour {
-    [SerializeField]
-    private int _baseHealth;
-    [SerializeField]
-    private int _healthIncreasePerLevelInPercentage;
-    private int _healthPerRes;
+    public float _baseHealth;
+    [Range(0,100)]
+    public float _healthIncreasePerLevelInPercentage;
+    private float _healthPerRes;
     private bool _healthOnLevel = false;
-    private int _health, _maxHealth;
+    public float _health, _maxHealth;
     private const string _playerTag = "Player";
     private bool _isPlayer = false;
 
-    public int health
+    public float health
     {
         get
         {
@@ -59,28 +57,41 @@ public class Health : MonoBehaviour {
         }
     }
 
-    private void decreaseHealth(int val)
+
+    public void decreaseHealth(float val)
+
     {
         _health -= val;
         if (_health <= 0)
         {
             if (_isPlayer)
+            {
                 GameManager.events.PlayerDeath(gameObject);
+                print("øv :( (pik)spiller er død \n #  #\n#   #\n ###");
+            }
+            else if (gameObject.tag == "Destructable") {
+                GameManager.events.ResourceDrop(gameObject, 3);
+                GameManager.events.ObjDestroyed(gameObject);
+                Destroy(gameObject);
+            }
             else
+            {
                 GameManager.events.EnemyDeath(gameObject);
+                GameManager.events.ResourceDrop(gameObject, 3); // AMOUNT OF BLOBS DROPS
+            }
         }
     }
 
-    private void increaseHealth(GameObject Id, int val)
+    public void increaseHealth(GameObject Id, int val)
     {
         _health += _healthPerRes;
         if (_health > _maxHealth)
             _health = _maxHealth;
 
     }
-    private void levelUp(int id)
+    public void levelUp(int id)
     {
-        _maxHealth *= _healthIncreasePerLevelInPercentage;
+        _maxHealth += _maxHealth * (_healthIncreasePerLevelInPercentage / 100);
         if(_healthOnLevel)
             _health = _maxHealth;
     }

@@ -526,28 +526,6 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="Music_System_Play" ID="{4A3BE3CA-205F-4862-8104-3472B7B426E6}">
-					<ChildrenList>
-						<Action Name="Play" ID="{33D06476-E41A-4328-8FFF-C24AF80AE4DD}" ShortID="793336223" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{CDD8D713-DEBE-4B7E-9663-BF6D619DEF58}" Global="false">
-									<ObjectRef Name="Music_System" ID="{A4F52877-5710-4651-8A27-3C56936AEE9B}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Music_System_Stop" ID="{D056B9F1-AA51-4D7A-A3CC-970487D35846}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{05F78ABC-74E8-465A-9B50-76884FDCD56E}" ShortID="807314204" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{11AFD2D7-36AA-4990-8481-AC000BDF7F96}" Global="false">
-									<ObjectRef Name="Music_System" ID="{A4F52877-5710-4651-8A27-3C56936AEE9B}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Event Name="Level_Up_Play" ID="{AD3488E9-A504-4A4B-A573-ED052EE4A555}">
 					<ChildrenList>
 						<Action Name="Play" ID="{2C8E5ACF-A6D1-4C11-931A-3D8A222E9757}" ShortID="226700270" Type="Play" Scope="One" Global="false">
@@ -631,6 +609,75 @@
 							<ElementList>
 								<Element ID="{94D1A82D-237F-4F54-A4BC-74729DCA1ABD}" Global="false">
 									<ObjectRef Name="Wheel_Open" ID="{8071A830-1A94-4973-B6ED-D662AED0870C}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Pickup_Move_Play" ID="{6A5A77F4-5AE4-43A6-AC08-8B912105F71B}">
+					<ChildrenList>
+						<Action Name="Play" ID="{F988E0A2-9DCC-4470-A338-860D5AA1B8F5}" ShortID="227293748" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{F1F7E25F-045E-4F90-ACA3-325DE700B504}" Global="false">
+									<ObjectRef Name="Pickup_Move" ID="{AB990215-7253-4576-9691-5BC9EA2AF5E8}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Pickup_Move_Stop" ID="{0F5B201C-1E61-4917-9052-59299F0DA4BB}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{DB2B9A71-4CBC-4EDB-AD15-F3BECF215F0D}" ShortID="99409387" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{C032B652-FAA0-44CC-8CD7-F5C4BFE8379B}" Global="false">
+									<ObjectRef Name="Pickup_Move" ID="{AB990215-7253-4576-9691-5BC9EA2AF5E8}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Main_Menu_Music_Play" ID="{E6B69B22-4933-4C61-B741-90B6569AB3EA}">
+					<ChildrenList>
+						<Action Name="Play" ID="{553D18CD-D9BF-4156-99BF-93D534D1CB99}" ShortID="739612298" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{3AD252A7-2CF8-4C3C-B377-94B67C2FA571}" Global="false">
+									<ObjectRef Name="Main Menu Music" ID="{1AB4B790-639A-4A05-B12C-063837D87263}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Main_Menu_Music_Stop" ID="{0FA497CF-B32E-4334-8D43-CEC9E99E48D7}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{38BFFEB4-E954-46EE-A6DE-A4B790E0287A}" ShortID="950319810" Type="Stop" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="2"/>
+							</PropertyList>
+							<ElementList>
+								<Element ID="{3A9CF2D8-8357-4180-8E32-673027EBB765}" Global="false">
+									<ObjectRef Name="Main Menu Music" ID="{1AB4B790-639A-4A05-B12C-063837D87263}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Music_System_Play" ID="{C37B52F1-ECB5-455A-AE5B-84EE49B41A5B}">
+					<ChildrenList>
+						<Action Name="Play" ID="{B01E3DB7-EA9E-4C53-B351-362C9F436C19}" ShortID="438023988" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{B5B1FDF3-3E14-4F6A-87C0-B978C83AAB75}" Global="false">
+									<ObjectRef Name="Music_System" ID="{A4F52877-5710-4651-8A27-3C56936AEE9B}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Music_System_Stop" ID="{DC53E408-289D-41A4-8A15-E60768DECBED}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{55B485EA-C4FF-4D20-9F7F-5D813EAD84DC}" ShortID="70763924" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{3C145F18-0E53-4D7E-8361-196124AC5265}" Global="false">
+									<ObjectRef Name="Music_System" ID="{A4F52877-5710-4651-8A27-3C56936AEE9B}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
 								</Element>
 							</ElementList>
 						</Action>

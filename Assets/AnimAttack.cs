@@ -14,10 +14,10 @@ public class AnimAttack : StateMachineBehaviour {
 	//override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 	//
 	//}
-    void OnStateExit()
-    {
-        FindObjectOfType<PlayerControls>().attacking = false;
-    }
+    //(void OnStateExit()
+    //{
+    //    FindObjectOfType<PlayerControls>().attacking = false;
+    //}
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	//override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 	//

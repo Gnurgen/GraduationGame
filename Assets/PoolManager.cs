@@ -11,13 +11,13 @@ public class PoolManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+        pool = new Dictionary<string, List<GameObject>>();
     }
 	
     void Subscribe()
     {
         GameManager.events.OnPoolObject += PoolObj;
-        GameManager.events.OnEnemyDeath += GenerateRagdoll;
+       // GameManager.events.OnEnemyDeath += GenerateRagdoll;
         //GameManager.events.OnEnemyDeath += PoolObj;
         GameManager.events.OnResourceDrop += GenerateBlob;
         
@@ -68,7 +68,7 @@ public class PoolManager : MonoBehaviour {
                 result = Instantiate(BlobPrefab);
             }
             result.SetActive(true);
-            result.transform.position = GO.transform.position;
+            result.transform.position = GO.transform.position + Vector3.up;
         }
     }
 

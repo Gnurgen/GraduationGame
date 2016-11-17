@@ -24,6 +24,7 @@ GameObject:
   - 23: {fileID: 23000011225241414}
   - 114: {fileID: 114000011687265182}
   - 54: {fileID: 54000014160874692}
+  - 114: {fileID: 114000011010459600}
   m_Layer: 0
   m_Name: EnemyRangedAttack
   m_TagString: Untagged
@@ -107,6 +108,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000011010459600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014173490572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6ba2176dd770d34ebea736b1946bb09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_positionOffsetData:
+    positionOffset: {x: 0, y: 0, z: 0}
+    KeepMe: 0
+  isEnvironmentAware: 1
+  listenerMask: 1
+  isStaticObject: 0
 --- !u!114 &114000011687265182
 MonoBehaviour:
   m_ObjectHideFlags: 1

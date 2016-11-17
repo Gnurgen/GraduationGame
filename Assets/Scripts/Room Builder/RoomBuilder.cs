@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class RoomBuilder : MonoBehaviour {
 
@@ -11,8 +10,7 @@ public class RoomBuilder : MonoBehaviour {
     private static RoomWall _defaultWall;
 
     public string roomName = "New Room";
-    public int roomIndex = 0;
-    public bool roomModified = false;
+    public int mapIndex = 0;
     public RoomUnit[,] roomUnits = new RoomUnit[MAX_UNIT_SIZE, MAX_UNIT_SIZE];
 
     private List<GameObject> objectList = new List<GameObject>();
@@ -107,11 +105,44 @@ public class RoomBuilder : MonoBehaviour {
 
     void Start()
     {
+        RoomTile[] tiles = GetComponentsInChildren<RoomTile>();
+
+        for(int i = 0; i < tiles.Length; i++)
+        {
+            if (tiles[i].referenceName == "Default Tile")
+                tiles[i].gameObject.layer = 8;
+        }
+
+
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            if(transform.GetChild(i).tag == "Melee")
+            {
+                transform.GetChild(i).GetComponent<CapsuleCollider>().isTrigger = false;
+            }
+        }
 
     }
 
     void Update () {
 	}
+
+    public int[] getHashIndex()
+    {
+        if (roomUnits[0, 0] == null)
+        {
+            RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
+            if (units.Length > 0)
+                roomUnits[0, 0] = units[0];
+        }
+        bool[] hasDoorList = roomUnits[0, 0].GetDoors();
+        return new int[] {
+                hasDoorList[0] ? 1 : 0,
+                hasDoorList[1] ? 1 : 0,
+                hasDoorList[2] ? 1 : 0,
+                hasDoorList[3] ? 1 : 0
+            };
+    }
 
     public void AddRoomObject(GameObject go)
     {

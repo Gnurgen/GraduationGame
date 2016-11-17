@@ -4,10 +4,10 @@ using System.Collections;
 public class MenuWheel : MonoBehaviour {
     //Public stuff for game designer/art
     public GameObject[] listOfButtons;
-    public float radiusForImages = 170.0f;
+    public float radiusForImages = 370.0f;
     private float radiusForDeadZone = 100.0f;
     private float responseWidth = 1000.0f;
-    private float centerDistance = 50.0f;
+    private float centerDistance = 100.0f;
 
 
     //Private variables
@@ -30,13 +30,15 @@ public class MenuWheel : MonoBehaviour {
     private float cos1, cos2, sin1, sin2;
    
     //Managers
-    private SpearThrow ability;
+    private FlyingSpear flyingSpear;
+    private ConeDraw coneDraw;
     private InputManager IM;
     int ID;
 
     void Start()
     {
-        ability = FindObjectOfType<SpearThrow>();
+        flyingSpear = FindObjectOfType<FlyingSpear>();
+        coneDraw = FindObjectOfType<ConeDraw>();
         nrOptions = listOfButtons.Length;
         listOfButtons2 = new GameObject[nrOptions];
 
@@ -51,6 +53,10 @@ public class MenuWheel : MonoBehaviour {
         IM.OnFirstTouchMoveSub(updateMouse, ID);
         Wheel.SetActive(false);
     }
+    
+       
+        
+   
 
     void Update()    {
        
@@ -117,8 +123,8 @@ public class MenuWheel : MonoBehaviour {
     }
 
     private int checkWhichField(Vector2 mousePos) {
-         
 
+        currentButton = 10;
         if (Vector2.Distance(Vector2.zero, mousePos) < radiusForDeadZone) {
             Debug.Log("No select");
             currentButton = 10;
@@ -158,15 +164,17 @@ public class MenuWheel : MonoBehaviour {
         Wheel.SetActive(false);
         mouseRelease = false;
 
+        GameManager.events.WheelSelect(selectedButton);
         switch (selectedButton) {
             default:
                 Debug.Log("Button not found");
                 break;
             case 0:
                 Debug.Log("Button 1 selected");
-                //ability.UseAbility();
+                flyingSpear.UseAbility();
                 break;
             case 1:
+                coneDraw.UseAbility();
                 Debug.Log("Button 2 selected");
                 break;
             case 2:
@@ -177,10 +185,12 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 10:
                 Debug.Log("Nothing selected");
+                
                 break;
         }
     }
     void hover(int exception) {
+        GameManager.events.WheelHover(exception);
         for (int i = 0; i < nrOptions; i++) {
             if(i != exception)
                 listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOff();
@@ -192,7 +202,8 @@ public class MenuWheel : MonoBehaviour {
     
     void OnClick()
     {
-        Debug.Log("MENU!!");
+        GameManager.events.WheelOpen();
+        updateMouse(new Vector2(Screen.width / 2, Screen.height / 2));
         IM.TakeControl(ID);
         wheelClicked = true;
     }

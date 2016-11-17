@@ -25,7 +25,7 @@ public class SnapToSurface : Editor{
         for (i = 0; i < objects.Length; i++)
         {
             obj = objects[i] as GameObject;
-            collider = obj.GetComponent<Collider>();
+            collider = obj.GetComponentInChildren<Collider>();
 
             if (collider)
             {
