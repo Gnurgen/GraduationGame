@@ -18,15 +18,12 @@ public class EnemyStats : Health {
     public float attackBredthPerLevel;
     public float attackSpeed;
     public float attackSpeedPerLevel;
-<<<<<<< HEAD
+
     public bool onPause;
     public float pauseFor;
 
-
-=======
     public GameObject Weapon;
     private RoomBuilder room;
->>>>>>> origin/Daniel
 
     public void Pause()
     {
@@ -59,12 +56,11 @@ public class EnemyStats : Health {
 
     void Awake()
     {
-<<<<<<< HEAD
+
        setHealthVars(strength.GetHashCode()+1);
         onPause = false;
         pauseFor = 0;
-=======
-        setHealthVars(strength.GetHashCode()+1);
+
     }
 
     void Start()
@@ -72,7 +68,7 @@ public class EnemyStats : Health {
         room = GetComponentInParent<RoomBuilder>();
         if (room)
             room.AddEnemy(gameObject);
->>>>>>> origin/Daniel
+
     }
 
     void Update()
