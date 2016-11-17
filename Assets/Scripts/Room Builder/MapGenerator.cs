@@ -6,19 +6,25 @@ using Pathfinding;
 
 public class MapGenerator : MonoBehaviour {
 
-    private MapSize DEFAULT_SIZE = MapSize.Small;
-    private MapShape DEFAULT_SHAPE = MapShape.Square;
-    private RoomLayout DEFAULT_LAYOUT = RoomLayout.Open;
+    private const MapSize DEFAULT_SIZE = MapSize.Small;
+    private const MapShape DEFAULT_SHAPE = MapShape.Square;
+    private const RoomLayout DEFAULT_LAYOUT = RoomLayout.Open;
 
     public MapSize size;
     public MapShape shape;
     public RoomLayout layout;
+    public int maxLargeRooms;
+
+    [HideInInspector]
+    public int mapLevel;
 
     private RoomGridEntry[,] mapGrid;
     private int[,] neighbours;
     private int roomRollOdds;
     private List<GameObject> rooms = new List<GameObject>();
     private int[] mask;
+    private int[] startRoom;
+    private int[] goalRoom;
 
     public enum MapSize
     {
@@ -52,9 +58,9 @@ public class MapGenerator : MonoBehaviour {
         int i;
         int j;
         int l;
-        int branchPasses;
+        int branchPasses = 0;
         int gridSize;
-        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().ToList();
+        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
         List<GameObject>[,,,] roomsByDoors = new List<GameObject>[2, 2, 2, 2];
         List<GameObject> list;
         GameObject go;
@@ -66,7 +72,7 @@ public class MapGenerator : MonoBehaviour {
 
             if (room != null)
             {
-                int[] hasIndex = room.getHashIndex();
+                int[] hasIndex = room.GetHashIndex();
                 if (roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]] == null)
                     roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]] = new List<GameObject>();
                 roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]].Add(room.gameObject);
@@ -90,46 +96,6 @@ public class MapGenerator : MonoBehaviour {
         switch (size)
         {
             case MapSize.Large:
-                gridSize = 9;
-                switch (shape)
-                {
-                    case MapShape.Branching:
-                        mask = new int[]
-                        {
-                            0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 2, 0, 0, 0, 0,
-                            0, 0, 0, 2, 1, 2, 0, 0, 0,
-                            0, 0, 0, 0, 2, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0, 0, 0,
-                        };
-                        branchPasses = 4;
-                        break;
-                    case MapShape.Frame:
-                        mask = new int[]
-                        {
-                            1, 1, 1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 0, 1, 1, 1, 1,
-                            1, 1, 1, 0, 0, 0, 1, 1, 1,
-                            1, 1, 0, 0, 0, 0, 0, 1, 1,
-                            1, 1, 1, 0, 0, 0, 1, 1, 1,
-                            1, 1, 1, 1, 0, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1, 1, 1,
-                        };
-                        branchPasses = 0;
-                        break;
-                    default:
-                        branchPasses = 0;
-                        mask = null;
-                        break;
-                }
-                break;
-            case MapSize.Medium:
                 gridSize = 7;
                 switch (shape)
                 {
@@ -142,7 +108,7 @@ public class MapGenerator : MonoBehaviour {
                             0, 0, 2, 1, 2, 0, 0,
                             0, 0, 0, 2, 0, 0, 0,
                             0, 0, 0, 0, 0, 0, 0,
-                            0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0
                         };
                         branchPasses = 3;
                         break;
@@ -155,23 +121,16 @@ public class MapGenerator : MonoBehaviour {
                             1, 1, 0, 0, 0, 1, 1,
                             1, 1, 0, 0, 0, 1, 1,
                             1, 1, 1, 1, 1, 1, 1,
-                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1
                         };
-                        branchPasses = 0;
-                        break;
-                    default:
-                        branchPasses = 0;
-                        mask = null;
                         break;
                 }
                 break;
-            case MapSize.Small:
-            default:
+            case MapSize.Medium:
                 gridSize = 5;
                 switch (shape)
                 {
                     case MapShape.Branching:
-
                         mask = new int[]
                         {
                             0, 0, 0, 0, 0,
@@ -191,64 +150,143 @@ public class MapGenerator : MonoBehaviour {
                             1, 1, 0, 1, 1,
                             1, 1, 1, 1, 1
                         };
-                        branchPasses = 0;
                         break;
-                    default:
-                        branchPasses = 0;
-                        mask = null;
+                }
+                break;
+            case MapSize.Small:
+            default:
+                gridSize = 3;
+                switch (shape)
+                {
+                    case MapShape.Branching:
+                        mask = new int[]
+                        {
+                            0, 2, 0,
+                            2, 1, 2,
+                            0, 2, 0
+                        };
+                        branchPasses = 1;
+                        break;
+                    case MapShape.Frame:
+                        mask = new int[]
+                        {
+                            1, 1, 1,
+                            1, 0, 1,
+                            1, 1, 1
+                        };
                         break;
                 }
                 break;
         }
 
-        mapGrid = new RoomGridEntry[gridSize, gridSize];
-
-        int offset = 1;
         int center = Mathf.FloorToInt(gridSize / 2);
-        List<int> indexList = new List<int>();
 
-        while (branchPasses > 0)
+        switch (shape)
         {
-            for (j = center - offset; j <= center + offset; j++)
-            {
-                for (l = center - offset; l <= center + offset; l++)
+            case MapShape.Branching:
+                int offset = 1;
+                List<int> indexList = new List<int>();
+                startRoom = new int[] { center, center };
+
+                while (branchPasses > 0)
                 {
-                    if (mask[gridSize * j + l] == offset + 1)
+                    for (j = center - offset; j <= center + offset; j++)
                     {
-                        indexList.Clear();
-
-                        if (j + 1 < gridSize && mask[gridSize * (j + 1) + l] == 0)
-                            indexList.Add(gridSize * (j + 1) + l);
-                        if (j - 1 >= 0 && mask[gridSize * (j - 1) + l] == 0)
-                            indexList.Add(gridSize * (j - 1) + l);
-                        if (l + 1 < gridSize && mask[gridSize * j + (l + 1)] == 0)
-                            indexList.Add(gridSize * j + (l + 1));
-                        if (l - 1 >= 0 && mask[gridSize * j + (l - 1)] == 0)
-                            indexList.Add(gridSize * j + (l - 1));
-
-                        if (indexList.Count > 0)
+                        for (l = center - offset; l <= center + offset; l++)
                         {
-                            mask[indexList[Random.Range(0, indexList.Count - 1)]] = offset + 2;
-
-                            for (i = 0; i < indexList.Count; i++)
+                            if (mask[gridSize * j + l] == offset + 1)
                             {
-                                if (Random.Range(0,4) < 1)
-                                    mask[indexList[i]] = offset + 2;
+                                indexList.Clear();
+
+                                if (j + 1 < gridSize && mask[gridSize * (j + 1) + l] == 0)
+                                    indexList.Add(gridSize * (j + 1) + l);
+                                if (j - 1 >= 0 && mask[gridSize * (j - 1) + l] == 0)
+                                    indexList.Add(gridSize * (j - 1) + l);
+                                if (l + 1 < gridSize && mask[gridSize * j + (l + 1)] == 0)
+                                    indexList.Add(gridSize * j + (l + 1));
+                                if (l - 1 >= 0 && mask[gridSize * j + (l - 1)] == 0)
+                                    indexList.Add(gridSize * j + (l - 1));
+
+                                if (indexList.Count > 0)
+                                {
+                                    mask[indexList[Random.Range(0, indexList.Count - 1)]] = offset + 2;
+
+                                    for (i = 0; i < indexList.Count; i++)
+                                    {
+                                        if (Random.Range(0, 4) < 1)
+                                            mask[indexList[i]] = offset + 2;
+                                    }
+                                }
                             }
                         }
                     }
+
+                    offset++;
+                    branchPasses--;
                 }
-            }
-
-            offset++;
-            branchPasses--;
+                indexList.Clear();
+                for (j = 0; j < gridSize; j++)
+                {
+                    for (l = 0; l < gridSize; l++)
+                    {
+                        if (mask[gridSize * j + l] == offset)
+                            indexList.Add(gridSize * j + l);
+                    }
+                }
+                i = indexList[Random.Range(0, indexList.Count-1)];
+                j = Mathf.FloorToInt(i / gridSize);
+                goalRoom = new int[] {i - j, j};
+                break;
+            case MapShape.Frame:
+                switch(Random.Range(0, 3))
+                {
+                    case 0:
+                        startRoom = new int[] { 0, center };
+                        goalRoom = new int[] { gridSize - 1, center };
+                        break;
+                    case 1:
+                        startRoom = new int[] { center, 0 };
+                        goalRoom = new int[] { center, gridSize - 1};
+                        break;
+                    case 2:
+                        startRoom = new int[] { gridSize - 1, center };
+                        goalRoom = new int[] { 0, center };
+                        break;
+                    case 3:
+                    default:
+                        startRoom = new int[] { center, gridSize - 1 };
+                        goalRoom = new int[] { center, 0 };
+                        break;
+                }
+                break;
+            case MapShape.Square:
+            default:
+                switch (Random.Range(0, 3))
+                {
+                    case 0:
+                        startRoom = new int[] { 0, 0 };
+                        goalRoom = new int[] { gridSize - 1 , gridSize - 1 };
+                        break;
+                    case 1:
+                        startRoom = new int[] { gridSize - 1, 0 };
+                        goalRoom = new int[] { 0, gridSize - 1 };
+                        break;
+                    case 2:
+                        startRoom = new int[] { gridSize - 1, gridSize - 1 };
+                        goalRoom = new int[] { 0, 0 };
+                        break;
+                    case 3:
+                    default:
+                        startRoom = new int[] { 0, gridSize - 1 };
+                        goalRoom = new int[] { gridSize - 1, 0 };
+                        break;
+                }
+                mask = new int[gridSize * gridSize];
+                populate(mask, 1);
+                break;
         }
 
-        if (mask == null)
-        {
-            mask = new int[gridSize * gridSize];
-            populate(mask, 1);
-        }
+        mapGrid = new RoomGridEntry[gridSize, gridSize];
 
         for (i = 0; i < mapGrid.GetLength(0); i++)
         {
@@ -272,6 +310,10 @@ public class MapGenerator : MonoBehaviour {
                 break;
         }
 
+        /* 
+         * FIND LARGE ROOMS HERE
+         */
+
         for (j = 0; j < mapGrid.GetLength(1); j++)
         {
             for (i = 0; i < mapGrid.GetLength(0); i++)
@@ -279,6 +321,10 @@ public class MapGenerator : MonoBehaviour {
                 updateRoom(i, j);
             }
         }
+
+        /* 
+         * FIND TREASURE ROOMS HERE
+         */
 
         clear();
 
@@ -299,13 +345,12 @@ public class MapGenerator : MonoBehaviour {
                     if (list != null)
                     {
                         go = Instantiate(list[Random.Range(0, list.Count - 1)].gameObject);
-                        go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i, 0, -RoomUnit.TILE_RATIO * j);
+                        go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * j * RoomTile.TILE_SCALE);
                         rooms.Add(go);
                     }
                 }
             }
         }
-
 
         StartCoroutine("DelayedScan");
     }
@@ -337,21 +382,26 @@ public class MapGenerator : MonoBehaviour {
         {
             if (entry.doors == null)
             {
-                for (l = 0; l < neighbours.GetLength(0) && entry.doors == null; l++)
+                List<int> doorList = new List<int>();
+                for (l = 0; l < neighbours.GetLength(0); l++)
                 {
                     neighbour = getNeighbour(i, j, l);
 
-                    if (neighbour != null && neighbour.isSet)
+                    if (neighbour != null)
                     {
-                        entry.doors = new bool[4];
-                        entry.doors[l] = true;
+                        doorList.Add(l);
+                        if (entry.doors == null && neighbour.isSet)
+                        {
+                            entry.doors = new bool[4];
+                            entry.doors[l] = true;
+                        }
                     }
                 }
-            }
-            if (entry.doors == null)
-            {
-                entry.doors = new bool[4];
-                entry.doors[Random.Range(0, 1)] = true;
+                if (entry.doors == null)
+                {
+                    entry.doors = new bool[4];
+                    entry.doors[doorList[Random.Range(0, doorList.Count)]] = true;
+                }
             }
 
             entry.isSet = true;
@@ -387,13 +437,13 @@ public class MapGenerator : MonoBehaviour {
         return null;
     }
 
-    private void populate<T>(this T[] arr, T value)
+    private void populate<T>(T[] arr, T value)
     {
         for (int i = 0; i < arr.Length; i++)
             arr[i] = value;
     }
 
-    private void populate<T>(this T[,] arr, T value)
+    private void populate<T>(T[,] arr, T value)
     {
         int j;
         for (int i = 0; i < arr.GetLength(0); i++)

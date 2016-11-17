@@ -233,14 +233,13 @@ public class RoomEditor : Editor {
         roomSize.y = EditorGUILayout.IntSlider("   Depth", (int)workbench.roomSize.y, 1, workbench.roomUnits.GetLength(1));
 
         GUILayout.Space(10);
-        GUILayout.Label("Can Contain");
-        bool isStartingRoom = EditorGUILayout.Toggle("   Player Start", workbench.isStartingRoom);
-        bool isBossDoorRoom = EditorGUILayout.Toggle("   Boss Door", workbench.isBossDoorRoom);
-        bool isRewardRoom = EditorGUILayout.Toggle("   Treasure", workbench.isRewardRoom);
+        workbench.roomLevel = EditorGUILayout.IntSlider("Room Level", workbench.roomLevel, 1, RoomBuilder.MAX_LEVEL);
 
-        workbench.isStartingRoom = isStartingRoom;
-        workbench.isBossDoorRoom = isBossDoorRoom;
-        workbench.isRewardRoom = isRewardRoom;
+        GUILayout.Space(10);
+        GUI.enabled = roomSize.x == 1 && roomSize.y == 1;
+        bool isBeaconRoom = EditorGUILayout.Toggle("Start/End Room", workbench.isBeaconRoom);
+
+        workbench.isBeaconRoom = GUI.enabled && isBeaconRoom;
 
         if (workbench.roomSize != roomSize)
         {

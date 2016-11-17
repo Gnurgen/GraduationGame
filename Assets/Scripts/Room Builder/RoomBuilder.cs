@@ -4,7 +4,8 @@ using System.Collections.Generic;
 
 public class RoomBuilder : MonoBehaviour {
 
-    public const int MAX_UNIT_SIZE = 3;
+    public const int MAX_UNIT_SIZE = 2;
+    public const int MAX_LEVEL = 3;
 
     private static RoomTile _defaultTile;
     private static RoomWall _defaultWall;
@@ -12,12 +13,12 @@ public class RoomBuilder : MonoBehaviour {
     public string roomName = "New Room";
     public int mapIndex = 0;
     public RoomUnit[,] roomUnits = new RoomUnit[MAX_UNIT_SIZE, MAX_UNIT_SIZE];
-    public bool isRewardRoom;
-    public bool isStartingRoom;
-    public bool isBossDoorRoom;
+    public bool isBeaconRoom;
+    public int roomLevel;
 
     private List<GameObject> objectList = new List<GameObject>();
     private Vector2 _roomSize = new Vector2(1, 1);
+    private List<GameObject> enemyList = new List<GameObject>();
 
     public Vector2 roomSize
     {
@@ -39,18 +40,13 @@ public class RoomBuilder : MonoBehaviour {
                             if (i < _roomSize.x && j < _roomSize.y)
                             {
                                 roomUnits[i, j] = createRoomUnit();
-                                roomUnits[i, j].transform.position = new Vector3(transform.position.x + i * RoomUnit.TILE_RATIO, transform.position.y, transform.position.z + j * RoomUnit.TILE_RATIO);
-
+                                roomUnits[i, j].transform.position = new Vector3(transform.position.x + i * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, transform.position.y, transform.position.z + j * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
                             }
                         }
-                        else
+                        else if (i >= _roomSize.x || j >= _roomSize.y)
                         {
-                            if (i < _roomSize.x && j < _roomSize.y)
-                            {
-                                roomUnits[i, j].gameObject.SetActive(true);
-                            }
-                            else
-                                roomUnits[i, j].gameObject.SetActive(false);
+                            DestroyImmediate(roomUnits[i, j].gameObject);
+                            roomUnits[i, j] = null;
                         }
                         if (roomUnits[i, j] && roomUnits[i, j].gameObject.activeInHierarchy)
                             roomUnits[i, j].setWallDisplay(i == 0, j == 0, _roomSize.x - i == 1, _roomSize.y - j == 1);
@@ -130,7 +126,21 @@ public class RoomBuilder : MonoBehaviour {
     void Update () {
 	}
 
-    public int[] getHashIndex()
+    public void AddEnemy(GameObject enemy)
+    {
+        enemyList.Add(enemy);
+    }
+
+    public void RemoveEnemy(GameObject enemy)
+    {
+        enemyList.Remove(enemy);
+        if (enemyList.Count == 0)
+        {
+            // Room cleared
+        }
+    }
+
+    public int[] GetHashIndex()
     {
         if (roomUnits[0, 0] == null)
         {

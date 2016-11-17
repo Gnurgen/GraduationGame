@@ -19,15 +19,26 @@ public class EnemyStats : Health {
     public float attackSpeed;
     public float attackSpeedPerLevel;
     public GameObject Weapon;
-
-
+    private RoomBuilder room;
 
     void Awake()
     {
-       setHealthVars(strength.GetHashCode()+1);
+        setHealthVars(strength.GetHashCode()+1);
+    }
+
+    void Start()
+    {
+        room = GetComponentInParent<RoomBuilder>();
+        if (room)
+            room.AddEnemy(gameObject);
     }
 
     void Update()
     {
+    }
+
+    void OnDestroy()
+    {
+        room.RemoveEnemy(gameObject);
     }
 }
