@@ -493,6 +493,28 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Elevator_Play" ID="{23F18E27-D25C-467A-BDFE-C37B4C5B0687}">
+					<ChildrenList>
+						<Action Name="Play" ID="{5C54D922-3E52-47A3-A59C-0B932665706E}" ShortID="333035958" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{082A33B8-9F9B-432E-B240-E2ED4768E416}" Global="false">
+									<ObjectRef Name="Elevator" ID="{DD5C15F4-B2E2-4964-B5A0-45F5DCD1EE27}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Elevator_Stop" ID="{E213FD8C-7178-4567-B58C-CD322738CC12}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{54D72261-994C-4F0C-AD80-3DC3749C684B}" ShortID="185956829" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{C7CB91A1-8E25-4214-9DC0-7BD1D09CE358}" Global="false">
+									<ObjectRef Name="Elevator" ID="{DD5C15F4-B2E2-4964-B5A0-45F5DCD1EE27}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
