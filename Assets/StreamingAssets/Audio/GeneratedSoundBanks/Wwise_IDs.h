@@ -57,12 +57,16 @@ namespace AK
         static const AkUniqueID ENVIRONMENTAL_AMBIENCE_PLAY = 2813179063U;
         static const AkUniqueID ENVIRONMENTAL_AMBIENCE_STOP = 1543198181U;
         static const AkUniqueID LEVEL_UP_PLAY = 2160362136U;
+        static const AkUniqueID MAIN_MENU_MUSIC_PLAY = 1351188369U;
+        static const AkUniqueID MAIN_MENU_MUSIC_STOP = 2602603591U;
         static const AkUniqueID MARK_ABILITY_CONTROL_PLAY = 220652244U;
         static const AkUniqueID MARK_ABILITY_PLAY = 2308852762U;
         static const AkUniqueID MENU_CLOSE_PLAY = 1206082786U;
         static const AkUniqueID MENU_OPEN_PLAY = 900962796U;
         static const AkUniqueID MUSIC_SYSTEM_PLAY = 350081739U;
         static const AkUniqueID MUSIC_SYSTEM_STOP = 3509289057U;
+        static const AkUniqueID PICKUP_MOVE_PLAY = 789084040U;
+        static const AkUniqueID PICKUP_MOVE_STOP = 3166651386U;
         static const AkUniqueID PICKUP_PLAY = 1715783110U;
         static const AkUniqueID PLAYER_DEATH_PLAY = 2348472398U;
         static const AkUniqueID PLAYER_RESPAWN_PLAY = 1389849668U;
@@ -80,13 +84,9 @@ namespace AK
 
             namespace STATE
             {
-                static const AkUniqueID CORE = 3787826988U;
-                static const AkUniqueID CORE_CORRIDOR = 525391897U;
-                static const AkUniqueID CORRIDOR = 4063189299U;
-                static const AkUniqueID INNER = 1778842195U;
-                static const AkUniqueID INNER_CORRIDOR = 1592175108U;
-                static const AkUniqueID OUTER = 175046638U;
-                static const AkUniqueID OUTER_CORRIDOR = 2571765635U;
+                static const AkUniqueID BIG = 647611021U;
+                static const AkUniqueID MEDIUM = 2849147824U;
+                static const AkUniqueID SMALL = 1846755610U;
             } // namespace STATE
         } // namespace ENVIRONMENT
 

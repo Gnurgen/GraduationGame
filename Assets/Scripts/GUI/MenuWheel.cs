@@ -30,13 +30,15 @@ public class MenuWheel : MonoBehaviour {
     private float cos1, cos2, sin1, sin2;
    
     //Managers
-    private FlyingSpear ability;
+    private FlyingSpear flyingSpear;
+    private ConeDraw coneDraw;
     private InputManager IM;
     int ID;
 
     void Start()
     {
-        ability = FindObjectOfType<FlyingSpear>();
+        flyingSpear = FindObjectOfType<FlyingSpear>();
+        coneDraw = FindObjectOfType<ConeDraw>();
         nrOptions = listOfButtons.Length;
         listOfButtons2 = new GameObject[nrOptions];
 
@@ -163,16 +165,16 @@ public class MenuWheel : MonoBehaviour {
         mouseRelease = false;
 
         GameManager.events.WheelSelect(selectedButton);
-
         switch (selectedButton) {
             default:
                 Debug.Log("Button not found");
                 break;
             case 0:
                 Debug.Log("Button 1 selected");
-                ability.UseAbility();
+                flyingSpear.UseAbility();
                 break;
             case 1:
+                coneDraw.UseAbility();
                 Debug.Log("Button 2 selected");
                 break;
             case 2:

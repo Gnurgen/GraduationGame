@@ -13,14 +13,10 @@ State	ID	Name	State Group			Notes
 	3788403633	In_Skill_Tree	Game_State			
 	3853226033	In_Ability_Control	Game_State			
 	3858937137	In_Ending_Cutscene	Game_State			
-	175046638	Outer	Environment			
-	525391897	Core_Corridor	Environment			
+	647611021	Big	Environment			
 	748895195	None	Environment			
-	1592175108	Inner_Corridor	Environment			
-	1778842195	Inner	Environment			
-	2571765635	Outer_Corridor	Environment			
-	3787826988	Core	Environment			
-	4063189299	Corridor	Environment			
+	1846755610	Small	Environment			
+	2849147824	Medium	Environment			
 
 Audio Bus	ID	Name			Wwise Object Path	Notes
 	85412153	Ambience			\Default Work Unit\Master Audio Bus\Environmental\Ambience	
