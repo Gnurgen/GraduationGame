@@ -63,13 +63,14 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Idle()
 	{
+        
         for (;;)
         {
             if (!onPause)
             {
                 if (target != null)
                 {
-                    GameManager.events.EnemyAggro(gameObject);
+                    GameManager.events.EnemyAggroLost(gameObject);
                     path = null;
                     seeker.StartPath(transform.position, target.transform.position, ReceivePath);
                     waitingForPath = true;
@@ -79,7 +80,7 @@ public class MeleeAI : EnemyStats {
                 // If the player has moved within aggro range, start chasing him
                 if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
                 {
-                    GameManager.events.EnemyAggro(gameObject);
+                   
                     target = GameManager.player;
                     path = null;
                     seeker.StartPath(transform.position, target.transform.position, ReceivePath);
@@ -94,7 +95,7 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Reset()
     {
-        GameManager.events.EnemyAggroLost(gameObject);
+        
         seeker.StartPath(transform.position, startPosition, ReceivePath);
         waitingForPath = true;
         while (waitingForPath)
@@ -143,7 +144,8 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Chasing()
 	{
-        for(;;)
+       
+        for (;;)
         {
             if (!onPause)
             {
