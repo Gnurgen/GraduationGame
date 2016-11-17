@@ -18,7 +18,6 @@ public class EnemyStats : Health {
     public float attackBredthPerLevel;
     public float attackSpeed;
     public float attackSpeedPerLevel;
-    public GameObject Weapon;
 
 
 

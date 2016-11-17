@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using Pathfinding;
 
-[RequireComponent (typeof(Seeker))]
-[RequireComponent (typeof(Rigidbody))]
-public class MeleeAI : EnemyStats {
+[RequireComponent(typeof(Seeker))]
+[RequireComponent(typeof(Rigidbody))]
+public class RangedAI : EnemyStats {
 
-    public GameObject Weapon;
-	public GameObject target;
+    public GameObject projectile;
+    public GameObject target;
+    public float tooClose = 3;
+    public float tooCloseSpeed = 2;
+    public float projectileSpeed = 5;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
-	private Seeker seeker;
+    private Seeker seeker;
     private CharacterController cc;
     private Vector3 targetPositionAtPath;
     private Path path;
@@ -26,17 +28,18 @@ public class MeleeAI : EnemyStats {
     private float currentAttackSpeed;
     private Rigidbody body;
 
-   	// Use this for initialization
-	void Start () {
-       // animation = GetComponent<Animation>();
+    // Use this for initialization
+    void Start()
+    {
+        // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
-		seeker = GetComponent<Seeker> ();
+        seeker = GetComponent<Seeker>();
         body = GetComponent<Rigidbody>();
         StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
         startPosition = transform.position;
         currentAttackSpeed = 0;
-	}
+    }
 
     void FixedUpdate()
     {
@@ -51,7 +54,7 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Waiting(float sec)
     {
-        while(sec > 0)
+        while (sec > 0)
         {
             sec -= Time.deltaTime;
             yield return null;
@@ -61,11 +64,11 @@ public class MeleeAI : EnemyStats {
     }
 
 
-	IEnumerator Idle()
-	{
+    IEnumerator Idle()
+    {
         for (;;)
         {
-            if(target != null)
+            if (target != null)
             {
                 path = null;
                 seeker.StartPath(transform.position, target.transform.position, ReceivePath);
@@ -85,7 +88,7 @@ public class MeleeAI : EnemyStats {
             }
             yield return null;
         }
-	}
+    }
 
     IEnumerator Reset()
     {
@@ -95,9 +98,9 @@ public class MeleeAI : EnemyStats {
         {
             yield return null;
         }
-        for(;;)
+        for (;;)
         {
-            if(Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
+            if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
             {
                 StartCoroutine(Chasing());
                 yield break;
@@ -133,12 +136,12 @@ public class MeleeAI : EnemyStats {
         }
     }
 
-	IEnumerator Chasing()
-	{
-        for(;;)
+    IEnumerator Chasing()
+    {
+        for (;;)
         {
             // If there is no longer a target go back to idle
-            if(target == null)
+            if (target == null)
             {
                 StartCoroutine(Idle());
                 yield break;
@@ -149,7 +152,8 @@ public class MeleeAI : EnemyStats {
             {
                 StartCoroutine(Reset());
                 yield break;
-            } else if(targetDist < attackDist)
+            }
+            else if (targetDist < attackDist)
             {
                 StartCoroutine(Attacking());
                 yield break;
@@ -195,12 +199,12 @@ public class MeleeAI : EnemyStats {
         }
     }
 
-	IEnumerator Attacking()
+    IEnumerator Attacking()
     {
         for (;;)
         {
             // If the target is no longer valid, go to idle
-            if(target == null)
+            if (target == null)
             {
                 StartCoroutine(Idle());
                 yield break;
@@ -213,19 +217,20 @@ public class MeleeAI : EnemyStats {
                 yield break;
             }
 
-            // Check if facing the target, if not turn towards it, otherwise attack
             Vector3 dir = (target.transform.position - transform.position).normalized;
+            if (targetDist < tooClose)
+            {
+                transform.position += -dir * tooCloseSpeed * Time.deltaTime;
+            }
+
+            // Check if facing the target, if not turn towards it, otherwise attack
             if (Vector3.Dot(dir, transform.forward) >= 0.8f)
             {
-                if(currentAttackSpeed < 0) {
+                if (currentAttackSpeed < 0)
+                {
                     currentAttackSpeed = attackSpeed;
-                    animator.SetTrigger("Attack");
-                    Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
-                    while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
-                    {
-                        yield return null;
-                    }
-                    Weapon.GetComponent<EnemyMeleeAttack>().Swing(false);
+                    GameObject proj = Instantiate(projectile,transform.position,transform.rotation) as GameObject;
+                    proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
                 }
             }
             dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
@@ -241,11 +246,11 @@ public class MeleeAI : EnemyStats {
                 transform.Rotate(dir);
             yield return null;
         }
-	}
+    }
 
     void ReceivePath(Path path)
     {
-        if(!path.error)
+        if (!path.error)
         {
             this.path = path;
             waitingForPath = false;
@@ -254,19 +259,19 @@ public class MeleeAI : EnemyStats {
             {
                 targetPositionAtPath = target.transform.position;
             }
-           // AnalysePath();
+            // AnalysePath();
         }
     }
 
     void AnalysePath()
     {
         Vector3 dir = (path.vectorPath[pathIndex] - transform.position).normalized;
-        if(Vector3.Dot(dir, transform.forward) < 0)
+        if (Vector3.Dot(dir, transform.forward) < 0)
         {
             ++pathIndex;
-            if (behindPointCheck+pathIndex>= path.vectorPath.Count)
-                behindPointCheck = path.vectorPath.Count-pathIndex;
-            for(int x = pathIndex; x<behindPointCheck+pathIndex; ++x)
+            if (behindPointCheck + pathIndex >= path.vectorPath.Count)
+                behindPointCheck = path.vectorPath.Count - pathIndex;
+            for (int x = pathIndex; x < behindPointCheck + pathIndex; ++x)
             {
                 dir = (path.vectorPath[x] - transform.position).normalized;
                 if (Vector3.Dot(dir, transform.forward) < 0)

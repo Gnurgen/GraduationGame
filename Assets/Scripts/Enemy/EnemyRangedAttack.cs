@@ -6,7 +6,7 @@ public class EnemyRangedAttack : MonoBehaviour {
     private Vector3 direction;
     private float step;
     private GameObject enemyID;
-    private int dmg;
+    private float dmg;
     private float speed;
     private bool targetHit = false;
     // Use this for initialization
@@ -41,7 +41,7 @@ public class EnemyRangedAttack : MonoBehaviour {
             GameManager.events.EnemyRangedMiss(gameObject);
             GetComponent<BoxCollider>().enabled = false;
         }
-        if (col.tag == "Player")
+        if (col.tag == "Player" || col.tag == "Destructable")
         {
             targetHit = true;
             transform.SetParent(col.transform,true);
@@ -51,8 +51,9 @@ public class EnemyRangedAttack : MonoBehaviour {
             Invoke("PoolItSelf", 20f);
         }
     }
-    public void setSpecs(float speed, GameObject enemyID, int damage)
+    public void SetParameters(float speed, GameObject enemyID, float damage)
     {
+        transform.position = enemyID.transform.position;
         this.enemyID = enemyID;
         this.speed = speed;
         dmg = damage;
