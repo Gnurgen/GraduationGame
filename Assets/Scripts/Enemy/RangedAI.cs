@@ -254,6 +254,7 @@ public class RangedAI : EnemyStats {
                 {
                     if (currentAttackSpeed < 0)
                     {
+                        GameManager.events.EnemyRangedAttack(gameObject);
                         currentAttackSpeed = attackSpeed;
                         GameObject proj = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
                         proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
