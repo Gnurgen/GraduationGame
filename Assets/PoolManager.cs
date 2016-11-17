@@ -6,7 +6,7 @@ using System;
 public class PoolManager : MonoBehaviour {
 
     public GameObject EnemyRangedAttackPrefab, BlobPrefab;
-    
+    private Vector3 poolPosition = new Vector3(1000, 1000, 1000);
     private Dictionary<string, List<GameObject>> pool;
 
 	// Use this for initialization
@@ -30,10 +30,10 @@ public class PoolManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    private void PoolObj(GameObject obj)
+    public void PoolObj(GameObject obj)
     {
         List<GameObject> ListResult;
-      if(pool.TryGetValue(obj.tag, out ListResult))
+        if(pool.TryGetValue(obj.tag, out ListResult))
         {
             ListResult.Add(obj);
         }
@@ -43,6 +43,7 @@ public class PoolManager : MonoBehaviour {
             ListResult.Add(obj);
             pool.Add(obj.tag, ListResult);
         }
+        obj.SetActive(false);
     }
 
     private void GenerateBlob(GameObject GO, int amount)
@@ -95,6 +96,25 @@ public class PoolManager : MonoBehaviour {
             GameObject result = Instantiate(EnemyRangedAttackPrefab);
             return result;
         }
+    }
+    public GameObject GenerateObject(string tag)
+    {
+        GameObject result;
+        List<GameObject> ListResult;
+        if(pool.TryGetValue(tag, out ListResult))
+        {
+            if (ListResult.Count > 0)
+            {
+                result = ListResult[ListResult.Count - 1];
+                ListResult.RemoveAt(ListResult.Count - 1);
+            }
+            else
+                result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        }
+        else
+            result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        result.SetActive(true);
+        return result;
     }
 
 
