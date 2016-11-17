@@ -41,6 +41,8 @@
 				<Event Id="3386881389" Name="Draw_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1855658509" Name="Draw_Ability_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Play"/>
 				<Event Id="2972852827" Name="Draw_Ability_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Stop" MaxAttenuation="0.000000"/>
+				<Event Id="482819944" Name="Elevator_Play" ObjectPath="\Events\Default Work Unit\Elevator_Play"/>
+				<Event Id="2818913498" Name="Elevator_Stop" ObjectPath="\Events\Default Work Unit\Elevator_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="2317625885" Name="Enemy_Aggro_Play" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Play"/>
 				<Event Id="208500619" Name="Enemy_Aggro_Stop" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="4192965245" Name="Enemy_Death_Play" ObjectPath="\Events\Default Work Unit\Enemy_Death_Play"/>

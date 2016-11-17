@@ -23,8 +23,10 @@
 						<ObjectRef Name="Enemy_Death_Play" ID="{DF609008-FE9B-43EB-A007-4946F727D3F9}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Player_Death_Play" ID="{A19950F9-F84D-4500-9249-A71A8298942C}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Music_System_Play" ID="{C37B52F1-ECB5-455A-AE5B-84EE49B41A5B}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Elevator_Stop" ID="{E213FD8C-7178-4567-B58C-CD322738CC12}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Draw_Ability_Control_Play" ID="{B69E6988-92CF-45F2-8CCA-9C23C28014E5}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Environmental_Ambience_Play" ID="{99462587-113B-4609-B0DD-7E0C2E76EDA7}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
+						<ObjectRef Name="Elevator_Play" ID="{23F18E27-D25C-467A-BDFE-C37B4C5B0687}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Cone_Ability_Control_Stop" ID="{BFF3440D-31E5-46A2-9F19-0CD0E95CF47D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Dash_Play" ID="{D56AD03D-152A-46C6-B975-5C87C977D961}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Boss_Rain_Move_Stop" ID="{7300E986-AEE3-46CB-A008-6F3E8559F2BE}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>

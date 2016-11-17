@@ -33,6 +33,8 @@ namespace AK
         static const AkUniqueID DRAW_ABILITY_CONTROL_STOP = 3386881389U;
         static const AkUniqueID DRAW_ABILITY_PLAY = 1855658509U;
         static const AkUniqueID DRAW_ABILITY_STOP = 2972852827U;
+        static const AkUniqueID ELEVATOR_PLAY = 482819944U;
+        static const AkUniqueID ELEVATOR_STOP = 2818913498U;
         static const AkUniqueID ENEMY_AGGRO_PLAY = 2317625885U;
         static const AkUniqueID ENEMY_AGGRO_STOP = 208500619U;
         static const AkUniqueID ENEMY_DEATH_PLAY = 4192965245U;
