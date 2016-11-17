@@ -338,7 +338,17 @@ Prefab:
     - target: {fileID: 114000012623781392, guid: c506c70d52e2a904d99d3533cb35a65e,
         type: 2}
       propertyPath: attackSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012623781392, guid: c506c70d52e2a904d99d3533cb35a65e,
+        type: 2}
+      propertyPath: tooCloseSpeed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012623781392, guid: c506c70d52e2a904d99d3533cb35a65e,
+        type: 2}
+      propertyPath: tooClose
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c506c70d52e2a904d99d3533cb35a65e, type: 2}
@@ -481,13 +491,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ad5d5cdeef8eb942a9abad12cb9857f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputState: 1
+  inputState: 0
   distanceToMove: 20
   tapTime: 0.5
-  tapDistance: 100
-  doubleTapTime: 1
+  tapDistance: 50
+  doubleTapTime: 0.5
   swipeTime: 0.5
-  swipeMinDistance: 100
+  swipeMinDistance: 50
 --- !u!54 &1115631178
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -514,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d457f24c9f1e8f941a09eb5f1635b7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
+  triggerList: f7e1664c
   useOtherObject: 0
   valueGuid: ce690d97a05d064b84cf58b91f10d76d
   bankName: Main
@@ -533,8 +543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5a86aa6541df84e8a43059ee5b0d93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _slowedTimeScale: 0.1
-  _timeChangeDuration: 1
+  _slowedTimeScale: 0
+  _timeChangeDuration: 0
 --- !u!114 &1115631181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,9 +556,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66fd3a30f8dfbc4e995d0264b399b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyRangedAttackPrefab: {fileID: 1000014173490572, guid: 9817d16c81f18a849b7ddad0e7603fc3,
-    type: 2}
-  BlobPrefab: {fileID: 1000011670180826, guid: 18301561b0aab3a41bb1aa499cc7e9a7, type: 2}
+  EnemyRangedAttackPrefab: {fileID: 0}
+  BlobPrefab: {fileID: 0}
 --- !u!114 &1115631182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,7 +721,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   astarData:
-    dataString: UEsDBBQAAAgIAAAIIez9KaQf9QEAAEQEAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFlU9tu2kAQ/RXk51JhU1PStxQCrZQ2KKTq87Ae4xHrXWsv5RLx791dL8GYJ9tnzpw5c/F7ArpBZl7BkEy+DdJPg4S0rNEoYo9iy9GBIwdaQaVU9VOxxZnURjt4AVyjCylpfLZw0PsgOcSEY3ye/HNwdm8MhUF1zxqmtzwrGIe6wWJNJ7zS8ws/b2lCFhgZ3jWTnJOONhJzbHwgmUGjrWvCEQoC11Yw4PkV0rYy7iPrJr+UpUYTzSk4zkm56bSqyXdpKq9Ug961vv4Bt75OnmbBUyv66y4+zNNxIJRK1j8uldORr2IqYrtXODLQpjPVLjy/tW7FHvgONhz/Vih+y6WSVhQu+KasT7Uas3lH6qO7WYVsd+W1bnugbe43lF73cw79H2ac6o1HPn/pAI8H0pHuoDWXYQkPXgaVW9dP10M4FR3FHep9/dH4BtvuTcXAgpQ2LhRFwRr5TGK3VFR02Rd8Tto8U03tcP2N+A430irPTp7C3P1ArJlJJTDAse8GBXBzXLm6pn8IvVinci+yAGbkZU0xdvmLeikBvvJHo15oJfcfC99aKm4PKgH2NWPT8bic4gQB82E2mY7YBtIif9hMptkkCfdGwvkCvmqFYztuLeLauHC35RX9UAdLBU248ULBfkmnWnZGRKKUa6YQxUurEFo6/wdQSwMEFAAACAgAAAgh7DWwCr40AAAANwAAABIAJABncmFwaDBfZWRpdG9yLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVsrJT85OTVGyUggpKk3VUVAqzsgvd60oKUoECrkl5hSDxAoyy/JLgHwl59S8ktQipVoAUEsDBBQAAAgIAAAIIexoCNubbAAAAHcAAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNaz0DPTUVBKL0osyCgGChiCOKWZKSB2tFJisrlRsoWxcZpFqllqYqqprpGZhUFyUqJhiqllkpmFkZlSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAgh7P0ppB/1AQAARAQAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAgh7DWwCr40AAAANwAAABIAJAAAAAAAAAAAAAAAQgIAAGdyYXBoMF9lZGl0b3IuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLAQItABQAAAgIAAAIIexoCNubbAAAAHcAAAAJACQAAAAAAAAAAAAAAMoCAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAMAAwAcAQAAgQMAAAAA
+    dataString: UEsDBBQAAAgIAAAIIeweG5DLNAAAAD0AAAAJACQAbWV0YS5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0Bq1YqSy0qzszPU7JSMNaz0DPTUVBKL0osyCgGChiAOKWZKSB2dCyQU1JZkOqXmJsKEagFAFBLAQItABQAAAgIAAAIIeweG5DLNAAAAD0AAAAJACQAAAAAAAAAAAAAAAAAAABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQFQSwUGAAAAAAEAAQBbAAAAfwAAAAAA
     upgradeData: 
     data_backup: 
     file_cachedStartup: {fileID: 0}
@@ -741,39 +750,7 @@ MonoBehaviour:
     _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
     _MeshColor: {r: 0.125, g: 0.686, b: 0, a: 0.19}
     _AreaColors: []
-  tagNames:
-  - Basic Ground
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
-  - 6
-  - 7
-  - 8
-  - 9
-  - 10
-  - 11
-  - 12
-  - 13
-  - 14
-  - 15
-  - 16
-  - 17
-  - 18
-  - 19
-  - 20
-  - 21
-  - 22
-  - 23
-  - 24
-  - 25
-  - 26
-  - 27
-  - 28
-  - 29
-  - 30
-  - 31
+  tagNames: []
   heuristic: 2
   heuristicScale: 1
   threadCount: 0
@@ -786,8 +763,8 @@ MonoBehaviour:
     seed: 0
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
-  showGraphs: 1
-  lastUniqueAreaIndex: 1
+  showGraphs: 0
+  lastUniqueAreaIndex: 0
 --- !u!1001 &2021290010
 Prefab:
   m_ObjectHideFlags: 0
