@@ -18,12 +18,45 @@ public class EnemyStats : Health {
     public float attackBredthPerLevel;
     public float attackSpeed;
     public float attackSpeedPerLevel;
+    public bool onPause;
+    public float pauseFor;
 
 
+
+    public void Pause()
+    {
+        onPause = true;
+    }
+
+    public void UnPause()
+    {
+        onPause = false;
+    }
+
+    public void PauseFor(float secs)
+    {
+        onPause = true;
+        pauseFor = secs;
+    }
+
+    void FixedUpdate()
+    {
+        if (pauseFor > 0)
+        {
+            pauseFor -= Time.fixedDeltaTime;
+            if (pauseFor <= 0)
+            {
+                pauseFor = 0;
+                onPause = false;
+            }
+        }
+    }
 
     void Awake()
     {
        setHealthVars(strength.GetHashCode()+1);
+        onPause = false;
+        pauseFor = 0;
     }
 
     void Update()
