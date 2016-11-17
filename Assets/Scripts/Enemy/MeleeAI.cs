@@ -181,28 +181,28 @@ public class MeleeAI : EnemyStats {
                     if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
                     {
                         pathIndex++;
-                        // If the previous target point was the final one in the path, go to idle
                         if (pathIndex == path.vectorPath.Count)
                         {
-                            StartCoroutine(Idle());
-                            yield break;
+                            seeker.StartPath(transform.position, target.transform.position, ReceivePath);
                         }
                     }
-
-                    // Rotate and move towards the current target point in the path
-                    Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
-                    dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
-                    dir.x = 0;
-                    dir.z = 0;
-                    if (dir.y > 180) //If point is to the right, convert degrees to minus
-                        dir.y -= 360;
-                    if (dir.y > 1)
-                        transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
-                    else if (dir.y < -1)
-                        transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
-                    else
-                        transform.Rotate(dir);
-                    transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                    if (pathIndex < path.vectorPath.Count)
+                    {
+                        // Rotate and move towards the current target point in the path
+                        Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
+                        dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+                        dir.x = 0;
+                        dir.z = 0;
+                        if (dir.y > 180) //If point is to the right, convert degrees to minus
+                            dir.y -= 360;
+                        if (dir.y > 1)
+                            transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
+                        else if (dir.y < -1)
+                            transform.Rotate(Vector3.down * turnRate * Time.fixedDeltaTime);
+                        else
+                            transform.Rotate(dir);
+                        transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                    }
                 }
             }
             yield return new WaitForFixedUpdate();
