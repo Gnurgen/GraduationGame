@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 public class ConeAbility : MonoBehaviour {
 
+    /*TODO:
+     * STOP CONE ANIMATION AT SOLID OBJECTS 
+    */
+
+
     private float tDist, speed, cDist, norm, damage, pushForce, stunTime;
     private int tris;
     private bool detect = false;
