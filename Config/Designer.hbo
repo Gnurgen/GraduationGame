@@ -1,0 +1,16 @@
+Version = 1.10.7.32031;
+CModuleConfigBaseEditor	$LOCAL$/ModuleConfigBaseEditor
+{
+}
+CModuleConfigParticleEditor	$LOCAL$/ModuleConfigParticleEditor
+{
+}
+CModuleConfigMeshEditor	$LOCAL$/ModuleConfigMeshEditor
+{
+}
+CModuleConfigSplineEditor	$LOCAL$/ModuleConfigSplineEditor
+{
+}
+CModuleConfigAudioViewer	$LOCAL$/ModuleConfigAudioViewer
+{
+}
