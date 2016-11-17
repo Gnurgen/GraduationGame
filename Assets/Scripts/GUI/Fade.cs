@@ -24,7 +24,6 @@ public class Fade : MonoBehaviour {
     }
     void Start() {
         blackImg = gameObject.GetComponent<Image>();
-        //gameObject.GetComponent<Image>().CrossFadeAlpha(0, 0.01f, true);
     }
     public void fadeToBlack(float duration) {
         fading = true;
