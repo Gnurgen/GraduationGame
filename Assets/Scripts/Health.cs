@@ -53,7 +53,6 @@ public class Health : MonoBehaviour {
         if (_isPlayer)
         {
             GameManager.events.OnResourcePickup += increaseHealth;
-            GameManager.events.OnLevelUp += levelUp;
         }
     }
 
@@ -69,15 +68,11 @@ public class Health : MonoBehaviour {
                 GameManager.events.PlayerDeath(gameObject);
                 print("øv :( (pik)spiller er død \n #  #\n#   #\n ###");
             }
-            else if (gameObject.tag == "Destructable") {
-                GameManager.events.ResourceDrop(gameObject, 3);
-                GameManager.events.ObjDestroyed(gameObject);
-                Destroy(gameObject);
-            }
             else
             {
                 GameManager.events.EnemyDeath(gameObject);
                 GameManager.events.ResourceDrop(gameObject, 3); // AMOUNT OF BLOBS DROPS
+                Destroy(gameObject);
             }
         }
     }

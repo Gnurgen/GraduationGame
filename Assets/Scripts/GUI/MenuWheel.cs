@@ -189,15 +189,19 @@ public class MenuWheel : MonoBehaviour {
                 break;
         }
     }
+    int previousException;
     void hover(int exception) {
-        GameManager.events.WheelHover(exception);
-        for (int i = 0; i < nrOptions; i++) {
-            if(i != exception)
-                listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOff();
-            else
-                listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOn();
+        if(exception != previousException)
+        {
+            GameManager.events.WheelHover(exception);
+            for (int i = 0; i < nrOptions; i++) {
+                if(i != exception)
+                    listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOff();
+                else
+                    listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOn();
+            }
         }
-
+        previousException = exception; 
     }
     
     void OnClick()

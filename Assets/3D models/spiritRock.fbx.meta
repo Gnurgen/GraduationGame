@@ -1,31 +1,19 @@
 fileFormatVersion: 2
-guid: 2c8b5bf0d2a052640a50f89094088778
-timeCreated: 1479407004
+guid: 8abd8806b60ab7848af2aedc3f699300
+timeCreated: 1479406867
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: end_jnt
-    100002: master_ctrl
-    100004: root_jnt
-    100006: //RootNode
-    100008: spear_ctrl
-    100010: spear_geo
-    100012: spear_grp_ctrl
-    100014: spear_grp_geo
-    100016: spear_grp_jnt
-    400000: end_jnt
-    400002: master_ctrl
-    400004: root_jnt
-    400006: //RootNode
-    400008: spear_ctrl
-    400010: spear_geo
-    400012: spear_grp_ctrl
-    400014: spear_grp_geo
-    400016: spear_grp_jnt
-    4300000: spear_geo
-    9500000: //RootNode
-    13700000: spear_geo
+    100000: //RootNode
+    100002: spiritRock_geo
+    100004: spiritRock_geo_grp
+    400000: //RootNode
+    400002: spiritRock_geo
+    400004: spiritRock_geo_grp
+    2300000: spiritRock_geo
+    3300000: spiritRock_geo
+    4300000: spiritRock_geo
   materials:
     importMaterials: 1
     materialName: 0
@@ -84,7 +72,7 @@ ModelImporter:
     rootMotionBoneName: 
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -17,7 +17,7 @@ public class EnemyMeleeAttack : MonoBehaviour {
 
     void setMyDmg()
     {
-        if (body.tag == "Melee")
+        if (body.tag == "Enemy")
         {
             dmg = body.GetComponent<EnemyStats>().damage;
         }
@@ -30,13 +30,12 @@ public class EnemyMeleeAttack : MonoBehaviour {
 
     public void Swing(bool swing)
     {
-        print("ISWING "+swing);
         myCol.enabled = swing;
     }
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Player" || col.tag == "Destructable")
+        if(col.tag == "Player")
         {
             col.GetComponent<Health>().decreaseHealth(dmg);
             myCol.enabled = false;
