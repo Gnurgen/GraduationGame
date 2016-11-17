@@ -7,7 +7,7 @@ using Pathfinding;
 [RequireComponent (typeof(Rigidbody))]
 public class MeleeAI : EnemyStats {
 
-    public GameObject Weapon;
+    //public GameObject Weapon;
 	public GameObject target;
     private float targetDist;
     private Animator animator;
@@ -63,7 +63,7 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Idle()
 	{
-        
+        animator.SetBool("Run", false);
         for (;;)
         {
             if (!onPause)
@@ -95,7 +95,7 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Reset()
     {
-        
+        animator.SetBool("Run", true);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
         waitingForPath = true;
         while (waitingForPath)
@@ -144,7 +144,7 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Chasing()
 	{
-       
+        animator.SetBool("Run", true);
         for (;;)
         {
             if (!onPause)
@@ -178,7 +178,7 @@ public class MeleeAI : EnemyStats {
                 if (path != null)
                 {
                     // If too close to the current target point in the path, move on to the next
-                    if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
+                    if (pathIndex < path.vectorPath.Count && Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
                     {
                         pathIndex++;
                         if (pathIndex == path.vectorPath.Count)
@@ -238,9 +238,11 @@ public class MeleeAI : EnemyStats {
                         GameManager.events.EnemyAttack(gameObject);
                         currentAttackSpeed = attackSpeed;
                         animator.SetTrigger("Attack");
+                        animator.SetBool("Run", false);
                         Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
                         while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
                         {
+                            print("er jeg her nu?");
                             yield return null;
                         }
                         Weapon.GetComponent<EnemyMeleeAttack>().Swing(false);
