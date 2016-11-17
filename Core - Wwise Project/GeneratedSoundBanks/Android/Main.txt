@@ -50,9 +50,9 @@ Switch Group	ID	Name			Wwise Object Path	Notes
 	3902528438	Target			\Default Work Unit\Target	
 
 Switch	ID	Name	Switch Group			Notes
-	210809950	Indestructible	Target			
 	1069431850	Player	Target			
 	1560169506	Boss	Target			
+	1931975494	Indestructable	Target			
 	2299321487	Enemy	Target			
 
 State Group	ID	Name			Wwise Object Path	Notes
