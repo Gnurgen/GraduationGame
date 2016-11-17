@@ -8,9 +8,7 @@ public class ConeDraw : MonoBehaviour, IAbility {
     [Range(1, 5)]
     [SerializeField]
     private int pointsPerDegreeInFullCircle;
-    [SerializeField]
-    private GameObject drawConeObj, coneDmgObject;
-    private GameObject drawCone, dmgCone;
+    private GameObject drawCone, dmgCone, drawConeObj, coneDmgObject;
     private InputManager im;
     private bool drawing = false, clockwise = true, fire = false;
     private Vector3 start, end, cur;
@@ -20,11 +18,11 @@ public class ConeDraw : MonoBehaviour, IAbility {
     private const float _2pi = Mathf.PI * 2;
     private bool dirSat = false;
     private Vector3[] coneDir;
-    private Vector2 middleScreen;
 
     // Use this for initialization
     void Start () {
-        middleScreen = new Vector2(Screen.width / 2, Screen.height / 2);
+        drawConeObj = Resources.Load<GameObject>("Prefabs/Cone/ConeMESH");
+        coneDmgObject = Resources.Load<GameObject>("Prefabs/Cone/ConeAbility");
         coneResolution = pointsPerDegreeInFullCircle * 360;
         im = GameManager.input;
         ID = im.GetID();
