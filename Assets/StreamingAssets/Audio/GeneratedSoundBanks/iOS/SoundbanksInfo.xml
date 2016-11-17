@@ -21,54 +21,37 @@
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
-				<Event Id="1289281488" Name="Ability_Appear_Play" ObjectPath="\Events\Default Work Unit\Ability_Appear_Play"/>
-				<Event Id="1825762123" Name="Ability_Grab_Play" ObjectPath="\Events\Default Work Unit\Ability_Grab_Play"/>
-				<Event Id="855238596" Name="Ability_Hold_Play" ObjectPath="\Events\Default Work Unit\Ability_Hold_Play"/>
-				<Event Id="3627685822" Name="Ability_Hold_Stop" ObjectPath="\Events\Default Work Unit\Ability_Hold_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="2227190561" Name="Ability_Slot_Play" ObjectPath="\Events\Default Work Unit\Ability_Slot_Play"/>
-				<Event Id="3291280854" Name="Ability_Swap_Play" ObjectPath="\Events\Default Work Unit\Ability_Swap_Play"/>
 				<Event Id="3074393677" Name="Boss_Beam_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Play"/>
 				<Event Id="4191587739" Name="Boss_Beam_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1433984317" Name="Boss_Beam_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Play"/>
 				<Event Id="3661299883" Name="Boss_Beam_Target_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="807044522" Name="Boss_Missile_Move_Play" ObjectPath="\Events\Default Work Unit\Boss_Missile_Move_Play"/>
-				<Event Id="2211246548" Name="Boss_Missile_Move_Stop" ObjectPath="\Events\Default Work Unit\Boss_Missile_Move_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="3257950136" Name="Boss_Missile_Play" ObjectPath="\Events\Default Work Unit\Boss_Missile_Play"/>
-				<Event Id="1758886478" Name="Boss_Missile_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Missile_Target_Play"/>
 				<Event Id="169826302" Name="Boss_Rain_Move_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Move_Play"/>
 				<Event Id="1207719104" Name="Boss_Rain_Move_Stop" ObjectPath="\Events\Default Work Unit\Boss_Rain_Move_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="2907375116" Name="Boss_Rain_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Play"/>
 				<Event Id="4044112498" Name="Boss_Rain_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Target_Play"/>
-				<Event Id="650062122" Name="Boss_Shield_Down_Play" ObjectPath="\Events\Default Work Unit\Boss_Shield_Down_Play"/>
-				<Event Id="2401642071" Name="Boss_Shield_Up_Play" ObjectPath="\Events\Default Work Unit\Boss_Shield_Up_Play"/>
 				<Event Id="3906322206" Name="Button_Menu_Play" ObjectPath="\Events\Default Work Unit\Button_Menu_Play"/>
 				<Event Id="789154922" Name="Button_Start_Game_Play" ObjectPath="\Events\Default Work Unit\Button_Start_Game_Play"/>
 				<Event Id="3837168167" Name="Button_Wheel_Hover_Play" ObjectPath="\Events\Default Work Unit\Button_Wheel_Hover_Play"/>
 				<Event Id="378387809" Name="Button_Wheel_Select_Play" ObjectPath="\Events\Default Work Unit\Button_Wheel_Select_Play"/>
-				<Event Id="3390114776" Name="Checkpoint_Play" ObjectPath="\Events\Default Work Unit\Checkpoint_Play"/>
-				<Event Id="2990023069" Name="Circle_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Circle_Ability_Control_Play"/>
-				<Event Id="880897803" Name="Circle_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Circle_Ability_Control_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="1292313331" Name="Circle_Ability_Play" ObjectPath="\Events\Default Work Unit\Circle_Ability_Play"/>
+				<Event Id="1005055766" Name="Cone_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Play"/>
+				<Event Id="1735593128" Name="Cone_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Stop" MaxAttenuation="0.000000"/>
+				<Event Id="1610256012" Name="Cone_Ability_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Play"/>
 				<Event Id="2174485018" Name="Dash_Play" ObjectPath="\Events\Default Work Unit\Dash_Play"/>
 				<Event Id="669353839" Name="Draw_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Play"/>
 				<Event Id="3386881389" Name="Draw_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1855658509" Name="Draw_Ability_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Play"/>
 				<Event Id="2972852827" Name="Draw_Ability_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="2311308570" Name="Enemy_Chatter_Play" ObjectPath="\Events\Default Work Unit\Enemy_Chatter_Play"/>
-				<Event Id="3751864356" Name="Enemy_Chatter_Stop" ObjectPath="\Events\Default Work Unit\Enemy_Chatter_Stop" MaxAttenuation="0.000000"/>
+				<Event Id="2317625885" Name="Enemy_Aggro_Play" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Play"/>
+				<Event Id="208500619" Name="Enemy_Aggro_Stop" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="4192965245" Name="Enemy_Death_Play" ObjectPath="\Events\Default Work Unit\Enemy_Death_Play"/>
 				<Event Id="1233116581" Name="Enemy_Melee_Hit_Player_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Hit_Player_Play"/>
 				<Event Id="2339069971" Name="Enemy_Melee_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Play"/>
 				<Event Id="4072057392" Name="Enemy_Ranged_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Play"/>
+				<Event Id="3961649480" Name="Enemy_Ranged_Projectile_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Projectile_Play"/>
+				<Event Id="2044352442" Name="Enemy_Ranged_Projectile_Stop" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Projectile_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="914283814" Name="Enemy_Ranged_Target_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Target_Play"/>
-				<Event Id="3151436706" Name="Enemy_Shield_Play" ObjectPath="\Events\Default Work Unit\Enemy_Shield_Play"/>
 				<Event Id="2813179063" Name="Environmental_Ambience_Play" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Play"/>
 				<Event Id="1543198181" Name="Environmental_Ambience_Stop" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="2160362136" Name="Level_Up_Play" ObjectPath="\Events\Default Work Unit\Level_Up_Play"/>
-				<Event Id="1351188369" Name="Main_Menu_Music_Play" ObjectPath="\Events\Default Work Unit\Main_Menu_Music_Play"/>
-				<Event Id="2602603591" Name="Main_Menu_Music_Stop" ObjectPath="\Events\Default Work Unit\Main_Menu_Music_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="220652244" Name="Mark_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Mark_Ability_Control_Play"/>
-				<Event Id="2308852762" Name="Mark_Ability_Play" ObjectPath="\Events\Default Work Unit\Mark_Ability_Play"/>
 				<Event Id="1206082786" Name="Menu_Close_Play" ObjectPath="\Events\Default Work Unit\Menu_Close_Play"/>
 				<Event Id="900962796" Name="Menu_Open_Play" ObjectPath="\Events\Default Work Unit\Menu_Open_Play"/>
 				<Event Id="350081739" Name="Music_System_Play" ObjectPath="\Events\Default Work Unit\Music_System_Play"/>
@@ -84,21 +67,9 @@
 				<Event Id="2645717374" Name="Wheel_Open_Play" ObjectPath="\Events\Default Work Unit\Wheel_Open_Play"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="6744979" Language="SFX">
-					<ShortName>Musical_Stinger.wav</ShortName>
-					<Path>SFX\Musical_Stinger_4B8CC0C5.wem</Path>
-				</File>
 				<File Id="8318211" Language="SFX">
 					<ShortName>Spear_Hit_Indestructible.wav</ShortName>
 					<Path>SFX\Spear_Hit_Indestructible_1EED65C9.wem</Path>
-				</File>
-				<File Id="26286231" Language="SFX">
-					<ShortName>Boss_Missile_Hit_Player.wav</ShortName>
-					<Path>SFX\Boss_Missile_Hit_Player_C47F2D1B.wem</Path>
-				</File>
-				<File Id="41734456" Language="SFX">
-					<ShortName>Spear_Hit_Enemy_Shield.wav</ShortName>
-					<Path>SFX\Spear_Hit_Enemy_Shield_675B1D38.wem</Path>
 				</File>
 				<File Id="55832679" Language="SFX">
 					<ShortName>Button_Wheel_Hover.wav</ShortName>
@@ -144,10 +115,6 @@
 					<ShortName>Button_Start_Game.wav</ShortName>
 					<Path>SFX\Button_Start_Game_5CAE6989.wem</Path>
 				</File>
-				<File Id="196167360" Language="SFX">
-					<ShortName>Ability_Swap.wav</ShortName>
-					<Path>SFX\Ability_Swap_B0445A12.wem</Path>
-				</File>
 				<File Id="209859539" Language="SFX">
 					<ShortName>Draw_Ability_Control.wav</ShortName>
 					<Path>SFX\Draw_Ability_Control_0ED39DC9.wem</Path>
@@ -164,10 +131,6 @@
 					<ShortName>Enemy_Ranged_Hit_Player.wav</ShortName>
 					<Path>SFX\Enemy_Ranged_Hit_Player_D643B37C.wem</Path>
 				</File>
-				<File Id="252032107" Language="SFX">
-					<ShortName>Ability_Slot.wav</ShortName>
-					<Path>SFX\Ability_Slot_C1365CE2.wem</Path>
-				</File>
 				<File Id="314800765" Language="SFX">
 					<ShortName>Button_Wheel_Select.wav</ShortName>
 					<Path>SFX\Button_Wheel_Select_785D9045.wem</Path>
@@ -180,41 +143,17 @@
 					<ShortName>Button_Menu.wav</ShortName>
 					<Path>SFX\Button_Menu_C5CDED70.wem</Path>
 				</File>
-				<File Id="346959011" Language="SFX">
-					<ShortName>Boss_Shield_Up.wav</ShortName>
-					<Path>SFX\Boss_Shield_Up_C47F2D1B.wem</Path>
-				</File>
 				<File Id="349841009" Language="SFX">
 					<ShortName>Enemy_Chatter.wav</ShortName>
 					<Path>SFX\Enemy_Chatter_C47F2D1B.wem</Path>
-				</File>
-				<File Id="385179164" Language="SFX">
-					<ShortName>Spear_Hit_Boss_Shield.wav</ShortName>
-					<Path>SFX\Spear_Hit_Boss_Shield_C2C9820A.wem</Path>
 				</File>
 				<File Id="392426319" Language="SFX">
 					<ShortName>Wheel_Close.wav</ShortName>
 					<Path>SFX\Wheel_Close_A6480562.wem</Path>
 				</File>
-				<File Id="400851421" Language="SFX">
-					<ShortName>Checkpoint.wav</ShortName>
-					<Path>SFX\Checkpoint_C47F2D1B.wem</Path>
-				</File>
-				<File Id="408232039" Language="SFX">
-					<ShortName>Spear_Hit_Destrucible.wav</ShortName>
-					<Path>SFX\Spear_Hit_Destrucible_5C92FAC6.wem</Path>
-				</File>
 				<File Id="425836869" Language="SFX">
 					<ShortName>Ambience.wav</ShortName>
 					<Path>SFX\Ambience_C47F2D1B.wem</Path>
-				</File>
-				<File Id="442489187" Language="SFX">
-					<ShortName>Boss_Missile_Move.wav</ShortName>
-					<Path>SFX\Boss_Missile_Move_0ED39DC9.wem</Path>
-				</File>
-				<File Id="482045922" Language="SFX">
-					<ShortName>Level_Up.wav</ShortName>
-					<Path>SFX\Level_Up_C47F2D1B.wem</Path>
 				</File>
 				<File Id="494802499" Language="SFX">
 					<ShortName>Player_Respawn.wav</ShortName>
@@ -224,10 +163,6 @@
 					<ShortName>Music_After_Boss.wav</ShortName>
 					<Path>SFX\Music_After_Boss_0ED39DC9.wem</Path>
 				</File>
-				<File Id="501342181" Language="SFX">
-					<ShortName>Boss_Missile_Hit_Wall.wav</ShortName>
-					<Path>SFX\Boss_Missile_Hit_Wall_C47F2D1B.wem</Path>
-				</File>
 				<File Id="532644430" Language="SFX">
 					<ShortName>Music_In_Intro_Cutscene.wav</ShortName>
 					<Path>SFX\Music_In_Intro_Cutscene_0ED39DC9.wem</Path>
@@ -235,10 +170,6 @@
 				<File Id="547466270" Language="SFX">
 					<ShortName>In Game Music - Rhythm.wav</ShortName>
 					<Path>SFX\In Game Music - Rhythm_0ED39DC9.wem</Path>
-				</File>
-				<File Id="565054861" Language="SFX">
-					<ShortName>Ability_Hold.wav</ShortName>
-					<Path>SFX\Ability_Hold_0ED39DC9.wem</Path>
 				</File>
 				<File Id="568477832" Language="SFX">
 					<ShortName>Music_In_Ending_Cutscene.wav</ShortName>
@@ -252,10 +183,6 @@
 					<ShortName>Enemy_Ranged_Hit_Wall.wav</ShortName>
 					<Path>SFX\Enemy_Ranged_Hit_Wall_71DAFC6C.wem</Path>
 				</File>
-				<File Id="587867718" Language="SFX">
-					<ShortName>Boss_Missile_Hit_Self.wav</ShortName>
-					<Path>SFX\Boss_Missile_Hit_Self_C47F2D1B.wem</Path>
-				</File>
 				<File Id="592625524" Language="SFX">
 					<ShortName>Enemy_Melee_Hit_Player.wav</ShortName>
 					<Path>SFX\Enemy_Melee_Hit_Player_CBBC3035.wem</Path>
@@ -268,21 +195,9 @@
 					<ShortName>Pickup.wav</ShortName>
 					<Path>SFX\Pickup_0E2C7BFE.wem</Path>
 				</File>
-				<File Id="616878891" Language="SFX">
-					<ShortName>Enemy_Shield.wav</ShortName>
-					<Path>SFX\Enemy_Shield_A6FC9190.wem</Path>
-				</File>
-				<File Id="667998553" Language="SFX">
-					<ShortName>Mark_Ability_Control.wav</ShortName>
-					<Path>SFX\Mark_Ability_Control_8A0D636F.wem</Path>
-				</File>
 				<File Id="683796896" Language="SFX">
 					<ShortName>Boss_Presentation.wav</ShortName>
 					<Path>SFX\Boss_Presentation_4B8CC0C5.wem</Path>
-				</File>
-				<File Id="690662978" Language="SFX">
-					<ShortName>Boss_Rain_Hit_Floor.wav</ShortName>
-					<Path>SFX\Boss_Rain_Hit_Floor_C47F2D1B.wem</Path>
 				</File>
 				<File Id="743145374" Language="SFX">
 					<ShortName>Wheel_Open.wav</ShortName>
@@ -308,37 +223,13 @@
 					<ShortName>Menu_Open.wav</ShortName>
 					<Path>SFX\Menu_Open_35E30ACE.wem</Path>
 				</File>
-				<File Id="811420928" Language="SFX">
-					<ShortName>Boss_Shield_Down.wav</ShortName>
-					<Path>SFX\Boss_Shield_Down_C47F2D1B.wem</Path>
-				</File>
-				<File Id="816473991" Language="SFX">
-					<ShortName>Ability_Grab.wav</ShortName>
-					<Path>SFX\Ability_Grab_BEBB193D.wem</Path>
-				</File>
 				<File Id="822169123" Language="SFX">
 					<ShortName>Player_Death.wav</ShortName>
 					<Path>SFX\Player_Death_C47F2D1B.wem</Path>
 				</File>
-				<File Id="822788347" Language="SFX">
-					<ShortName>Boss_Missile.wav</ShortName>
-					<Path>SFX\Boss_Missile_C47F2D1B.wem</Path>
-				</File>
-				<File Id="825476414" Language="SFX">
-					<ShortName>Ability_Appear.wav</ShortName>
-					<Path>SFX\Ability_Appear_C47F2D1B.wem</Path>
-				</File>
 				<File Id="835280033" Language="SFX">
 					<ShortName>Circle_Ability_Control.wav</ShortName>
 					<Path>SFX\Circle_Ability_Control_0ED39DC9.wem</Path>
-				</File>
-				<File Id="867334508" Language="SFX">
-					<ShortName>Boss_Missile_Hit_Enemy.wav</ShortName>
-					<Path>SFX\Boss_Missile_Hit_Enemy_C47F2D1B.wem</Path>
-				</File>
-				<File Id="879283342" Language="SFX">
-					<ShortName>Mark_Ability.wav</ShortName>
-					<Path>SFX\Mark_Ability_1954BE90.wem</Path>
 				</File>
 				<File Id="963882025" Language="SFX">
 					<ShortName>Boss_Rain_Move.wav</ShortName>

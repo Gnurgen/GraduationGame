@@ -16,7 +16,6 @@
 								<Bus Name="Reverb" ID="{D46D1F4E-7B0C-4E95-B699-E0091B07CAA0}">
 									<ChildrenList>
 										<AuxBus Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}"/>
-										<AuxBus Name="Corridor" ID="{60FC85E4-77AE-473E-B8E5-A664620C1417}"/>
 									</ChildrenList>
 								</Bus>
 							</ChildrenList>
