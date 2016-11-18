@@ -4,6 +4,7 @@ using Pathfinding;
 
 [RequireComponent(typeof(Seeker))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SpawnRagdoll))]
 public class RangedAI : EnemyStats {
 
     public GameObject projectile;
@@ -27,7 +28,7 @@ public class RangedAI : EnemyStats {
     private Vector3 startPosition;
     private float currentAttackSpeed;
     private Rigidbody body;
-
+    private SpawnRagdoll myDoll;
     private int taunts;
     private int aggros;
 
@@ -42,7 +43,7 @@ public class RangedAI : EnemyStats {
         mySpeed = moveSpeed;
         startPosition = transform.position;
         currentAttackSpeed = 0;
-
+        myDoll.myTag = "EnemyRangedRagdoll";
         taunts = 0;
         aggros = 0;
     }
@@ -68,7 +69,11 @@ public class RangedAI : EnemyStats {
         StartCoroutine(Idle());
         yield break;
     }
-
+    void Update()
+    {
+        if (health <= 0)
+            myDoll.Execute();
+    }
 
     IEnumerator Idle()
     {
