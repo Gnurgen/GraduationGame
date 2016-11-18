@@ -15,13 +15,15 @@ public class PlayerControls : MonoBehaviour {
     public float moveSpeed = 4;
     public float dashDuration = 0.5f;
     public float dashSpeedMultiplier = 3;
-    public float attackDuration = 0.3f;
-    public float attackCooldown = 1;
+    //public float attackDuration = 0.3f;
+    //public float attackCooldown = 1;
     public float dashCooldown = 3;
     public GameObject SpearTip;
     public float Damage = 1;
+    public float MovePointCooldown = 1;
+    public GameObject ClickFeedBack;
 
-
+    private float currentMovePointCooldown = 0;
     private Path path;
     private int pathIndex;
     private Vector3 moveDir;
@@ -40,10 +42,11 @@ public class PlayerControls : MonoBehaviour {
         im = FindObjectOfType<InputManager>();
         em = FindObjectOfType<EventManager>();
         em.OnWheelOpen += disableMovement;
-        em.OnWheelSelect += enableMovement;
+        em.OnDrawComplete += enableMovement; // har ændret det til onDrawComplete, i stedet for onWheelSelect (kys Kris <3)
         body = GetComponent<Rigidbody>();
         seeker = GetComponent<Seeker>();
         id = im.GetID();
+        im.OnTapSub(Tap, id);
         im.OnFirstTouchBeginSub(Begin, id);
         im.OnFirstTouchMoveSub(Move, id);
         im.OnFirstTouchEndSub(End, id);
@@ -56,6 +59,7 @@ public class PlayerControls : MonoBehaviour {
         shouldMove = true;
         currentAttackCooldown = 0;
         currentDashCooldown = 0;
+        currentMovePointCooldown = 0;
         animator = GetComponent<Animator>();
 	}
 	
@@ -66,12 +70,14 @@ public class PlayerControls : MonoBehaviour {
 
     void FixedUpdate()
     {
-        currentAttackCooldown -= Time.fixedDeltaTime;
+        //currentAttackCooldown -= Time.fixedDeltaTime;
+        currentMovePointCooldown -= Time.fixedDeltaTime;
         currentDashCooldown -= Time.fixedDeltaTime;
     }
 
     IEnumerator Idle()
     {
+        ClickFeedBack.SetActive(false);
         state = State.Idle;
         em.PlayerIdle(gameObject);
         path = null;
@@ -82,11 +88,15 @@ public class PlayerControls : MonoBehaviour {
         yield break;
     }
 
-    IEnumerator Moving()
+    IEnumerator Moving(Vector3 mPoint)
     {
         state = State.Moving;
+        ClickFeedBack.SetActive(true);
+        ClickFeedBack.transform.position = mPoint;
+        ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
         em.PlayerMove(gameObject);
-        while (state == State.Moving && shouldMove)
+        print("PLAYER MOVE");
+        while (state == State.Moving && shouldMove && Vector3.Distance(transform.position, mPoint) > 1)
         {
             body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate(); 
@@ -104,6 +114,14 @@ public class PlayerControls : MonoBehaviour {
         }
         state = State.Attacking;
         em.PlayerAttack(gameObject);
+        Vector2 tempDir = s.end - s.begin;
+        moveDir = new Vector3(tempDir.x, 0, tempDir.y);
+        moveDir = Camera.main.transform.TransformDirection(moveDir).normalized;
+        moveDir.y = 0;
+        moveDir = Quaternion.FromToRotation(transform.forward, moveDir).eulerAngles;
+        moveDir.x = 0;
+        moveDir.z = 0;
+        transform.Rotate(moveDir);
         yield return new WaitForFixedUpdate();
         SpearTip.SetActive(true);
         while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))
@@ -112,7 +130,7 @@ public class PlayerControls : MonoBehaviour {
         }
         SpearTip.SetActive(false);
 
-        currentAttackCooldown = attackCooldown;
+        //currentAttackCooldown = attackCooldown;
         StartCoroutine(Idle());
         yield break;
     }
@@ -141,8 +159,11 @@ public class PlayerControls : MonoBehaviour {
 
     void Begin(Vector2 p)
     {
-        if(state != State.Dashing && state != State.Attacking)
+        currentMovePointCooldown = MovePointCooldown;   
+        /*
+        if (state != State.Dashing && state != State.Attacking)
         {
+            //Vector3 MoveToPoint = im.GetWorldPoint(p);
             Vector2 tempDir = p - middleScreen;
             moveDir = new Vector3(tempDir.x, 0, tempDir.y);
             moveDir = Camera.main.transform.TransformDirection(moveDir).normalized;
@@ -150,17 +171,23 @@ public class PlayerControls : MonoBehaviour {
             moveDir = Quaternion.FromToRotation(transform.forward, moveDir).eulerAngles;
             moveDir.x = 0;
             moveDir.z = 0;
-            transform.Rotate(moveDir);
+            transform.Rotate(moveDir); 
+            //transform.rotation = Quaternion.FromToRotation(transform.forward, transform.position - MoveToPoint);
+
+
             if (state == State.Idle)
             {
                 StartCoroutine(Moving());
             }
-        }
+        }*/
     } 
     void Move(Vector2 p)
     {
-        if (state != State.Dashing && state != State.Attacking)
+        
+        if (state != State.Dashing && state != State.Attacking && currentMovePointCooldown < MovePointCooldown)
         {
+            currentMovePointCooldown = MovePointCooldown;
+            Vector3 MoveToPoint = im.GetWorldPoint(p);
             Vector2 tempDir = p - middleScreen;
             moveDir = new Vector3(tempDir.x, 0, tempDir.y);
             moveDir = Camera.main.transform.TransformDirection(moveDir).normalized;
@@ -171,17 +198,19 @@ public class PlayerControls : MonoBehaviour {
             transform.Rotate(moveDir);
             if (state == State.Idle)
             {
-                StartCoroutine(Moving());
+                StartCoroutine(Moving(MoveToPoint));
             }
         }
     }
 
     void End(Vector2 p)
     {
+        /*
         if (state != State.Dashing && state != State.Attacking)
         {
             StartCoroutine(Idle());
         }
+        */
     }
 
     void disableMovement()
@@ -196,8 +225,32 @@ public class PlayerControls : MonoBehaviour {
 
     void Tap(Vector2 p)
     {
+       
+        if (state != State.Dashing && state != State.Attacking)
+        {
+           
+            currentMovePointCooldown = MovePointCooldown;
+            Vector3 MoveToPoint = im.GetWorldPoint(p);
+            Vector2 tempDir = p - middleScreen;
+            moveDir = new Vector3(tempDir.x, 0, tempDir.y);
+            moveDir = Camera.main.transform.TransformDirection(moveDir).normalized;
+            moveDir.y = 0;
+            moveDir = Quaternion.FromToRotation(transform.forward, moveDir).eulerAngles;
+            moveDir.x = 0;
+            moveDir.z = 0;
+            transform.Rotate(moveDir);
+            if (state == State.Idle)
+            {
+                StartCoroutine(Moving(MoveToPoint));
+            }
+        }
+      
+    }
+    void GetPointToMove() // gets the point from tap and move
+    {
 
     }
+
 
     void DoubleTap(Vector2 p)
     {
