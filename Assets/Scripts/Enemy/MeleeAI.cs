@@ -7,7 +7,7 @@ using Pathfinding;
 [RequireComponent (typeof(Rigidbody))]
 public class MeleeAI : EnemyStats {
 
-    //public GameObject Weapon;
+    public GameObject Weapon;
 	public GameObject target;
     private float targetDist;
     private Animator animator;
