@@ -13,56 +13,45 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID ABILITY_APPEAR_PLAY = 1289281488U;
-        static const AkUniqueID ABILITY_GRAB_PLAY = 1825762123U;
-        static const AkUniqueID ABILITY_HOLD_PLAY = 855238596U;
-        static const AkUniqueID ABILITY_HOLD_STOP = 3627685822U;
-        static const AkUniqueID ABILITY_SLOT_PLAY = 2227190561U;
-        static const AkUniqueID ABILITY_SWAP_PLAY = 3291280854U;
         static const AkUniqueID BOSS_BEAM_PLAY = 3074393677U;
         static const AkUniqueID BOSS_BEAM_STOP = 4191587739U;
         static const AkUniqueID BOSS_BEAM_TARGET_PLAY = 1433984317U;
         static const AkUniqueID BOSS_BEAM_TARGET_STOP = 3661299883U;
-        static const AkUniqueID BOSS_MISSILE_MOVE_PLAY = 807044522U;
-        static const AkUniqueID BOSS_MISSILE_MOVE_STOP = 2211246548U;
-        static const AkUniqueID BOSS_MISSILE_PLAY = 3257950136U;
-        static const AkUniqueID BOSS_MISSILE_TARGET_PLAY = 1758886478U;
         static const AkUniqueID BOSS_RAIN_MOVE_PLAY = 169826302U;
         static const AkUniqueID BOSS_RAIN_MOVE_STOP = 1207719104U;
         static const AkUniqueID BOSS_RAIN_PLAY = 2907375116U;
         static const AkUniqueID BOSS_RAIN_TARGET_PLAY = 4044112498U;
-        static const AkUniqueID BOSS_SHIELD_DOWN_PLAY = 650062122U;
-        static const AkUniqueID BOSS_SHIELD_UP_PLAY = 2401642071U;
         static const AkUniqueID BUTTON_MENU_PLAY = 3906322206U;
         static const AkUniqueID BUTTON_START_GAME_PLAY = 789154922U;
         static const AkUniqueID BUTTON_WHEEL_HOVER_PLAY = 3837168167U;
         static const AkUniqueID BUTTON_WHEEL_SELECT_PLAY = 378387809U;
-        static const AkUniqueID CHECKPOINT_PLAY = 3390114776U;
-        static const AkUniqueID CIRCLE_ABILITY_CONTROL_PLAY = 2990023069U;
-        static const AkUniqueID CIRCLE_ABILITY_CONTROL_STOP = 880897803U;
-        static const AkUniqueID CIRCLE_ABILITY_PLAY = 1292313331U;
+        static const AkUniqueID CONE_ABILITY_CONTROL_PLAY = 1005055766U;
+        static const AkUniqueID CONE_ABILITY_CONTROL_STOP = 1735593128U;
+        static const AkUniqueID CONE_ABILITY_PLAY = 1610256012U;
         static const AkUniqueID DASH_PLAY = 2174485018U;
         static const AkUniqueID DRAW_ABILITY_CONTROL_PLAY = 669353839U;
         static const AkUniqueID DRAW_ABILITY_CONTROL_STOP = 3386881389U;
         static const AkUniqueID DRAW_ABILITY_PLAY = 1855658509U;
         static const AkUniqueID DRAW_ABILITY_STOP = 2972852827U;
-        static const AkUniqueID ENEMY_CHATTER_PLAY = 2311308570U;
-        static const AkUniqueID ENEMY_CHATTER_STOP = 3751864356U;
+        static const AkUniqueID ELEVATOR_PLAY = 482819944U;
+        static const AkUniqueID ELEVATOR_STOP = 2818913498U;
+        static const AkUniqueID ENEMY_AGGRO_PLAY = 2317625885U;
+        static const AkUniqueID ENEMY_AGGRO_STOP = 208500619U;
         static const AkUniqueID ENEMY_DEATH_PLAY = 4192965245U;
         static const AkUniqueID ENEMY_MELEE_HIT_PLAYER_PLAY = 1233116581U;
         static const AkUniqueID ENEMY_MELEE_PLAY = 2339069971U;
         static const AkUniqueID ENEMY_RANGED_PLAY = 4072057392U;
+        static const AkUniqueID ENEMY_RANGED_PROJECTILE_PLAY = 3961649480U;
+        static const AkUniqueID ENEMY_RANGED_PROJECTILE_STOP = 2044352442U;
         static const AkUniqueID ENEMY_RANGED_TARGET_PLAY = 914283814U;
-        static const AkUniqueID ENEMY_SHIELD_PLAY = 3151436706U;
         static const AkUniqueID ENVIRONMENTAL_AMBIENCE_PLAY = 2813179063U;
         static const AkUniqueID ENVIRONMENTAL_AMBIENCE_STOP = 1543198181U;
-        static const AkUniqueID LEVEL_UP_PLAY = 2160362136U;
-        static const AkUniqueID MARK_ABILITY_CONTROL_PLAY = 220652244U;
-        static const AkUniqueID MARK_ABILITY_PLAY = 2308852762U;
         static const AkUniqueID MENU_CLOSE_PLAY = 1206082786U;
         static const AkUniqueID MENU_OPEN_PLAY = 900962796U;
         static const AkUniqueID MUSIC_SYSTEM_PLAY = 350081739U;
         static const AkUniqueID MUSIC_SYSTEM_STOP = 3509289057U;
+        static const AkUniqueID PICKUP_MOVE_PLAY = 789084040U;
+        static const AkUniqueID PICKUP_MOVE_STOP = 3166651386U;
         static const AkUniqueID PICKUP_PLAY = 1715783110U;
         static const AkUniqueID PLAYER_DEATH_PLAY = 2348472398U;
         static const AkUniqueID PLAYER_RESPAWN_PLAY = 1389849668U;
@@ -80,13 +69,8 @@ namespace AK
 
             namespace STATE
             {
-                static const AkUniqueID CORE = 3787826988U;
-                static const AkUniqueID CORE_CORRIDOR = 525391897U;
-                static const AkUniqueID CORRIDOR = 4063189299U;
-                static const AkUniqueID INNER = 1778842195U;
-                static const AkUniqueID INNER_CORRIDOR = 1592175108U;
-                static const AkUniqueID OUTER = 175046638U;
-                static const AkUniqueID OUTER_CORRIDOR = 2571765635U;
+                static const AkUniqueID LARGE = 4284352190U;
+                static const AkUniqueID SMALL = 1846755610U;
             } // namespace STATE
         } // namespace ENVIRONMENT
 
@@ -103,7 +87,6 @@ namespace AK
                 static const AkUniqueID IN_ENDING_CUTSCENE = 3858937137U;
                 static const AkUniqueID IN_INTRO_CUTSCENE = 2874168282U;
                 static const AkUniqueID IN_MAIN_MENU = 1415091186U;
-                static const AkUniqueID IN_SKILL_TREE = 3788403633U;
                 static const AkUniqueID OUT_OF_BATTLE = 304575330U;
             } // namespace STATE
         } // namespace GAME_STATE
@@ -119,12 +102,8 @@ namespace AK
             namespace SWITCH
             {
                 static const AkUniqueID BOSS = 1560169506U;
-                static const AkUniqueID BOSS_SHIELD = 27428518U;
-                static const AkUniqueID DESTRUCTIBLE = 1387800999U;
                 static const AkUniqueID ENEMY = 2299321487U;
-                static const AkUniqueID ENEMY_SHIELD = 3262939977U;
-                static const AkUniqueID FLOOR = 1088209313U;
-                static const AkUniqueID INDESTRUCTIBLE = 210809950U;
+                static const AkUniqueID INDESTRUCTABLE = 1931975494U;
                 static const AkUniqueID PLAYER = 1069431850U;
             } // namespace SWITCH
         } // namespace TARGET
@@ -147,8 +126,7 @@ namespace AK
 
     namespace TRIGGERS
     {
-        static const AkUniqueID AWE_STINGER = 1429963265U;
-        static const AkUniqueID THREAT_STINGER = 2246995438U;
+        static const AkUniqueID BOSS_STINGER = 2788114033U;
     } // namespace TRIGGERS
 
     namespace BANKS
@@ -172,7 +150,6 @@ namespace AK
 
     namespace AUX_BUSSES
     {
-        static const AkUniqueID CORRIDOR = 4063189299U;
         static const AkUniqueID HALL = 3633416828U;
     } // namespace AUX_BUSSES
 

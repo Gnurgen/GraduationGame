@@ -8,11 +8,7 @@
 						<Switch Name="Player" ID="{849A6AAA-D6AB-43EB-A655-41DB5696C6CC}"/>
 						<Switch Name="Enemy" ID="{842207BB-ED27-4E84-871D-D599324E1442}"/>
 						<Switch Name="Boss" ID="{3AE04429-4DB2-45CF-A26F-4D9228C4039F}"/>
-						<Switch Name="Destructible" ID="{E369C65D-BA8B-49C9-B08B-713DC4AB95F2}"/>
-						<Switch Name="Indestructible" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
-						<Switch Name="Floor" ID="{9E8C2E55-99B3-4463-9626-9C040B06986B}"/>
-						<Switch Name="Boss_Shield" ID="{3CA885C3-85A9-4DC5-B57C-A0F76BC4CDF0}"/>
-						<Switch Name="Enemy_Shield" ID="{56F8DAA8-AB6E-4C97-8E96-9FECFCA23FA8}"/>
+						<Switch Name="Indestructable" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
 					</ChildrenList>
 				</SwitchGroup>
 			</ChildrenList>

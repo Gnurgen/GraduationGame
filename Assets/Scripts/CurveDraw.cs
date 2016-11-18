@@ -13,11 +13,13 @@ public class CurveDraw : MonoBehaviour {
 	public int indicieIndex;
 	private Mesh mesh;
 	private Vector3[] vertices;
-	private int[] indicies;
+    private Material matTexture;
+    private int[] indicies;
 	private float angle;
 
     // Use this for initialization
     void Start () {
+        matTexture = Resources.Load("CurveDrawMaterial/CurveDrawMat") as Material;
 		drawing = false;
 		curvePoints = new List<Vector3> ();
 		mesh = new Mesh ();
@@ -62,6 +64,7 @@ public class CurveDraw : MonoBehaviour {
         line = new GameObject ();
 		line.AddComponent<MeshFilter> ();
 		line.AddComponent<MeshRenderer> ();
+        line.GetComponent<MeshRenderer>().material = matTexture;
 		mesh = new Mesh ();
 		mesh.name = line.GetInstanceID().ToString();
         vertices = new Vector3[500];
@@ -101,9 +104,9 @@ public class CurveDraw : MonoBehaviour {
         CheckArraySizes ();
 		Vector3 previousPoint = curvePoints [curvePoints.Count - 1];
 		angle = Mathf.Atan2(newPoint.z - previousPoint.z, previousPoint.x - newPoint.x) * 180 / Mathf.PI;
-		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * -Vector3.forward + newPoint;
+		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * -Vector3.forward/2 + newPoint;
 		verticeIndex++;
-		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward + newPoint;
+		vertices[verticeIndex] = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward/2 + newPoint;
 		verticeIndex++;
 
 		indicies [indicieIndex] = verticeIndex - 2;
@@ -121,6 +124,7 @@ public class CurveDraw : MonoBehaviour {
 		mesh.vertices = vertices;
 		mesh.triangles = indicies;
 		line.GetComponent<MeshFilter> ().mesh = mesh;
+        //mesh.uv = new Vector2(0, 1);
 	}
 
 	void CheckArraySizes(){
