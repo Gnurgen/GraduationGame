@@ -251,12 +251,12 @@ public class MapGenerator : MonoBehaviour {
                             indexList.Add(gridSize * j + l);
                     }
                 }
-                i = indexList[Random.Range(0, indexList.Count-1)];
+                i = indexList[Random.Range(0, indexList.Count - 1)];
                 j = Mathf.FloorToInt(i / gridSize);
-                goalRoom = new int[] {i - j, j};
+                goalRoom = new int[] { i - j, j };
                 break;
             case MapShape.Frame:
-                switch(Random.Range(0, 3))
+                switch (Random.Range(0, 3))
                 {
                     case 0:
                         startRoom = new int[] { 0, center };
@@ -264,7 +264,7 @@ public class MapGenerator : MonoBehaviour {
                         break;
                     case 1:
                         startRoom = new int[] { center, 0 };
-                        goalRoom = new int[] { center, gridSize - 1};
+                        goalRoom = new int[] { center, gridSize - 1 };
                         break;
                     case 2:
                         startRoom = new int[] { gridSize - 1, center };
@@ -283,7 +283,7 @@ public class MapGenerator : MonoBehaviour {
                 {
                     case 0:
                         startRoom = new int[] { 0, 0 };
-                        goalRoom = new int[] { gridSize - 1 , gridSize - 1 };
+                        goalRoom = new int[] { gridSize - 1, gridSize - 1 };
                         break;
                     case 1:
                         startRoom = new int[] { gridSize - 1, 0 };
@@ -303,6 +303,10 @@ public class MapGenerator : MonoBehaviour {
                 populate(mask, 1);
                 break;
         }
+
+        GameManager.player.transform.position = new Vector3((startRoom[0] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, 0, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+        Camera.main.transform.position = new Vector3(GameManager.player.transform.position.x - 7.5f, GameManager.player.transform.position.y + 11.1f, GameManager.player.transform.position.z - 7.5f);
+        GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, 0, -(goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
 
         mapGrid = new RoomGridEntry[gridSize, gridSize];
 
@@ -411,6 +415,7 @@ public class MapGenerator : MonoBehaviour {
         }
 
         StartCoroutine("DelayedScan");
+        GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
     }
 
     private bool[] rotateDoors(bool[] doors)

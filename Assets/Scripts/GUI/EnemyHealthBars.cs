@@ -11,6 +11,12 @@ public class EnemyHealthBars : MonoBehaviour {
     private GameObject enemy;
     private int type;
     Vector3 position;
+
+    void Awake()
+    {
+        transform.localScale = new Vector3(0, 0, 0);
+    }
+
     void Start () {
 
     }

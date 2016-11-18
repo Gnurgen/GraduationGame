@@ -186,7 +186,7 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 10:
                 Debug.Log("Nothing selected");
-                
+                GameManager.events.DrawComplete(10);
                 break;
         }
     }
