@@ -18,6 +18,9 @@ public class PlayerControls : MonoBehaviour {
     public float attackDuration = 0.3f;
     public float attackCooldown = 1;
     public float dashCooldown = 3;
+    public GameObject SpearTip;
+    public float Damage = 1;
+
 
     private Path path;
     private int pathIndex;
@@ -29,6 +32,7 @@ public class PlayerControls : MonoBehaviour {
     private bool shouldMove;
     private float currentDashCooldown;
     private float currentAttackCooldown;
+    private Animator animator;
 
     private Rigidbody body;
     // Use this for initialization
@@ -52,6 +56,7 @@ public class PlayerControls : MonoBehaviour {
         shouldMove = true;
         currentAttackCooldown = 0;
         currentDashCooldown = 0;
+        animator = GetComponent<Animator>();
 	}
 	
 	void Awake()
@@ -99,12 +104,14 @@ public class PlayerControls : MonoBehaviour {
         }
         state = State.Attacking;
         em.PlayerAttack(gameObject);
-        float currentAttackDuration = attackDuration;
-        while(currentAttackDuration > 0)
+        yield return new WaitForFixedUpdate();
+        SpearTip.SetActive(true);
+        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))
         {
-            currentAttackDuration -= Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
+        SpearTip.SetActive(false);
+
         currentAttackCooldown = attackCooldown;
         StartCoroutine(Idle());
         yield break;
