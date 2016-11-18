@@ -380,7 +380,7 @@ public class AudioManager : MonoBehaviour {
     {
         //Enemie Dies and stops his random growls
         AggroedEnemies--;
-        AkSoundEngine.PostEvent("Enemy_Chatter_Stop", GO);
+        AkSoundEngine.PostEvent("Enemy_Aggro_Stop", GO);
         AkSoundEngine.PostEvent("Enemy_Death_Play", GO);
         AkSoundEngine.RenderAudio();
     }

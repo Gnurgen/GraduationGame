@@ -64,10 +64,7 @@ public class Health : MonoBehaviour {
         if (_health <= 0)
         {
             if (_isPlayer)
-            {
                 GameManager.events.PlayerDeath(gameObject);
-                print("øv :( (pik)spiller er død \n #  #\n#   #\n ###");
-            }
             else
             {
                 GameManager.events.EnemyDeath(gameObject);

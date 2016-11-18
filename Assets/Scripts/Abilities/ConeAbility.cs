@@ -15,14 +15,11 @@ public class ConeAbility : MonoBehaviour {
     private Vector3 myRot;
     private Vector3[] dir;
     private Mesh dmgMesh;
-    [SerializeField]
     private GameObject coneParticle;
     Ray dmgRay;
     RaycastHit[] hit;
     PoolManager poolManager;
     int cCounter = 0, cStart = 0;
-
-    public GameObject test;
 	// Use this for initialization
 	void Awake () {
         poolManager = FindObjectOfType<PoolManager>();
@@ -65,6 +62,8 @@ public class ConeAbility : MonoBehaviour {
             coneParticle.transform.LookAt(dir[i]);
             coneParticle.GetComponent<MovingConeParticle>().setVars(speed, tDist);
         }
+        if (cStart == 0)
+            Destroy(gameObject);
     }
 
     public void setVars(float l, float s, int t, Mesh m, float d, float p, float st)
@@ -80,14 +79,25 @@ public class ConeAbility : MonoBehaviour {
         myRot = transform.rotation.eulerAngles;
         detect = true;
     }
+
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
     {
+        print(go);
         yield return new WaitForSeconds(delayTime);
-        go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce);
-        go.GetComponent<EnemyStats>().decreaseHealth(damage);
-        //go.GetComponent<EnemyStats>().PauseFor(stunTime);
-        go.layer = 10;
-        ++cCounter;
+        if (go == null)
+        {
+            print(go);
+            ++cCounter;
+        }
+        else
+        {
+            print("applycone");
+            go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce);
+            go.GetComponent<EnemyStats>().decreaseHealth(damage);
+            go.GetComponent<EnemyStats>().PauseFor(stunTime);
+            go.layer = 10;
+            ++cCounter;
+        }
         if (cCounter == cStart)
             Destroy(gameObject);
     }

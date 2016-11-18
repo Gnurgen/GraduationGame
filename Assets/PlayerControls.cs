@@ -16,6 +16,11 @@ public class PlayerControls : MonoBehaviour {
     public float dashDuration = 0.5f;
     public float dashSpeedMultiplier = 3;
     public float attackDuration = 0.3f;
+    public float attackCooldown = 1;
+    public float dashCooldown = 3;
+    public GameObject SpearTip;
+    public float Damage = 1;
+
 
     private Path path;
     private int pathIndex;
@@ -25,6 +30,9 @@ public class PlayerControls : MonoBehaviour {
     private int id;
     private Camera mainCamera;
     private bool shouldMove;
+    private float currentDashCooldown;
+    private float currentAttackCooldown;
+    private Animator animator;
 
     private Rigidbody body;
     // Use this for initialization
@@ -46,11 +54,20 @@ public class PlayerControls : MonoBehaviour {
         Debug.Log(middleScreen);
         mainCamera = FindObjectOfType<Camera>();
         shouldMove = true;
+        currentAttackCooldown = 0;
+        currentDashCooldown = 0;
+        animator = GetComponent<Animator>();
 	}
 	
 	void Awake()
     {
        
+    }
+
+    void FixedUpdate()
+    {
+        currentAttackCooldown -= Time.fixedDeltaTime;
+        currentDashCooldown -= Time.fixedDeltaTime;
     }
 
     IEnumerator Idle()
@@ -80,32 +97,46 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Attacking(InputManager.Swipe s)
     {
+        if(currentAttackCooldown > 0)
+        {
+            StartCoroutine(Idle());
+            yield break;
+        }
         state = State.Attacking;
         em.PlayerAttack(gameObject);
-        float currentAttackDuration = attackDuration;
-        while(currentAttackDuration > 0)
+        yield return new WaitForFixedUpdate();
+        SpearTip.SetActive(true);
+        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))
         {
-            currentAttackDuration -= Time.fixedDeltaTime;
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
+        SpearTip.SetActive(false);
+
+        currentAttackCooldown = attackCooldown;
         StartCoroutine(Idle());
-        yield return null;
+        yield break;
     }
 
     IEnumerator Dashing(Vector3 p)
     {
+        if(currentDashCooldown > 0)
+        {
+            StartCoroutine(Idle());
+            yield break;
+        }
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
         float currentDashDuration = dashDuration;
-        while(currentDashDuration > 0)
+        while (currentDashDuration > 0)
         {
             currentDashDuration -= Time.fixedDeltaTime;
             body.position += transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
         em.PlayerDashEnd(gameObject);
+        currentDashCooldown = dashCooldown;
         StartCoroutine(Idle());
-        yield return null;
+        yield break;
     }
 
     void Begin(Vector2 p)
