@@ -14,6 +14,7 @@ public class RoomBuilder : MonoBehaviour {
     public int mapIndex = 0;
     public RoomUnit[,] roomUnits = new RoomUnit[MAX_UNIT_SIZE, MAX_UNIT_SIZE];
     public bool isBeaconRoom;
+    public bool isRotatable;
     public int roomLevel;
 
     private List<GameObject> objectList = new List<GameObject>();
@@ -149,7 +150,9 @@ public class RoomBuilder : MonoBehaviour {
                 roomUnits[0, 0] = units[0];
         }
         bool[] hasDoorList = roomUnits[0, 0].GetDoors();
+
         return new int[] {
+                GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
                 hasDoorList[0] ? 1 : 0,
                 hasDoorList[1] ? 1 : 0,
                 hasDoorList[2] ? 1 : 0,

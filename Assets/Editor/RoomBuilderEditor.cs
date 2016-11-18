@@ -148,7 +148,6 @@ public class RoomEditor : Editor {
         List<GameObject> enemies = Resources.LoadAll("Enemy").Cast<GameObject>().ToList();
         GameObject meleeEnemy = null;
         GameObject rangedEnemy = null;
-        GameObject shieldedEnemy = null;
 
         for (i = 0; i < enemies.Count; i++)
         {
@@ -156,8 +155,6 @@ public class RoomEditor : Editor {
                 meleeEnemy = enemies[i].gameObject;
             else if (enemies[i].GetComponent<EnemyRangedAttack>() != null)
                 rangedEnemy = enemies[i].gameObject;
-            else if (enemies[i].GetComponent<EnemyShieldAttack>() != null)
-                shieldedEnemy = enemies[i].gameObject;
         }
 
         for (i = 0; i < rooms.Count; i++)
@@ -181,16 +178,6 @@ public class RoomEditor : Editor {
                 {
                     replace((roomEnemies[j] as EnemyRangedAttack).gameObject, rangedEnemy);
                     rangedCount++;
-                }
-            }
-
-            if (shieldedEnemy != null)
-            {
-                roomEnemies = room.GetComponentsInChildren<EnemyShieldAttack>();
-                for (j = 0; j < roomEnemies.Length; j++)
-                {
-                    replace((roomEnemies[j] as EnemyShieldAttack).gameObject, shieldedEnemy);
-                    shieldedCount++;
                 }
             }
 
@@ -226,20 +213,19 @@ public class RoomEditor : Editor {
             workbench.roomName = roomName != null && roomName.Length > 0 ? roomName : "Room";
         }
 
-        GUILayout.Space(10);
-        GUILayout.Label("Room Size");
         Vector2 roomSize = workbench.roomSize;
-        roomSize.x = EditorGUILayout.IntSlider("   Width", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
-        roomSize.y = EditorGUILayout.IntSlider("   Depth", (int)workbench.roomSize.y, 1, workbench.roomUnits.GetLength(1));
+        roomSize.x = EditorGUILayout.IntSlider("Room Size", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
+        roomSize.y = roomSize.x;
 
-        GUILayout.Space(10);
         workbench.roomLevel = EditorGUILayout.IntSlider("Room Level", workbench.roomLevel, 1, RoomBuilder.MAX_LEVEL);
 
         GUILayout.Space(10);
         GUI.enabled = roomSize.x == 1 && roomSize.y == 1;
         bool isBeaconRoom = EditorGUILayout.Toggle("Start/End Room", workbench.isBeaconRoom);
-
         workbench.isBeaconRoom = GUI.enabled && isBeaconRoom;
+
+        workbench.isRotatable = EditorGUILayout.Toggle("Is Rotatable", workbench.isRotatable);
+        GUI.enabled = true;
 
         if (workbench.roomSize != roomSize)
         {

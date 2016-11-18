@@ -14,6 +14,7 @@ public class MapGenerator : MonoBehaviour {
     public MapShape shape;
     public RoomLayout layout;
     public int maxLargeRooms;
+    public bool rotateAnyRoom;
 
     [HideInInspector]
     public int mapLevel;
@@ -58,11 +59,14 @@ public class MapGenerator : MonoBehaviour {
         int i;
         int j;
         int l;
+        int index;
+        int total;
         int branchPasses = 0;
         int gridSize;
         List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
-        List<GameObject>[,,,] roomsByDoors = new List<GameObject>[2, 2, 2, 2];
-        List<GameObject> list;
+        List<GameObject>[,,,,] roomsByDoors = new List<GameObject>[2, 2, 2, 2, 2];
+        List<GameObject> largeRooms = new List<GameObject>();
+        List<GameObject>[] list = new List<GameObject>[4];
         GameObject go;
         bool[] doors;
 
@@ -73,9 +77,23 @@ public class MapGenerator : MonoBehaviour {
             if (room != null)
             {
                 int[] hasIndex = room.GetHashIndex();
-                if (roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]] == null)
-                    roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]] = new List<GameObject>();
-                roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]].Add(room.gameObject);
+                if (hasIndex[0] == 0)
+                {
+                    if (roomsByDoors[0, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]] == null)
+                        roomsByDoors[0, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]] = new List<GameObject>();
+                    roomsByDoors[0, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]].Add(room.gameObject);
+
+                    if (room.isRotatable || rotateAnyRoom)
+                    {
+                        if (roomsByDoors[1, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]] == null)
+                            roomsByDoors[1, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]] = new List<GameObject>();
+                        roomsByDoors[1, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]].Add(room.gameObject);
+                    }
+                }
+                else
+                {
+                    largeRooms.Add(room.gameObject);
+                }
             }
         }
 
@@ -322,10 +340,6 @@ public class MapGenerator : MonoBehaviour {
             }
         }
 
-        /* 
-         * FIND TREASURE ROOMS HERE
-         */
-
         clear();
 
         for (j = 0; j < mapGrid.GetLength(1); j++)
@@ -335,17 +349,61 @@ public class MapGenerator : MonoBehaviour {
                 if (mapGrid[i, j] != null)
                 {
                     doors = mapGrid[i, j].doors;
-                    list = roomsByDoors[
+                    list[0] = roomsByDoors[
+                        0,
                         doors[0] ? 1 : 0,
                         doors[1] ? 1 : 0,
                         doors[2] ? 1 : 0,
                         doors[3] ? 1 : 0
                     ];
+                    total = list[0].Count;
 
-                    if (list != null)
+                    for (l = 1; l < list.Length; l++)
                     {
-                        go = Instantiate(list[Random.Range(0, list.Count - 1)].gameObject);
+                        doors = rotateDoors(doors);
+                        list[l] = roomsByDoors[
+                            1,
+                            doors[0] ? 1 : 0,
+                            doors[1] ? 1 : 0,
+                            doors[2] ? 1 : 0,
+                            doors[3] ? 1 : 0
+                        ];
+                        if (list[l] == null)
+                            list[l] = new List<GameObject>();
+                        total += list[l].Count;
+                    }
+
+                    if (total > 0)
+                    {
+                        index = Random.Range(0, total - 1);
+
+                        if (index < list[0].Count)
+                        {
+                            l = 0;
+                        }
+                        else if (index < list[0].Count + list[1].Count)
+                        {
+                            index -= list[0].Count;
+                            l = 1;
+                        }
+                        else if (index < list[0].Count + list[1].Count + list[2].Count)
+                        {
+                            index -= list[0].Count + list[1].Count;
+                            l = 2;
+                        }
+                        else
+                        {
+                            index -= list[0].Count + list[1].Count + list[2].Count;
+                            l = 3;
+                        }
+
+                        go = Instantiate(list[l][index].gameObject);
                         go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * j * RoomTile.TILE_SCALE);
+                        if (l > 0)
+                        {
+                            go.transform.Rotate(Vector3.up * -90 * l);
+                            go.transform.position = new Vector3(go.transform.position.x + (l < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1)  : 0), 0, go.transform.position.z + (l > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
+                        }
                         rooms.Add(go);
                     }
                 }
@@ -353,6 +411,16 @@ public class MapGenerator : MonoBehaviour {
         }
 
         StartCoroutine("DelayedScan");
+    }
+
+    private bool[] rotateDoors(bool[] doors)
+    {
+        bool temp = doors[0];
+        doors[0] = doors[3];
+        doors[3] = doors[2];
+        doors[2] = doors[1];
+        doors[1] = temp;
+        return doors;
     }
 
     IEnumerator DelayedScan()
