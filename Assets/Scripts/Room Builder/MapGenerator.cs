@@ -328,9 +328,74 @@ public class MapGenerator : MonoBehaviour {
                 break;
         }
 
-        /* 
-         * FIND LARGE ROOMS HERE
-         */
+        bool b;
+        float x = Random.value;
+        int largeRoomNum = Mathf.RoundToInt(x * x * (3 - 2 * x) * maxLargeRooms);
+
+        List<int>[] largeRoomIndexList = new List<int>[2];
+        largeRoomIndexList[0] = new List<int>();
+        largeRoomIndexList[1] = new List<int>();
+
+        int[,] largeRoomMask = new int[12, 2];
+        largeRoomMask[0, 0] = 0;
+        largeRoomMask[0, 1] = 1;
+        largeRoomMask[1, 0] = 0;
+        largeRoomMask[1, 1] = 2;
+        largeRoomMask[2, 0] = 1;
+        largeRoomMask[2, 1] = 0;
+        largeRoomMask[3, 0] = 1;
+        largeRoomMask[3, 1] = 1;
+        largeRoomMask[4, 0] = 1;
+        largeRoomMask[4, 1] = 2;
+        largeRoomMask[5, 0] = 1;
+        largeRoomMask[5, 1] = 3;
+        largeRoomMask[6, 0] = 2;
+        largeRoomMask[6, 1] = 0;
+        largeRoomMask[7, 0] = 2;
+        largeRoomMask[7, 1] = 1;
+        largeRoomMask[8, 0] = 2;
+        largeRoomMask[8, 1] = 2;
+        largeRoomMask[9, 0] = 2;
+        largeRoomMask[9, 1] = 3;
+        largeRoomMask[10, 0] = 3;
+        largeRoomMask[10, 1] = 1;
+        largeRoomMask[11, 0] = 3;
+        largeRoomMask[11, 1] = 2;
+
+        while (largeRoomNum-- > 0)
+        {
+            for (j = 0; j < mapGrid.GetLength(1) - 3; j++)
+            {
+                for (i = 0; i < mapGrid.GetLength(0) - 3; i++)
+                {
+                    b = true;
+                    for (l = 0; l < largeRoomMask.GetLength(0) && b; l++)
+                    {
+                        if (mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]] == null || mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]].segment >= 0)
+                        {
+                            b = false;
+                        }
+                    }
+                    if (b)
+                    {
+                        largeRoomIndexList[0].Add(i);
+                        largeRoomIndexList[1].Add(j);
+                    }
+                }
+            }
+            if (largeRoomIndexList[0].Count > 0)
+            {
+                index = Random.Range(0, largeRoomIndexList[0].Count - 1);
+                i = largeRoomIndexList[0][index];
+                j = largeRoomIndexList[1][index];
+                mapGrid[i, j].segment = 0;
+                mapGrid[i + 1, j].segment = 1;
+                mapGrid[i, j + 1].segment = 2;
+                mapGrid[i + 1, j + 1].segment = 3;
+            }
+            else
+                largeRoomNum = 0;
+        }
 
         for (j = 0; j < mapGrid.GetLength(1); j++)
         {
