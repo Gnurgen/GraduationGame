@@ -8,7 +8,7 @@
 						<Switch Name="Player" ID="{849A6AAA-D6AB-43EB-A655-41DB5696C6CC}"/>
 						<Switch Name="Enemy" ID="{842207BB-ED27-4E84-871D-D599324E1442}"/>
 						<Switch Name="Boss" ID="{3AE04429-4DB2-45CF-A26F-4D9228C4039F}"/>
-						<Switch Name="Indestructible" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
+						<Switch Name="Indestructable" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
 					</ChildrenList>
 				</SwitchGroup>
 			</ChildrenList>

@@ -1836,7 +1836,7 @@
 									</ChildrenList>
 									<GroupingInfo>
 										<GroupRef Name="Target" ID="{952775E1-7940-4DF3-A60D-E2B59E9F4BD2}"/>
-										<DefaultSwitchRef Name="Indestructible" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
+										<DefaultSwitchRef Name="Indestructable" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
 										<GroupingBehaviorList>
 											<GroupingBehavior>
 												<ItemRef Name="Boss_Beam_Hit_Wall" ID="{06B2F298-BE35-4332-9422-2D404E96F2A8}"/>
@@ -1850,7 +1850,7 @@
 										</GroupingBehaviorList>
 										<GroupingList>
 											<Grouping>
-												<SwitchRef Name="Indestructible" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
+												<SwitchRef Name="Indestructable" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
 												<ItemList>
 													<ItemRef Name="Boss_Beam_Hit_Wall" ID="{06B2F298-BE35-4332-9422-2D404E96F2A8}"/>
 												</ItemList>
@@ -2308,7 +2308,7 @@
 												</GroupingBehaviorList>
 												<GroupingList>
 													<Grouping>
-														<SwitchRef Name="Indestructible" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
+														<SwitchRef Name="Indestructable" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
 														<ItemList>
 															<ItemRef Name="Enemy_Ranged_Hit_Wall" ID="{AA9FB239-A610-424A-839C-A1DEA7F9CBB8}"/>
 														</ItemList>
@@ -2930,7 +2930,7 @@
 														</ItemList>
 													</Grouping>
 													<Grouping>
-														<SwitchRef Name="Indestructible" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
+														<SwitchRef Name="Indestructable" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
 														<ItemList>
 															<ItemRef Name="Spear_Hit_Indestructible" ID="{690000FC-D94F-488E-8B1D-5A848F0A4A84}"/>
 														</ItemList>
