@@ -141,23 +141,24 @@ public class RoomBuilder : MonoBehaviour {
         }
     }
 
-    public int[] GetHashIndex()
+    public int[] GetHashIndex(int x = 0, int y = 0)
     {
-        if (roomUnits[0, 0] == null)
+        if (roomUnits[x, y] == null)
         {
             RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
-            if (units.Length > 0)
-                roomUnits[0, 0] = units[0];
+            int index = x + y * 2;
+            if (units.Length > index)
+                roomUnits[x, y] = units[index];
         }
-        bool[] hasDoorList = roomUnits[0, 0].GetDoors();
+        bool[] hasDoorList = roomUnits[x, y].GetDoors();
 
         return new int[] {
-                GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
-                hasDoorList[0] ? 1 : 0,
-                hasDoorList[1] ? 1 : 0,
-                hasDoorList[2] ? 1 : 0,
-                hasDoorList[3] ? 1 : 0
-            };
+            GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
+            hasDoorList[0] ? 1 : 0,
+            hasDoorList[1] ? 1 : 0,
+            hasDoorList[2] ? 1 : 0,
+            hasDoorList[3] ? 1 : 0
+        };
     }
 
     public void AddRoomObject(GameObject go)
