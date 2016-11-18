@@ -5,8 +5,8 @@ using System.Collections;
 public class Elevator : MonoBehaviour
 {
     public GameObject invisibleWalls;
-    public GameObject fade;
-    public GameObject player;
+    private GameObject fade;
+    private GameObject player;
     private float preLift = 2;
     private float underLift = 2;
     private InputManager IM;
@@ -16,6 +16,8 @@ public class Elevator : MonoBehaviour
 
     void Start()
     {
+        fade = GameObject.Find("Fade");
+        player = GameObject.Find("Kumo");
         IM = GameManager.input;
         ID = IM.GetID();
     }
