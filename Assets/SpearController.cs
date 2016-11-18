@@ -74,7 +74,7 @@ public class SpearController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Melee" || col.tag == "Ranged" || col.tag == "Destructable")
+        if(col.tag == "Melee" || col.tag == "Ranged" || col.tag == "Destructable" || col.tag == "Boss")
         {
             bool hit = true;
             for (int i = 0; i <= gameIDIndex; i++)
@@ -98,9 +98,9 @@ public class SpearController : MonoBehaviour {
 
                 // DET HER ER NOK FIXED I PREFABEN FREMOVER !!!! 
                 //gameID[gameIDIndex - 1].GetComponent<CapsuleCollider>().isTrigger = false;
-                Rigidbody gameRig = gameID[gameIDIndex - 1].GetComponent<Rigidbody>();
-                gameRig.isKinematic = false;
-                gameRig.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
+                //Rigidbody gameRig = gameID[gameIDIndex - 1].GetComponent<Rigidbody>();
+                //gameRig.isKinematic = false;
+                //gameRig.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
             }
         }
     }
