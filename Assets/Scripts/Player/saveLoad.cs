@@ -47,16 +47,13 @@ public class saveLoad : MonoBehaviour {
     }
 
     public void openMenu()
-    {
-        if (menu.activeSelf)
-        {
-            closeMenu();
-            return;
-        }
+    {      
         menu.SetActive(true);
         terminateTouch();
     }
-
+    public void loadStartMenu() {
+        Application.LoadLevel("Menu");
+    }
     void terminateTouch()
     {
         Debug.Log("Terminate Touch");
