@@ -29,7 +29,7 @@ public class CameraOcclusion : MonoBehaviour
         hit = Physics.RaycastAll(ray, tarPoint[curRay].magnitude);
         for(int k = 0; k<hit.Length; ++k)
         {
-            if (hit[k].transform.gameObject.layer == 11)
+            if (hit[k].transform.gameObject.layer == 12)
                 hit[k].transform.GetComponent<Occluder>().Stop();
         }
         ++curRay;
