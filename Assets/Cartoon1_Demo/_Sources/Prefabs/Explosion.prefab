@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -58,7 +59,7 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: 4.5
+    m_Value0: 8
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
@@ -89,7 +90,7 @@ MonoBehaviour:
       Name: ExplosionColor
       Description: 
       DefaultValue0: 1
-      DefaultValue1: .449999988
+      DefaultValue1: 0.45
       DefaultValue2: 0
       DefaultValue3: 0
       MinValue0: 0
@@ -101,7 +102,7 @@ MonoBehaviour:
       MaxValue2: 0
       MaxValue3: 0
     m_Value0: 1
-    m_Value1: .449999988
+    m_Value1: 0.45
     m_Value2: 0
     m_Value3: 0
   - m_Descriptor:
@@ -121,7 +122,7 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: .5
+    m_Value0: 0.5
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
@@ -184,7 +185,7 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: 3
+    m_Value0: 0
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
@@ -205,13 +206,14 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: 20
+    m_Value0: 0
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
+  m_FxSamplersList: []
   m_PlayOnStart: 0
-  m_FxName: Particles/Explosion.pkfx
   m_BoundFx: {fileID: 102900000, guid: 105cf116fca2d8345afa2204018ebc2a, type: 3}
+  m_FxName: Particles/Explosion.pkfx
 --- !u!114 &11480302
 MonoBehaviour:
   m_ObjectHideFlags: 1

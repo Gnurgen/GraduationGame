@@ -19,7 +19,7 @@ public class RangedAI : EnemyStats {
     private Vector3 targetPositionAtPath;
     private Path path;
     private int pathIndex;
-    private float nextPointDistance = 2;
+    private float nextPointDistance = 0.5f;
     private float recalcPathRange;
     private bool waitingForPath;
     private int behindPointCheck = 10;
@@ -27,6 +27,9 @@ public class RangedAI : EnemyStats {
     private Vector3 startPosition;
     private float currentAttackSpeed;
     private Rigidbody body;
+
+    private int taunts;
+    private int aggros;
 
     // Use this for initialization
     void Start()
@@ -39,6 +42,9 @@ public class RangedAI : EnemyStats {
         mySpeed = moveSpeed;
         startPosition = transform.position;
         currentAttackSpeed = 0;
+
+        taunts = 0;
+        aggros = 0;
     }
 
     void FixedUpdate()
@@ -66,12 +72,15 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Idle()
     {
+        Debug.Log("Idle started");
         for (;;)
         {
             if (!onPause)
             {
                 if (target != null)
                 {
+                    taunts++;
+                    Debug.Log("Taunts: " + taunts);
                     GameManager.events.EnemyAggro(gameObject);
                     path = null;
                     seeker.StartPath(transform.position, target.transform.position, ReceivePath);
@@ -82,6 +91,8 @@ public class RangedAI : EnemyStats {
                 // If the player has moved within aggro range, start chasing him
                 if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
                 {
+                    aggros++;
+                    Debug.Log("Aggros: " + aggros);
                     GameManager.events.EnemyAggro(gameObject);
                     target = GameManager.player;
                     path = null;
@@ -97,6 +108,7 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Reset()
     {
+        Debug.Log("Reset started");
         GameManager.events.EnemyAggroLost(gameObject);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
         waitingForPath = true;
@@ -146,6 +158,7 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Chasing()
     {
+        Debug.Log("Chasing started");
         for (;;)
         {
             if (!onPause)
@@ -182,28 +195,28 @@ public class RangedAI : EnemyStats {
                     if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
                     {
                         pathIndex++;
-                        // If the previous target point was the final one in the path, go to idle
                         if (pathIndex == path.vectorPath.Count)
                         {
-                            StartCoroutine(Idle());
-                            yield break;
+                            seeker.StartPath(transform.position, target.transform.position, ReceivePath);
                         }
                     }
-
-                    // Rotate and move towards the current target point in the path
-                    Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
-                    dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
-                    dir.x = 0;
-                    dir.z = 0;
-                    if (dir.y > 180) //If point is to the right, convert degrees to minus
-                        dir.y -= 360;
-                    if (dir.y > 1)
-                        transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
-                    else if (dir.y < -1)
-                        transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
-                    else
-                        transform.Rotate(dir);
-                    transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                    if(pathIndex < path.vectorPath.Count)
+                    {
+                        // Rotate and move towards the current target point in the path
+                        Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
+                        dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+                        dir.x = 0;
+                        dir.z = 0;
+                        if (dir.y > 180) //If point is to the right, convert degrees to minus
+                            dir.y -= 360;
+                        if (dir.y > 1)
+                            transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
+                        else if (dir.y < -1)
+                            transform.Rotate(Vector3.down * turnRate * Time.fixedDeltaTime);
+                        else
+                            transform.Rotate(dir);
+                        transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                    }
                 }
             }
             yield return new WaitForFixedUpdate();
@@ -241,6 +254,7 @@ public class RangedAI : EnemyStats {
                 {
                     if (currentAttackSpeed < 0)
                     {
+                        GameManager.events.EnemyRangedAttack(gameObject);
                         currentAttackSpeed = attackSpeed;
                         GameObject proj = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
                         proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);

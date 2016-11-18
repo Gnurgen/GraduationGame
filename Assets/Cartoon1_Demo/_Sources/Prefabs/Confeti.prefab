@@ -26,6 +26,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -82,7 +83,7 @@ MonoBehaviour:
       MinMaxFlag: 3
       Name: Spread
       Description: 
-      DefaultValue0: .200000003
+      DefaultValue0: 0.2
       DefaultValue1: 0
       DefaultValue2: 0
       DefaultValue3: 0
@@ -94,7 +95,7 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: .200000003
+    m_Value0: 0.2
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
@@ -103,9 +104,9 @@ MonoBehaviour:
       MinMaxFlag: 1
       Name: ConfettiColor
       Description: 
-      DefaultValue0: .5
-      DefaultValue1: .5
-      DefaultValue2: .5
+      DefaultValue0: 0.5
+      DefaultValue1: 0.5
+      DefaultValue2: 0.5
       DefaultValue3: 0
       MinValue0: 0
       MinValue1: 0
@@ -115,15 +116,16 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: .5
-    m_Value1: .5
-    m_Value2: .5
+    m_Value0: 0.5
+    m_Value1: 0.5
+    m_Value2: 0.5
     m_Value3: 0
   - m_Descriptor:
       Type: 28
       MinMaxFlag: 3
       Name: ColorRandom
-      Description: 
+      Description: Color Variation, if ConfettiColor is grey then it will make multicolor
+        variation
       DefaultValue0: 1
       DefaultValue1: 0
       DefaultValue2: 0
@@ -199,7 +201,7 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: 0
+    m_Value0: 1.9
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
@@ -220,7 +222,7 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: 20
+    m_Value0: 200
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
@@ -241,7 +243,7 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: 10
+    m_Value0: 100
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
@@ -262,13 +264,35 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: 5
+    m_Value0: 50
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
+  m_FxSamplersList:
+  - m_Descriptor:
+      Type: 4
+      Name: WindInfluence
+      Description: 
+    m_ShapeType: -1
+    m_EditorShapeType: -1
+    m_MeshFilter: {fileID: 0}
+    m_Mesh: {fileID: 0}
+    m_SkinnedMeshRenderer: {fileID: 0}
+    m_MeshHashCode: 0
+    m_SamplingChannels: 0
+    m_ShapeCenter: {x: 0, y: 0, z: 0}
+    m_Dimensions: {x: 1, y: 1, z: 1}
+    m_EulerOrientation: {x: 0, y: 0, z: 0}
+    m_Texture: {fileID: 0}
+    m_TextureChanged: 0
+    m_TextureTexcoordMode: 0
+    m_CurvesArray: []
+    m_CurvesTimeKeys: []
+    m_Text: 
+    m_InSkinning: 0
   m_PlayOnStart: 0
-  m_FxName: Particles/Confeti.pkfx
   m_BoundFx: {fileID: 102900000, guid: c21f262c4391d55448511fb98cbb0b62, type: 3}
+  m_FxName: Particles/Confeti.pkfx
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
