@@ -103,7 +103,7 @@ namespace AK
             {
                 static const AkUniqueID BOSS = 1560169506U;
                 static const AkUniqueID ENEMY = 2299321487U;
-                static const AkUniqueID INDESTRUCTIBLE = 210809950U;
+                static const AkUniqueID INDESTRUCTABLE = 1931975494U;
                 static const AkUniqueID PLAYER = 1069431850U;
             } // namespace SWITCH
         } // namespace TARGET
