@@ -35,6 +35,7 @@ public class PlayerControls : MonoBehaviour {
     private float currentDashCooldown;
     private float currentAttackCooldown;
     private Animator animator;
+    private Vector3 MoveToPoint;
 
     private Rigidbody body;
     // Use this for initialization
@@ -70,14 +71,12 @@ public class PlayerControls : MonoBehaviour {
 
     void FixedUpdate()
     {
-        //currentAttackCooldown -= Time.fixedDeltaTime;
-        currentMovePointCooldown -= Time.fixedDeltaTime;
         currentDashCooldown -= Time.fixedDeltaTime;
     }
 
     IEnumerator Idle()
     {
-        ClickFeedBack.SetActive(false);
+        ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
         state = State.Idle;
         em.PlayerIdle(gameObject);
         path = null;
@@ -88,15 +87,13 @@ public class PlayerControls : MonoBehaviour {
         yield break;
     }
 
-    IEnumerator Moving(Vector3 mPoint)
+    IEnumerator Moving()
     {
         state = State.Moving;
-        ClickFeedBack.SetActive(true);
-        ClickFeedBack.transform.position = mPoint;
-        ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
+        
         em.PlayerMove(gameObject);
         print("PLAYER MOVE");
-        while (state == State.Moving && shouldMove && Vector3.Distance(transform.position, mPoint) > 1)
+        while (state == State.Moving && shouldMove && Vector3.Distance(transform.position, MoveToPoint) > 0.1f)
         {
             body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate(); 
@@ -159,58 +156,30 @@ public class PlayerControls : MonoBehaviour {
 
     void Begin(Vector2 p)
     {
-        currentMovePointCooldown = MovePointCooldown;   
-        /*
-        if (state != State.Dashing && state != State.Attacking)
-        {
-            //Vector3 MoveToPoint = im.GetWorldPoint(p);
-            Vector2 tempDir = p - middleScreen;
-            moveDir = new Vector3(tempDir.x, 0, tempDir.y);
-            moveDir = Camera.main.transform.TransformDirection(moveDir).normalized;
-            moveDir.y = 0;
-            moveDir = Quaternion.FromToRotation(transform.forward, moveDir).eulerAngles;
-            moveDir.x = 0;
-            moveDir.z = 0;
-            transform.Rotate(moveDir); 
-            //transform.rotation = Quaternion.FromToRotation(transform.forward, transform.position - MoveToPoint);
-
-
-            if (state == State.Idle)
-            {
-                StartCoroutine(Moving());
-            }
-        }*/
+             
     } 
     void Move(Vector2 p)
     {
         
-        if (state != State.Dashing && state != State.Attacking && currentMovePointCooldown < MovePointCooldown)
+        if (state != State.Dashing && state != State.Attacking)
         {
-            currentMovePointCooldown = MovePointCooldown;
-            Vector3 MoveToPoint = im.GetWorldPoint(p);
-            Vector2 tempDir = p - middleScreen;
-            moveDir = new Vector3(tempDir.x, 0, tempDir.y);
-            moveDir = Camera.main.transform.TransformDirection(moveDir).normalized;
-            moveDir.y = 0;
-            moveDir = Quaternion.FromToRotation(transform.forward, moveDir).eulerAngles;
-            moveDir.x = 0;
-            moveDir.z = 0;
-            transform.Rotate(moveDir);
+            ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
+            MoveToPoint = im.GetWorldPoint(p);
+            MoveToPoint.y = transform.position.y;
+            transform.LookAt(MoveToPoint);
+           
             if (state == State.Idle)
             {
-                StartCoroutine(Moving(MoveToPoint));
+                StartCoroutine(Moving());
             }
         }
     }
 
     void End(Vector2 p)
     {
-        /*
-        if (state != State.Dashing && state != State.Attacking)
-        {
-            StartCoroutine(Idle());
-        }
-        */
+        ClickFeedBack.transform.position = MoveToPoint;
+        ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
+        ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
     }
 
     void disableMovement()
@@ -230,18 +199,15 @@ public class PlayerControls : MonoBehaviour {
         {
            
             currentMovePointCooldown = MovePointCooldown;
-            Vector3 MoveToPoint = im.GetWorldPoint(p);
-            Vector2 tempDir = p - middleScreen;
-            moveDir = new Vector3(tempDir.x, 0, tempDir.y);
-            moveDir = Camera.main.transform.TransformDirection(moveDir).normalized;
-            moveDir.y = 0;
-            moveDir = Quaternion.FromToRotation(transform.forward, moveDir).eulerAngles;
-            moveDir.x = 0;
-            moveDir.z = 0;
-            transform.Rotate(moveDir);
+            MoveToPoint = im.GetWorldPoint(p);
+            MoveToPoint.y = transform.position.y;
+            ClickFeedBack.transform.position = MoveToPoint;
+            ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
+            ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
+            transform.LookAt(MoveToPoint);
             if (state == State.Idle)
             {
-                StartCoroutine(Moving(MoveToPoint));
+                StartCoroutine(Moving());
             }
         }
       
@@ -250,7 +216,6 @@ public class PlayerControls : MonoBehaviour {
     {
 
     }
-
 
     void DoubleTap(Vector2 p)
     {
