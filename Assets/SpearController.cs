@@ -9,8 +9,8 @@ public class SpearController : MonoBehaviour {
     private float damage;
 	private float speed;
 	private int index;
-    //private float step;
-    public int gameIDIndex = 0;
+    private float step;
+    int gameIDIndex = 0;
     GameObject[] gameID = new GameObject[50];
     public  Vector3[] points;
     public float turnRate;
@@ -31,9 +31,10 @@ public class SpearController : MonoBehaviour {
         
 		if (index < points.Length) {
 
-            /* KRistoffers forsøg på et bedre movement for spear
-            step += speed / ( 1 + Vector3.Distance(points[index - 1],points[index + 0]) )* Time.deltaTime;
-            transform.position = Vector3.Lerp(points[index - 1], points[index + 0], step);
+            /*
+            //KRistoffers forsøg på et bedre movement for spear
+            step += Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position,points[index],speed*Time.deltaTime);
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(points[index - 1] - points[index + 0]) * Quaternion.Euler(270,0,0),step);
 
             if (step >= 1)
@@ -42,7 +43,7 @@ public class SpearController : MonoBehaviour {
                 step = 0;
             }*/
       
-
+            
             transform.LookAt(points[index]);
             transform.position += transform.forward * speed * Time.deltaTime;
             if (Vector3.Distance(transform.position, points[index]) < distance)
@@ -74,7 +75,7 @@ public class SpearController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Melee" || col.tag == "Ranged" || col.tag == "Destructable")
+        if(col.tag == "Enemy")
         {
             bool hit = true;
             for (int i = 0; i <= gameIDIndex; i++)
