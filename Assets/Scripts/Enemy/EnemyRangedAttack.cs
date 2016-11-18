@@ -37,19 +37,20 @@ public class EnemyRangedAttack : MonoBehaviour {
         if (col.tag == "Indestructable")
         {
             targetHit = true;
-            Invoke("PoolItSelf", 20f);
+            Invoke("PoolItSelf", 1f);
             GameManager.events.EnemyRangedMiss(gameObject);
             GetComponent<BoxCollider>().enabled = false;
         }
-        if (col.tag == "Player" || col.tag == "Destructable")
+        else if (col.tag == "Player")
         {
             targetHit = true;
             transform.SetParent(col.transform,true);
             GameManager.events.EnemyAttackHit(enemyID, dmg);
             col.GetComponent<Health>().decreaseHealth(dmg);
             GetComponent<BoxCollider>().enabled = false;
-            Invoke("PoolItSelf", 20f);
+            Invoke("PoolItSelf", 1f);
         }
+        
     }
     public void SetParameters(float speed, GameObject enemyID, float damage)
     {
@@ -60,7 +61,8 @@ public class EnemyRangedAttack : MonoBehaviour {
 
     }
     void PoolItSelf()
-    { 
-        Destroy(gameObject);
+    {
+        transform.parent = null;
+        GameManager.pool.PoolObj(gameObject);
     } 
 }

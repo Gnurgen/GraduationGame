@@ -72,7 +72,9 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Idle()
     {
-        Debug.Log("Idle started");
+        animator.SetBool("Backwards", false);
+        animator.SetBool("Run", false);
+
         for (;;)
         {
             if (!onPause)
@@ -108,7 +110,9 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Reset()
     {
-        Debug.Log("Reset started");
+        animator.SetBool("Backwards", false);
+        animator.SetBool("Run", false);
+       
         GameManager.events.EnemyAggroLost(gameObject);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
         waitingForPath = true;
@@ -122,6 +126,7 @@ public class RangedAI : EnemyStats {
             {
                 if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
                 {
+                    GameManager.events.EnemyAggro(gameObject);
                     StartCoroutine(Chasing());
                     yield break;
                 }
@@ -150,7 +155,7 @@ public class RangedAI : EnemyStats {
                     transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
                 else
                     transform.Rotate(dir);
-                transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                body.position += transform.forward * mySpeed * Time.fixedDeltaTime;
             }
             yield return new WaitForFixedUpdate();
         }
@@ -158,7 +163,9 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Chasing()
     {
-        Debug.Log("Chasing started");
+        animator.SetBool("Backwards", false);
+        animator.SetBool("Run", true);
+        
         for (;;)
         {
             if (!onPause)
@@ -215,7 +222,7 @@ public class RangedAI : EnemyStats {
                             transform.Rotate(Vector3.down * turnRate * Time.fixedDeltaTime);
                         else
                             transform.Rotate(dir);
-                        transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                        body.position += transform.forward * mySpeed * Time.fixedDeltaTime;
                     }
                 }
             }
@@ -244,9 +251,12 @@ public class RangedAI : EnemyStats {
                 }
 
                 Vector3 dir = (target.transform.position - transform.position).normalized;
+                dir.y = 0;
                 if (targetDist < tooClose)
                 {
-                    transform.position += -dir * tooCloseSpeed * Time.deltaTime;
+                    animator.SetBool("Backwards", true);
+                    body.position += -dir * tooCloseSpeed * Time.deltaTime;
+
                 }
 
                 // Check if facing the target, if not turn towards it, otherwise attack
@@ -255,8 +265,12 @@ public class RangedAI : EnemyStats {
                     if (currentAttackSpeed < 0)
                     {
                         GameManager.events.EnemyRangedAttack(gameObject);
+                        animator.SetTrigger("Attack");
+                        animator.SetBool("Run", false);
                         currentAttackSpeed = attackSpeed;
-                        GameObject proj = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
+                        GameObject proj = GameManager.pool.GenerateObject("EnemyRangedAttack");
+                        proj.transform.position = transform.position+Vector3.up; // SO IT SPAWNS FROM THE HEAD
+                        proj.transform.rotation = transform.rotation;
                         proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
                     }
                 }

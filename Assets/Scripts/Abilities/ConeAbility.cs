@@ -41,9 +41,9 @@ public class ConeAbility : MonoBehaviour {
                 hit = Physics.RaycastAll(dmgRay, tDist);
                 for (int q = 0; q < hit.Length; ++q)
                 {
-                    if(hit[q].transform.gameObject.layer == 8)
+                    if(hit[q].transform.gameObject.layer == 10)
                     {
-                        hit[q].transform.gameObject.layer = 9;
+                        hit[q].transform.gameObject.layer = 11;
                         StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position) / speed));
                         ++cStart;
                     }
@@ -86,7 +86,7 @@ public class ConeAbility : MonoBehaviour {
         go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce);
         go.GetComponent<EnemyStats>().decreaseHealth(damage);
         //go.GetComponent<EnemyStats>().PauseFor(stunTime);
-        go.layer = 8;
+        go.layer = 10;
         ++cCounter;
         if (cCounter == cStart)
             Destroy(gameObject);
