@@ -6,7 +6,7 @@ public class Fade : MonoBehaviour {
 
     Image blackImg;
 
-    public Color black, alpha;
+    public Color black, alpha, white;
     private Color startColor, endColor;
     private float currentTime, maxTime, scaling;
     private bool fading = false;
@@ -32,10 +32,23 @@ public class Fade : MonoBehaviour {
         maxTime = duration;
 
     }
-    public void fadeOut(float duration)
+    public void fadeFromBlack(float duration)
     {
         fading = true;
         startColor = black;
+        endColor = alpha;
+        maxTime = duration;
+    }
+
+    public void fadeToWhite(float duration) {
+        fading = true;
+        startColor = alpha;
+        endColor = white;
+        maxTime = duration;
+    }
+    public void fadeFromWhite(float duration) {
+        fading = true;
+        startColor = white;
         endColor = alpha;
         maxTime = duration;
     }
