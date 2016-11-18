@@ -10,11 +10,11 @@ public class StartMenu : MonoBehaviour {
     public  GameObject language;
 
     public void newGame() {
-        SceneManager.LoadScene("Elevator"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+        SceneManager.LoadScene("CutScene"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
     }
 
     public void loadGame() {
-        SceneManager.LoadScene("Elevator"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+        SceneManager.LoadScene("KrisTester"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
     }
 
     public void selectMenu(int menu) {

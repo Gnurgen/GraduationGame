@@ -22,6 +22,7 @@ public class EnemyStats : Health {
     public float pauseFor;
 
 
+
     public void Pause()
     {
         onPause = true;
@@ -38,23 +39,26 @@ public class EnemyStats : Health {
         pauseFor = secs;
     }
 
-    void Awake()
+    void FixedUpdate()
     {
-        setHealthVars(strength.GetHashCode()+1);
-        onPause = false;
-        pauseFor = 0;
-    }
-
-    void Update()
-    {
-        if (pauseFor >= 0)
+        if (pauseFor > 0)
         {
-            pauseFor -= Time.deltaTime;
+            pauseFor -= Time.fixedDeltaTime;
             if (pauseFor <= 0)
             {
                 pauseFor = 0;
                 onPause = false;
             }
         }
+    }
+
+    void Awake()
+    {
+        onPause = false;
+        pauseFor = 0;
+    }
+
+    void Update()
+    {
     }
 }

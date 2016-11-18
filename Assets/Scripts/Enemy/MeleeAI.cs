@@ -5,6 +5,7 @@ using Pathfinding;
 
 [RequireComponent (typeof(Seeker))]
 [RequireComponent (typeof(Rigidbody))]
+[RequireComponent(typeof(SpawnRagdoll))]
 public class MeleeAI : EnemyStats {
 
     public GameObject Weapon;
@@ -25,11 +26,14 @@ public class MeleeAI : EnemyStats {
     private Vector3 startPosition;
     private float currentAttackSpeed;
     private Rigidbody body;
+    private SpawnRagdoll myDoll;
 
    	// Use this for initialization
-	void Start () {
+	void Awake () {
        // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
+        myDoll = GetComponent<SpawnRagdoll>();
+        myDoll.myTag = "EnemyMeleeRagdoll";
 		seeker = GetComponent<Seeker> ();
         body = GetComponent<Rigidbody>();
         StartCoroutine(Waiting(3));
@@ -49,7 +53,11 @@ public class MeleeAI : EnemyStats {
     {
         target = newTarget;
     }
-
+    void Update()
+    {
+        if (health <= 0)
+            myDoll.Execute();
+    }
     IEnumerator Waiting(float sec)
     {
         while(sec > 0)
@@ -60,7 +68,6 @@ public class MeleeAI : EnemyStats {
         StartCoroutine(Idle());
         yield break;
     }
-
 
 	IEnumerator Idle()
 	{

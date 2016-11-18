@@ -179,6 +179,7 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 2:
                 Debug.Log("Button 3 selected");
+                GameObject.Find("Canvas").GetComponent<saveLoad>().openMenu();
                 break;
             case 3:
                 Debug.Log("Button 4 selected");
