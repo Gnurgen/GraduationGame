@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: e4d0a31744c7eaf449052544e7796c55
+timeCreated: 1479385776
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: CoG_jnt
+    100002: head_jnt
+    100004: left_ankle_jnt
+    100006: left_elbow_jnt
+    100008: left_hand_jnt
+    100010: left_hip_jnt
+    100012: left_index_a_jnt
+    100014: left_index_b_jnt
+    100016: left_index_c_jnt
+    100018: left_index_d_jnt
+    100020: left_knee_jnt
+    100022: left_middle_a_jnt
+    100024: left_middle_b_jnt
+    100026: left_middle_c_jnt
+    100028: left_middle_d_jnt
+    100030: left_pinky_a_jnt
+    100032: left_pinky_b_jnt
+    100034: left_pinky_c_jnt
+    100036: left_pinky_d_jnt
+    100038: left_shoulder_jnt
+    100040: left_thumb_a_jnt
+    100042: left_thumb_b_jnt
+    100044: left_thumb_c_jnt
+    100046: left_toe_jnt
+    100048: //RootNode
+    100050: monster_jnt_grp
+    100052: pelvis_jnt
+    100054: right_ankle_jnt
+    100056: right_elbow_jnt
+    100058: right_hand_jnt
+    100060: right_hip_jnt
+    100062: right_index_a_jnt
+    100064: right_index_b_jnt
+    100066: right_index_c_jnt
+    100068: right_index_d_jnt
+    100070: right_knee_jnt
+    100072: right_middle_a_jnt
+    100074: right_middle_b_jnt
+    100076: right_middle_c_jnt
+    100078: right_middle_d_jnt
+    100080: right_pinky_a_jnt
+    100082: right_pinky_b_jnt
+    100084: right_pinky_c_jnt
+    100086: right_pinky_d_jnt
+    100088: right_shoulder_jnt
+    100090: right_thumb_a_jnt
+    100092: right_thumb_b_jnt
+    100094: right_thumb_c_jnt
+    100096: right_toe_jnt
+    100098: root_jnt
+    100100: scalp_jnt
+    100102: spine_a_jnt
+    100104: spine_b_jnt
+    100106: torso_jnt
+    400000: CoG_jnt
+    400002: head_jnt
+    400004: left_ankle_jnt
+    400006: left_elbow_jnt
+    400008: left_hand_jnt
+    400010: left_hip_jnt
+    400012: left_index_a_jnt
+    400014: left_index_b_jnt
+    400016: left_index_c_jnt
+    400018: left_index_d_jnt
+    400020: left_knee_jnt
+    400022: left_middle_a_jnt
+    400024: left_middle_b_jnt
+    400026: left_middle_c_jnt
+    400028: left_middle_d_jnt
+    400030: left_pinky_a_jnt
+    400032: left_pinky_b_jnt
+    400034: left_pinky_c_jnt
+    400036: left_pinky_d_jnt
+    400038: left_shoulder_jnt
+    400040: left_thumb_a_jnt
+    400042: left_thumb_b_jnt
+    400044: left_thumb_c_jnt
+    400046: left_toe_jnt
+    400048: //RootNode
+    400050: monster_jnt_grp
+    400052: pelvis_jnt
+    400054: right_ankle_jnt
+    400056: right_elbow_jnt
+    400058: right_hand_jnt
+    400060: right_hip_jnt
+    400062: right_index_a_jnt
+    400064: right_index_b_jnt
+    400066: right_index_c_jnt
+    400068: right_index_d_jnt
+    400070: right_knee_jnt
+    400072: right_middle_a_jnt
+    400074: right_middle_b_jnt
+    400076: right_middle_c_jnt
+    400078: right_middle_d_jnt
+    400080: right_pinky_a_jnt
+    400082: right_pinky_b_jnt
+    400084: right_pinky_c_jnt
+    400086: right_pinky_d_jnt
+    400088: right_shoulder_jnt
+    400090: right_thumb_a_jnt
+    400092: right_thumb_b_jnt
+    400094: right_thumb_c_jnt
+    400096: right_toe_jnt
+    400098: root_jnt
+    400100: scalp_jnt
+    400102: spine_a_jnt
+    400104: spine_b_jnt
+    400106: torso_jnt
+    7400000: Idle
+    7400002: Run
+    7400004: RunAttack
+    7400006: Attack
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 5
+      lastFrame: 145
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: monster_jnt_grp
+        weight: 1
+      - path: monster_jnt_grp/root_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt/left_toe_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/head_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/head_jnt/scalp_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt/left_index_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt/left_index_c_jnt/left_index_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt/left_middle_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt/left_middle_c_jnt/left_middle_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt/left_pinky_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt/left_pinky_c_jnt/left_pinky_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt/left_thumb_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt/right_index_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt/right_index_c_jnt/right_index_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt/right_middle_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt/right_middle_c_jnt/right_middle_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt/right_pinky_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt/right_pinky_c_jnt/right_pinky_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt/right_thumb_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt/right_toe_jnt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    - serializedVersion: 16
+      name: Run
+      takeName: Take 001
+      firstFrame: 150
+      lastFrame: 192
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: monster_jnt_grp
+        weight: 1
+      - path: monster_jnt_grp/root_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt/left_toe_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/head_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/head_jnt/scalp_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt/left_index_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt/left_index_c_jnt/left_index_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt/left_middle_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt/left_middle_c_jnt/left_middle_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt/left_pinky_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt/left_pinky_c_jnt/left_pinky_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt/left_thumb_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt/right_index_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt/right_index_c_jnt/right_index_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt/right_middle_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt/right_middle_c_jnt/right_middle_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt/right_pinky_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt/right_pinky_c_jnt/right_pinky_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt/right_thumb_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt/right_toe_jnt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    - serializedVersion: 16
+      name: RunAttack
+      takeName: Take 001
+      firstFrame: 194
+      lastFrame: 236
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: monster_jnt_grp
+        weight: 1
+      - path: monster_jnt_grp/root_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt/left_toe_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/head_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/head_jnt/scalp_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt/left_index_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt/left_index_c_jnt/left_index_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt/left_middle_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt/left_middle_c_jnt/left_middle_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt/left_pinky_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt/left_pinky_c_jnt/left_pinky_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt/left_thumb_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt/right_index_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt/right_index_c_jnt/right_index_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt/right_middle_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt/right_middle_c_jnt/right_middle_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt/right_pinky_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt/right_pinky_c_jnt/right_pinky_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt/right_thumb_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt/right_toe_jnt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 260
+      lastFrame: 301
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: monster_jnt_grp
+        weight: 1
+      - path: monster_jnt_grp/root_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/left_hip_jnt/left_knee_jnt/left_ankle_jnt/left_toe_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/head_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/head_jnt/scalp_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt/left_index_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_index_a_jnt/left_index_b_jnt/left_index_c_jnt/left_index_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt/left_middle_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_middle_a_jnt/left_middle_b_jnt/left_middle_c_jnt/left_middle_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt/left_pinky_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_pinky_a_jnt/left_pinky_b_jnt/left_pinky_c_jnt/left_pinky_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/left_shoulder_jnt/left_elbow_jnt/left_hand_jnt/left_thumb_a_jnt/left_thumb_b_jnt/left_thumb_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt/right_index_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_index_a_jnt/right_index_b_jnt/right_index_c_jnt/right_index_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt/right_middle_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_middle_a_jnt/right_middle_b_jnt/right_middle_c_jnt/right_middle_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt/right_pinky_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_pinky_a_jnt/right_pinky_b_jnt/right_pinky_c_jnt/right_pinky_d_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/pelvis_jnt/spine_a_jnt/spine_b_jnt/torso_jnt/right_shoulder_jnt/right_elbow_jnt/right_hand_jnt/right_thumb_a_jnt/right_thumb_b_jnt/right_thumb_c_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt
+        weight: 1
+      - path: monster_jnt_grp/root_jnt/CoG_jnt/right_hip_jnt/right_knee_jnt/right_ankle_jnt/right_toe_jnt
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -5,10 +5,10 @@ public class EnemyMeleeAttack : MonoBehaviour {
 
     private Transform body;
     private float dmg;
-    private Collider myCol;
+    private BoxCollider myCol;
     void Start()
     {
-        myCol = GetComponent<Collider>();
+        myCol = GetComponent<BoxCollider>();
         myCol.isTrigger = true;
         myCol.enabled = false;
         body = transform.parent;
@@ -17,7 +17,7 @@ public class EnemyMeleeAttack : MonoBehaviour {
 
     void setMyDmg()
     {
-        if (body.tag == "Melee")
+        if (body.tag == "Enemy")
         {
             dmg = body.GetComponent<EnemyStats>().damage;
         }
@@ -35,7 +35,7 @@ public class EnemyMeleeAttack : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Player" || col.tag == "Destructable")
+        if(col.tag == "Player")
         {
             col.GetComponent<Health>().decreaseHealth(dmg);
             myCol.enabled = false;

@@ -3,8 +3,7 @@
 	<Triggers>
 		<WorkUnit Name="Default Work Unit" ID="{08BFB213-E87D-4AFE-A086-5DBAB6B90BD5}" PersistMode="Standalone">
 			<ChildrenList>
-				<Trigger Name="Awe_Stinger" ID="{0C88A88D-7ABD-4E08-94F4-B888359C320D}"/>
-				<Trigger Name="Threat_Stinger" ID="{E643E9BC-DF76-4F99-A887-C412CD9C2C98}"/>
+				<Trigger Name="Boss_Stinger" ID="{E643E9BC-DF76-4F99-A887-C412CD9C2C98}"/>
 			</ChildrenList>
 		</WorkUnit>
 	</Triggers>

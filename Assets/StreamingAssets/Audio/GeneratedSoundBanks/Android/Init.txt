@@ -10,17 +10,11 @@ State	ID	Name	State Group			Notes
 	1362486867	After_Boss	Game_State			
 	1415091186	In_Main_Menu	Game_State			
 	2874168282	In_Intro_Cutscene	Game_State			
-	3788403633	In_Skill_Tree	Game_State			
 	3853226033	In_Ability_Control	Game_State			
 	3858937137	In_Ending_Cutscene	Game_State			
-	175046638	Outer	Environment			
-	525391897	Core_Corridor	Environment			
 	748895195	None	Environment			
-	1592175108	Inner_Corridor	Environment			
-	1778842195	Inner	Environment			
-	2571765635	Outer_Corridor	Environment			
-	3787826988	Core	Environment			
-	4063189299	Corridor	Environment			
+	1846755610	Small	Environment			
+	4284352190	Large	Environment			
 
 Audio Bus	ID	Name			Wwise Object Path	Notes
 	85412153	Ambience			\Default Work Unit\Master Audio Bus\Environmental\Ambience	
@@ -35,5 +29,4 @@ Audio Bus	ID	Name			Wwise Object Path	Notes
 
 Auxiliary Bus	ID	Name			Wwise Object Path	Notes
 	3633416828	Hall			\Default Work Unit\Master Audio Bus\Environmental\Reverb\Hall	
-	4063189299	Corridor			\Default Work Unit\Master Audio Bus\Environmental\Reverb\Corridor	
 

@@ -4,19 +4,11 @@ using System;
 
 public class AudioManager : MonoBehaviour {
 
-
-    [Header("Tags")]
-    [SerializeField] 
-    private string boss = "Boss";
-    [SerializeField] 
-    private string boss_Shield = "Boss_Shield", 
-        destructible = "Destructible", 
-        enemy = "Enemy",
-        enemy_Shield = "Enemy_Shield",
-        floor = "Floor",
-        indestructible = "Indestructible",
-        player = "Player";
-
+    [Header("Current State: ")]
+    public string Game_State = "Out_Of_Battle";
+    public string Battle_State = "Out_Of_Battle";
+    public int AggroedEnemies = 0;
+    
     // ######################################################################################################################################
     // ##########################################################                            ################################################
     // ##########################################################  Subscribe to EventManager ################################################
@@ -27,9 +19,17 @@ public class AudioManager : MonoBehaviour {
     {
         
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
-        GameManager.events.OnEnemyDeath += EnemyDeathPlay; 
+        GameManager.events.OnEnemyAggro += CheckState;
+
+        GameManager.events.OnEnemyAggroLost += EnemyChatterStop;
+        GameManager.events.OnEnemyAggroLost += CheckState;
+
+        GameManager.events.OnEnemyDeath += EnemyDeathPlay;
+        GameManager.events.OnEnemyDeath += CheckState;
+
         GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
         GameManager.events.OnEnemyRangedMiss += EnemyRangedAttackMissPlaySub;
+
         GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
         GameManager.events.OnPlayerDashBegin += DashPlay;
         GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
@@ -38,44 +38,48 @@ public class AudioManager : MonoBehaviour {
       //  GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
         GameManager.events.OnWheelOpen += AbilityWheelOpenSub; 
         GameManager.events.OnWheelSelect += AbilityWheelSelectPlaySub; 
-        GameManager.events.OnWheelHover += AbilityWheelHoverPlaySub; 
-        GameManager.events.OnLevelUp += LevelUpPlaySub;
+        GameManager.events.OnWheelHover += AbilityWheelHoverPlaySub;
+        GameManager.events.OnDrawComplete += AbilityWheelControlCompleteSub;
         //GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
         //GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
-        GameManager.events.OnObjDestroyed += ObjectDestroyPlaySub; // IS MISSING -> speartargetplay
         GameManager.events.OnResourcePickup += PickupPlaySub;
-        GameManager.events.OnCheckPoint += CheckPointPlaySub;
 
         print("AudioManager Subscribed");
         
     }
 
+    private void CheckState(GameObject go)
+    {
+        if (AggroedEnemies > 0)
+            Battle_State = "In_Battle";
+        else
+            Battle_State = "Out_Of_Battle";
+        if(Game_State == "In_Battle" || Game_State == "Out_Of_Battle")
+        {
+            if(Battle_State != Game_State)
+            {
+               Game_State = Battle_State;
+                AkSoundEngine.SetState("Game_State", Game_State);
+            }
+        }
+    }
     private void EnemyRangedAttackMissPlaySub(GameObject enemyID)
     {
         EnemyRangedTargetPlay(enemyID, "Indestructable");
     }
 
-    private void ObjectDestroyPlaySub(GameObject GO)
-    {
-        PlayerSpearAttackTargetPlay(GO, GO.tag);
-    }
+   
 
     private void PlayerAttackHitPlaySub(GameObject GO, GameObject Tar, float i)
     {
         PlayerSpearAttackTargetPlay(GO, Tar.tag);
     }
 
-    private void CheckPointPlaySub()
-    {
-        CheckPointPlay(GameManager.player);
-    }
-
     private void PickupPlaySub(GameObject GO, int amount)
     {
+        PickupMoveStop(GO);
         PickupPlay(GO);
     }
-
-
 
     private void MenuClosePlaySub()
     {
@@ -87,10 +91,7 @@ public class AudioManager : MonoBehaviour {
         throw new NotImplementedException();
     }
 
-    private void LevelUpPlaySub(int i)
-    {
-        LevelUpPlay(GameManager.player);
-    }
+ 
     private void AbilityWheelHoverPlaySub(int option)
     {
         AbilityWheelHoverPlay(gameObject);
@@ -99,24 +100,52 @@ public class AudioManager : MonoBehaviour {
     private void AbilityWheelSelectPlaySub(int option)
     {
         if (option == 10)
+        {
+
+            Game_State = Battle_State;
+            AkSoundEngine.SetState("Game_State", Game_State);
             AbilityWheelClosePlay(gameObject);
+        }
         else
+        {
+            Game_State = "In_Ability_Control";
+            AkSoundEngine.SetState("Game_State", Game_State);
             AbilityWheelSelectPlay(gameObject);
+        }
+        if (option == 0)
+        {
+            LineAbilityInteractPlay(gameObject);
+        }
+        if (option == 1)
+        {
+            ConeAbilityInteractPlay(gameObject);
+        }
     }
+    private void AbilityWheelControlCompleteSub(int option)
+    {
+        Game_State = Battle_State;
+        AkSoundEngine.SetState("Game_State", Game_State);
+        if(option == 0)
+        {
+            LineAbilityInteractStop(gameObject);
+        }
+        else if(option == 1)
+        {
+            ConeAbilityInteractStop(gameObject);
+        }
+        else //if it isn't called at all
+        {
+            LineAbilityInteractStop(gameObject);
+            ConeAbilityInteractStop(gameObject);
+        }
+    }
+
 
     private void AbilityWheelOpenSub()
     {
+        Game_State = "In_Ability_Wheel";
+        AkSoundEngine.SetState("Game_State", Game_State);
         AbilityWheelOpenPlay(gameObject);
-    }
-
-    private void PlayerMoveStop(GameObject Id)
-    {
-        throw new NotImplementedException();
-    }
-
-    private void PlayerMovePlay(GameObject Id)
-    {
-        throw new NotImplementedException();
     }
 
     public void EnemyAttackHitPlaySub(GameObject enemyID, float dmg)
@@ -129,43 +158,6 @@ public class AudioManager : MonoBehaviour {
     }
 
     // ######################################################################################################################################
-    // ##########################################################                       #####################################################
-    // ##########################################################  Ability Cards Sounds #####################################################
-    // ##########################################################                       #####################################################
-    // ######################################################################################################################################
-
-    public void AbilityCardAppearPlay(GameObject GO)
-    {
-        AkSoundEngine.PostEvent("Ability_Appear_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void AbilityCardGrabPlay(GameObject GO)
-    {
-        //When the player grabs the card and holds it (continuous sound)
-        AkSoundEngine.PostEvent("Ability_Grab_Play", GO);
-        AkSoundEngine.PostEvent("Ability_Hold_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void AbilityCardGrabStop(GameObject GO)
-    {
-        //When the player drops the card (either nowhere or on top of another card) 
-        AkSoundEngine.PostEvent("Ability_Hold_Stop", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void AbilityCardSlotPlay(GameObject GO)
-    {
-        //When the player drops the card on a slot 
-        AkSoundEngine.PostEvent("Ability_Slot_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void AbilityCardSwapPlay(GameObject GO)
-    {
-        //When the player drops the card on a slot with another card
-        AkSoundEngine.PostEvent("Ability_Swap_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    
-    // ######################################################################################################################################
     // ##########################################################              ##############################################################
     // ##########################################################  Boss sounds ##############################################################
     // ##########################################################              ##############################################################
@@ -174,6 +166,7 @@ public class AudioManager : MonoBehaviour {
     public void BossBeamPlay(GameObject GO)
     {
         //When the Boss fires the beam, the sound keeps playing until he stops (continuous sound)
+        
         AkSoundEngine.PostEvent("Boss_Beam_Play", GO);
         AkSoundEngine.RenderAudio();
     }
@@ -186,9 +179,16 @@ public class AudioManager : MonoBehaviour {
     public void BossBeamTargetPlay(GameObject GO, string tag)
     {
         //Beams noise where it hits (continuous sound)
-        AkSoundEngine.SetSwitch("Target", tag, GO);
-        AkSoundEngine.PostEvent("Boss_Beam_Target_Play", GO);
-        AkSoundEngine.RenderAudio();
+        if(tag == "Player" || tag == "Indestructable")
+        {
+            AkSoundEngine.SetSwitch("Target", tag, GO);
+            AkSoundEngine.PostEvent("Boss_Beam_Target_Play", GO);
+            AkSoundEngine.RenderAudio();
+        }
+        else
+        {
+            Debug.LogError(tag + "is wrong tag and event doesn't play audio");
+        }
     }
     public void BossBeamTargetStop(GameObject GO)
     {
@@ -196,31 +196,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Boss_Beam_Target_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void BossMissileMovePlay(GameObject GO)
-    {
-        //Boss's blob moving around (continuous sound)
-        AkSoundEngine.PostEvent("Boss_Missile_Move_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void BossMissileMoveStop(GameObject GO)
-    {
-        //Boss's blob moving stops
-        AkSoundEngine.PostEvent("Boss_Missile_Move_Stop", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void BossMissilePlay(GameObject GO)
-    {
-        //Boss's blob plays its spawn sound
-        AkSoundEngine.PostEvent("Boss_Missile_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void BossMissileTargetPlay(GameObject GO, string tag)
-    {
-        //Boss's blob sound when it hits a target (Continuous sound ????)
-        AkSoundEngine.SetSwitch("Target", tag, GO);
-        AkSoundEngine.PostEvent("Boss_Missile_Target_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
+   
     public void BossRainMovePlay(GameObject GO)
     {
         //Boss's rain plays a sound of it moving (continuous sound)
@@ -242,22 +218,16 @@ public class AudioManager : MonoBehaviour {
     public void BossRainTargetPlay(GameObject GO, string tag)
     {
         //Boss's rain plays a sound when hitting a target (Continuous sound)
-        AkSoundEngine.SetSwitch("Target", tag, GO);
-        AkSoundEngine.PostEvent("Boss_Rain_Target_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-
-    public void BossShieldUpPlay(GameObject GO)
-    {
-        //Boss plays a sound of it shielding up
-        AkSoundEngine.PostEvent("Boss_Shield_Up_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void BossShieldDownPlay(GameObject GO)
-    {
-        //Boss plays a sound of it shielding going down
-        AkSoundEngine.PostEvent("Boss_Shield_Down_Play", GO);
-        AkSoundEngine.RenderAudio();
+        if (tag == "Player" || tag == "Indestructable")
+        {
+            AkSoundEngine.SetSwitch("Target", tag, GO);
+            AkSoundEngine.PostEvent("Boss_Rain_Target_Play", GO);
+            AkSoundEngine.RenderAudio();
+         }
+        else
+        {
+            Debug.LogError(tag + "is wrong tag and event doesn't play audio");
+        }
     }
 
     // ######################################################################################################################################
@@ -300,13 +270,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Button_Wheel_Select_play", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void CheckPointPlay(GameObject GO)
-    {
-        //When placing a Checkpoint
-        AkSoundEngine.PostEvent("Checkpoint_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    
+      
     // ######################################################################################################################################
     // ##########################################################                ############################################################
     // ########################################################## Ability Sounds ############################################################
@@ -338,34 +302,23 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Draw_Ability_Control_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void MultiTapAbilityPlay(GameObject GO)
+   
+    public void ConeAbilityPlay(GameObject GO)
     {
-        //When the MultiTap ability is activated (probably being called every time it hits an enemy)
-        AkSoundEngine.PostEvent("Mark_Ability_Play", GO);
+        //When finnished drawing the cone Ability and activates 
+        AkSoundEngine.PostEvent("Cone_Ability_Play", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void MultiTapAbilityInteractPlay(GameObject GO)
+    public void ConeAbilityInteractPlay(GameObject GO)
     {
-        //When the player taps the enemies when interacting the MultiTap Ability
-        AkSoundEngine.PostEvent("Mark_Ability_Control_Play", GO);
+        //When drawing the Cone Ability (Continuous sound)
+        AkSoundEngine.PostEvent("Cone_Ability_Control_Play", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void CircleAbilityPlay(GameObject GO)
+    public void ConeAbilityInteractStop(GameObject GO)
     {
-        //When finnished drawing the Circle Ability and activates 
-        AkSoundEngine.PostEvent("Circle_Ability_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void CircleAbilityInteractPlay(GameObject GO)
-    {
-        //When drawing the Circle Ability (Continuous sound)
-        AkSoundEngine.PostEvent("Circle_Ability_Control_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void CircleAbilityInteractStop(GameObject GO)
-    {
-        //When stops drawing the Circle Ability 
-        AkSoundEngine.PostEvent("Circle_Ability_Control_Stop", GO);
+        //When stops drawing the Cone Ability 
+        AkSoundEngine.PostEvent("Cone_Ability_Control_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
     // ######################################################################################################################################
@@ -377,14 +330,16 @@ public class AudioManager : MonoBehaviour {
     public void EnemyChatterPlay(GameObject GO)
     {
         //Enemies random growls (continuous sound)
-        AkSoundEngine.PostEvent("Enemy_Chatter_Play", GO);
+        AggroedEnemies++;
+        AkSoundEngine.PostEvent("Enemy_Aggro_Play", GO);
         AkSoundEngine.RenderAudio();
     }
 
     public void EnemyChatterStop(GameObject GO)
     {
         //Enemies random growls stops 
-        AkSoundEngine.PostEvent("Enemy_Chatter_Stop", GO);
+        AggroedEnemies--;
+        AkSoundEngine.PostEvent("Enemy_Aggro_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
     public void EnemyMeleeHitPlayerPlay(GameObject GO)
@@ -408,19 +363,23 @@ public class AudioManager : MonoBehaviour {
     public void EnemyRangedTargetPlay(GameObject GO, string tag)
     {
         //When Enemies' missile hits a target 
-        AkSoundEngine.SetSwitch("Target", tag, GO);
-        AkSoundEngine.PostEvent("Enemy_Ranged_Target_Play", GO);
-        AkSoundEngine.RenderAudio();
+        if (tag == "Player" || tag == "Indestructable")
+        {
+            AkSoundEngine.SetSwitch("Target", tag, GO);
+            AkSoundEngine.PostEvent("Enemy_Ranged_Target_Play", GO);
+            AkSoundEngine.RenderAudio();
+        }
+        else
+        {
+            Debug.LogError(tag + "is wrong tag and event doesn't play audio");
+        }
+
     }
-    public void EnemyShieldPlay(GameObject GO)
-    {
-        //Shield of enemy (IDK)
-        AkSoundEngine.PostEvent("Enemy_Shield_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
+    
     public void EnemyDeathPlay(GameObject GO)
     {
-        //Enemie Dies and stops his chatter
+        //Enemie Dies and stops his random growls
+        AggroedEnemies--;
         AkSoundEngine.PostEvent("Enemy_Chatter_Stop", GO);
         AkSoundEngine.PostEvent("Enemy_Death_Play", GO);
         AkSoundEngine.RenderAudio();
@@ -456,16 +415,22 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Music_System_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
+    public void PickupMovePlay(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Pickup_Move_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+    public void PickupMoveStop(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Pickup_Move_Stop", GO);
+        AkSoundEngine.RenderAudio();
+    }
     public void PickupPlay(GameObject GO)
     {
         AkSoundEngine.PostEvent("Pickup_Play", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void LevelUpPlay(GameObject GO)
-    {
-        AkSoundEngine.PostEvent("Level_Up_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
+   
     // ######################################################################################################################################
     // ##########################################################                 ###########################################################
     // ##########################################################  Player Sounds  ###########################################################
@@ -499,9 +464,16 @@ public class AudioManager : MonoBehaviour {
     public void PlayerSpearAttackTargetPlay(GameObject GO, string tag)
     {
         //When Player attacks with spear and hits a target
+        if(tag == "Boss" || tag == "Enemy" || tag == "Indestructable")
+        {
         AkSoundEngine.SetSwitch("Target", tag, GO);
         AkSoundEngine.PostEvent("Spear_Target_Play", GO);
         AkSoundEngine.RenderAudio();
+        }
+        else
+        {
+            Debug.LogError(tag + "is wrong tag and event doesn't play audio");
+        }
     }
     
 }

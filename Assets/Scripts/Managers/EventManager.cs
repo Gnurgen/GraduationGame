@@ -24,6 +24,7 @@ public class EventManager : MonoBehaviour
 
     public delegate void EnemyAction(GameObject enemyID);
     public event EnemyAction OnEnemyAttack;
+    public event EnemyAction OnEnemyRangedAttack;
     public event EnemyAction OnEnemyAggro;
     public event EnemyAction OnEnemyAggroLost;
     public event EnemyAction OnEnemyDeath;
@@ -32,6 +33,11 @@ public class EventManager : MonoBehaviour
     {
         if (OnEnemyAttack != null)
             OnEnemyAttack(Id);
+    }
+    public void EnemyRangedAttack(GameObject Id)
+    {
+        if (OnEnemyRangedAttack != null)
+            OnEnemyRangedAttack(Id);
     }
     public void EnemyAggro(GameObject Id)
     {
