@@ -59,7 +59,7 @@ public class PlayerHealthBar : MonoBehaviour {
     }
 
     void levelupHealthbar(int lvl) {
-        maxHealth = player.GetComponent<Health>()._maxHealth;
+        maxHealth = player.GetComponent<Health>().maxHealth;
         currentHealth = maxHealth;
         updatePlayerHealth(gameObject, 0);
     }
