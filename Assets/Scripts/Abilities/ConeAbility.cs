@@ -86,7 +86,7 @@ public class ConeAbility : MonoBehaviour {
         go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce);
         go.GetComponent<EnemyStats>().decreaseHealth(damage);
         //go.GetComponent<EnemyStats>().PauseFor(stunTime);
-        go.layer = 8;
+        go.layer = 10;
         ++cCounter;
         if (cCounter == cStart)
             Destroy(gameObject);
