@@ -242,18 +242,15 @@ public class MapGenerator : MonoBehaviour {
                     offset++;
                     branchPasses--;
                 }
+                Debug.Log(offset + 1);
                 indexList.Clear();
-                for (j = 0; j < gridSize; j++)
+                for (j = 0; j < mask.Length; j++)
                 {
-                    for (l = 0; l < gridSize; l++)
-                    {
-                        if (mask[gridSize * j + l] == offset)
-                            indexList.Add(gridSize * j + l);
-                    }
+                    if (mask[j] == offset + 1)
+                        indexList.Add(j);
                 }
                 i = indexList[Random.Range(0, indexList.Count - 1)];
-                j = Mathf.FloorToInt(i / gridSize);
-                goalRoom = new int[] { i - j, j };
+                goalRoom = new int[] { Mathf.FloorToInt(i / gridSize), i % gridSize };
                 break;
             case MapShape.Frame:
                 switch (Random.Range(0, 3))
@@ -304,9 +301,10 @@ public class MapGenerator : MonoBehaviour {
                 break;
         }
 
-        GameManager.player.transform.position = new Vector3((startRoom[0] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, 0, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+        Debug.Log(goalRoom[0] + " " + goalRoom[1]);
+        GameManager.player.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, 0, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
         Camera.main.transform.position = new Vector3(GameManager.player.transform.position.x - 7.5f, GameManager.player.transform.position.y + 11.1f, GameManager.player.transform.position.z - 7.5f);
-        GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, 0, -(goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+        GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -0.75f, - (goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
 
         mapGrid = new RoomGridEntry[gridSize, gridSize];
 
