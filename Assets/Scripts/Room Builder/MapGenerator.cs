@@ -14,6 +14,7 @@ public class MapGenerator : MonoBehaviour {
     public MapShape shape;
     public RoomLayout layout;
     public int maxLargeRooms;
+    public int minLargeRooms;
     public bool rotateAnyRoom;
 
     [HideInInspector]
@@ -59,41 +60,45 @@ public class MapGenerator : MonoBehaviour {
         int i;
         int j;
         int l;
+        int y;
         int index;
         int total;
         int branchPasses = 0;
         int gridSize;
         List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
         List<GameObject>[,,,,] roomsByDoors = new List<GameObject>[2, 2, 2, 2, 2];
-        List<GameObject> largeRooms = new List<GameObject>();
         List<GameObject>[] list = new List<GameObject>[4];
+        List<RoomBuilder> largeRooms = new List<RoomBuilder>();
         GameObject go;
+        RoomBuilder room;
+        RoomGridEntry entry;
         bool[] doors;
+        int[] hashIndex;
+
+        clear();
 
         for (i = 0; i < objectList.Count; i++)
         {
-            RoomBuilder room = objectList[i].GetComponent<RoomBuilder>();
+            room = objectList[i].GetComponent<RoomBuilder>();
 
             if (room != null)
             {
-                int[] hasIndex = room.GetHashIndex();
-                if (hasIndex[0] == 0)
+                hashIndex = room.GetHashIndex();
+                if (hashIndex[0] == 0)
                 {
-                    if (roomsByDoors[0, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]] == null)
-                        roomsByDoors[0, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]] = new List<GameObject>();
-                    roomsByDoors[0, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]].Add(room.gameObject);
+                    if (roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
+                        roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
+                    roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
 
                     if (room.isRotatable || rotateAnyRoom)
                     {
-                        if (roomsByDoors[1, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]] == null)
-                            roomsByDoors[1, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]] = new List<GameObject>();
-                        roomsByDoors[1, hasIndex[1], hasIndex[2], hasIndex[3], hasIndex[4]].Add(room.gameObject);
+                        if (roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
+                            roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
+                        roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
                     }
                 }
                 else
-                {
-                    largeRooms.Add(room.gameObject);
-                }
+                    largeRooms.Add(room);
             }
         }
 
@@ -302,7 +307,7 @@ public class MapGenerator : MonoBehaviour {
         }
 
         Debug.Log(goalRoom[0] + " " + goalRoom[1]);
-        GameManager.player.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, 0, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+        GameManager.player.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -2.0f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
         Camera.main.transform.position = new Vector3(GameManager.player.transform.position.x - 7.5f, GameManager.player.transform.position.y + 11.1f, GameManager.player.transform.position.z - 7.5f);
         GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -0.75f, - (goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
 
@@ -330,9 +335,114 @@ public class MapGenerator : MonoBehaviour {
                 break;
         }
 
-        /* 
-         * FIND LARGE ROOMS HERE
-         */
+        if (largeRooms.Count > 0)
+        {
+            bool b;
+            float x = Random.value;
+            int largeRoomNum = Mathf.RoundToInt(x * x * (3 - 2 * x) * (maxLargeRooms - minLargeRooms)) + minLargeRooms;
+
+            List<int>[] largeRoomIndexList = new List<int>[2];
+            largeRoomIndexList[0] = new List<int>();
+            largeRoomIndexList[1] = new List<int>();
+
+            int[,] largeRoomMask = new int[12, 2];
+            largeRoomMask[0, 0] = 0;
+            largeRoomMask[0, 1] = 1;
+            largeRoomMask[1, 0] = 0;
+            largeRoomMask[1, 1] = 2;
+            largeRoomMask[2, 0] = 1;
+            largeRoomMask[2, 1] = 0;
+            largeRoomMask[3, 0] = 1;
+            largeRoomMask[3, 1] = 1;
+            largeRoomMask[4, 0] = 1;
+            largeRoomMask[4, 1] = 2;
+            largeRoomMask[5, 0] = 1;
+            largeRoomMask[5, 1] = 3;
+            largeRoomMask[6, 0] = 2;
+            largeRoomMask[6, 1] = 0;
+            largeRoomMask[7, 0] = 2;
+            largeRoomMask[7, 1] = 1;
+            largeRoomMask[8, 0] = 2;
+            largeRoomMask[8, 1] = 2;
+            largeRoomMask[9, 0] = 2;
+            largeRoomMask[9, 1] = 3;
+            largeRoomMask[10, 0] = 3;
+            largeRoomMask[10, 1] = 1;
+            largeRoomMask[11, 0] = 3;
+            largeRoomMask[11, 1] = 2;
+
+            while (largeRoomNum-- > 0)
+            {
+                largeRoomIndexList[0].Clear();
+                largeRoomIndexList[1].Clear();
+                for (j = 0; j < mapGrid.GetLength(1) - 3; j++)
+                {
+                    for (i = 0; i < mapGrid.GetLength(0) - 3; i++)
+                    {
+                        b = true;
+                        for (l = 0; l < largeRoomMask.GetLength(0) && b; l++)
+                        {
+                            if (mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]] == null ||
+                                i + largeRoomMask[l, 0] == startRoom[0] && j + largeRoomMask[l, 1] == startRoom[1] ||
+                                i + largeRoomMask[l, 0] == goalRoom[0] && j + largeRoomMask[l, 1] == goalRoom[1] ||
+                                mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]].segment >= 0)
+                            {
+                                b = false;
+                            }
+                        }
+                        if (b)
+                        {
+                            largeRoomIndexList[0].Add(i + 1);
+                            largeRoomIndexList[1].Add(j + 1);
+                        }
+                    }
+                }
+                if (largeRoomIndexList[0].Count > 0)
+                {
+                    index = Random.Range(0, largeRoomIndexList[0].Count - 1);
+                    room = largeRooms[Random.Range(0, largeRooms.Count - 1)];
+                    i = largeRoomIndexList[0][index];
+                    j = largeRoomIndexList[1][index];
+
+                    for (l = 0; l < 4; l++)
+                    {
+                        y = Mathf.FloorToInt(l / 2);
+                        entry = mapGrid[i + (l % 2), j + y];
+                        entry.segment = l;
+
+                        switch (l)
+                        {
+                            case 0:
+                                hashIndex = room.GetHashIndex(1, 0);
+                                break;
+                            case 1:
+                                hashIndex = room.GetHashIndex(1, 1);
+                                break;
+                            case 2:
+                                hashIndex = room.GetHashIndex(0, 0);
+                                break;
+                            case 3:
+                            default:
+                                hashIndex = room.GetHashIndex(0, 1);
+                                break;
+                        }
+
+                        entry.doors = new bool[] {
+                            hashIndex[1] == 1,
+                            hashIndex[2] == 1,
+                            hashIndex[3] == 1,
+                            hashIndex[4] == 1
+                        };
+                    }
+
+                    go = Instantiate(room.gameObject);
+                    go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * (j + 1) * RoomTile.TILE_SCALE);
+                    rooms.Add(go);
+                }
+                else
+                    largeRoomNum = 0;
+            }
+        }
 
         for (j = 0; j < mapGrid.GetLength(1); j++)
         {
@@ -342,13 +452,11 @@ public class MapGenerator : MonoBehaviour {
             }
         }
 
-        clear();
-
         for (j = 0; j < mapGrid.GetLength(1); j++)
         {
             for (i = 0; i < mapGrid.GetLength(0); i++)
             {
-                if (mapGrid[i, j] != null)
+                if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
                 {
                     doors = mapGrid[i, j].doors;
                     list[0] = roomsByDoors[
@@ -411,6 +519,10 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
+        List<GameObject> elevators = Resources.LoadAll("Elevator").Cast<GameObject>().ToList();        
+        go = Instantiate(elevators[0]);
+        go.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, go.transform.position.y , -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+        GameManager.player.transform.parent = go.transform;
 
         StartCoroutine("DelayedScan");
         GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
@@ -449,7 +561,10 @@ public class MapGenerator : MonoBehaviour {
         RoomGridEntry entry = mapGrid[i, j];
         RoomGridEntry neighbour;
 
-        if (entry != null && !entry.isSet)
+        if (entry == null || entry.isSet)
+            return;
+
+        if (entry.segment < 0)
         {
             if (entry.doors == null)
             {
@@ -493,7 +608,22 @@ public class MapGenerator : MonoBehaviour {
                         updateRoom(i + neighbours[l, 0], j + neighbours[l, 1]);
                 }
             }
-
+        }
+        else
+        {
+            Debug.Log(i + ", " + j);
+            for (l = 0; l < entry.doors.Length; l++)
+            {
+                neighbour = getNeighbour(i, j, l);
+                if (neighbour != null && entry.doors[l])
+                {
+                    if (neighbour.doors == null)
+                        neighbour.doors = new bool[4];
+                    neighbour.doors[(l + 2) % 4] = true;
+                    if (!neighbour.isSet)
+                        updateRoom(i + neighbours[l, 0], j + neighbours[l, 1]);
+                }
+            }
         }
     }
 
@@ -502,7 +632,9 @@ public class MapGenerator : MonoBehaviour {
         int indexX = i + neighbours[l, 0];
         int indexY = j + neighbours[l, 1];
         if (indexX >= 0 && indexX < mapGrid.GetLength(0) &&
-            indexY >= 0 && indexY < mapGrid.GetLength(1)
+            indexY >= 0 && indexY < mapGrid.GetLength(1) &&
+            mapGrid[indexX, indexY] != null &&
+            mapGrid[indexX, indexY].segment < 0
         )
             return mapGrid[indexX, indexY];
         return null;

@@ -5,6 +5,7 @@ using System.Collections;
 public class GameManager {
     private const int START_SCENE = 0;
     private const int GAME_SCENE = 1;
+    private const string GAMEOVER_SCENE = "GameOver";
 
     private static GameManager _instance;
 
@@ -28,12 +29,15 @@ public class GameManager {
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
-        events.OnPlayerDeath += PlayerDeath;
     }
 
-    private void PlayerDeath(GameObject Id)
+    public static void GameOver(bool CheckPoint)
     {
-        SceneManager.LoadScene("Menu");
+        //move player??
+        if (!CheckPoint)
+        {
+            SceneManager.LoadScene(GAMEOVER_SCENE);
+        }
         //Application.Quit();
     }
 

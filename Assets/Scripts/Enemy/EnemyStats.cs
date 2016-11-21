@@ -41,15 +41,6 @@ public class EnemyStats : Health {
 
     void FixedUpdate()
     {
-        if (pauseFor > 0)
-        {
-            pauseFor -= Time.fixedDeltaTime;
-            if (pauseFor <= 0)
-            {
-                pauseFor = 0;
-                onPause = false;
-            }
-        }
     }
 
     void Awake()
