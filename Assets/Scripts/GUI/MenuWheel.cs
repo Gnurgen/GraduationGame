@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class MenuWheel : MonoBehaviour {
@@ -14,7 +15,7 @@ public class MenuWheel : MonoBehaviour {
     private int nrOptions;
     public GameObject Wheel;
     GameObject[] listOfButtons2;
-    GameObject coneCool, flyingCool;
+    public GameObject coneCool, flyingCool;
     private bool wheelClicked = false;
     private bool mouseRelease = false;
     private int currentButton;
@@ -42,8 +43,6 @@ public class MenuWheel : MonoBehaviour {
         coneDraw = FindObjectOfType<ConeDraw>();
         nrOptions = listOfButtons.Length;
         listOfButtons2 = new GameObject[nrOptions];
-        coneCool = GameObject.Find("coneCool");
-        flyingCool = GameObject.Find("flyingCool");
         coordinates = new Vector2[nrOptions+1];
         minMax = new float[nrOptions * 2];
         angle = 2 * Mathf.PI / nrOptions;
@@ -62,6 +61,7 @@ public class MenuWheel : MonoBehaviour {
         {
             Wheel.SetActive(true);
             checkWhichState();
+            checkCooldown();
             if (mouseRelease == true)
             {
                 select();
@@ -225,5 +225,9 @@ public class MenuWheel : MonoBehaviour {
     }
     void updateMouse(Vector2 touchPos) {
         tempTouchPos = touchPos - new Vector2(Screen.width / 2, Screen.height / 2);
+    }
+    void checkCooldown() {
+        flyingCool.GetComponent<Image>().fillAmount = flyingSpear.Cooldown();
+        coneCool.GetComponent<Image>().fillAmount = coneDraw.Cooldown();
     }
 }

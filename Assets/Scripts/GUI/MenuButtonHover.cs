@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class MenuButtonHover : MonoBehaviour {
-    public GameObject normal, hover, cooldown;
+    public GameObject normal, hover;
   
 	void Start () {
 	}
