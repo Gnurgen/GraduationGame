@@ -153,7 +153,7 @@ public class RoomEditor : Editor {
         {
             if (enemies[i].GetComponent<MeleeAI>() != null)
                 meleeEnemy = enemies[i].gameObject;
-            else if (enemies[i].GetComponent<EnemyRangedAttack>() != null)
+            else if (enemies[i].GetComponent<RangedAI>() != null)
                 rangedEnemy = enemies[i].gameObject;
         }
 
@@ -173,10 +173,10 @@ public class RoomEditor : Editor {
 
             if (rangedEnemy != null)
             {
-                roomEnemies = room.GetComponentsInChildren<EnemyRangedAttack>();
+                roomEnemies = room.GetComponentsInChildren<RangedAI>();
                 for (j = 0; j < roomEnemies.Length; j++)
                 {
-                    replace((roomEnemies[j] as EnemyRangedAttack).gameObject, rangedEnemy);
+                    replace((roomEnemies[j] as RangedAI).gameObject, rangedEnemy);
                     rangedCount++;
                 }
             }

@@ -147,9 +147,10 @@ public class PoolManager : MonoBehaviour {
         {
             result.transform.GetChild(0).GetChild(k).transform.position = p[k].position;
             result.transform.GetChild(0).GetChild(k).transform.rotation = p[k].rotation;
-            result.transform.GetChild(0).GetChild(k).transform.localScale = Vector3.one;
+            result.transform.GetChild(0).GetChild(k).transform.localScale = Vector3.one * 1.7f;
             result.transform.GetChild(0).GetChild(k).GetComponent<Rigidbody>().velocity = force;
         }
+        print("force: " + force);
     }
 
     // Update is called once per frame

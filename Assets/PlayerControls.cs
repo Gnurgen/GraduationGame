@@ -93,7 +93,7 @@ public class PlayerControls : MonoBehaviour {
         state = State.Moving;
         
         em.PlayerMove(gameObject);
-        print("PLAYER MOVE");
+       
         while (state == State.Moving && shouldMove && Vector3.Distance(transform.position, MoveToPoint) > 0.1f)
         {
             body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
