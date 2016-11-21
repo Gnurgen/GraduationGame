@@ -46,7 +46,19 @@ public class MeleeAI : EnemyStats {
     {
         isInTransition = animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
         currentAttackSpeed -= Time.fixedDeltaTime;
-        body.velocity = Vector3.zero;
+        if(!onPause)
+        {
+            body.velocity = Vector3.zero;
+        }
+        else
+        {
+            pauseFor -= Time.fixedDeltaTime;
+            if (pauseFor <= 0)
+            {
+                pauseFor = 0;
+                onPause = false;
+            }
+        }
     }
 
     public void Taunt(GameObject newTarget)
