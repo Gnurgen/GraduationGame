@@ -5,6 +5,7 @@ public class FxManager : MonoBehaviour {
 
     // Player effects
     public GameObject playerMeleeAttack;
+    public GameObject playerMeleeHit;
     public GameObject playerDashBegin;
     public GameObject playerDashEnd;
     public GameObject flyingSpearHit;
@@ -28,6 +29,7 @@ public class FxManager : MonoBehaviour {
 	void Start () {
         // Subscribe to player events with effects
         GameManager.events.OnPlayerAttack += PlayerMeleeAttackEffect;
+        GameManager.events.OnPlayerAttackHit += PlayerMeleeHitEffect;
         GameManager.events.OnPlayerDashBegin += PlayerDashBeginEffect;
         GameManager.events.OnPlayerDashEnd += PlayerDashEndEffect;
         // Insert ability effects here
@@ -42,8 +44,8 @@ public class FxManager : MonoBehaviour {
         GameManager.events.OnBossDeath += BossDeathEffect;
 
         // Subscribe to basic enemy events with effects
-        GameManager.events.OnEnemyAttack += EnemyMeleeAttackEffect;
-        GameManager.events.OnEnemyRangedAttack += EnemyRangedAttackEffect;
+        GameManager.events.OnEnemyAttackHit += EnemyMeleeAttackEffect;
+        GameManager.events.OnEnemyAttackHit += EnemyRangedAttackEffect;
         GameManager.events.OnEnemyDeath += EnemyDeathEffect;
 	}
 
@@ -58,6 +60,13 @@ public class FxManager : MonoBehaviour {
     {
         GameObject ef = Instantiate(playerMeleeAttack) as GameObject;
         ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        StartCoroutine(DestroyAfter(ef, 2));
+    }
+
+    void PlayerMeleeHitEffect(GameObject unit1, GameObject unit2, float dmg)
+    {
+        GameObject ef = Instantiate(playerMeleeHit) as GameObject;
+        ef.transform.position = unit2.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
@@ -139,18 +148,24 @@ public class FxManager : MonoBehaviour {
      * -------------------------------------------------------------
     */
 
-    void EnemyMeleeAttackEffect(GameObject unit)
+    void EnemyMeleeAttackEffect(GameObject unit, float val)
     {
-        GameObject ef = Instantiate(enemyMeleeAttack) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
-        StartCoroutine(DestroyAfter(ef, 2));
+        if(unit.GetComponent<MeleeAI>() != null)
+        {
+            GameObject ef = Instantiate(enemyMeleeAttack) as GameObject;
+            ef.transform.position = GameManager.player.transform.position + GameManager.player.transform.forward.normalized;
+            StartCoroutine(DestroyAfter(ef, 2));
+        }
     }
 
-    void EnemyRangedAttackEffect(GameObject unit)
+    void EnemyRangedAttackEffect(GameObject unit, float val)
     {
-        GameObject ef = Instantiate(enemyRangedAttack) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
-        StartCoroutine(DestroyAfter(ef, 2));
+        if(unit.GetComponent<RangedAI>() != null)
+        {
+            GameObject ef = Instantiate(enemyRangedAttack) as GameObject;
+            ef.transform.position = GameManager.player.transform.position + GameManager.player.transform.forward.normalized;
+            StartCoroutine(DestroyAfter(ef, 2));
+        }
     }
 
     void EnemyDeathEffect(GameObject unit)
