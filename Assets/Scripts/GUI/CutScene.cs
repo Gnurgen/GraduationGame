@@ -74,9 +74,17 @@ public class CutScene : MonoBehaviour {
         frames[24].GetComponent<Image>().CrossFadeAlpha(0, 1, true);
         yield return new WaitForSeconds(4);
 
-        SceneManager.LoadScene("KrisTester");
-
-
-
+        SceneManager.LoadScene("Alpha");
+    }
+    void Update()
+    {
+        if(Input.touchCount>1)
+        {
+            SkipCutscene();
+        }
+    }
+    public void SkipCutscene()
+    {
+        SceneManager.LoadScene("Alpha");
     }
 }

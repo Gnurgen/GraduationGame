@@ -33,7 +33,8 @@ public class GameManager {
 
     private void PlayerDeath(GameObject Id)
     {
-        Application.Quit();
+        SceneManager.LoadScene("Menu");
+        //Application.Quit();
     }
 
     public static int score
