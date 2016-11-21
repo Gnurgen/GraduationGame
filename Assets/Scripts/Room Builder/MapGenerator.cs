@@ -380,7 +380,10 @@ public class MapGenerator : MonoBehaviour {
                         b = true;
                         for (l = 0; l < largeRoomMask.GetLength(0) && b; l++)
                         {
-                            if (mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]] == null || mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]].segment >= 0)
+                            if (mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]] == null ||
+                                i + largeRoomMask[l, 0] == startRoom[0] && j + largeRoomMask[l, 1] == startRoom[1] ||
+                                i + largeRoomMask[l, 0] == goalRoom[0] && j + largeRoomMask[l, 1] == goalRoom[1] ||
+                                mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]].segment >= 0)
                             {
                                 b = false;
                             }
