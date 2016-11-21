@@ -54,7 +54,6 @@ public class EnemyStats : Health {
 
     void Awake()
     {
-       setHealthVars(strength.GetHashCode()+1);
         onPause = false;
         pauseFor = 0;
     }

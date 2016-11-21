@@ -576,7 +576,7 @@ public class InputManager : MonoBehaviour {
 	public Vector3 GetWorldPoint(Vector2 pos)
 	{
 		ray = Camera.main.ScreenPointToRay (pos);
-		if (Physics.Raycast (ray, out hit, Mathf.Infinity))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~LayerMask.NameToLayer("Occluder")))
 			return hit.point;
 		return Vector3.down*100;
 		//return Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 10));
