@@ -28,25 +28,39 @@ public class FxManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         // Subscribe to player events with effects
-        GameManager.events.OnPlayerAttack += PlayerMeleeAttackEffect;
-        GameManager.events.OnPlayerAttackHit += PlayerMeleeHitEffect;
-        GameManager.events.OnPlayerDashBegin += PlayerDashBeginEffect;
-        GameManager.events.OnPlayerDashEnd += PlayerDashEndEffect;
+        if(playerMeleeAttack != null)
+            GameManager.events.OnPlayerAttack += PlayerMeleeAttackEffect;
+        if(playerMeleeHit != null)
+            GameManager.events.OnPlayerAttackHit += PlayerMeleeHitEffect;
+        if(playerDashBegin != null)
+            GameManager.events.OnPlayerDashBegin += PlayerDashBeginEffect;
+        if(playerDashEnd != null)
+            GameManager.events.OnPlayerDashEnd += PlayerDashEndEffect;
         // Insert ability effects here
-        GameManager.events.OnPlayerDeath += PlayerDeathEffect;
+        if(playerDeath != null)
+            GameManager.events.OnPlayerDeath += PlayerDeathEffect;
 
         // Subscribe to boss events with effects
-        GameManager.events.OnBossActivated += BossActivationEffect;
-        GameManager.events.OnBossLaserActivation += BossLaserActivationEffect;
-        GameManager.events.OnBossMeteorActivation += BossMeteorActivationEffect;
-        GameManager.events.OnBossMeteorImpact += BossMeteorImpactEffect;
-        GameManager.events.OnBossPhaseChange += BossPhaseChangeEffect;
-        GameManager.events.OnBossDeath += BossDeathEffect;
+        if(bossActivation != null)
+            GameManager.events.OnBossActivated += BossActivationEffect;
+        if(bossLaserActivation != null)
+            GameManager.events.OnBossLaserActivation += BossLaserActivationEffect;
+        if(bossMeteorActivation != null)
+            GameManager.events.OnBossMeteorActivation += BossMeteorActivationEffect;
+        if(bossMeteorImpact != null)
+            GameManager.events.OnBossMeteorImpact += BossMeteorImpactEffect;
+        if(bossPhaseChange != null)
+            GameManager.events.OnBossPhaseChange += BossPhaseChangeEffect;
+        if(bossDeath != null)
+            GameManager.events.OnBossDeath += BossDeathEffect;
 
         // Subscribe to basic enemy events with effects
-        GameManager.events.OnEnemyAttackHit += EnemyMeleeAttackEffect;
-        GameManager.events.OnEnemyAttackHit += EnemyRangedAttackEffect;
-        GameManager.events.OnEnemyDeath += EnemyDeathEffect;
+        if(enemyMeleeAttack != null)
+            GameManager.events.OnEnemyAttackHit += EnemyMeleeAttackEffect;
+        if(enemyRangedAttack != null)
+            GameManager.events.OnEnemyAttackHit += EnemyRangedAttackEffect;
+        if(enemyDeath != null)
+            GameManager.events.OnEnemyDeath += EnemyDeathEffect;
 	}
 
     /* -------------------------------------------------------------
