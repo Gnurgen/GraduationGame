@@ -13,7 +13,8 @@ public class MenuWheel : MonoBehaviour {
     //Private variables
     private int nrOptions;
     public GameObject Wheel;
-    GameObject[] listOfButtons2; 
+    GameObject[] listOfButtons2;
+    GameObject coneCool, flyingCool;
     private bool wheelClicked = false;
     private bool mouseRelease = false;
     private int currentButton;
@@ -41,7 +42,8 @@ public class MenuWheel : MonoBehaviour {
         coneDraw = FindObjectOfType<ConeDraw>();
         nrOptions = listOfButtons.Length;
         listOfButtons2 = new GameObject[nrOptions];
-
+        coneCool = GameObject.Find("coneCool");
+        flyingCool = GameObject.Find("flyingCool");
         coordinates = new Vector2[nrOptions+1];
         minMax = new float[nrOptions * 2];
         angle = 2 * Mathf.PI / nrOptions;
@@ -54,10 +56,6 @@ public class MenuWheel : MonoBehaviour {
         Wheel.SetActive(false);
     }
     
-       
-        
-   
-
     void Update()    {
        
         if (wheelClicked == true)
