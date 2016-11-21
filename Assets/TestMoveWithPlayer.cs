@@ -12,7 +12,7 @@ public class TestMoveWithPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-       
-        transform.position = player.position + distance;
+        if(player!=null)
+            transform.position = player.position + distance;
 	}
 }
