@@ -10,8 +10,8 @@ public class Builder : MonoBehaviour {
 
 		string basePath = "C:/Users/dadiu/Google Drive/GraduationGames/Builds";
 		string buildFolder = System.DateTime.Now.ToString ("dd-MM-yy HH.mm.ss");
-		string initScene = "InitializingsScene.unity";
-		string title = "spilletmedengianthvormanerlille";
+		string initScene = "Splash.unity";
+		string title = "SpilletMedEnGiantHvorManErLille";
 		string studio = "highfiveproductions";
 
 
