@@ -1,7 +1,13 @@
 fileFormatVersion: 2
-guid: cc76eed2cf6613247aee0128705deb17
+<<<<<<< HEAD
+guid: 631a05d1b1e332b4e952e96fe1d7b8bd
 folderAsset: yes
-timeCreated: 1479723488
+timeCreated: 1479723295
+=======
+guid: 14ce2a6f61c6a3c40b83e4f77bf3e33c
+folderAsset: yes
+timeCreated: 1479728509
+>>>>>>> 460756dd03e1879325fc7583ba49b20aed520c01
 licenseType: Pro
 DefaultImporter:
   userData: 

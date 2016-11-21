@@ -94,9 +94,9 @@ public class RoomUnit : MonoBehaviour {
 
     public void setWallDisplay(bool top, bool left, bool bottom, bool right)
     {
-        walls[0].gameObject.SetActive(left);
-        walls[1].gameObject.SetActive(top);
-        walls[2].gameObject.SetActive(right);
-        walls[3].gameObject.SetActive(bottom);
+        walls[0].transform.GetChild(0).gameObject.SetActive(left);
+        walls[1].transform.GetChild(0).gameObject.SetActive(top);
+        walls[2].transform.GetChild(0).gameObject.SetActive(right);
+        walls[3].transform.GetChild(0).gameObject.SetActive(bottom);
     }
 }
