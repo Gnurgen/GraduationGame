@@ -50,7 +50,7 @@ public class MeleeAI : EnemyStats {
         {
             body.velocity = Vector3.zero;
         }
-        else
+        else if(pauseFor > 0)
         {
             pauseFor -= Time.fixedDeltaTime;
             if (pauseFor <= 0)

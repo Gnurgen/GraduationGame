@@ -75,7 +75,11 @@ public class SpearController : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if(col.tag == "Melee" || col.tag == "Ranged" || col.tag == "Destructable" || col.tag == "Boss")
+        if(col.tag == "Boss")
+        {
+            GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
+        }
+        if(col.tag == "Enemy")
         {
             bool hit = true;
             for (int i = 0; i <= gameIDIndex; i++)
