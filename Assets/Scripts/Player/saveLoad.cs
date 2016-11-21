@@ -43,28 +43,30 @@ public class saveLoad : MonoBehaviour {
 
     public void closeMenu() {
         menu.SetActive(false);
-        allowTouch();
+        GameManager.time.SetTimeScale(1f);
+        GameManager.events.DrawComplete(10);
+        StartCoroutine(allowTouch(0.1f));
     }
 
     public void openMenu()
-    {
-        if (menu.activeSelf)
-        {
-            closeMenu();
-            return;
-        }
+    {      
         menu.SetActive(true);
+        GameManager.time.SetTimeScale(0f);
         terminateTouch();
     }
-
+    public void loadStartMenu() {
+        Time.timeScale = 1;
+        Application.LoadLevel("Menu");
+    }
     void terminateTouch()
     {
         Debug.Log("Terminate Touch");
         IM.TakeControl(ID);
     }
 
-    void allowTouch()
+    IEnumerator allowTouch(float duration)
     {
+        yield return new WaitForSeconds(duration);
         IM.ReleaseControl(ID);
     }
 }

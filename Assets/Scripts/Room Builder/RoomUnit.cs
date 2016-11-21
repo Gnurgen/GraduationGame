@@ -22,10 +22,11 @@ public class RoomUnit : MonoBehaviour {
         GameObject parent = new GameObject("Tiles");
         parent.transform.position = transform.position;
         parent.transform.parent = transform;
+
         for (i = 0; i < tiles.Length; i++)
         {
             tiles[i] = PrefabUtility.InstantiatePrefab(tilePrefab) as RoomTile;
-            tiles[i].transform.position = new Vector3(transform.position.x + (i % TILE_RATIO), transform.position.y, transform.position.z + Mathf.Floor(i/ TILE_RATIO));
+            tiles[i].transform.position = new Vector3(transform.position.x + (i % TILE_RATIO)* RoomTile.TILE_SCALE, transform.position.y, transform.position.z + Mathf.Floor(i/ TILE_RATIO) * RoomTile.TILE_SCALE);
             tiles[i].transform.parent = parent.transform;
             tiles[i].index = i;
         }
@@ -33,16 +34,18 @@ public class RoomUnit : MonoBehaviour {
         parent = new GameObject("Walls");
         parent.transform.position = transform.position;
         parent.transform.parent = transform;
+
         for (i = 0; i < walls.Length; i++)
         {
             walls[i] = PrefabUtility.InstantiatePrefab(wallPrefab) as RoomWall;
             walls[i].transform.parent = parent.transform;
             walls[i].index = i;
         }
-        walls[0].transform.position = new Vector3(transform.position.x +  5.0f, transform.position.y, transform.position.z -  0.5f);
-        walls[1].transform.position = new Vector3(transform.position.x -  0.5f, transform.position.y, transform.position.z +  5.0f);
-        walls[2].transform.position = new Vector3(transform.position.x +  5.0f, transform.position.y, transform.position.z + 10.5f);
-        walls[3].transform.position = new Vector3(transform.position.x + 10.5f, transform.position.y, transform.position.z +  5.0f);
+
+        walls[0].transform.position = new Vector3(transform.position.x +  5.0f * RoomTile.TILE_SCALE, transform.position.y, transform.position.z -  0.5f * RoomTile.TILE_SCALE);
+        walls[1].transform.position = new Vector3(transform.position.x -  0.5f * RoomTile.TILE_SCALE, transform.position.y, transform.position.z +  5.0f * RoomTile.TILE_SCALE);
+        walls[2].transform.position = new Vector3(transform.position.x +  5.0f * RoomTile.TILE_SCALE, transform.position.y, transform.position.z + 10.5f * RoomTile.TILE_SCALE);
+        walls[3].transform.position = new Vector3(transform.position.x + 10.5f * RoomTile.TILE_SCALE, transform.position.y, transform.position.z +  5.0f * RoomTile.TILE_SCALE);
 
         walls[1].transform.Rotate(Vector3.up * 90);
         walls[3].transform.Rotate(Vector3.up * 90);
@@ -72,10 +75,10 @@ public class RoomUnit : MonoBehaviour {
         }
         return new bool[]
         {
-            walls[0].hasDoor,
-            walls[1].hasDoor,
-            walls[2].hasDoor,
-            walls[3].hasDoor
+            walls.Length > 0 && walls[0].hasDoor,
+            walls.Length > 1 && walls[1].hasDoor,
+            walls.Length > 2 && walls[2].hasDoor,
+            walls.Length > 3 && walls[3].hasDoor
         };
     }
 
@@ -91,9 +94,9 @@ public class RoomUnit : MonoBehaviour {
 
     public void setWallDisplay(bool top, bool left, bool bottom, bool right)
     {
-        walls[0].gameObject.SetActive(left);
-        walls[1].gameObject.SetActive(top);
-        walls[2].gameObject.SetActive(right);
-        walls[3].gameObject.SetActive(bottom);
+        walls[0].transform.GetChild(0).gameObject.SetActive(left);
+        walls[1].transform.GetChild(0).gameObject.SetActive(top);
+        walls[2].transform.GetChild(0).gameObject.SetActive(right);
+        walls[3].transform.GetChild(0).gameObject.SetActive(bottom);
     }
 }

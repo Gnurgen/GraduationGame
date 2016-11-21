@@ -133,7 +133,60 @@ public class RoomEditor : Editor {
 
         Debug.Log("Updated " + count + " objects");
     }
-    
+
+    [MenuItem("Tools/Room Builder/Update Room Resources/Enemy", false, 21)]
+    public static void UpdateEnemyReferences()
+    {
+        int i;
+        int j;
+        int meleeCount = 0;
+        int rangedCount = 0;
+        int shieldedCount = 0;
+        Object[] roomEnemies;
+        GameObject room;
+        List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
+        List<GameObject> enemies = Resources.LoadAll("Enemy").Cast<GameObject>().ToList();
+        GameObject meleeEnemy = null;
+        GameObject rangedEnemy = null;
+
+        for (i = 0; i < enemies.Count; i++)
+        {
+            if (enemies[i].GetComponent<MeleeAI>() != null)
+                meleeEnemy = enemies[i].gameObject;
+            else if (enemies[i].GetComponent<EnemyRangedAttack>() != null)
+                rangedEnemy = enemies[i].gameObject;
+        }
+
+        for (i = 0; i < rooms.Count; i++)
+        {
+            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
+
+            if (meleeEnemy != null)
+            {
+                roomEnemies = room.GetComponentsInChildren<MeleeAI>();
+                for (j = 0; j < roomEnemies.Length; j++)
+                {
+                    replace((roomEnemies[j] as MeleeAI).gameObject, meleeEnemy);
+                    meleeCount++;
+                }
+            }
+
+            if (rangedEnemy != null)
+            {
+                roomEnemies = room.GetComponentsInChildren<EnemyRangedAttack>();
+                for (j = 0; j < roomEnemies.Length; j++)
+                {
+                    replace((roomEnemies[j] as EnemyRangedAttack).gameObject, rangedEnemy);
+                    rangedCount++;
+                }
+            }
+
+            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
+            DestroyImmediate(room);
+        }
+
+        Debug.Log("Updated " + (meleeCount + rangedCount + shieldedCount) +  " objects [Melee: " + meleeCount  + ", Ranged: " + rangedCount + ", Shielded: " + shieldedCount + "]");
+    }
 
     private static void replace(GameObject original, GameObject replacement)
     {
@@ -160,11 +213,19 @@ public class RoomEditor : Editor {
             workbench.roomName = roomName != null && roomName.Length > 0 ? roomName : "Room";
         }
 
-        GUILayout.Space(10);
-        GUILayout.Label("Room Size");
         Vector2 roomSize = workbench.roomSize;
-        roomSize.x = EditorGUILayout.IntSlider("   Width", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
-        roomSize.y = EditorGUILayout.IntSlider("   Depth", (int)workbench.roomSize.y, 1, workbench.roomUnits.GetLength(1));
+        roomSize.x = EditorGUILayout.IntSlider("Room Size", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
+        roomSize.y = roomSize.x;
+
+        workbench.roomLevel = EditorGUILayout.IntSlider("Room Level", workbench.roomLevel, 1, RoomBuilder.MAX_LEVEL);
+
+        GUILayout.Space(10);
+        GUI.enabled = roomSize.x == 1 && roomSize.y == 1;
+        bool isBeaconRoom = EditorGUILayout.Toggle("Start/End Room", workbench.isBeaconRoom);
+        workbench.isBeaconRoom = GUI.enabled && isBeaconRoom;
+
+        workbench.isRotatable = EditorGUILayout.Toggle("Is Rotatable", workbench.isRotatable);
+        GUI.enabled = true;
 
         if (workbench.roomSize != roomSize)
         {

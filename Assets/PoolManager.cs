@@ -6,11 +6,10 @@ using System;
 public class PoolManager : MonoBehaviour {
 
     public GameObject EnemyRangedAttackPrefab, BlobPrefab;
-    
     private Dictionary<string, List<GameObject>> pool;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         pool = new Dictionary<string, List<GameObject>>();
     }
 	
@@ -25,15 +24,12 @@ public class PoolManager : MonoBehaviour {
 
     }
 
-    private void GenerateRagdoll(GameObject enemyID)
+    public void PoolObj(GameObject obj)
     {
-        throw new NotImplementedException();
-    }
-
-    private void PoolObj(GameObject obj)
-    {
+        if(obj.GetComponent<AutoPool>()!=null)
+            Destroy(obj.GetComponent<AutoPool>());
         List<GameObject> ListResult;
-      if(pool.TryGetValue(obj.tag, out ListResult))
+        if(pool.TryGetValue(obj.tag, out ListResult))
         {
             ListResult.Add(obj);
         }
@@ -43,6 +39,7 @@ public class PoolManager : MonoBehaviour {
             ListResult.Add(obj);
             pool.Add(obj.tag, ListResult);
         }
+        obj.SetActive(false);
     }
 
     private void GenerateBlob(GameObject GO, int amount)
@@ -96,8 +93,54 @@ public class PoolManager : MonoBehaviour {
             return result;
         }
     }
+    public GameObject GenerateObject(string tag)
+    {
+        GameObject result;
+        List<GameObject> ListResult;
+        if(pool.TryGetValue(tag, out ListResult))
+        {
+            if (ListResult.Count > 0)
+            {
+                result = ListResult[ListResult.Count - 1];
+                ListResult.RemoveAt(ListResult.Count - 1);
+            }
+            else
+                result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        }
+        else
+            result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        if (result.GetComponent<AutoPool>() != null)
+            Destroy(result.GetComponent<AutoPool>());
+        result.SetActive(true);
+        return result;
+    }
 
-
+    public void GenerateRagdoll(Transform[] p, string tag)
+    {
+        GameObject result;
+        List<GameObject> ListResult;
+        if (pool.TryGetValue(tag, out ListResult))
+        {
+            if (ListResult.Count > 0)
+            {
+                result = ListResult[ListResult.Count - 1];
+                ListResult.RemoveAt(ListResult.Count - 1);
+            }
+            else
+                result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        }
+        else
+            result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        if (result.GetComponent<AutoPool>() != null)
+            Destroy(result.GetComponent<AutoPool>());
+        result.SetActive(true);
+        for(int k = 0; k<p.Length; ++k)
+        {
+            result.transform.GetChild(0).GetChild(k).transform.position = p[k].position;
+            result.transform.GetChild(0).GetChild(k).transform.rotation = p[k].rotation;
+            result.transform.GetChild(0).GetChild(k).transform.localScale = Vector3.one;
+        }
+    }
 
     // Update is called once per frame
     void Update () {

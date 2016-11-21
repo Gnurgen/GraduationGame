@@ -19,21 +19,17 @@ public class MeteorShower : MonoBehaviour {
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	if(Input.GetKeyDown(KeyCode.KeypadPlus))
-        {
-            ActivateAbility();
-        }
-	}
-    void ActivateAbility()
+    public void Activate(int meteors)
     {
-        StartCoroutine("BoulderFall");
+        for(int i = 0; i < meteors; i++)
+        {
+            StartCoroutine("BoulderFall");
+        }
     }
     IEnumerator BoulderFall()
     {
         Vector2 pos = Random.insideUnitCircle * (MaxRangeOfAttack - MinRangeOfAttack);
-        Vector3 actual = new Vector3(pos.x+ MinRangeOfAttack, 0, pos.y+ MinRangeOfAttack);
+        Vector3 actual = GameManager.player.transform.position;
         GameObject fallArea = Instantiate(Fallarea, actual, Quaternion.identity) as GameObject;
         float step = SecondsOfExpanding;
         while(step > 0) // increase size of fallArea to areaBoulder in SecondsOfExpanding

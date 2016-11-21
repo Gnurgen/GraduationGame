@@ -11,16 +11,24 @@ public class EnemyHealthBars : MonoBehaviour {
     private GameObject enemy;
     private int type;
     Vector3 position;
-    private bool activated = false;
+
+    void Awake()
+    {
+        transform.localScale = new Vector3(0, 0, 0);
+    }
+
     void Start () {
 
     }
-    void Update() {
-        if (activated == true)
+    void Update()
+    {
+        if (enemy != null)
         {
             healthPosition();
             updateHealthBar();//Could actually just call this whenever enemy takes damage
         }
+        else
+            gameObject.SetActive(false);
     }
 
     void updateHealthBar() {
@@ -32,14 +40,14 @@ public class EnemyHealthBars : MonoBehaviour {
     }
 
     void healthPosition() {
-        position = enemy.transform.position;
+        position = enemy.transform.position;  //stop
         gameObject.transform.position = position;
         gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y+ hightOfHealthbar, 0);
     }
     public void getMyEnemy(GameObject myEnemy, int myType) {
+        print(myEnemy);
         enemy = myEnemy;
         type = myType;
         maxHealth = enemy.GetComponent<Health>().health;
-        activated = true;   
     }
 }

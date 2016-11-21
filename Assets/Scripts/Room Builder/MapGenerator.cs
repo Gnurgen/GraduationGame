@@ -6,17 +6,27 @@ using Pathfinding;
 
 public class MapGenerator : MonoBehaviour {
 
-    private MapSize DEFAULT_SIZE = MapSize.Small;
-    private MapShape DEFAULT_SHAPE = MapShape.Square;
-    private RoomLayout DEFAULT_LAYOUT = RoomLayout.Open;
+    private const MapSize DEFAULT_SIZE = MapSize.Small;
+    private const MapShape DEFAULT_SHAPE = MapShape.Square;
+    private const RoomLayout DEFAULT_LAYOUT = RoomLayout.Open;
 
     public MapSize size;
     public MapShape shape;
     public RoomLayout layout;
+    public int maxLargeRooms;
+    public int minLargeRooms;
+    public bool rotateAnyRoom;
+
+    [HideInInspector]
+    public int mapLevel;
 
     private RoomGridEntry[,] mapGrid;
     private int[,] neighbours;
     private int roomRollOdds;
+    private List<GameObject> rooms = new List<GameObject>();
+    private int[] mask;
+    private int[] startRoom;
+    private int[] goalRoom;
 
     public enum MapSize
     {
@@ -42,25 +52,53 @@ public class MapGenerator : MonoBehaviour {
     }
 
     void Start() {
+        Build();
+    }
+
+    public void Build()
+    {
         int i;
         int j;
+        int l;
+        int y;
+        int index;
+        int total;
+        int branchPasses = 0;
         int gridSize;
-        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().ToList();
-        List<GameObject>[,,,] roomsByDoors = new List<GameObject>[2,2,2,2];
-        List<GameObject> list;
+        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
+        List<GameObject>[,,,,] roomsByDoors = new List<GameObject>[2, 2, 2, 2, 2];
+        List<GameObject>[] list = new List<GameObject>[4];
+        List<RoomBuilder> largeRooms = new List<RoomBuilder>();
         GameObject go;
+        RoomBuilder room;
+        RoomGridEntry entry;
         bool[] doors;
+        int[] hashIndex;
+
+        clear();
 
         for (i = 0; i < objectList.Count; i++)
         {
-            RoomBuilder room = objectList[i].GetComponent<RoomBuilder>();
+            room = objectList[i].GetComponent<RoomBuilder>();
 
             if (room != null)
             {
-                int[] hasIndex = room.getHashIndex();
-                if (roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]] == null)
-                    roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]] = new List<GameObject>();
-                roomsByDoors[hasIndex[0], hasIndex[1], hasIndex[2], hasIndex[3]].Add(room.gameObject);
+                hashIndex = room.GetHashIndex();
+                if (hashIndex[0] == 0)
+                {
+                    if (roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
+                        roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
+                    roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
+
+                    if (room.isRotatable || rotateAnyRoom)
+                    {
+                        if (roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
+                            roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
+                        roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
+                    }
+                }
+                else
+                    largeRooms.Add(room);
             }
         }
 
@@ -81,28 +119,209 @@ public class MapGenerator : MonoBehaviour {
         switch (size)
         {
             case MapSize.Large:
-                gridSize = 8;
+                gridSize = 7;
+                switch (shape)
+                {
+                    case MapShape.Branching:
+                        mask = new int[]
+                        {
+                            0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 2, 0, 0, 0,
+                            0, 0, 2, 1, 2, 0, 0,
+                            0, 0, 0, 2, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0,
+                            0, 0, 0, 0, 0, 0, 0
+                        };
+                        branchPasses = 3;
+                        break;
+                    case MapShape.Frame:
+                        mask = new int[]
+                        {
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 0, 0, 0, 1, 1,
+                            1, 1, 0, 0, 0, 1, 1,
+                            1, 1, 0, 0, 0, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1,
+                            1, 1, 1, 1, 1, 1, 1
+                        };
+                        break;
+                }
                 break;
             case MapSize.Medium:
-                gridSize = 6;
+                gridSize = 5;
+                switch (shape)
+                {
+                    case MapShape.Branching:
+                        mask = new int[]
+                        {
+                            0, 0, 0, 0, 0,
+                            0, 0, 2, 0, 0,
+                            0, 2, 1, 2, 0,
+                            0, 0, 2, 0, 0,
+                            0, 0, 0, 0, 0
+                        };
+                        branchPasses = 2;
+                        break;
+                    case MapShape.Frame:
+                        mask = new int[]
+                        {
+                            1, 1, 1, 1, 1,
+                            1, 1, 0, 1, 1,
+                            1, 0, 0, 0, 1,
+                            1, 1, 0, 1, 1,
+                            1, 1, 1, 1, 1
+                        };
+                        break;
+                }
                 break;
             case MapSize.Small:
             default:
-                gridSize = 4;
+                gridSize = 3;
+                switch (shape)
+                {
+                    case MapShape.Branching:
+                        mask = new int[]
+                        {
+                            0, 2, 0,
+                            2, 1, 2,
+                            0, 2, 0
+                        };
+                        branchPasses = 1;
+                        break;
+                    case MapShape.Frame:
+                        mask = new int[]
+                        {
+                            1, 1, 1,
+                            1, 0, 1,
+                            1, 1, 1
+                        };
+                        break;
+                }
                 break;
         }
-        mapGrid = new RoomGridEntry[gridSize, gridSize];
+
+        int center = Mathf.FloorToInt(gridSize / 2);
 
         switch (shape)
         {
             case MapShape.Branching:
+                int offset = 1;
+                List<int> indexList = new List<int>();
+                startRoom = new int[] { center, center };
+
+                while (branchPasses > 0)
+                {
+                    for (j = center - offset; j <= center + offset; j++)
+                    {
+                        for (l = center - offset; l <= center + offset; l++)
+                        {
+                            if (mask[gridSize * j + l] == offset + 1)
+                            {
+                                indexList.Clear();
+
+                                if (j + 1 < gridSize && mask[gridSize * (j + 1) + l] == 0)
+                                    indexList.Add(gridSize * (j + 1) + l);
+                                if (j - 1 >= 0 && mask[gridSize * (j - 1) + l] == 0)
+                                    indexList.Add(gridSize * (j - 1) + l);
+                                if (l + 1 < gridSize && mask[gridSize * j + (l + 1)] == 0)
+                                    indexList.Add(gridSize * j + (l + 1));
+                                if (l - 1 >= 0 && mask[gridSize * j + (l - 1)] == 0)
+                                    indexList.Add(gridSize * j + (l - 1));
+
+                                if (indexList.Count > 0)
+                                {
+                                    mask[indexList[Random.Range(0, indexList.Count - 1)]] = offset + 2;
+
+                                    for (i = 0; i < indexList.Count; i++)
+                                    {
+                                        if (Random.Range(0, 4) < 1)
+                                            mask[indexList[i]] = offset + 2;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    offset++;
+                    branchPasses--;
+                }
+                Debug.Log(offset + 1);
+                indexList.Clear();
+                for (j = 0; j < mask.Length; j++)
+                {
+                    if (mask[j] == offset + 1)
+                        indexList.Add(j);
+                }
+                i = indexList[Random.Range(0, indexList.Count - 1)];
+                goalRoom = new int[] { Mathf.FloorToInt(i / gridSize), i % gridSize };
+                break;
             case MapShape.Frame:
+                switch (Random.Range(0, 3))
+                {
+                    case 0:
+                        startRoom = new int[] { 0, center };
+                        goalRoom = new int[] { gridSize - 1, center };
+                        break;
+                    case 1:
+                        startRoom = new int[] { center, 0 };
+                        goalRoom = new int[] { center, gridSize - 1 };
+                        break;
+                    case 2:
+                        startRoom = new int[] { gridSize - 1, center };
+                        goalRoom = new int[] { 0, center };
+                        break;
+                    case 3:
+                    default:
+                        startRoom = new int[] { center, gridSize - 1 };
+                        goalRoom = new int[] { center, 0 };
+                        break;
+                }
+                break;
             case MapShape.Square:
             default:
-                for (i = 0; i < mapGrid.GetLength(0); i++)
-                    for (j = 0; j < mapGrid.GetLength(1); j++)
-                        mapGrid[i, j] = new RoomGridEntry();
+                switch (Random.Range(0, 3))
+                {
+                    case 0:
+                        startRoom = new int[] { 0, 0 };
+                        goalRoom = new int[] { gridSize - 1, gridSize - 1 };
+                        break;
+                    case 1:
+                        startRoom = new int[] { gridSize - 1, 0 };
+                        goalRoom = new int[] { 0, gridSize - 1 };
+                        break;
+                    case 2:
+                        startRoom = new int[] { gridSize - 1, gridSize - 1 };
+                        goalRoom = new int[] { 0, 0 };
+                        break;
+                    case 3:
+                    default:
+                        startRoom = new int[] { 0, gridSize - 1 };
+                        goalRoom = new int[] { gridSize - 1, 0 };
+                        break;
+                }
+                mask = new int[gridSize * gridSize];
+                populate(mask, 1);
                 break;
+        }
+
+        Debug.Log(goalRoom[0] + " " + goalRoom[1]);
+        GameManager.player.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -2.0f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+        Camera.main.transform.position = new Vector3(GameManager.player.transform.position.x - 7.5f, GameManager.player.transform.position.y + 11.1f, GameManager.player.transform.position.z - 7.5f);
+        GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -0.75f, - (goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+
+        mapGrid = new RoomGridEntry[gridSize, gridSize];
+
+        for (i = 0; i < mapGrid.GetLength(0); i++)
+        {
+            for (j = 0; j < mapGrid.GetLength(1); j++)
+            {
+                if (mask[gridSize * i + j] > 0)
+                {
+                    mapGrid[i, j] = new RoomGridEntry();
+                }
+            }
         }
 
         switch (layout)
@@ -114,6 +333,115 @@ public class MapGenerator : MonoBehaviour {
             default:
                 roomRollOdds = 3;
                 break;
+        }
+
+        if (largeRooms.Count > 0)
+        {
+            bool b;
+            float x = Random.value;
+            int largeRoomNum = Mathf.RoundToInt(x * x * (3 - 2 * x) * (maxLargeRooms - minLargeRooms)) + minLargeRooms;
+
+            List<int>[] largeRoomIndexList = new List<int>[2];
+            largeRoomIndexList[0] = new List<int>();
+            largeRoomIndexList[1] = new List<int>();
+
+            int[,] largeRoomMask = new int[12, 2];
+            largeRoomMask[0, 0] = 0;
+            largeRoomMask[0, 1] = 1;
+            largeRoomMask[1, 0] = 0;
+            largeRoomMask[1, 1] = 2;
+            largeRoomMask[2, 0] = 1;
+            largeRoomMask[2, 1] = 0;
+            largeRoomMask[3, 0] = 1;
+            largeRoomMask[3, 1] = 1;
+            largeRoomMask[4, 0] = 1;
+            largeRoomMask[4, 1] = 2;
+            largeRoomMask[5, 0] = 1;
+            largeRoomMask[5, 1] = 3;
+            largeRoomMask[6, 0] = 2;
+            largeRoomMask[6, 1] = 0;
+            largeRoomMask[7, 0] = 2;
+            largeRoomMask[7, 1] = 1;
+            largeRoomMask[8, 0] = 2;
+            largeRoomMask[8, 1] = 2;
+            largeRoomMask[9, 0] = 2;
+            largeRoomMask[9, 1] = 3;
+            largeRoomMask[10, 0] = 3;
+            largeRoomMask[10, 1] = 1;
+            largeRoomMask[11, 0] = 3;
+            largeRoomMask[11, 1] = 2;
+
+            while (largeRoomNum-- > 0)
+            {
+                largeRoomIndexList[0].Clear();
+                largeRoomIndexList[1].Clear();
+                for (j = 0; j < mapGrid.GetLength(1) - 3; j++)
+                {
+                    for (i = 0; i < mapGrid.GetLength(0) - 3; i++)
+                    {
+                        b = true;
+                        for (l = 0; l < largeRoomMask.GetLength(0) && b; l++)
+                        {
+                            if (mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]] == null ||
+                                i + largeRoomMask[l, 0] == startRoom[0] && j + largeRoomMask[l, 1] == startRoom[1] ||
+                                i + largeRoomMask[l, 0] == goalRoom[0] && j + largeRoomMask[l, 1] == goalRoom[1] ||
+                                mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]].segment >= 0)
+                            {
+                                b = false;
+                            }
+                        }
+                        if (b)
+                        {
+                            largeRoomIndexList[0].Add(i + 1);
+                            largeRoomIndexList[1].Add(j + 1);
+                        }
+                    }
+                }
+                if (largeRoomIndexList[0].Count > 0)
+                {
+                    index = Random.Range(0, largeRoomIndexList[0].Count - 1);
+                    room = largeRooms[Random.Range(0, largeRooms.Count - 1)];
+                    i = largeRoomIndexList[0][index];
+                    j = largeRoomIndexList[1][index];
+
+                    for (l = 0; l < 4; l++)
+                    {
+                        y = Mathf.FloorToInt(l / 2);
+                        entry = mapGrid[i + (l % 2), j + y];
+                        entry.segment = l;
+
+                        switch (l)
+                        {
+                            case 0:
+                                hashIndex = room.GetHashIndex(1, 0);
+                                break;
+                            case 1:
+                                hashIndex = room.GetHashIndex(1, 1);
+                                break;
+                            case 2:
+                                hashIndex = room.GetHashIndex(0, 0);
+                                break;
+                            case 3:
+                            default:
+                                hashIndex = room.GetHashIndex(0, 1);
+                                break;
+                        }
+
+                        entry.doors = new bool[] {
+                            hashIndex[1] == 1,
+                            hashIndex[2] == 1,
+                            hashIndex[3] == 1,
+                            hashIndex[4] == 1
+                        };
+                    }
+
+                    go = Instantiate(room.gameObject);
+                    go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * (j + 1) * RoomTile.TILE_SCALE);
+                    rooms.Add(go);
+                }
+                else
+                    largeRoomNum = 0;
+            }
         }
 
         for (j = 0; j < mapGrid.GetLength(1); j++)
@@ -128,28 +456,86 @@ public class MapGenerator : MonoBehaviour {
         {
             for (i = 0; i < mapGrid.GetLength(0); i++)
             {
-                if (mapGrid[i, j] != null)
+                if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
                 {
                     doors = mapGrid[i, j].doors;
-                    list = roomsByDoors[
+                    list[0] = roomsByDoors[
+                        0,
                         doors[0] ? 1 : 0,
                         doors[1] ? 1 : 0,
                         doors[2] ? 1 : 0,
                         doors[3] ? 1 : 0
                     ];
+                    total = list[0].Count;
 
-                    if (list != null)
+                    for (l = 1; l < list.Length; l++)
                     {
-                        go = Instantiate(list[Random.Range(0, list.Count-1)].gameObject);
-                        go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i, 0, - RoomUnit.TILE_RATIO * j);
+                        doors = rotateDoors(doors);
+                        list[l] = roomsByDoors[
+                            1,
+                            doors[0] ? 1 : 0,
+                            doors[1] ? 1 : 0,
+                            doors[2] ? 1 : 0,
+                            doors[3] ? 1 : 0
+                        ];
+                        if (list[l] == null)
+                            list[l] = new List<GameObject>();
+                        total += list[l].Count;
+                    }
+
+                    if (total > 0)
+                    {
+                        index = Random.Range(0, total - 1);
+
+                        if (index < list[0].Count)
+                        {
+                            l = 0;
+                        }
+                        else if (index < list[0].Count + list[1].Count)
+                        {
+                            index -= list[0].Count;
+                            l = 1;
+                        }
+                        else if (index < list[0].Count + list[1].Count + list[2].Count)
+                        {
+                            index -= list[0].Count + list[1].Count;
+                            l = 2;
+                        }
+                        else
+                        {
+                            index -= list[0].Count + list[1].Count + list[2].Count;
+                            l = 3;
+                        }
+
+                        go = Instantiate(list[l][index].gameObject);
+                        go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * j * RoomTile.TILE_SCALE);
+                        if (l > 0)
+                        {
+                            go.transform.Rotate(Vector3.up * -90 * l);
+                            go.transform.position = new Vector3(go.transform.position.x + (l < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1)  : 0), 0, go.transform.position.z + (l > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
+                        }
+                        rooms.Add(go);
                     }
                 }
             }
         }
-
+        List<GameObject> elevators = Resources.LoadAll("Elevator").Cast<GameObject>().ToList();        
+        go = Instantiate(elevators[0]);
+        go.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, go.transform.position.y , -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+        GameManager.player.transform.parent = go.transform;
 
         StartCoroutine("DelayedScan");
+        GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
+    }
 
+    private bool[] rotateDoors(bool[] doors)
+    {
+        bool temp = doors[0];
+        doors[0] = doors[3];
+        doors[3] = doors[2];
+        doors[2] = doors[1];
+        doors[1] = temp;
+        return doors;
     }
 
     IEnumerator DelayedScan()
@@ -163,30 +549,45 @@ public class MapGenerator : MonoBehaviour {
 
     }
 
+    private void clear()
+    {
+        for(int i = 0; i < rooms.Count; i++)
+            DestroyImmediate(rooms[i]);
+        rooms.Clear();
+    }
+
     private void updateRoom(int i, int j){
         int l;
         RoomGridEntry entry = mapGrid[i, j];
         RoomGridEntry neighbour;
 
-        if (entry != null && !entry.isSet)
+        if (entry == null || entry.isSet)
+            return;
+
+        if (entry.segment < 0)
         {
             if (entry.doors == null)
             {
-                for (l = 0; l < neighbours.GetLength(0) && entry.doors == null; l++)
+                List<int> doorList = new List<int>();
+                for (l = 0; l < neighbours.GetLength(0); l++)
                 {
                     neighbour = getNeighbour(i, j, l);
 
-                    if (neighbour != null && neighbour.isSet)
+                    if (neighbour != null)
                     {
-                        entry.doors = new bool[4];
-                        entry.doors[l] = true;
+                        doorList.Add(l);
+                        if (entry.doors == null && neighbour.isSet)
+                        {
+                            entry.doors = new bool[4];
+                            entry.doors[l] = true;
+                        }
                     }
                 }
-            }
-            if (entry.doors == null)
-            {
-                entry.doors = new bool[4];
-                entry.doors[Random.Range(0, 1)] = true;
+                if (entry.doors == null)
+                {
+                    entry.doors = new bool[4];
+                    entry.doors[doorList[Random.Range(0, doorList.Count)]] = true;
+                }
             }
 
             entry.isSet = true;
@@ -207,7 +608,22 @@ public class MapGenerator : MonoBehaviour {
                         updateRoom(i + neighbours[l, 0], j + neighbours[l, 1]);
                 }
             }
-
+        }
+        else
+        {
+            Debug.Log(i + ", " + j);
+            for (l = 0; l < entry.doors.Length; l++)
+            {
+                neighbour = getNeighbour(i, j, l);
+                if (neighbour != null && entry.doors[l])
+                {
+                    if (neighbour.doors == null)
+                        neighbour.doors = new bool[4];
+                    neighbour.doors[(l + 2) % 4] = true;
+                    if (!neighbour.isSet)
+                        updateRoom(i + neighbours[l, 0], j + neighbours[l, 1]);
+                }
+            }
         }
     }
 
@@ -216,19 +632,21 @@ public class MapGenerator : MonoBehaviour {
         int indexX = i + neighbours[l, 0];
         int indexY = j + neighbours[l, 1];
         if (indexX >= 0 && indexX < mapGrid.GetLength(0) &&
-            indexY >= 0 && indexY < mapGrid.GetLength(1)
+            indexY >= 0 && indexY < mapGrid.GetLength(1) &&
+            mapGrid[indexX, indexY] != null &&
+            mapGrid[indexX, indexY].segment < 0
         )
             return mapGrid[indexX, indexY];
         return null;
     }
 
-    private void populate<T>(this T[] arr, T value)
+    private void populate<T>(T[] arr, T value)
     {
         for (int i = 0; i < arr.Length; i++)
             arr[i] = value;
     }
 
-    private void populate<T>(this T[,] arr, T value)
+    private void populate<T>(T[,] arr, T value)
     {
         int j;
         for (int i = 0; i < arr.GetLength(0); i++)

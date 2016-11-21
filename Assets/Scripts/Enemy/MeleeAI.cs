@@ -5,6 +5,7 @@ using Pathfinding;
 
 [RequireComponent (typeof(Seeker))]
 [RequireComponent (typeof(Rigidbody))]
+[RequireComponent(typeof(SpawnRagdoll))]
 public class MeleeAI : EnemyStats {
 
     public GameObject Weapon;
@@ -25,11 +26,14 @@ public class MeleeAI : EnemyStats {
     private Vector3 startPosition;
     private float currentAttackSpeed;
     private Rigidbody body;
+    private SpawnRagdoll myDoll;
 
    	// Use this for initialization
-	void Start () {
+	void Awake () {
        // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
+        myDoll = GetComponent<SpawnRagdoll>();
+        myDoll.myTag = "EnemyMeleeRagdoll";
 		seeker = GetComponent<Seeker> ();
         body = GetComponent<Rigidbody>();
         StartCoroutine(Waiting(3));
@@ -37,11 +41,24 @@ public class MeleeAI : EnemyStats {
         startPosition = transform.position;
         currentAttackSpeed = 0;
 	}
-
+    public bool isInTransition;
     void FixedUpdate()
     {
+        isInTransition = animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
         currentAttackSpeed -= Time.fixedDeltaTime;
-        body.velocity = Vector3.zero;
+        if(!onPause)
+        {
+            body.velocity = Vector3.zero;
+        }
+        else if(pauseFor > 0)
+        {
+            pauseFor -= Time.fixedDeltaTime;
+            if (pauseFor <= 0)
+            {
+                pauseFor = 0;
+                onPause = false;
+            }
+        }
     }
 
     public void Taunt(GameObject newTarget)
@@ -60,17 +77,16 @@ public class MeleeAI : EnemyStats {
         yield break;
     }
 
-
 	IEnumerator Idle()
 	{
-        
+        animator.SetBool("Run", false);
         for (;;)
         {
             if (!onPause)
             {
                 if (target != null)
                 {
-                    GameManager.events.EnemyAggroLost(gameObject);
+                    GameManager.events.EnemyAggro(gameObject);
                     path = null;
                     seeker.StartPath(transform.position, target.transform.position, ReceivePath);
                     waitingForPath = true;
@@ -80,7 +96,7 @@ public class MeleeAI : EnemyStats {
                 // If the player has moved within aggro range, start chasing him
                 if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
                 {
-                   
+                    GameManager.events.EnemyAggro(gameObject);
                     target = GameManager.player;
                     path = null;
                     seeker.StartPath(transform.position, target.transform.position, ReceivePath);
@@ -95,7 +111,8 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Reset()
     {
-        
+        GameManager.events.EnemyAggroLost(gameObject);
+        animator.SetBool("Run", true);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
         waitingForPath = true;
         while (waitingForPath)
@@ -108,6 +125,7 @@ public class MeleeAI : EnemyStats {
             {
                 if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
                 {
+                    GameManager.events.EnemyAggro(gameObject);
                     StartCoroutine(Chasing());
                     yield break;
                 }
@@ -136,7 +154,7 @@ public class MeleeAI : EnemyStats {
                     transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
                 else
                     transform.Rotate(dir);
-                transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                body.position += transform.forward * mySpeed * Time.fixedDeltaTime;
             }
             yield return new WaitForFixedUpdate();
         }
@@ -144,7 +162,7 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Chasing()
 	{
-       
+        animator.SetBool("Run", true);
         for (;;)
         {
             if (!onPause)
@@ -178,31 +196,31 @@ public class MeleeAI : EnemyStats {
                 if (path != null)
                 {
                     // If too close to the current target point in the path, move on to the next
-                    if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
+                    if (pathIndex < path.vectorPath.Count && Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
                     {
                         pathIndex++;
-                        // If the previous target point was the final one in the path, go to idle
                         if (pathIndex == path.vectorPath.Count)
                         {
-                            StartCoroutine(Idle());
-                            yield break;
+                            seeker.StartPath(transform.position, target.transform.position, ReceivePath);
                         }
                     }
-
-                    // Rotate and move towards the current target point in the path
-                    Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
-                    dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
-                    dir.x = 0;
-                    dir.z = 0;
-                    if (dir.y > 180) //If point is to the right, convert degrees to minus
-                        dir.y -= 360;
-                    if (dir.y > 1)
-                        transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
-                    else if (dir.y < -1)
-                        transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
-                    else
-                        transform.Rotate(dir);
-                    transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                    if (pathIndex < path.vectorPath.Count)
+                    {
+                        // Rotate and move towards the current target point in the path
+                        Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
+                        dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+                        dir.x = 0;
+                        dir.z = 0;
+                        if (dir.y > 180) //If point is to the right, convert degrees to minus
+                            dir.y -= 360;
+                        if (dir.y > 1)
+                            transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
+                        else if (dir.y < -1)
+                            transform.Rotate(Vector3.down * turnRate * Time.fixedDeltaTime);
+                        else
+                            transform.Rotate(dir);
+                        body.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                    }
                 }
             }
             yield return new WaitForFixedUpdate();
@@ -238,8 +256,10 @@ public class MeleeAI : EnemyStats {
                         GameManager.events.EnemyAttack(gameObject);
                         currentAttackSpeed = attackSpeed;
                         animator.SetTrigger("Attack");
+                        yield return new WaitForFixedUpdate();
+                        animator.SetBool("Run", false);
                         Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
-                        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+                        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))
                         {
                             yield return null;
                         }

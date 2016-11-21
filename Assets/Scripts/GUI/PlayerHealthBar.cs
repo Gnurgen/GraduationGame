@@ -34,7 +34,7 @@ public class PlayerHealthBar : MonoBehaviour {
         imgRight.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
 
         EM.OnEnemyAttackHit += updatePlayerHealth;
-        EM.OnLevelUp += levelupHealthbar;
+        //EM.OnLevelUp += levelupHealthbar;
     }
     
     void updatePlayerHealth(GameObject ID, float dmg) { 
@@ -59,7 +59,7 @@ public class PlayerHealthBar : MonoBehaviour {
     }
 
     void levelupHealthbar(int lvl) {
-        maxHealth = player.GetComponent<Health>()._maxHealth;
+        maxHealth = player.GetComponent<Health>().maxHealth;
         currentHealth = maxHealth;
         updatePlayerHealth(gameObject, 0);
     }

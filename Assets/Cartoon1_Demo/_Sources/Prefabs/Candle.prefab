@@ -24,8 +24,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156874}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 39.40538, y: 0, z: -38.27007}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -46,7 +47,7 @@ MonoBehaviour:
       MinMaxFlag: 1
       Name: GlobalScale
       Description: 
-      DefaultValue0: .200000003
+      DefaultValue0: 0.2
       DefaultValue1: 0
       DefaultValue2: 0
       DefaultValue3: 0
@@ -89,8 +90,8 @@ MonoBehaviour:
       Name: CustomColor
       Description: 
       DefaultValue0: 1
-      DefaultValue1: .349999994
-      DefaultValue2: .150000006
+      DefaultValue1: 0.35
+      DefaultValue2: 0.15
       DefaultValue3: 0
       MinValue0: 0
       MinValue1: 0
@@ -101,15 +102,15 @@ MonoBehaviour:
       MaxValue2: 1
       MaxValue3: 0
     m_Value0: 1
-    m_Value1: .349999994
-    m_Value2: .150000006
+    m_Value1: 0.35
+    m_Value2: 0.15
     m_Value3: 0
   - m_Descriptor:
       Type: 28
       MinMaxFlag: 1
       Name: Thickness
       Description: 
-      DefaultValue0: .150000006
+      DefaultValue0: 0.15
       DefaultValue1: 0
       DefaultValue2: 0
       DefaultValue3: 0
@@ -121,13 +122,14 @@ MonoBehaviour:
       MaxValue1: 0
       MaxValue2: 0
       MaxValue3: 0
-    m_Value0: .150000006
+    m_Value0: 0.15
     m_Value1: 0
     m_Value2: 0
     m_Value3: 0
+  m_FxSamplersList: []
   m_PlayOnStart: 0
-  m_FxName: Particles/Candle.pkfx
   m_BoundFx: {fileID: 102900000, guid: 409c3ff1567a4904e8c52fb01c303a12, type: 3}
+  m_FxName: Particles/Candle.pkfx
 --- !u!114 &11493864
 MonoBehaviour:
   m_ObjectHideFlags: 1

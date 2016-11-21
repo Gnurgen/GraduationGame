@@ -179,25 +179,30 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 2:
                 Debug.Log("Button 3 selected");
+                GameObject.Find("Canvas").GetComponent<saveLoad>().openMenu();
                 break;
             case 3:
                 Debug.Log("Button 4 selected");
                 break;
             case 10:
                 Debug.Log("Nothing selected");
-                
+                GameManager.events.DrawComplete(10);
                 break;
         }
     }
+    int previousException;
     void hover(int exception) {
-        GameManager.events.WheelHover(exception);
-        for (int i = 0; i < nrOptions; i++) {
-            if(i != exception)
-                listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOff();
-            else
-                listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOn();
+        if(exception != previousException)
+        {
+            GameManager.events.WheelHover(exception);
+            for (int i = 0; i < nrOptions; i++) {
+                if(i != exception)
+                    listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOff();
+                else
+                    listOfButtons2[i].GetComponent<MenuButtonHover>().hoverImageOn();
+            }
         }
-
+        previousException = exception; 
     }
     
     void OnClick()

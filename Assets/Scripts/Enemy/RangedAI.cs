@@ -4,6 +4,7 @@ using Pathfinding;
 
 [RequireComponent(typeof(Seeker))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SpawnRagdoll))]
 public class RangedAI : EnemyStats {
 
     public GameObject projectile;
@@ -19,7 +20,7 @@ public class RangedAI : EnemyStats {
     private Vector3 targetPositionAtPath;
     private Path path;
     private int pathIndex;
-    private float nextPointDistance = 2;
+    private float nextPointDistance = 0.5f;
     private float recalcPathRange;
     private bool waitingForPath;
     private int behindPointCheck = 10;
@@ -27,6 +28,9 @@ public class RangedAI : EnemyStats {
     private Vector3 startPosition;
     private float currentAttackSpeed;
     private Rigidbody body;
+    private SpawnRagdoll myDoll;
+    private int taunts;
+    private int aggros;
 
     // Use this for initialization
     void Start()
@@ -39,12 +43,27 @@ public class RangedAI : EnemyStats {
         mySpeed = moveSpeed;
         startPosition = transform.position;
         currentAttackSpeed = 0;
+        myDoll.myTag = "EnemyRangedRagdoll";
+        taunts = 0;
+        aggros = 0;
     }
 
     void FixedUpdate()
     {
         currentAttackSpeed -= Time.fixedDeltaTime;
-        body.velocity = Vector3.zero;
+        if (!onPause)
+        {
+            body.velocity = Vector3.zero;
+        }
+        else if (pauseFor > 0)
+        {
+            pauseFor -= Time.fixedDeltaTime;
+            if (pauseFor <= 0)
+            {
+                pauseFor = 0;
+                onPause = false;
+            }
+        }
     }
 
     public void Taunt(GameObject newTarget)
@@ -63,15 +82,19 @@ public class RangedAI : EnemyStats {
         yield break;
     }
 
-
     IEnumerator Idle()
     {
+        animator.SetBool("Backwards", false);
+        animator.SetBool("Run", false);
+
         for (;;)
         {
             if (!onPause)
             {
                 if (target != null)
                 {
+                    taunts++;
+                    Debug.Log("Taunts: " + taunts);
                     GameManager.events.EnemyAggro(gameObject);
                     path = null;
                     seeker.StartPath(transform.position, target.transform.position, ReceivePath);
@@ -82,6 +105,8 @@ public class RangedAI : EnemyStats {
                 // If the player has moved within aggro range, start chasing him
                 if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
                 {
+                    aggros++;
+                    Debug.Log("Aggros: " + aggros);
                     GameManager.events.EnemyAggro(gameObject);
                     target = GameManager.player;
                     path = null;
@@ -97,6 +122,9 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Reset()
     {
+        animator.SetBool("Backwards", false);
+        animator.SetBool("Run", false);
+       
         GameManager.events.EnemyAggroLost(gameObject);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
         waitingForPath = true;
@@ -110,6 +138,7 @@ public class RangedAI : EnemyStats {
             {
                 if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
                 {
+                    GameManager.events.EnemyAggro(gameObject);
                     StartCoroutine(Chasing());
                     yield break;
                 }
@@ -138,7 +167,7 @@ public class RangedAI : EnemyStats {
                     transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
                 else
                     transform.Rotate(dir);
-                transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                body.position += transform.forward * mySpeed * Time.fixedDeltaTime;
             }
             yield return new WaitForFixedUpdate();
         }
@@ -146,6 +175,9 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Chasing()
     {
+        animator.SetBool("Backwards", false);
+        animator.SetBool("Run", true);
+        
         for (;;)
         {
             if (!onPause)
@@ -182,28 +214,28 @@ public class RangedAI : EnemyStats {
                     if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
                     {
                         pathIndex++;
-                        // If the previous target point was the final one in the path, go to idle
                         if (pathIndex == path.vectorPath.Count)
                         {
-                            StartCoroutine(Idle());
-                            yield break;
+                            seeker.StartPath(transform.position, target.transform.position, ReceivePath);
                         }
                     }
-
-                    // Rotate and move towards the current target point in the path
-                    Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
-                    dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
-                    dir.x = 0;
-                    dir.z = 0;
-                    if (dir.y > 180) //If point is to the right, convert degrees to minus
-                        dir.y -= 360;
-                    if (dir.y > 1)
-                        transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
-                    else if (dir.y < -1)
-                        transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
-                    else
-                        transform.Rotate(dir);
-                    transform.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                    if(pathIndex < path.vectorPath.Count)
+                    {
+                        // Rotate and move towards the current target point in the path
+                        Vector3 dir = (path.vectorPath[pathIndex] - transform.position);
+                        dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
+                        dir.x = 0;
+                        dir.z = 0;
+                        if (dir.y > 180) //If point is to the right, convert degrees to minus
+                            dir.y -= 360;
+                        if (dir.y > 1)
+                            transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
+                        else if (dir.y < -1)
+                            transform.Rotate(Vector3.down * turnRate * Time.fixedDeltaTime);
+                        else
+                            transform.Rotate(dir);
+                        body.position += transform.forward * mySpeed * Time.fixedDeltaTime;
+                    }
                 }
             }
             yield return new WaitForFixedUpdate();
@@ -231,9 +263,12 @@ public class RangedAI : EnemyStats {
                 }
 
                 Vector3 dir = (target.transform.position - transform.position).normalized;
+                dir.y = 0;
                 if (targetDist < tooClose)
                 {
-                    transform.position += -dir * tooCloseSpeed * Time.deltaTime;
+                    animator.SetBool("Backwards", true);
+                    body.position += -dir * tooCloseSpeed * Time.deltaTime;
+
                 }
 
                 // Check if facing the target, if not turn towards it, otherwise attack
@@ -241,8 +276,13 @@ public class RangedAI : EnemyStats {
                 {
                     if (currentAttackSpeed < 0)
                     {
+                        GameManager.events.EnemyRangedAttack(gameObject);
+                        animator.SetTrigger("Attack");
+                        animator.SetBool("Run", false);
                         currentAttackSpeed = attackSpeed;
-                        GameObject proj = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
+                        GameObject proj = GameManager.pool.GenerateObject("EnemyRangedAttack");
+                        proj.transform.position = transform.position+Vector3.up; // SO IT SPAWNS FROM THE HEAD
+                        proj.transform.rotation = transform.rotation;
                         proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
                     }
                 }
