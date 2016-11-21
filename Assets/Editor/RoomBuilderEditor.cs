@@ -29,16 +29,16 @@ public class RoomEditor : Editor {
         createBuildingBlocks("Enemy");
     }
 
-    [MenuItem("Tools/Room Builder/Create Object List/Destructibles", false, 2)]
+    [MenuItem("Tools/Room Builder/Create Object List/Obstructions", false, 2)]
     public static void CreateDestructibleBuildingBlocks()
     {
-        createBuildingBlocks("Destructible");
+        createBuildingBlocks("Obstacles");
     }
 
-    [MenuItem("Tools/Room Builder/Create Object List/Decorations", false, 3)]
+    [MenuItem("Tools/Room Builder/Create Object List/Doodads", false, 3)]
     public static void CreateDecorationBuildingBlocks()
     {
-        createBuildingBlocks("Decoration");
+        createBuildingBlocks("Doodads");
     }
 
     [MenuItem("Tools/Room Builder/Select Workbench %&w", false, 20)]
@@ -206,12 +206,14 @@ public class RoomEditor : Editor {
     {
         RoomBuilder workbench = target as RoomBuilder;
 
+        /*
         string roomName = EditorGUILayout.TextField("Room Name: ", workbench.roomName).Trim();
         if (workbench.roomName != roomName)
         {
             Undo.RecordObject(workbench, "Changed room name");
             workbench.roomName = roomName != null && roomName.Length > 0 ? roomName : "Room";
         }
+        */
 
         Vector2 roomSize = workbench.roomSize;
         roomSize.x = EditorGUILayout.IntSlider("Room Size", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
@@ -291,34 +293,19 @@ public class RoomEditor : Editor {
 
     private static void createBuildingBlocks(string tag)
     {
-        ;
-
-        Bounds bounds;
         GameObject prefab;
-        GameObject parent = null;
         List<GameObject> objectList = Resources.LoadAll(tag).Cast<GameObject>().ToList();
-        float offset = 0;
+        Object[] selection = new Object[objectList.Count];
 
         for (int i = 0; i < objectList.Count; i++)
         {
-            if (parent == null)
-            {
-                parent = new GameObject(tag + " Building Blocks");
-                Undo.RegisterCreatedObjectUndo(parent, "Created parent for " + tag + " building blocks");
-                Selection.objects = new Object[] { parent };
-            }
-
             prefab = PrefabUtility.InstantiatePrefab(objectList[i]) as GameObject;
-            Undo.RegisterCreatedObjectUndo(prefab, "Created " + tag + " building blocks");
-            bounds = prefab.GetComponentInChildren<MeshFilter>().sharedMesh.bounds;
-
-            prefab.transform.position = new Vector3(offset, bounds.extents.y, 0);
-            offset += bounds.extents.x + 1;
-            prefab.transform.parent = parent.transform;
-//            BuildingBlock bb = prefab.AddComponent<BuildingBlock>();
-//            bb.prefab = objectList[i];
-//            PrefabUtility.DisconnectPrefabInstance(prefab);
+            Undo.RegisterCreatedObjectUndo(prefab, "Prefab created");
+            prefab.transform.position = new Vector3((i % 5) * 10, 0, Mathf.Floor(i/5) * 10);
+            selection[i] = prefab;
         }
+
+        Selection.objects = selection;
     }
 
 }
