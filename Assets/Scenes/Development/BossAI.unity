@@ -204,12 +204,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 474422, guid: bc85e1c39394ede4d9afbd7c302269c1, type: 2}
   m_PrefabInternal: {fileID: 379521757}
---- !u!114 &75792435 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11454036, guid: bc85e1c39394ede4d9afbd7c302269c1,
-    type: 2}
-  m_PrefabInternal: {fileID: 379521757}
-  m_Script: {fileID: 325033367, guid: 785ff59215cab58499bfdd3f0a306c2c, type: 3}
 --- !u!1 &139202863
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,17 +343,11 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!4 &297380943 stripped
 Transform:
   m_PrefabParentObject: {fileID: 474422, guid: bc85e1c39394ede4d9afbd7c302269c1, type: 2}
   m_PrefabInternal: {fileID: 1850872502}
---- !u!114 &297380945 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11454036, guid: bc85e1c39394ede4d9afbd7c302269c1,
-    type: 2}
-  m_PrefabInternal: {fileID: 1850872502}
-  m_Script: {fileID: 325033367, guid: 785ff59215cab58499bfdd3f0a306c2c, type: 3}
 --- !u!1 &334229754
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthIncreasePerLevelInPercentage: 0
   health: 0
-  maxHealth: 1000
+  maxHealth: 0
 --- !u!114 &334229756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,7 +552,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1001 &379521757
 Prefab:
   m_ObjectHideFlags: 0
@@ -687,12 +675,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 474422, guid: bc85e1c39394ede4d9afbd7c302269c1, type: 2}
   m_PrefabInternal: {fileID: 1283720124}
---- !u!114 &522094612 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11454036, guid: bc85e1c39394ede4d9afbd7c302269c1,
-    type: 2}
-  m_PrefabInternal: {fileID: 1283720124}
-  m_Script: {fileID: 325033367, guid: 785ff59215cab58499bfdd3f0a306c2c, type: 3}
 --- !u!1 &622817317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,7 +1045,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!1 &1014143104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,6 +1206,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
+--- !u!115 &1091011120
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 4
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: AkInitializer
+  m_Namespace: 
+  m_AssemblyName: Assembly-CSharp
+  m_IsEditorScript: 0
 --- !u!1 &1113269414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,11 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1330ce819a7e1439b2d88135a88ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lasers:
-  - {fileID: 522094612}
-  - {fileID: 75792435}
-  - {fileID: 1210373617}
-  - {fileID: 297380945}
+  lasers: []
   RotationSpeed: 60
   secondsOfLaser: 10
   laserDmgPerSecond: 10
@@ -1449,6 +1442,7 @@ GameObject:
   - 114: {fileID: 1184326991}
   - 114: {fileID: 1184326990}
   - 114: {fileID: 1184326989}
+  - 114: {fileID: 1184326997}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1578,16 +1572,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 19
+--- !u!114 &1184326997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1184326988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1808369544}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listenerId: 0
 --- !u!4 &1210373615 stripped
 Transform:
   m_PrefabParentObject: {fileID: 474422, guid: bc85e1c39394ede4d9afbd7c302269c1, type: 2}
   m_PrefabInternal: {fileID: 71607915}
---- !u!114 &1210373617 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11454036, guid: bc85e1c39394ede4d9afbd7c302269c1,
-    type: 2}
-  m_PrefabInternal: {fileID: 71607915}
-  m_Script: {fileID: 325033367, guid: 785ff59215cab58499bfdd3f0a306c2c, type: 3}
 --- !u!1001 &1250905094
 Prefab:
   m_ObjectHideFlags: 0
@@ -1625,7 +1625,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013060036466, guid: f60261fe95791c549a19fade701d00e9, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f60261fe95791c549a19fade701d00e9, type: 2}
@@ -1824,6 +1824,54 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bc85e1c39394ede4d9afbd7c302269c1, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1498626310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1498626312}
+  - 114: {fileID: 1498626311}
+  m_Layer: 0
+  m_Name: WwiseGlobal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1498626311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1498626310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1091011120}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basePath: Audio\GeneratedSoundBanks
+  language: English(US)
+  defaultPoolSize: 4096
+  lowerPoolSize: 2048
+  streamingPoolSize: 1024
+  preparePoolSize: 0
+  memoryCutoffThreshold: 0.95
+  engineLogging: 1
+--- !u!4 &1498626312
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1498626310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
 --- !u!1 &1531068687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2140,6 +2188,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!115 &1808369544
+MonoScript:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  serializedVersion: 4
+  m_Script: 
+  m_DefaultReferences: {}
+  m_Icon: {fileID: 0}
+  m_ExecutionOrder: 0
+  m_ClassName: AkAudioListener
+  m_Namespace: 
+  m_AssemblyName: Assembly-CSharp
+  m_IsEditorScript: 0
 --- !u!4 &1850173716 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000013588279476, guid: 0d943bc599e970542867196ee343d0c2,
