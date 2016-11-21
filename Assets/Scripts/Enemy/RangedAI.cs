@@ -81,11 +81,6 @@ public class RangedAI : EnemyStats {
         StartCoroutine(Idle());
         yield break;
     }
-    void Update()
-    {
-        if (health <= 0)
-            myDoll.Execute();
-    }
 
     IEnumerator Idle()
     {

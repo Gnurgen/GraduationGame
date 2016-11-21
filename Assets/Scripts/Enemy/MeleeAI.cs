@@ -65,11 +65,7 @@ public class MeleeAI : EnemyStats {
     {
         target = newTarget;
     }
-    void Update()
-    {
-        if (health <= 0)
-            myDoll.Execute();
-    }
+
     IEnumerator Waiting(float sec)
     {
         while(sec > 0)
