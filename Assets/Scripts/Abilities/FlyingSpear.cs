@@ -51,7 +51,7 @@ public class FlyingSpear : MonoBehaviour, IAbility {
     public float Cooldown()
     {
 
-        return currentCooldown < 0 ? 0 : currentCooldown;
+        return currentCooldown < 0 ? 1 : (cooldown - currentCooldown) / cooldown;
     }
 
     public void UseAbility()
