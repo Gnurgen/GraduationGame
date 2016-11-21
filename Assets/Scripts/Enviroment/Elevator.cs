@@ -50,6 +50,5 @@ public class Elevator : MonoBehaviour
         fade.GetComponent<Fade>().fadeToBlack(2);
         isMoving = true;
         yield return new WaitForSeconds(underLift);
-        Application.LoadLevel("Elevator");
     }
 }

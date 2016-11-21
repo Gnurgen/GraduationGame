@@ -8,12 +8,13 @@ public class Health : MonoBehaviour {
     private bool healthOnLevel = false;
     public float health, maxHealth;
     private const string playerTag = "Player";
+    SpawnRagdoll rd;
 
     void Start()
     {
         health = maxHealth;
         Subscribe();
-
+        rd = GetComponent<SpawnRagdoll>();
 
     }
 
@@ -45,14 +46,13 @@ public class Health : MonoBehaviour {
             if (isPlayer(gameObject.tag))
             {
                 GameManager.events.PlayerDeath(gameObject);
-                print("øv :( (pik)spiller er død \n #  #\n#   #\n ###");
             }
             else
             {
                 GameManager.events.EnemyDeath(gameObject);
                 GameManager.events.ResourceDrop(gameObject, 3); // AMOUNT OF BLOBS DROPS
-                Destroy(gameObject);
             }
+            rd.Execute();
         }
     }
 

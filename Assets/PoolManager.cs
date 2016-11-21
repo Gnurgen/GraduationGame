@@ -6,7 +6,6 @@ using System;
 public class PoolManager : MonoBehaviour {
 
     public GameObject EnemyRangedAttackPrefab, BlobPrefab;
-    private Vector3 poolPosition = new Vector3(1000, 1000, 1000);
     private Dictionary<string, List<GameObject>> pool;
 
 	// Use this for initialization
@@ -25,13 +24,10 @@ public class PoolManager : MonoBehaviour {
 
     }
 
-    private void GenerateRagdoll(GameObject enemyID)
-    {
-        throw new NotImplementedException();
-    }
-
     public void PoolObj(GameObject obj)
     {
+        if(obj.GetComponent<AutoPool>()!=null)
+            Destroy(obj.GetComponent<AutoPool>());
         List<GameObject> ListResult;
         if(pool.TryGetValue(obj.tag, out ListResult))
         {
@@ -113,6 +109,8 @@ public class PoolManager : MonoBehaviour {
         }
         else
             result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        if (result.GetComponent<AutoPool>() != null)
+            Destroy(result.GetComponent<AutoPool>());
         result.SetActive(true);
         return result;
     }
@@ -133,6 +131,8 @@ public class PoolManager : MonoBehaviour {
         }
         else
             result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        if (result.GetComponent<AutoPool>() != null)
+            Destroy(result.GetComponent<AutoPool>());
         result.SetActive(true);
         for(int k = 0; k<p.Length; ++k)
         {

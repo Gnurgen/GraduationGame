@@ -2,7 +2,6 @@ Library/
 Temp/
 Obj/
 Build/
-ProjectSettings/
 Assets/Wwise/
 Assets/Wwise/Editor/ProjectData/AkWwiseProjectData.asset
 
