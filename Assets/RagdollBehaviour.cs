@@ -5,7 +5,7 @@ public class RagdollBehaviour : MonoBehaviour {
     public float DespawnTime;
     PoolManager pm;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         pm = FindObjectOfType<PoolManager>();
         Invoke("Repool", DespawnTime);
 	}
