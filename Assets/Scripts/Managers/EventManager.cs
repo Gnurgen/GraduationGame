@@ -123,6 +123,51 @@ public class EventManager : MonoBehaviour
 
 
     //##############################################################################################################################################################
+    //################################################################################        ######################################################################
+    //################################################################################  BOSS  ######################################################################
+    //################################################################################        ######################################################################
+    //##############################################################################################################################################################
+
+    public delegate void BossAction(GameObject boss);
+    public event BossAction OnBossActivated;
+    public event BossAction OnBossPhaseChange;
+    public event BossAction OnBossLaserActivation;
+    public event BossAction OnBossMeteorActivation;
+    public event BossAction OnBossMeteorImpact;
+    public event BossAction OnBossDeath;
+
+    public void BossActivated(GameObject Id)
+    {
+        if (OnBossActivated != null)
+            OnBossActivated(Id);
+    }
+    public void BossPhaseChange(GameObject Id)
+    {
+        if (OnBossPhaseChange != null)
+            OnBossPhaseChange(Id);
+    }
+    public void BossLaserActivation(GameObject Id)
+    {
+        if (OnBossLaserActivation != null)
+            OnBossLaserActivation(Id);
+    }
+    public void BossMeteorActivation(GameObject Id)
+    {
+        if (OnBossMeteorActivation != null)
+            OnBossMeteorActivation(Id);
+    }
+    public void BossMeteorImpact(GameObject Id)
+    {
+        if (OnBossMeteorImpact != null)
+            OnBossMeteorImpact(Id);
+    }
+    public void BossDeath(GameObject Id)
+    {
+        if (OnBossDeath != null)
+            OnBossDeath(Id);
+    }
+
+    //##############################################################################################################################################################
     //#################################################################################     ########################################################################
     //################################################################################# GUI ########################################################################
     //#################################################################################     ########################################################################
