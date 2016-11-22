@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class playerVibrate : MonoBehaviour {
+    public long vibrateForMiliSeconds = 100;
     private InputManager IM;
     private EventManager EM;
     int ID;
@@ -17,6 +18,6 @@ public class playerVibrate : MonoBehaviour {
     void vibrateForSec(GameObject ID, float dmg)
     {
         Debug.Log("Vibrate!");
-        //Vibrator.Vibrate(100);
+        Vibrator.Vibrate(vibrateForMiliSeconds);
     }
 }
