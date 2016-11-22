@@ -18,7 +18,7 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void PowerAttackAni(int option)
     {
-        print(option);
+        //print(option);
         if(option == 1) // FLYING SPEAR
         {
             anim.SetTrigger("PowerAbility");

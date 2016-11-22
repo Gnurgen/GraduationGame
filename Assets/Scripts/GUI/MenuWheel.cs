@@ -230,9 +230,9 @@ public class MenuWheel : MonoBehaviour {
     }
     void checkCooldown() {
         float sCool = flyingSpear.Cooldown();
-        Debug.Log("Cooldown: " + sCool);
+        //Debug.Log("Cooldown: " + sCool);
         flyingCool.GetComponent<Image>().fillAmount = sCool;
-        Debug.Log(flyingCool.GetComponent<Image>().fillAmount);
+       // Debug.Log(flyingCool.GetComponent<Image>().fillAmount);
         coneCool.GetComponent<Image>().fillAmount = coneDraw.Cooldown();
     }
 }
