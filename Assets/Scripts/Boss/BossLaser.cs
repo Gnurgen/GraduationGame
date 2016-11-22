@@ -72,6 +72,7 @@ public class BossLaser : MonoBehaviour {
 
     IEnumerator ShootLaser(int index)
     {
+        GameManager.events.BossLaserActivation(gameObject);
         activeLasers[index] = true;
         Quaternion startPos = transform.rotation;
         rays[index].origin = transform.up; 
@@ -106,10 +107,11 @@ public class BossLaser : MonoBehaviour {
             if (hits != null && hits[index].collider.tag == "Player")
             {
                 GameManager.events.EnemyAttackHit(gameObject, laserDmgPerSecond);
-                hits[index].transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime, (GameManager.player.transform.position-transform.position).normalized*laserForce);
+                hits[index].transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime, (GameManager.player.transform.position-transform.position), laserForce);
             }
             yield return null;
         }
+        GameManager.events.BossLaserDeactivation(gameObject);
         lasers[index].StopEffect();
         activeLasers[index] = false;
     }
