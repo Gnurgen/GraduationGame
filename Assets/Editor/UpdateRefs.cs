@@ -6,10 +6,11 @@ using System.Linq;
 
 public class UpdateRefs : EditorWindow{
 
-    private static Resource resource = Resource.None;
+    private static Resource resource = Resource.Default;
+    private int selectionIndex = 0;
 
     private enum Resource{
-        None,
+        Default,
         Tiles,
         Walls,
         Enemies,
@@ -54,38 +55,78 @@ public class UpdateRefs : EditorWindow{
 
     void OnGUI()
     {
-        /*
         int i;
         int j;
         int l;
+        int selected;
         int count = 0;
-        RoomWall[] roomWalls;
         GameObject room;
+        GameObject go;
+        List<GameObject> prefabs;
         List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
-        List<GameObject> walls = Resources.LoadAll("Wall").Cast<GameObject>().ToList();
+        string[] strList;
 
-        for (i = 0; i < rooms.Count; i++)
+        switch (resource)
         {
-            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
-            roomWalls = room.GetComponentsInChildren<RoomWall>();
+            case Resource.Doodads:
+                break;
+            case Resource.Obstacles:
+                break;
+            case Resource.Enemies:
+                break;
+            case Resource.Walls:
+                RoomWall[] roomWalls;
+                prefabs = Resources.LoadAll("Wall").Cast<GameObject>().ToList();
+                strList = new string[prefabs.Count + 1];
+                strList[0] = "[All]";
 
-            for (j = 0; j < roomWalls.Length; j++)
-            {
-                for (l = 0; l < walls.Count; l++)
+                for (i = 0; i < prefabs.Count; i++)
+                    strList[i + 1] = (prefabs[i] as GameObject).name;
+
+                selectionIndex = EditorGUILayout.Popup("Wall:", selectionIndex, strList);
+
+                if (GUILayout.Button("Replace Selection"))
                 {
-                    if (roomWalls[j].referenceName == walls[l].GetComponent<RoomWall>().referenceName)
+                    for (i = 0; i < rooms.Count; i++)
                     {
-                        replace(roomWalls[j].gameObject, walls[l]);
-                        count++;
-                    }
-                }
-            }
-            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
-            DestroyImmediate(room);
-        }
+                        room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
+                        roomWalls = room.GetComponentsInChildren<RoomWall>();
+                        go = selectionIndex > 0 ? prefabs[selectionIndex-1] : null;
 
-        Debug.Log("Updated " + count + " objects");
-        */
+                        for (j = 0; j < roomWalls.Length; j++)
+                        {
+                            if (go == null)
+                            {
+                                for (l = 0; l < prefabs.Count; l++)
+                                {
+                                    if (roomWalls[j].referenceName == prefabs[l].GetComponent<RoomWall>().referenceName)
+                                    {
+                                        replace(roomWalls[j].gameObject, prefabs[l]);
+                                        count++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (roomWalls[j].referenceName == go.GetComponent<RoomWall>().referenceName)
+                                {
+                                    replace(roomWalls[j].gameObject, go);
+                                    count++;
+                                }
+                            }
+                        }
+
+                        PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
+                        DestroyImmediate(room);
+                    }
+
+                    Debug.Log("Updated " + count + " objects");
+                }
+                break;
+            case Resource.Tiles:
+            default:
+                break;
+        }
     }
 
     public static void UpdateTileReferences()
