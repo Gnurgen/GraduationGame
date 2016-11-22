@@ -38,7 +38,7 @@ public class EnemyMeleeAttack : MonoBehaviour {
     {
         if(col.tag == "Player")
         {
-            col.GetComponent<Health>().decreaseHealth(dmg, (col.transform.position - transform.position).normalized*force);
+            col.GetComponent<Health>().decreaseHealth(dmg, (col.transform.position - transform.position), force);
             myCol.enabled = false;
             GameManager.events.EnemyAttackHit(body.gameObject, dmg);
         }
