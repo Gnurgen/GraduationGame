@@ -137,7 +137,7 @@ public class RoomBuilder : MonoBehaviour {
         enemyList.Remove(enemy);
         if (enemyList.Count == 0)
         {
-            // Room cleared
+            // Room clear
         }
     }
 
