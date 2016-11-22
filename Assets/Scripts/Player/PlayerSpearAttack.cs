@@ -23,12 +23,8 @@ public class PlayerSpearAttack : MonoBehaviour {
     {
         if (col.tag == "Enemy") // Can bug if the trigger collider enters the same enemy twice
         {
-
-            col.GetComponent<EnemyStats>().PauseFor(2 * Time.fixedDeltaTime);
-            col.GetComponent<Rigidbody>().AddForce((col.transform.position-transform.position).normalized * spearForce, ForceMode.Acceleration);
-            col.GetComponent<Health>().decreaseHealth(dmg, (col.transform.position - transform.position).normalized*spearForce);
+            col.GetComponent<Health>().decreaseHealth(dmg, (col.transform.position - GameManager.player.transform.position), spearForce);
             GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, dmg);
-     
         }
     }
 }

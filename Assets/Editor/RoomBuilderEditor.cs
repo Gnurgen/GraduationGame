@@ -70,130 +70,6 @@ public class RoomEditor : Editor {
         }
     }
 
-    [MenuItem("Tools/Room Builder/Update Room Resources/Walls", false, 22)]
-    public static void UpdateWallReferences()
-    {
-        int i;
-        int j;
-        int l;
-        int count = 0;
-        RoomWall[] roomWalls;
-        GameObject room;
-        List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
-        List<GameObject> walls = Resources.LoadAll("Wall").Cast<GameObject>().ToList();
-
-        for (i = 0; i < rooms.Count; i++)
-        {
-            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
-            roomWalls = room.GetComponentsInChildren<RoomWall>();
-
-            for (j = 0; j < roomWalls.Length; j++)
-            {
-                for (l = 0; l < walls.Count; l++)
-                {
-                    if (roomWalls[j].referenceName == walls[l].GetComponent<RoomWall>().referenceName)
-                    {
-                        replace(roomWalls[j].gameObject, walls[l]);
-                        count++;
-                    }
-                }
-            }
-            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
-            DestroyImmediate(room);
-        }
-
-        Debug.Log("Updated " + count + " objects");
-    }
-
-    [MenuItem("Tools/Room Builder/Update Room Resources/Tiles", false, 23)]
-    public static void UpdateTileReferences()
-    {
-        int i;
-        int j;
-        int l;
-        int count = 0;
-        RoomTile[] roomTiles;
-        GameObject room;
-        List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
-        List<GameObject> tiles = Resources.LoadAll("Tile").Cast<GameObject>().ToList();
-
-        for (i = 0; i < rooms.Count; i++)
-        {
-            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
-            roomTiles = room.GetComponentsInChildren<RoomTile>();
-
-            for (j = 0; j < roomTiles.Length; j++)
-            {
-                for (l = 0; l < tiles.Count; l++)
-                {
-                    if (roomTiles[j].referenceName == tiles[l].GetComponent<RoomTile>().referenceName)
-                    {
-                        replace(roomTiles[j].gameObject, tiles[l]);
-                        count++;
-                    }
-                }
-            }
-            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
-            DestroyImmediate(room);
-        }
-
-        Debug.Log("Updated " + count + " objects");
-    }
-
-    [MenuItem("Tools/Room Builder/Update Room Resources/Enemy", false, 21)]
-    public static void UpdateEnemyReferences()
-    {
-        int i;
-        int j;
-        int meleeCount = 0;
-        int rangedCount = 0;
-        int shieldedCount = 0;
-        Object[] roomEnemies;
-        GameObject room;
-        List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
-        List<GameObject> enemies = Resources.LoadAll("Enemy").Cast<GameObject>().ToList();
-        GameObject meleeEnemy = null;
-        GameObject rangedEnemy = null;
-
-        for (i = 0; i < enemies.Count; i++)
-        {
-            if (enemies[i].GetComponent<MeleeAI>() != null)
-                meleeEnemy = enemies[i].gameObject;
-            else if (enemies[i].GetComponent<RangedAI>() != null)
-                rangedEnemy = enemies[i].gameObject;
-        }
-
-        for (i = 0; i < rooms.Count; i++)
-        {
-            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
-
-            if (meleeEnemy != null)
-            {
-                roomEnemies = room.GetComponentsInChildren<MeleeAI>();
-                for (j = 0; j < roomEnemies.Length; j++)
-                {
-                    replace((roomEnemies[j] as MeleeAI).gameObject, meleeEnemy);
-                    meleeCount++;
-                }
-            }
-
-            if (rangedEnemy != null)
-            {
-                roomEnemies = room.GetComponentsInChildren<RangedAI>();
-                for (j = 0; j < roomEnemies.Length; j++)
-                {
-                    replace((roomEnemies[j] as RangedAI).gameObject, rangedEnemy);
-                    rangedCount++;
-                }
-            }
-
-            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
-            DestroyImmediate(room);
-        }
-
-        Debug.Log("Updated " + (meleeCount + rangedCount + shieldedCount) +  " objects [Melee: " + meleeCount  + ", Ranged: " + rangedCount + ", Shielded: " + shieldedCount + "]");
-    }
-
     private static void replace(GameObject original, GameObject replacement)
     {
         GameObject obj = Instantiate(replacement) as GameObject;
@@ -211,15 +87,6 @@ public class RoomEditor : Editor {
     override public void OnInspectorGUI()
     {
         RoomBuilder workbench = target as RoomBuilder;
-
-        /*
-        string roomName = EditorGUILayout.TextField("Room Name: ", workbench.roomName).Trim();
-        if (workbench.roomName != roomName)
-        {
-            Undo.RecordObject(workbench, "Changed room name");
-            workbench.roomName = roomName != null && roomName.Length > 0 ? roomName : "Room";
-        }
-        */
 
         Vector2 roomSize = workbench.roomSize;
         roomSize.x = EditorGUILayout.IntSlider("Room Size", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
@@ -240,61 +107,6 @@ public class RoomEditor : Editor {
             Undo.RecordObject(workbench, "Changed room size");
             workbench.roomSize = roomSize;
         }
-
-        /*
-        EditorGUILayout.LabelField("Room Objects:",workbench.GetObjectsNum().ToString());
-        GUILayout.Space(10);
-        int index = EditorGUILayout.IntSlider("Room List", workbench.roomIndex, 0, RoomBuilder.list.Count);
-
-        if (index != workbench.roomIndex) {
-            if (workbench.roomModified)
-            {
-                switch(EditorUtility.DisplayDialogComplex(
-                    "Room Was Modified",
-                    "Do you want to save changes you made in: " + workbench.roomName + "?\n\nYour changes will be lost if you don't save them.",
-                    "Save", "Don't Save", "Cancel"
-                ))
-                {
-                    case 0:
-                    case 1:
-                        workbench.roomIndex = index;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                workbench.roomIndex = index;
-            }
-        }
-        GUILayout.Space(10);
-        if (GUILayout.Button("Select all objects in room"))
-        {
-            Selection.objects = workbench.GetObjects();
-        }
-
-        */
-
-        /*
-        GUILayout.Space(10);
-        if (GUILayout.Button("Create Prefab"))
-        {
-
-        }
-        else if (GUILayout.Button("Duplicate"))
-        {
-
-        }
-        else if (GUILayout.Button("Remove") && EditorUtility.DisplayDialog(
-            "Removing Room",
-            "Are you sure you want to remove: " + workbench.roomName + "?\n\nThis CANNOT be undone.",
-            "Remove", "Cancel"
-        ))
-        {
-            
-        }
-        */
     }
 
     private static void createBuildingBlocks(string tag)

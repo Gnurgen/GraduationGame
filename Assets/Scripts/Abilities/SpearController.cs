@@ -78,6 +78,8 @@ public class SpearController : MonoBehaviour {
     {
         if(col.tag == "Boss")
         {
+
+            col.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
             GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
         }
         if(col.tag == "Enemy")
@@ -92,7 +94,7 @@ public class SpearController : MonoBehaviour {
             }
             if(hit)
             {
-                col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position).normalized*pushForce);
+                col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position), pushForce);
                 GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
                 gameID[gameIDIndex] = col.gameObject;
                 gameIDIndex++;
