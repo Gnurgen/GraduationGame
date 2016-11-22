@@ -20,6 +20,7 @@ public class PlayerControls : MonoBehaviour {
     public float dashCooldown = 3;
     public GameObject SpearTip;
     public float Damage = 1;
+    public float meeleeForce = 1;
     public float MovePointCooldown = 1;
     public GameObject ClickFeedBack;
 

@@ -13,6 +13,8 @@ public class MeteorShower : MonoBehaviour {
     public float HeightOfFall = 10;
     public GameObject Boulder, Fallarea;
     public float Damage;
+    [SerializeField]
+    private float meteorForce;
 
     // Use this for initialization
     void Start () {
@@ -60,7 +62,7 @@ public class MeteorShower : MonoBehaviour {
             if(hit[i].tag == "Player")
             {
                 GameManager.events.EnemyAttackHit(gameObject, Damage);
-                hit[i].GetComponent<Health>().decreaseHealth(Damage);
+                hit[i].GetComponent<Health>().decreaseHealth(Damage, (GameManager.player.transform.position-actual).normalized*meteorForce);
             }
         }
         

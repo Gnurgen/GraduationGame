@@ -283,7 +283,7 @@ public class RangedAI : EnemyStats {
                         GameObject proj = GameManager.pool.GenerateObject("EnemyRangedAttack");
                         proj.transform.position = transform.position+Vector3.up; // SO IT SPAWNS FROM THE HEAD
                         proj.transform.rotation = transform.rotation;
-                        proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
+                        proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage, force);
                     }
                 }
                 dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
