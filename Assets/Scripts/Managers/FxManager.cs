@@ -73,7 +73,7 @@ public class FxManager : MonoBehaviour {
     void PlayerMeleeAttackEffect(GameObject unit)
     {
         GameObject ef = Instantiate(playerMeleeAttack) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
@@ -87,21 +87,21 @@ public class FxManager : MonoBehaviour {
     void PlayerDashBeginEffect(GameObject unit)
     {
         GameObject ef = Instantiate(playerDashBegin) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void PlayerDashEndEffect(GameObject unit)
     {
         GameObject ef = Instantiate(playerDashEnd) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void PlayerDeathEffect(GameObject unit)
     {
         GameObject ef = Instantiate(playerDeath) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
@@ -116,42 +116,42 @@ public class FxManager : MonoBehaviour {
     void BossActivationEffect(GameObject unit)
     {
         GameObject ef = Instantiate(bossActivation) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossLaserActivationEffect(GameObject unit)
     {
         GameObject ef = Instantiate(bossLaserActivation) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossMeteorActivationEffect(GameObject unit)
     {
         GameObject ef = Instantiate(bossMeteorActivation) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position ;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossMeteorImpactEffect(GameObject unit)
     {
         GameObject ef = Instantiate(bossMeteorImpact) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossPhaseChangeEffect(GameObject unit)
     {
         GameObject ef = Instantiate(bossPhaseChange) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossDeathEffect(GameObject unit)
     {
         GameObject ef = Instantiate(bossDeath) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
@@ -167,7 +167,7 @@ public class FxManager : MonoBehaviour {
         if(unit.GetComponent<MeleeAI>() != null)
         {
             GameObject ef = Instantiate(enemyMeleeAttack) as GameObject;
-            ef.transform.position = GameManager.player.transform.position + GameManager.player.transform.forward.normalized;
+            ef.transform.position = GameManager.player.transform.position;
             StartCoroutine(DestroyAfter(ef, 2));
         }
     }
@@ -177,7 +177,7 @@ public class FxManager : MonoBehaviour {
         if(unit.GetComponent<RangedAI>() != null)
         {
             GameObject ef = Instantiate(enemyRangedAttack) as GameObject;
-            ef.transform.position = GameManager.player.transform.position + GameManager.player.transform.forward.normalized;
+            ef.transform.position = GameManager.player.transform.position ;
             StartCoroutine(DestroyAfter(ef, 2));
         }
     }
@@ -185,7 +185,7 @@ public class FxManager : MonoBehaviour {
     void EnemyDeathEffect(GameObject unit)
     {
         GameObject ef = Instantiate(enemyDeath) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
     }
 

@@ -72,6 +72,7 @@ public class BossLaser : MonoBehaviour {
 
     IEnumerator ShootLaser(int index)
     {
+        GameManager.events.BossLaserActivation(gameObject);
         activeLasers[index] = true;
         Quaternion startPos = transform.rotation;
         rays[index].origin = transform.up; 
@@ -110,6 +111,7 @@ public class BossLaser : MonoBehaviour {
             }
             yield return null;
         }
+        GameManager.events.BossLaserDeactivation(gameObject);
         lasers[index].StopEffect();
         activeLasers[index] = false;
     }
