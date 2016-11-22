@@ -18,6 +18,8 @@ public class playerVibrate : MonoBehaviour {
     void vibrateForSec(GameObject ID, float dmg)
     {
         Debug.Log("Vibrate!");
+#if UNITY_ANDROID
         Vibrator.Vibrate(vibrateForMiliSeconds);
+#endif
     }
 }
