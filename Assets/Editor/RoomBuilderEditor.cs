@@ -70,7 +70,6 @@ public class RoomEditor : Editor {
         }
     }
 
-<<<<<<< HEAD
     [MenuItem("Tools/Room Builder/Update Room Resources/Walls", false, 22)]
     public static void UpdateWallReferences()
     {
@@ -209,8 +208,6 @@ public class RoomEditor : Editor {
         Undo.DestroyObjectImmediate(original);
     }
 
-=======
->>>>>>> Daniel
     override public void OnInspectorGUI()
     {
         RoomBuilder workbench = target as RoomBuilder;
