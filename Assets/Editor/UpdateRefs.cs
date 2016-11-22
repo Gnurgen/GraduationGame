@@ -58,40 +58,178 @@ public class UpdateRefs : EditorWindow{
         int i;
         int j;
         int l;
-        int selected;
         int count = 0;
+        string[] strList;
+        Transform[] transformList;
         GameObject room;
         GameObject go;
         List<GameObject> prefabs;
         List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
-        string[] strList;
 
         switch (resource)
         {
             case Resource.Doodads:
+                prefabs = Resources.LoadAll("Doodads").Cast<GameObject>().ToList();
+                strList = toStringList(prefabs);
+                selectionIndex = EditorGUILayout.Popup("Doodads:", selectionIndex, strList);
+
+                if (GUILayout.Button("Replace Doodads"))
+                {
+                    go = selectionIndex > 0 ? prefabs[selectionIndex - 1] : null;
+
+                    for (i = 0; i < rooms.Count; i++)
+                    {
+                        room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
+                        transformList = room.GetComponentsInChildren<Transform>();
+
+                        for (j = 0; j < transformList.Length; j++)
+                        {
+                            if (go == null)
+                            {
+                                for (l = 0; l < prefabs.Count; l++)
+                                {
+                                    if (transformList[j] != null && transformList[j].childCount > 0 && transformList[j].GetChild(0).gameObject.name == prefabs[l].transform.GetChild(0).gameObject.name)
+                                    {
+                                        replace(transformList[j].gameObject, prefabs[l]);
+                                        count++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (transformList[j] != null && transformList[j].childCount > 0 && transformList[j].GetChild(0).gameObject.name == go.transform.GetChild(0).gameObject.name)
+                                {
+                                    replace(transformList[j].gameObject, go);
+                                    count++;
+                                }
+                            }
+                        }
+
+                        PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
+                        DestroyImmediate(room);
+                    }
+                    Debug.Log("Updated " + count + " doodads");
+                }
                 break;
             case Resource.Obstacles:
+                prefabs = Resources.LoadAll("Obstacles").Cast<GameObject>().ToList();
+                strList = toStringList(prefabs);
+                selectionIndex = EditorGUILayout.Popup("Obstacles:", selectionIndex, strList);
+
+                if (GUILayout.Button("Replace Obstacles"))
+                {
+                    go = selectionIndex > 0 ? prefabs[selectionIndex - 1] : null;
+
+                    for (i = 0; i < rooms.Count; i++)
+                    {
+                        room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
+                        transformList = room.GetComponentsInChildren<Transform>();
+
+                        for (j = 0; j < transformList.Length; j++)
+                        {
+                            if (go == null)
+                            {
+                                for (l = 0; l < prefabs.Count; l++)
+                                {
+                                    if (transformList[j] != null && transformList[j].childCount > 0 && transformList[j].GetChild(0).gameObject.name == prefabs[l].transform.GetChild(0).gameObject.name)
+                                    {
+                                        replace(transformList[j].gameObject, prefabs[l]);
+                                        count++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (transformList[j] != null && transformList[j].childCount > 0 && transformList[j].GetChild(0).gameObject.name == go.transform.GetChild(0).gameObject.name)
+                                {
+                                    replace(transformList[j].gameObject, go);
+                                    count++;
+                                }
+                            }
+                        }
+
+                        PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
+                        DestroyImmediate(room);
+                    }
+                    Debug.Log("Updated " + count + " obstacles");
+                }
                 break;
             case Resource.Enemies:
+                Object[] roomEnemies;
+                prefabs = Resources.LoadAll("Enemy").Cast<GameObject>().ToList();
+                strList = toStringList(prefabs);
+                selectionIndex = EditorGUILayout.Popup("Enemy:", selectionIndex, strList);
+
+                if (GUILayout.Button("Replace Enemies"))
+                {
+                    Object melee = null;
+                    Object ranged = null;
+
+                    go = selectionIndex > 0 ? prefabs[selectionIndex - 1] : null;
+
+                    if (go)
+                    {
+                        if (go.GetComponent<MeleeAI>() != null)
+                            melee = go;
+                        else if (go.GetComponent<RangedAI>() != null)
+                            ranged = go;
+                    }
+                    else
+                    {
+                        for (i = 0; i < prefabs.Count; i++)
+                        {
+                            if (melee == null && prefabs[i].GetComponent<MeleeAI>() != null)
+                                melee = go;
+                            else if (ranged == null && prefabs[i].GetComponent<RangedAI>() != null)
+                                ranged = go;
+                        }
+                    }
+
+                    for (i = 0; i < rooms.Count; i++)
+                    {
+                        room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
+
+                        if (melee != null)
+                        {
+                            roomEnemies = room.GetComponentsInChildren<MeleeAI>();
+                            for (j = 0; j < roomEnemies.Length; j++)
+                            {
+                                replace((roomEnemies[j] as MeleeAI).gameObject, melee as GameObject);
+                                count++;
+                            }
+                        }
+
+                        if (ranged != null)
+                        {
+                            roomEnemies = room.GetComponentsInChildren<EnemyRangedAttack>();
+                            for (j = 0; j < roomEnemies.Length; j++)
+                            {
+                                replace((roomEnemies[j] as EnemyRangedAttack).gameObject, ranged as GameObject);
+                                count++;
+                            }
+                        }
+
+                        PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
+                        DestroyImmediate(room);
+                    }
+
+                    Debug.Log("Updated " + count + " enemies");
+                }
                 break;
             case Resource.Walls:
                 RoomWall[] roomWalls;
                 prefabs = Resources.LoadAll("Wall").Cast<GameObject>().ToList();
-                strList = new string[prefabs.Count + 1];
-                strList[0] = "[All]";
-
-                for (i = 0; i < prefabs.Count; i++)
-                    strList[i + 1] = (prefabs[i] as GameObject).name;
-
+                strList = toStringList(prefabs);
                 selectionIndex = EditorGUILayout.Popup("Wall:", selectionIndex, strList);
 
-                if (GUILayout.Button("Replace Selection"))
+                if (GUILayout.Button("Replace Walls"))
                 {
+                    go = selectionIndex > 0 ? prefabs[selectionIndex - 1] : null;
+
                     for (i = 0; i < rooms.Count; i++)
                     {
                         room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
                         roomWalls = room.GetComponentsInChildren<RoomWall>();
-                        go = selectionIndex > 0 ? prefabs[selectionIndex-1] : null;
 
                         for (j = 0; j < roomWalls.Length; j++)
                         {
@@ -120,28 +258,24 @@ public class UpdateRefs : EditorWindow{
                         DestroyImmediate(room);
                     }
 
-                    Debug.Log("Updated " + count + " objects");
+                    Debug.Log("Updated " + count + " walls");
                 }
                 break;
             case Resource.Tiles:
             default:
                 RoomTile[] roomTiles;
                 prefabs = Resources.LoadAll("Tile").Cast<GameObject>().ToList();
-                strList = new string[prefabs.Count + 1];
-                strList[0] = "[All]";
+                strList = toStringList(prefabs);
+                selectionIndex = EditorGUILayout.Popup("Tile:", selectionIndex, strList);
 
-                for (i = 0; i < prefabs.Count; i++)
-                    strList[i + 1] = (prefabs[i] as GameObject).name;
-
-                selectionIndex = EditorGUILayout.Popup("Wall:", selectionIndex, strList);
-
-                if (GUILayout.Button("Replace Selection"))
+                if (GUILayout.Button("Replace Tiles"))
                 {
+                    go = selectionIndex > 0 ? prefabs[selectionIndex - 1] : null;
+
                     for (i = 0; i < rooms.Count; i++)
                     {
                         room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
                         roomTiles = room.GetComponentsInChildren<RoomTile>();
-                        go = selectionIndex > 0 ? prefabs[selectionIndex - 1] : null;
 
                         for (j = 0; j < roomTiles.Length; j++)
                         {
@@ -170,63 +304,20 @@ public class UpdateRefs : EditorWindow{
                         DestroyImmediate(room);
                     }
 
-                    Debug.Log("Updated " + count + " objects");
+                    Debug.Log("Updated " + count + " tiles");
                 }
                 break;
         }
     }
 
-    public static void UpdateEnemyReferences()
+    private string[] toStringList(List<GameObject> prefabs)
     {
-        int i;
-        int j;
-        int meleeCount = 0;
-        int rangedCount = 0;
-        int shieldedCount = 0;
-        Object[] roomEnemies;
-        GameObject room;
-        List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
-        List<GameObject> enemies = Resources.LoadAll("Enemy").Cast<GameObject>().ToList();
-        GameObject meleeEnemy = null;
-        GameObject rangedEnemy = null;
+        string[] strList = new string[prefabs.Count + 1];
+        strList[0] = "[All]";
 
-        for (i = 0; i < enemies.Count; i++)
-        {
-            if (enemies[i].GetComponent<MeleeAI>() != null)
-                meleeEnemy = enemies[i].gameObject;
-            else if (enemies[i].GetComponent<EnemyRangedAttack>() != null)
-                rangedEnemy = enemies[i].gameObject;
-        }
-
-        for (i = 0; i < rooms.Count; i++)
-        {
-            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
-
-            if (meleeEnemy != null)
-            {
-                roomEnemies = room.GetComponentsInChildren<MeleeAI>();
-                for (j = 0; j < roomEnemies.Length; j++)
-                {
-                    replace((roomEnemies[j] as MeleeAI).gameObject, meleeEnemy);
-                    meleeCount++;
-                }
-            }
-
-            if (rangedEnemy != null)
-            {
-                roomEnemies = room.GetComponentsInChildren<EnemyRangedAttack>();
-                for (j = 0; j < roomEnemies.Length; j++)
-                {
-                    replace((roomEnemies[j] as EnemyRangedAttack).gameObject, rangedEnemy);
-                    rangedCount++;
-                }
-            }
-
-            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
-            DestroyImmediate(room);
-        }
-
-        Debug.Log("Updated " + (meleeCount + rangedCount + shieldedCount) + " objects [Melee: " + meleeCount + ", Ranged: " + rangedCount + ", Shielded: " + shieldedCount + "]");
+        for (int i = 0; i < prefabs.Count; i++)
+            strList[i + 1] = (prefabs[i] as GameObject).name;
+        return strList;
     }
 
     private static void replace(GameObject original, GameObject replacement)
@@ -240,6 +331,10 @@ public class UpdateRefs : EditorWindow{
 
         obj.transform.parent = original.transform.parent;
         obj.transform.SetSiblingIndex(original.transform.GetSiblingIndex());
+
+        if (original.transform.childCount > 0 && !original.transform.GetChild(0).gameObject.activeSelf)
+            obj.transform.GetChild(0).gameObject.SetActive(false);
+
         Undo.DestroyObjectImmediate(original);
     }
 }
