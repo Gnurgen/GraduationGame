@@ -9,6 +9,7 @@ public class EnemyRangedAttack : MonoBehaviour {
     private float dmg;
     private float speed;
     private bool targetHit = false;
+    private float pushForce;
     // Use this for initialization
     void Start() {
         rig = GetComponent<Rigidbody>();
@@ -46,17 +47,18 @@ public class EnemyRangedAttack : MonoBehaviour {
             targetHit = true;
             transform.SetParent(col.transform,true);
             GameManager.events.EnemyAttackHit(enemyID, dmg);
-            col.GetComponent<Health>().decreaseHealth(dmg);
+            col.GetComponent<Health>().decreaseHealth(dmg, (GameManager.player.transform.position - transform.position).normalized*pushForce);
             GetComponent<BoxCollider>().enabled = false;
             Invoke("PoolItSelf", 1f);
         }
         
     }
-    public void SetParameters(float speed, GameObject enemyID, float damage)
+    public void SetParameters(float speed, GameObject enemyID, float damage, float force)
     {
         transform.position = enemyID.transform.position;
         this.enemyID = enemyID;
         this.speed = speed;
+        pushForce = force;
         dmg = damage;
 
     }

@@ -6,6 +6,7 @@ public class HomingMissleAI : MonoBehaviour {
     Transform Player;
     float speed= 4;
     float dmg = 1;
+    private float missileForce;
     void Start () {
         Player = GameManager.player.transform;
     }
@@ -15,8 +16,9 @@ public class HomingMissleAI : MonoBehaviour {
         // vector.up added for better visualization of missile
         transform.position = Vector3.MoveTowards(transform.position, Player.position + Vector3.up , speed * Time.deltaTime); 
 	}
-    public void SetParameters(float speed, float dmg)
+    public void SetParameters(float speed, float dmg, float force)
     {
+        missileForce = force;
         this.speed = speed;
         this.dmg = dmg;
     }
@@ -25,7 +27,7 @@ public class HomingMissleAI : MonoBehaviour {
         if (hit.tag == "Player")
         {
             GameManager.events.EnemyAttackHit(gameObject, dmg);
-            hit.transform.GetComponent<Health>().decreaseHealth(dmg );
+            hit.transform.GetComponent<Health>().decreaseHealth(dmg, (GameManager.player.transform.position-transform.position).normalized*missileForce);
             Destroy(gameObject);
         }
     }
