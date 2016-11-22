@@ -82,6 +82,11 @@ public class RoomUnit : MonoBehaviour {
         };
     }
 
+    public RoomWall GetWall(int i)
+    {
+        return walls.Length > i ? walls[i] : null;
+    }
+
     public void ReplaceTile(RoomTile tile, int index)
     {
         tiles[index] = tile;
