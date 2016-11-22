@@ -125,42 +125,55 @@ public class UpdateRefs : EditorWindow{
                 break;
             case Resource.Tiles:
             default:
+                RoomTile[] roomTiles;
+                prefabs = Resources.LoadAll("Tile").Cast<GameObject>().ToList();
+                strList = new string[prefabs.Count + 1];
+                strList[0] = "[All]";
+
+                for (i = 0; i < prefabs.Count; i++)
+                    strList[i + 1] = (prefabs[i] as GameObject).name;
+
+                selectionIndex = EditorGUILayout.Popup("Wall:", selectionIndex, strList);
+
+                if (GUILayout.Button("Replace Selection"))
+                {
+                    for (i = 0; i < rooms.Count; i++)
+                    {
+                        room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
+                        roomTiles = room.GetComponentsInChildren<RoomTile>();
+                        go = selectionIndex > 0 ? prefabs[selectionIndex - 1] : null;
+
+                        for (j = 0; j < roomTiles.Length; j++)
+                        {
+                            if (go == null)
+                            {
+                                for (l = 0; l < prefabs.Count; l++)
+                                {
+                                    if (roomTiles[j].referenceName == prefabs[l].GetComponent<RoomTile>().referenceName)
+                                    {
+                                        replace(roomTiles[j].gameObject, prefabs[l]);
+                                        count++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (roomTiles[j].referenceName == go.GetComponent<RoomTile>().referenceName)
+                                {
+                                    replace(roomTiles[j].gameObject, go);
+                                    count++;
+                                }
+                            }
+                        }
+
+                        PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
+                        DestroyImmediate(room);
+                    }
+
+                    Debug.Log("Updated " + count + " objects");
+                }
                 break;
         }
-    }
-
-    public static void UpdateTileReferences()
-    {
-        int i;
-        int j;
-        int l;
-        int count = 0;
-        RoomTile[] roomTiles;
-        GameObject room;
-        List<GameObject> rooms = Resources.LoadAll("Room").Cast<GameObject>().ToList();
-        List<GameObject> tiles = Resources.LoadAll("Tile").Cast<GameObject>().ToList();
-
-        for (i = 0; i < rooms.Count; i++)
-        {
-            room = PrefabUtility.InstantiatePrefab(rooms[i]) as GameObject;
-            roomTiles = room.GetComponentsInChildren<RoomTile>();
-
-            for (j = 0; j < roomTiles.Length; j++)
-            {
-                for (l = 0; l < tiles.Count; l++)
-                {
-                    if (roomTiles[j].referenceName == tiles[l].GetComponent<RoomTile>().referenceName)
-                    {
-                        replace(roomTiles[j].gameObject, tiles[l]);
-                        count++;
-                    }
-                }
-            }
-            PrefabUtility.ReplacePrefab(room, rooms[i], ReplacePrefabOptions.ConnectToPrefab | ReplacePrefabOptions.ReplaceNameBased);
-            DestroyImmediate(room);
-        }
-
-        Debug.Log("Updated " + count + " objects");
     }
 
     public static void UpdateEnemyReferences()
