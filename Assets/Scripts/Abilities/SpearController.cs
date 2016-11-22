@@ -78,7 +78,7 @@ public class SpearController : MonoBehaviour {
     {
         if(col.tag == "Boss")
         {
-            col.GetComponent<Health>().decreaseHealth(damage, transform.forward * pushForce);
+            col.GetComponent<Health>().decreaseHealth(damage, Vector3.zero * pushForce);
             GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
         }
         if(col.tag == "Enemy")
