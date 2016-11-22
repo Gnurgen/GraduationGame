@@ -104,7 +104,7 @@ public class BossLaser : MonoBehaviour {
             if (hits[index].collider.tag == "Player")
             {
                 GameManager.events.EnemyAttackHit(gameObject, laserDmgPerSecond);
-                hits[index].transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime, (GameManager.player.transform.position-transform.position).normalized*laserForce);
+                hits[index].transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime, (GameManager.player.transform.position-transform.position), laserForce);
             }
             yield return null;
         }

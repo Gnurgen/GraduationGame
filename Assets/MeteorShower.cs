@@ -62,7 +62,7 @@ public class MeteorShower : MonoBehaviour {
             if(hit[i].tag == "Player")
             {
                 GameManager.events.EnemyAttackHit(gameObject, Damage);
-                hit[i].GetComponent<Health>().decreaseHealth(Damage, (GameManager.player.transform.position-actual).normalized*meteorForce);
+                hit[i].GetComponent<Health>().decreaseHealth(Damage, (GameManager.player.transform.position-actual), meteorForce);
             }
         }
         
