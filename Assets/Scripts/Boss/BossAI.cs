@@ -123,6 +123,7 @@ public class BossAI : MonoBehaviour {
 
     public void Activate()
     {
+        GameManager.events.BossActivated(gameObject);
         currentLaserDelay = stage1LaserDelay;
         currentMeteorDelay = stage1MeteorDelay;
         StartCoroutine(Stage1());
@@ -154,6 +155,7 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage2()
     {
+        GameManager.events.BossPhaseChange(gameObject);
         laserAbility.DeActivate();
         currentLaserDelay = stage2LaserDelay;
         currentMeteorDelay = stage2MeteorDelay;
@@ -178,6 +180,7 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage3()
     {
+        GameManager.events.BossPhaseChange(gameObject);
         laserAbility.DeActivate();
         currentLaserDelay = stage3LaserDelay;
         currentMeteorDelay = stage3MeteorDelay;
@@ -202,6 +205,7 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage4()
     {
+        GameManager.events.BossPhaseChange(gameObject);
         currentLaserDelay = stage4LaserDelay;
         currentMeteorDelay = stage4MeteorDelay;
         while (health.health / health.maxHealth > stage4End)
@@ -219,6 +223,7 @@ public class BossAI : MonoBehaviour {
             }
             yield return new WaitForFixedUpdate();
         }
+        GameManager.events.BossDeath(gameObject);
         yield break;
     }
 

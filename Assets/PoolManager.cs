@@ -5,7 +5,7 @@ using System;
 
 public class PoolManager : MonoBehaviour {
 
-    public GameObject EnemyRangedAttackPrefab, BlobPrefab;
+    public GameObject EnemyRangedAttackPrefab, BlobPrefab, MeeleeRagdoll, RangedRagdoll;
     private Dictionary<string, List<GameObject>> pool;
 
 	// Use this for initialization
@@ -19,9 +19,6 @@ public class PoolManager : MonoBehaviour {
        // GameManager.events.OnEnemyDeath += GenerateRagdoll;
         //GameManager.events.OnEnemyDeath += PoolObj;
         GameManager.events.OnResourceDrop += GenerateBlob;
-        
-   
-
     }
 
     public void PoolObj(GameObject obj)
@@ -147,10 +144,9 @@ public class PoolManager : MonoBehaviour {
         {
             result.transform.GetChild(0).GetChild(k).transform.position = p[k].position;
             result.transform.GetChild(0).GetChild(k).transform.rotation = p[k].rotation;
-            result.transform.GetChild(0).GetChild(k).transform.localScale = Vector3.one * 1.7f;
-            result.transform.GetChild(0).GetChild(k).GetComponent<Rigidbody>().velocity = force;
+            result.transform.GetChild(0).GetChild(k).transform.localScale = p[k].transform.lossyScale;
+            result.transform.GetChild(0).GetChild(k).GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
         }
-        print("force: " + force);
     }
 
     // Update is called once per frame

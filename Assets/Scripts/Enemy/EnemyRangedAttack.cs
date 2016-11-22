@@ -47,7 +47,7 @@ public class EnemyRangedAttack : MonoBehaviour {
             targetHit = true;
             transform.SetParent(col.transform,true);
             GameManager.events.EnemyAttackHit(enemyID, dmg);
-            col.GetComponent<Health>().decreaseHealth(dmg, (GameManager.player.transform.position - transform.position).normalized*pushForce);
+            col.GetComponent<Health>().decreaseHealth(dmg, (GameManager.player.transform.position - transform.position), pushForce);
             GetComponent<BoxCollider>().enabled = false;
             Invoke("PoolItSelf", 1f);
         }
