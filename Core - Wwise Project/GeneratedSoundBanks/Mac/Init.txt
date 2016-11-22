@@ -16,17 +16,22 @@ State	ID	Name	State Group			Notes
 	1846755610	Small	Environment			
 	4284352190	Large	Environment			
 
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	1464642610	Sound_Effects_Volume_Slider			\Default Work Unit\Sound_Effects_Volume_Slider	
+	2872980221	Music_Volume_Slider			\Default Work Unit\Music_Volume_Slider	
+
 Audio Bus	ID	Name			Wwise Object Path	Notes
-	85412153	Ambience			\Default Work Unit\Master Audio Bus\Environmental\Ambience	
-	348963605	Reverb			\Default Work Unit\Master Audio Bus\Environmental\Reverb	
-	393239870	SFX			\Default Work Unit\Master Audio Bus\Environmental\SFX	
+	85412153	Ambience			\Default Work Unit\Master Audio Bus\Sound Effects\Environmental\Ambience	
+	348963605	Reverb			\Default Work Unit\Master Audio Bus\Sound Effects\Environmental\Reverb	
+	393239870	SFX			\Default Work Unit\Master Audio Bus\Sound Effects\Environmental\SFX	
 	805203703	Master Secondary Bus			\Default Work Unit\Master Secondary Bus	
-	1973600711	Environmental			\Default Work Unit\Master Audio Bus\Environmental	
-	2764240573	Combat			\Default Work Unit\Master Audio Bus\Environmental\SFX\Combat	
+	978636652	Sound Effects			\Default Work Unit\Master Audio Bus\Sound Effects	
+	1973600711	Environmental			\Default Work Unit\Master Audio Bus\Sound Effects\Environmental	
+	2764240573	Combat			\Default Work Unit\Master Audio Bus\Sound Effects\Environmental\SFX\Combat	
 	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
-	3859886410	System			\Default Work Unit\Master Audio Bus\System	
+	3859886410	System			\Default Work Unit\Master Audio Bus\Sound Effects\System	
 	3991942870	Music			\Default Work Unit\Master Audio Bus\Music	
 
 Auxiliary Bus	ID	Name			Wwise Object Path	Notes
-	3633416828	Hall			\Default Work Unit\Master Audio Bus\Environmental\Reverb\Hall	
+	3633416828	Hall			\Default Work Unit\Master Audio Bus\Sound Effects\Environmental\Reverb\Hall	
 

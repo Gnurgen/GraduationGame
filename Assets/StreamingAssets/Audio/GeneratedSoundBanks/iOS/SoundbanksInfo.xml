@@ -69,13 +69,17 @@
 				<Event Id="2645717374" Name="Wheel_Open_Play" ObjectPath="\Events\Default Work Unit\Wheel_Open_Play"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
-				<File Id="8318211" Language="SFX">
-					<ShortName>Spear_Hit_Indestructible.wav</ShortName>
-					<Path>SFX\Spear_Hit_Indestructible_1EED65C9.wem</Path>
+				<File Id="46253538" Language="SFX">
+					<ShortName>Enemy Impact_1.wav</ShortName>
+					<Path>SFX\Enemy Impact_1_C47F2D1B.wem</Path>
 				</File>
 				<File Id="55832679" Language="SFX">
 					<ShortName>Button_Wheel_Hover.wav</ShortName>
 					<Path>SFX\Button_Wheel_Hover_2E403D0A.wem</Path>
+				</File>
+				<File Id="58288704" Language="SFX">
+					<ShortName>Indestructable Impact_1.wav</ShortName>
+					<Path>SFX\Indestructable Impact_1_C47F2D1B.wem</Path>
 				</File>
 				<File Id="66799420" Language="SFX">
 					<ShortName>Draw_Ability.wav</ShortName>
@@ -97,6 +101,14 @@
 					<ShortName>Boss_Beam_Hit_Wall.wav</ShortName>
 					<Path>SFX\Boss_Beam_Hit_Wall_0ED39DC9.wem</Path>
 				</File>
+				<File Id="105078837" Language="SFX">
+					<ShortName>Enemy Impact_3.wav</ShortName>
+					<Path>SFX\Enemy Impact_3_C47F2D1B.wem</Path>
+				</File>
+				<File Id="108351414" Language="SFX">
+					<ShortName>Enemy Impact_2.wav</ShortName>
+					<Path>SFX\Enemy Impact_2_C47F2D1B.wem</Path>
+				</File>
 				<File Id="117927810" Language="SFX">
 					<ShortName>In Game Music - Gongs.wav</ShortName>
 					<Path>SFX\In Game Music - Gongs_0ED39DC9.wem</Path>
@@ -105,13 +117,17 @@
 					<ShortName>Enemy_Ranged.wav</ShortName>
 					<Path>SFX\Enemy_Ranged_D8CE6611.wem</Path>
 				</File>
-				<File Id="145298223" Language="SFX">
-					<ShortName>Spear_Hit_Boss.wav</ShortName>
-					<Path>SFX\Spear_Hit_Boss_0AFBF8A2.wem</Path>
-				</File>
 				<File Id="145486535" Language="SFX">
 					<ShortName>Boss_Rain_Hit_Player.wav</ShortName>
 					<Path>SFX\Boss_Rain_Hit_Player_C47F2D1B.wem</Path>
+				</File>
+				<File Id="163235136" Language="SFX">
+					<ShortName>Player Impact_2.wav</ShortName>
+					<Path>SFX\Player Impact_2_C47F2D1B.wem</Path>
+				</File>
+				<File Id="168374737" Language="SFX">
+					<ShortName>Indestructable Impact_3.wav</ShortName>
+					<Path>SFX\Indestructable Impact_3_C47F2D1B.wem</Path>
 				</File>
 				<File Id="193622691" Language="SFX">
 					<ShortName>Button_Start_Game.wav</ShortName>
@@ -149,13 +165,33 @@
 					<ShortName>Enemy_Chatter.wav</ShortName>
 					<Path>SFX\Enemy_Chatter_C47F2D1B.wem</Path>
 				</File>
+				<File Id="350427486" Language="SFX">
+					<ShortName>Enemy Swing Rock_2.wav</ShortName>
+					<Path>SFX\Enemy Swing Rock_2_4B41CF5B.wem</Path>
+				</File>
+				<File Id="358887198" Language="SFX">
+					<ShortName>Enemy Swing Rock_1.wav</ShortName>
+					<Path>SFX\Enemy Swing Rock_1_B8210C6C.wem</Path>
+				</File>
 				<File Id="392426319" Language="SFX">
 					<ShortName>Wheel_Close.wav</ShortName>
 					<Path>SFX\Wheel_Close_A6480562.wem</Path>
 				</File>
+				<File Id="399983031" Language="SFX">
+					<ShortName>Player Impact_4.wav</ShortName>
+					<Path>SFX\Player Impact_4_C47F2D1B.wem</Path>
+				</File>
+				<File Id="406216983" Language="SFX">
+					<ShortName>Player Impact.wav</ShortName>
+					<Path>SFX\Player Impact_C47F2D1B.wem</Path>
+				</File>
 				<File Id="425836869" Language="SFX">
 					<ShortName>Ambience.wav</ShortName>
 					<Path>SFX\Ambience_C47F2D1B.wem</Path>
+				</File>
+				<File Id="450165256" Language="SFX">
+					<ShortName>Player Impact_3.wav</ShortName>
+					<Path>SFX\Player Impact_3_C47F2D1B.wem</Path>
 				</File>
 				<File Id="494802499" Language="SFX">
 					<ShortName>Player_Respawn.wav</ShortName>
@@ -173,6 +209,10 @@
 					<ShortName>In Game Music - Rhythm.wav</ShortName>
 					<Path>SFX\In Game Music - Rhythm_0ED39DC9.wem</Path>
 				</File>
+				<File Id="554798888" Language="SFX">
+					<ShortName>Boss Impact_1.wav</ShortName>
+					<Path>SFX\Boss Impact_1_C47F2D1B.wem</Path>
+				</File>
 				<File Id="568477832" Language="SFX">
 					<ShortName>Music_In_Ending_Cutscene.wav</ShortName>
 					<Path>SFX\Music_In_Ending_Cutscene_0ED39DC9.wem</Path>
@@ -185,17 +225,25 @@
 					<ShortName>Enemy_Ranged_Hit_Wall.wav</ShortName>
 					<Path>SFX\Enemy_Ranged_Hit_Wall_71DAFC6C.wem</Path>
 				</File>
-				<File Id="592625524" Language="SFX">
-					<ShortName>Enemy_Melee_Hit_Player.wav</ShortName>
-					<Path>SFX\Enemy_Melee_Hit_Player_CBBC3035.wem</Path>
+				<File Id="582697754" Language="SFX">
+					<ShortName>Indestructable Impact.wav</ShortName>
+					<Path>SFX\Indestructable Impact_C47F2D1B.wem</Path>
 				</File>
-				<File Id="593519490" Language="SFX">
-					<ShortName>Spear_Hit_Enemy.wav</ShortName>
-					<Path>SFX\Spear_Hit_Enemy_CD768323.wem</Path>
+				<File Id="588111419" Language="SFX">
+					<ShortName>Boss Impact_3.wav</ShortName>
+					<Path>SFX\Boss Impact_3_C47F2D1B.wem</Path>
+				</File>
+				<File Id="598744978" Language="SFX">
+					<ShortName>Enemy Swing Rock_3.wav</ShortName>
+					<Path>SFX\Enemy Swing Rock_3_25902597.wem</Path>
 				</File>
 				<File Id="616539973" Language="SFX">
 					<ShortName>Pickup.wav</ShortName>
 					<Path>SFX\Pickup_0E2C7BFE.wem</Path>
+				</File>
+				<File Id="667649109" Language="SFX">
+					<ShortName>Indestructable Impact_2.wav</ShortName>
+					<Path>SFX\Indestructable Impact_2_C47F2D1B.wem</Path>
 				</File>
 				<File Id="683796896" Language="SFX">
 					<ShortName>Boss_Presentation.wav</ShortName>
@@ -233,9 +281,25 @@
 					<ShortName>Circle_Ability_Control.wav</ShortName>
 					<Path>SFX\Circle_Ability_Control_0ED39DC9.wem</Path>
 				</File>
+				<File Id="898309102" Language="SFX">
+					<ShortName>Enemy Impact.wav</ShortName>
+					<Path>SFX\Enemy Impact_C47F2D1B.wem</Path>
+				</File>
+				<File Id="932996397" Language="SFX">
+					<ShortName>Boss Impact_2.wav</ShortName>
+					<Path>SFX\Boss Impact_2_C47F2D1B.wem</Path>
+				</File>
+				<File Id="962076540" Language="SFX">
+					<ShortName>Player Impact_1.wav</ShortName>
+					<Path>SFX\Player Impact_1_C47F2D1B.wem</Path>
+				</File>
 				<File Id="963882025" Language="SFX">
 					<ShortName>Boss_Rain_Move.wav</ShortName>
 					<Path>SFX\Boss_Rain_Move_0ED39DC9.wem</Path>
+				</File>
+				<File Id="974188488" Language="SFX">
+					<ShortName>Boss Impact.wav</ShortName>
+					<Path>SFX\Boss Impact_C47F2D1B.wem</Path>
 				</File>
 				<File Id="1011084308" Language="SFX">
 					<ShortName>Main Menu Music.wav</ShortName>
@@ -248,6 +312,10 @@
 				<File Id="1053373378" Language="SFX">
 					<ShortName>Boss_Beam_Hit_Enemy.wav</ShortName>
 					<Path>SFX\Boss_Beam_Hit_Enemy_0ED39DC9.wem</Path>
+				</File>
+				<File Id="1062194609" Language="SFX">
+					<ShortName>Enemy Swing Rock.wav</ShortName>
+					<Path>SFX\Enemy Swing Rock_B7709EFC.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>

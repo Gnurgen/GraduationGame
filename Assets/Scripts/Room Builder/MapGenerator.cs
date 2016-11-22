@@ -466,6 +466,8 @@ public class MapGenerator : MonoBehaviour {
                         doors[2] ? 1 : 0,
                         doors[3] ? 1 : 0
                     ];
+                    if (list[0] == null)
+                        list[0] = new List<GameObject>();
                     total = list[0].Count;
 
                     for (l = 1; l < list.Length; l++)

@@ -52,9 +52,11 @@ public class MeleeAI : EnemyStats {
         }
         else if(pauseFor > 0)
         {
+            animator.SetBool("PushPull",true);
             pauseFor -= Time.fixedDeltaTime;
             if (pauseFor <= 0)
             {
+                animator.SetBool("PushPull", false);
                 pauseFor = 0;
                 onPause = false;
             }
