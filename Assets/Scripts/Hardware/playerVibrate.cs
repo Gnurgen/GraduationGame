@@ -12,14 +12,21 @@ public class playerVibrate : MonoBehaviour {
         ID = IM.GetID();
         EM = GameManager.events;
 
-        EM.OnEnemyAttackHit += vibrateForSec;
+        EM.OnEnemyAttackHit += AddStandardVibration;
+        //EM.OnEnemyAttackHit += vibrateForSec;
 	}
 
-    void vibrateForSec(GameObject ID, float dmg)
+
+    void AddStandardVibration(GameObject ID, float dmg)
+    {
+        Handheld.Vibrate();
+    }
+
+    /*void vibrateForSec(GameObject ID, float dmg)
     {
         Debug.Log("Vibrate!");
 #if UNITY_ANDROID
         Vibrator.Vibrate(vibrateForMiliSeconds);
 #endif
     }
-}
+*/}
