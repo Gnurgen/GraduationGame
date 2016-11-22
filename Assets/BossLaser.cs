@@ -15,6 +15,9 @@ public class BossLaser : MonoBehaviour {
     private float shooting;
     private bool rotating;
     private bool[] activeLasers = new bool[4] {false, false, false, false};
+    [SerializeField]
+    private float laserForce;
+
     // Use this for initialization
     void Start () {
         LRPos[0] = transform.position;
@@ -101,7 +104,7 @@ public class BossLaser : MonoBehaviour {
             if (hits[index].collider.tag == "Player")
             {
                 GameManager.events.EnemyAttackHit(gameObject, laserDmgPerSecond);
-                hits[index].transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime);
+                hits[index].transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime, (GameManager.player.transform.position-transform.position).normalized*laserForce);
             }
             yield return null;
         }

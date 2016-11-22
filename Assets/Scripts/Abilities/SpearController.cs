@@ -14,6 +14,7 @@ public class SpearController : MonoBehaviour {
     GameObject[] gameID = new GameObject[50];
     public  Vector3[] points;
     public float turnRate;
+    private float pushForce;
 
     // Use this for initialization
     void Start () {
@@ -91,7 +92,7 @@ public class SpearController : MonoBehaviour {
             }
             if(hit)
             {
-                col.GetComponent<Health>().decreaseHealth(damage);
+                col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position).normalized*pushForce);
                 GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
                 gameID[gameIDIndex] = col.gameObject;
                 gameIDIndex++;
@@ -110,12 +111,13 @@ public class SpearController : MonoBehaviour {
         }
     }
 
-	public void SetParameters(List<Vector3> ps, float speed, float damage){
+	public void SetParameters(List<Vector3> ps, float speed, float damage, float force){
 		points = ps.ToArray ();
 		transform.position = points[0];
 		index = 1;
 		this.speed = speed;
         this.damage = damage;
+        pushForce = force;
 	}
     
 }

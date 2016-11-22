@@ -23,7 +23,7 @@ public class SpawnRagdoll : MonoBehaviour {
             _tag = "KumoRagdoll";
     }
 
-    public void Execute()
+    public void Execute(Vector3 forceDir)
     {
         poolManager.GenerateRagdoll(Ragdoll,_tag, GetComponent<Rigidbody>().velocity);
         Destroy(gameObject);
@@ -33,7 +33,7 @@ public class SpawnRagdoll : MonoBehaviour {
     {
         if (debug)
         {
-            Execute();
+            Execute(Vector3.zero);
         }
     }
 }
