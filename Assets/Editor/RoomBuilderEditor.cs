@@ -15,7 +15,6 @@ public class RoomEditor : Editor {
         {
             GameObject obj = new GameObject("Workbench");
             workbench = obj.AddComponent<RoomBuilder>();
-            workbench.transform.position = new Vector3(0.5f, 0.0f, 0.5f);
             Undo.RegisterCreatedObjectUndo(obj, "Created room builder workbench");
             Selection.objects = new Object[] { obj };
         }
@@ -29,7 +28,7 @@ public class RoomEditor : Editor {
         createBuildingBlocks("Enemy");
     }
 
-    [MenuItem("Tools/Room Builder/Create Object List/Obstructions", false, 2)]
+    [MenuItem("Tools/Room Builder/Create Object List/Obstacles", false, 2)]
     public static void CreateDestructibleBuildingBlocks()
     {
         createBuildingBlocks("Obstacles");
@@ -160,7 +159,7 @@ public class RoomEditor : Editor {
         {
             if (enemies[i].GetComponent<MeleeAI>() != null)
                 meleeEnemy = enemies[i].gameObject;
-            else if (enemies[i].GetComponent<EnemyRangedAttack>() != null)
+            else if (enemies[i].GetComponent<RangedAI>() != null)
                 rangedEnemy = enemies[i].gameObject;
         }
 
@@ -180,10 +179,10 @@ public class RoomEditor : Editor {
 
             if (rangedEnemy != null)
             {
-                roomEnemies = room.GetComponentsInChildren<EnemyRangedAttack>();
+                roomEnemies = room.GetComponentsInChildren<RangedAI>();
                 for (j = 0; j < roomEnemies.Length; j++)
                 {
-                    replace((roomEnemies[j] as EnemyRangedAttack).gameObject, rangedEnemy);
+                    replace((roomEnemies[j] as RangedAI).gameObject, rangedEnemy);
                     rangedCount++;
                 }
             }

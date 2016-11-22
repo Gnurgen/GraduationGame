@@ -124,7 +124,7 @@
 						<Action Name="Play" ID="{42EE06C5-FDB0-4471-94CD-E8A2C2D49D3F}" ShortID="595064426" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{F6D9201C-16CE-4DB4-B9ED-F467864F9FA1}" Global="false">
-									<ObjectRef Name="Enemy_Melee" ID="{E4BBEC44-6ED0-46D4-A05D-7B304D256A0C}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Enemy Melee" ID="{E5B146E2-F46C-49A0-8780-04BE52E83713}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -157,7 +157,7 @@
 						<Action Name="Play" ID="{76E82F8C-FC91-430F-98B0-C4BED2CBEDC0}" ShortID="37797430" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{9566B697-48E9-4A80-8624-8B4F697294CC}" Global="false">
-									<ObjectRef Name="Enemy_Melee_Hit_Player" ID="{15C7D4A4-190B-4A60-8DC3-2B1CBE005E1D}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Enemy Melee Player Impact" ID="{9AAA371D-2DC1-4004-8C32-420E38AB94F3}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>

@@ -128,10 +128,12 @@ public class EventManager : MonoBehaviour
     //################################################################################        ######################################################################
     //##############################################################################################################################################################
 
-    public delegate void BossAction(GameObject boss);
+    public delegate void BossAction(GameObject Id);
     public event BossAction OnBossActivated;
     public event BossAction OnBossPhaseChange;
     public event BossAction OnBossLaserActivation;
+    public event BossAction OnBossLaserDeactivation;
+    public event BossAction OnBossLaserHitPlayer;
     public event BossAction OnBossMeteorActivation;
     public event BossAction OnBossMeteorImpact;
     public event BossAction OnBossDeath;
@@ -151,6 +153,17 @@ public class EventManager : MonoBehaviour
         if (OnBossLaserActivation != null)
             OnBossLaserActivation(Id);
     }
+    public void BossLaserDeactivation(GameObject Id)
+    {
+        if (OnBossLaserDeactivation != null)
+            OnBossLaserDeactivation(Id);
+    }
+    public void BossLaserHitPlayer (GameObject Id)
+    {
+        if (OnBossLaserHitPlayer != null)
+            OnBossLaserHitPlayer(Id);
+    }
+
     public void BossMeteorActivation(GameObject Id)
     {
         if (OnBossMeteorActivation != null)
@@ -166,6 +179,7 @@ public class EventManager : MonoBehaviour
         if (OnBossDeath != null)
             OnBossDeath(Id);
     }
+
 
     //##############################################################################################################################################################
     //#################################################################################     ########################################################################
