@@ -23,14 +23,12 @@ public class PlayerSpearAttack : MonoBehaviour {
     {
         if (col.tag == "Enemy") // Can bug if the trigger collider enters the same enemy twice
         {
-<<<<<<< HEAD:Assets/Scripts/Player/PlayerSpearAttack.cs
+
             col.GetComponent<EnemyStats>().PauseFor(2 * Time.fixedDeltaTime);
-            col.GetComponent<Rigidbody>().AddForce(transform.forward * 1000, ForceMode.Force);
-=======
+            col.GetComponent<Rigidbody>().AddForce((col.transform.position-transform.position).normalized * spearForce, ForceMode.Acceleration);
             col.GetComponent<Health>().decreaseHealth(dmg, (col.transform.position - transform.position).normalized*spearForce);
->>>>>>> origin/master:Assets/PlayerSpearAttack.cs
             GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, dmg);
-            col.GetComponent<Health>().decreaseHealth(dmg);
+     
         }
     }
 }
