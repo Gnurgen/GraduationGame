@@ -74,14 +74,15 @@ public class BossLaser : MonoBehaviour {
     {
         activeLasers[index] = true;
         Quaternion startPos = transform.rotation;
-        rays[index].origin = transform.position + Vector3.down; // vector down because the laser is too high
+        rays[index].origin = transform.up; 
         lasers[index].StartEffect();
         while (shooting > 0)
         {
+           
             switch (index)
             {
                 case 0:
-                    rays[index].direction = transform.forward * 100;
+                    rays[index].direction = transform.forward * 100 ;
                     break;
                 case 1:
                     rays[index].direction = -transform.forward * 100;
@@ -99,9 +100,10 @@ public class BossLaser : MonoBehaviour {
             Physics.Raycast(rays[index], out hits[index]);
             //transform.GetChild(0).position = hit.point + Vector3.up; // vector up to account for low raycast
             //LR.SetPosition(1, transform.GetChild(0).position);
-            lasers[index].SetAttribute(new PKFxManager.Attribute("Target", hits[index].point + Vector3.up));
-            transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime);
-            if (hits[index].collider.tag == "Player")
+            lasers[index].SetAttribute(new PKFxManager.Attribute("Target", hits[index].point));
+            lasers[index].transform.position = hits[index].point;
+            
+            if (hits != null && hits[index].collider.tag == "Player")
             {
                 GameManager.events.EnemyAttackHit(gameObject, laserDmgPerSecond);
                 hits[index].transform.GetComponent<Health>().decreaseHealth(laserDmgPerSecond * Time.deltaTime, (GameManager.player.transform.position-transform.position).normalized*laserForce);
@@ -110,18 +112,17 @@ public class BossLaser : MonoBehaviour {
         }
         lasers[index].StopEffect();
         activeLasers[index] = false;
-        transform.GetChild(0).position = transform.position;
-        //transform.rotation = Quaternion.Euler(0, 0, 0);
-
     }
 
     IEnumerator Rotating()
     {
+        rotating = true;
         while (shooting > 0)
         {
             transform.Rotate(Vector3.up, RotationSpeed * Time.deltaTime);
             yield return null;
         }
+        rotating = false;
         yield break;
     }
 }

@@ -112,6 +112,8 @@ namespace AK
 
     namespace GAME_PARAMETERS
     {
+        static const AkUniqueID MUSIC_VOLUME_SLIDER = 2872980221U;
+        static const AkUniqueID SOUND_EFFECTS_VOLUME_SLIDER = 1464642610U;
         static const AkUniqueID SS_AIR_FEAR = 1351367891U;
         static const AkUniqueID SS_AIR_FREEFALL = 3002758120U;
         static const AkUniqueID SS_AIR_FURY = 1029930033U;
@@ -145,6 +147,7 @@ namespace AK
         static const AkUniqueID MUSIC = 3991942870U;
         static const AkUniqueID REVERB = 348963605U;
         static const AkUniqueID SFX = 393239870U;
+        static const AkUniqueID SOUND_EFFECTS = 978636652U;
         static const AkUniqueID SYSTEM = 3859886410U;
     } // namespace BUSSES
 
