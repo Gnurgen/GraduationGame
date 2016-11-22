@@ -20,6 +20,7 @@ public class EnemyStats : Health {
     public float attackSpeedPerLevel;
     public bool onPause;
     public float pauseFor;
+    public float force;
 
 
 
