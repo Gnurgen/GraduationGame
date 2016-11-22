@@ -15,7 +15,6 @@ public class RoomEditor : Editor {
         {
             GameObject obj = new GameObject("Workbench");
             workbench = obj.AddComponent<RoomBuilder>();
-            workbench.transform.position = new Vector3(0.5f, 0.0f, 0.5f);
             Undo.RegisterCreatedObjectUndo(obj, "Created room builder workbench");
             Selection.objects = new Object[] { obj };
         }
@@ -29,7 +28,7 @@ public class RoomEditor : Editor {
         createBuildingBlocks("Enemy");
     }
 
-    [MenuItem("Tools/Room Builder/Create Object List/Obstructions", false, 2)]
+    [MenuItem("Tools/Room Builder/Create Object List/Obstacles", false, 2)]
     public static void CreateDestructibleBuildingBlocks()
     {
         createBuildingBlocks("Obstacles");
