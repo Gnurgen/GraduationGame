@@ -13,8 +13,10 @@ public class MeteorShower : MonoBehaviour {
     public float HeightOfFall = 10;
     public GameObject Boulder, Fallarea;
     public float Damage;
+
+    private bool Face = false, MoveHead = false;
     [SerializeField]
-    private float meteorForce;
+    private float meteorForce, turnSpeed;
 
     // Use this for initialization
     void Start () {
@@ -25,7 +27,28 @@ public class MeteorShower : MonoBehaviour {
     {
         for(int i = 0; i < meteors; i++)
         {
-            StartCoroutine("BoulderFall");
+            MoveHead = true;
+        }
+    }
+    void Update()
+    {
+        if (MoveHead)
+        {
+
+            Vector3 face = Face ? transform.forward : -transform.forward;
+            Vector3 dir = Quaternion.FromToRotation(face, GameManager.player.transform.position - transform.position).eulerAngles;
+            dir.x = 0;
+            dir.z = 0;
+            if (dir.y < 5 || dir.y > 355)
+            {
+                transform.Rotate(dir);
+                StartCoroutine(BoulderFall());
+                MoveHead = false;
+            }
+            else if (dir.y > 180)
+                transform.Rotate(-dir.normalized * turnSpeed * Time.deltaTime);
+            else
+                transform.Rotate(dir.normalized * turnSpeed * Time.deltaTime);
         }
     }
     IEnumerator BoulderFall()
@@ -62,6 +85,7 @@ public class MeteorShower : MonoBehaviour {
                 hit[i].GetComponent<Health>().decreaseHealth(Damage, (GameManager.player.transform.position-actual), meteorForce);
             }
         }
+        Face = !Face;
         Destroy(boulder);
         Destroy(fallArea);
     }
