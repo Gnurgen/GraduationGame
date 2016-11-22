@@ -16,9 +16,6 @@ public class Vibrator : MonoBehaviour
         // This check will always be false, but the compiler doesn't know that.
         if (Application.isEditor) Handheld.Vibrate();
     }
-    void Start() {
-       // GameManager.events.OnEnemyAttackHit += vibrateForSec;
-    }
 
     public static void Vibrate(long milliseconds)
     {
@@ -30,8 +27,4 @@ public class Vibrator : MonoBehaviour
         Service.Call("vibrate", pattern, repeat);
     }
 
-    void vibrateForSec(GameObject ID, float dmg) {
-        Debug.Log("Vibrate!");
-        Vibrate(100);
-    }
 }
