@@ -566,9 +566,10 @@ public class InputManager : MonoBehaviour {
 	public Vector3 GetWorldPoint(Vector2 pos)
 	{
 		ray = Camera.main.ScreenPointToRay (pos);
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, ~LayerMask.NameToLayer("Occluder")))
+        int layermask = 1 << LayerMask.NameToLayer("Walkable");
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
 			return hit.point;
-		return Vector3.down*100;
+		return GameManager.player.transform.position;
 		//return Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 10));
 	}
 

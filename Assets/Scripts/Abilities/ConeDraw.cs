@@ -35,7 +35,7 @@ public class ConeDraw : MonoBehaviour, IAbility {
     public float Cooldown()
     {
 
-        return currentCooldown < 0 ? 0 : currentCooldown;
+        return currentCooldown < 1 ? 0 : (cooldown - currentCooldown) / cooldown;
     }
 
     public void UseAbility()
