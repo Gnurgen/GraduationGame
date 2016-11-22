@@ -161,11 +161,6 @@ public class RoomBuilder : MonoBehaviour {
         };
     }
 
-    public void AddRoomObject(GameObject go)
-    {
-        go.transform.parent = transform;
-    }
-
     /*
     public void AddRoomObject(GameObject go)
     {

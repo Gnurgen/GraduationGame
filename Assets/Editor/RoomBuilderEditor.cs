@@ -63,7 +63,10 @@ public class RoomEditor : Editor {
                 if (PrefabUtility.GetPrefabType(objects[i]) == PrefabType.PrefabInstance &&
                     go.GetComponentInParent<RoomBuilder>() == null
                 )
-                    workbench.AddRoomObject(go);
+                {
+                    Undo.RecordObject(go.transform, "Adding object to room");
+                    go.transform.parent = workbench.transform;
+                }
             }
         }
     }
