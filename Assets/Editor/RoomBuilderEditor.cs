@@ -53,13 +53,17 @@ public class RoomEditor : Editor {
     public static void AddToRoom()
     {
         RoomBuilder workbench = FindObjectOfType<RoomBuilder>() as RoomBuilder;
+        GameObject go;
         if (workbench != null)
         {
             Object[] objects = Selection.objects;
             for (int i = 0; i < objects.Length; i++)
             {
-                if (PrefabUtility.GetPrefabType(objects[i]) == PrefabType.PrefabInstance)
-                    workbench.AddRoomObject(objects[i] as GameObject);
+                go = objects[i] as GameObject;
+                if (PrefabUtility.GetPrefabType(objects[i]) == PrefabType.PrefabInstance &&
+                    go.GetComponentInParent<RoomBuilder>() == null
+                )
+                    workbench.AddRoomObject(go);
             }
         }
     }
