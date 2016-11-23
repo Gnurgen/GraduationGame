@@ -8,6 +8,14 @@ public class StartMenu : MonoBehaviour {
     public bool isDK = true;
     public Sprite dK, eN;
     public  GameObject language;
+    public GameObject fade;
+
+    private float showTime = 2;
+
+    void Start()
+    {
+        StartCoroutine(FadeinStartScreen());
+    }
 
     public void newGame() {
         SceneManager.LoadScene("CutScene"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
@@ -38,5 +46,11 @@ public class StartMenu : MonoBehaviour {
             language.GetComponent<Image>().overrideSprite = dK;
             isDK = true;
         }
+    }
+
+    IEnumerator FadeinStartScreen()
+    {
+        fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
+        yield return new WaitForSeconds(showTime);
     }
 }
