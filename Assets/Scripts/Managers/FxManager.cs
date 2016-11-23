@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class FxManager : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class FxManager : MonoBehaviour {
     public GameObject flyingSpearHit;
     public GameObject coneHit;
     public GameObject playerDeath;
+    public GameObject playerPickup;
+   
 
     // Boss effects
     public GameObject bossActivation;
@@ -23,10 +26,13 @@ public class FxManager : MonoBehaviour {
     // Basic enemy effects
     public GameObject enemyMeleeAttack;
     public GameObject enemyRangedAttack;
+    public GameObject enemyMeleeAttackHit;
+    public GameObject enemyRangedAttackHit;
     public GameObject enemyDeath;
+    public GameObject RagdollDespawn;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         // Subscribe to player events with effects
         if(playerMeleeAttack != null)
             GameManager.events.OnPlayerAttack += PlayerMeleeAttackEffect;
@@ -61,7 +67,14 @@ public class FxManager : MonoBehaviour {
             GameManager.events.OnEnemyAttackHit += EnemyRangedAttackEffect;
         if(enemyDeath != null)
             GameManager.events.OnEnemyDeath += EnemyDeathEffect;
+        if (RagdollDespawn != null)
+            GameManager.events.OnEnemyRagdollDespawn += RagdollDespawnEffect;
+        if (playerPickup != null)
+            GameManager.events.OnResourcePickup += ResourcePickup;
 	}
+
+   
+
 
     /* -------------------------------------------------------------
      * -------------------------------------------------------------
@@ -72,36 +85,52 @@ public class FxManager : MonoBehaviour {
 
     void PlayerMeleeAttackEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(playerMeleeAttack) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(playerMeleeAttack.tag); 
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
+        ef.GetComponent<PKFxFX>().StartEffect();
     }
 
     void PlayerMeleeHitEffect(GameObject unit1, GameObject unit2, float dmg)
     {
-        GameObject ef = Instantiate(playerMeleeHit) as GameObject;
+        GameObject ef =  GameManager.pool.GenerateObject(playerMeleeHit.tag); 
         ef.transform.position = unit2.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
+        ef.GetComponent<PKFxFX>().StartEffect();
+
     }
 
     void PlayerDashBeginEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(playerDashBegin) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(playerDashBegin.tag); 
+        ef.transform.position = unit.transform.position;
         StartCoroutine(DestroyAfter(ef, 2));
+        ef.GetComponent<PKFxFX>().StartEffect();
     }
 
     void PlayerDashEndEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(playerDashEnd) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(playerDashEnd.tag); 
+        ef.transform.position = unit.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
+
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void PlayerDeathEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(playerDeath) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(playerDeath.tag); 
+        ef.transform.position = unit.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
+        StartCoroutine(DestroyAfter(ef, 2));
+    }
+    private void ResourcePickup(GameObject unit, int amount)
+    {
+        GameObject ef = GameManager.pool.GenerateObject(playerPickup.tag);
+        ef.transform.SetParent(GameManager.player.transform);
+        ef.transform.localPosition = Vector3.zero;
+        
+        ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
@@ -115,43 +144,49 @@ public class FxManager : MonoBehaviour {
 
     void BossActivationEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(bossActivation) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(bossActivation.tag); 
+        ef.transform.position = unit.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossLaserActivationEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(bossLaserActivation) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(bossLaserActivation.tag); 
+        ef.transform.position = unit.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossMeteorActivationEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(bossMeteorActivation) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(bossMeteorActivation.tag); 
+        ef.transform.position = unit.transform.position ;
+        ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossMeteorImpactEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(bossMeteorImpact) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(bossMeteorImpact.tag); 
+        ef.transform.position = unit.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossPhaseChangeEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(bossPhaseChange) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(bossPhaseChange.tag); 
+        ef.transform.position = unit.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
     void BossDeathEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(bossDeath) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(bossDeath.tag); 
+        ef.transform.position = unit.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
@@ -166,8 +201,9 @@ public class FxManager : MonoBehaviour {
     {
         if(unit.GetComponent<MeleeAI>() != null)
         {
-            GameObject ef = Instantiate(enemyMeleeAttack) as GameObject;
-            ef.transform.position = GameManager.player.transform.position + GameManager.player.transform.forward.normalized;
+            GameObject ef =  GameManager.pool.GenerateObject(enemyMeleeAttack.tag); 
+            ef.transform.position = GameManager.player.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
             StartCoroutine(DestroyAfter(ef, 2));
         }
     }
@@ -176,25 +212,38 @@ public class FxManager : MonoBehaviour {
     {
         if(unit.GetComponent<RangedAI>() != null)
         {
-            GameObject ef = Instantiate(enemyRangedAttack) as GameObject;
-            ef.transform.position = GameManager.player.transform.position + GameManager.player.transform.forward.normalized;
+            GameObject ef =  GameManager.pool.GenerateObject(enemyRangedAttack.tag); 
+            ef.transform.position = GameManager.player.transform.position ;
+        ef.GetComponent<PKFxFX>().StartEffect();
             StartCoroutine(DestroyAfter(ef, 2));
         }
     }
 
     void EnemyDeathEffect(GameObject unit)
     {
-        GameObject ef = Instantiate(enemyDeath) as GameObject;
-        ef.transform.position = unit.transform.position + unit.transform.forward.normalized;
+        GameObject ef =  GameManager.pool.GenerateObject(enemyDeath.tag); 
+        ef.transform.position = unit.transform.position;
+        ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
 
-    IEnumerator DestroyAfter(GameObject obj, float time)
+    private void RagdollDespawnEffect(GameObject unit) 
+    {
+        GameObject ef = GameManager.pool.GenerateObject(RagdollDespawn.tag);
+        ef.transform.position = unit.transform.GetChild(0).GetChild(10).position; // Special case for ragdoll position
+        ef.GetComponent<PKFxFX>().StartEffect();
+        StartCoroutine(DestroyAfter(ef, 2));
+    }
+
+
+    IEnumerator DestroyAfter(GameObject obj, float time) // POOL INSTEAD OF DESTROY (fixing)
     {
         if(time > 0)
         {
             yield return new WaitForSeconds(time);
         }
-        Destroy(obj);
+        obj.GetComponent<PKFxFX>().StopEffect();
+        GameManager.pool.PoolObj(obj);
     }
+
 }

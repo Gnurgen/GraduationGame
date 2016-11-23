@@ -27,7 +27,7 @@ public class HomingMissleAI : MonoBehaviour {
         if (hit.tag == "Player")
         {
             GameManager.events.EnemyAttackHit(gameObject, dmg);
-            hit.transform.GetComponent<Health>().decreaseHealth(dmg, (GameManager.player.transform.position-transform.position).normalized*missileForce);
+            hit.transform.GetComponent<Health>().decreaseHealth(dmg, (GameManager.player.transform.position-transform.position), missileForce);
             Destroy(gameObject);
         }
     }

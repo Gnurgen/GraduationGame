@@ -110,9 +110,17 @@ public class BossAI : MonoBehaviour {
         currentMeteorFrequency = 0;
         laserAbility = GetComponentInChildren<BossLaser>();
         meteorAbility = GetComponentInChildren<MeteorShower>();
-        Activate();
+        
     }
-	
+
+    void OnTriggerEnter(Collider col) // start when close to him
+    {
+        if (col.tag == "Player")
+        {
+            Activate();
+            Destroy(GetComponent<SphereCollider>());
+        }
+    }
 	// Update is called once per frame
 	void Update () {
         currentLaserDelay -= Time.deltaTime;
@@ -123,6 +131,8 @@ public class BossAI : MonoBehaviour {
 
     public void Activate()
     {
+        GameManager.events.BossActivated(gameObject);
+        transform.GetChild(0).GetComponent<BossFollowPlayer>().enabled = true; // Activates head to follow player
         currentLaserDelay = stage1LaserDelay;
         currentMeteorDelay = stage1MeteorDelay;
         StartCoroutine(Stage1());
@@ -130,6 +140,7 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage1()
     {
+        print("PHASE ONE");
         laserAbility.DeActivate();
         currentLaserDelay = stage1LaserDelay;
         currentMeteorDelay = stage1MeteorDelay;
@@ -154,6 +165,8 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage2()
     {
+        print("PHASE TWO");
+        GameManager.events.BossPhaseChange(gameObject);
         laserAbility.DeActivate();
         currentLaserDelay = stage2LaserDelay;
         currentMeteorDelay = stage2MeteorDelay;
@@ -178,6 +191,8 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage3()
     {
+        print("PHASE THREE");
+        GameManager.events.BossPhaseChange(gameObject);
         laserAbility.DeActivate();
         currentLaserDelay = stage3LaserDelay;
         currentMeteorDelay = stage3MeteorDelay;
@@ -202,6 +217,8 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage4()
     {
+        print("PHASE FOUR");
+        GameManager.events.BossPhaseChange(gameObject);
         currentLaserDelay = stage4LaserDelay;
         currentMeteorDelay = stage4MeteorDelay;
         while (health.health / health.maxHealth > stage4End)
@@ -219,6 +236,8 @@ public class BossAI : MonoBehaviour {
             }
             yield return new WaitForFixedUpdate();
         }
+        print("YOU WON");
+        GameManager.events.BossDeath(gameObject);
         yield break;
     }
 

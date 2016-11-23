@@ -56,7 +56,7 @@ public class ConeAbility : MonoBehaviour {
     {
         for(int i = 0; i<dir.Length; ++i)
         {
-            coneParticle = poolManager.GenerateObject("ConeParticle");
+            coneParticle = poolManager.GenerateObject("p_ConeParticle");
             coneParticle.transform.position = (transform.position-Vector3.up) + Vector3.up*Random.Range(0.1f, 1.5f);
             dir[i].y = coneParticle.transform.position.y;
             coneParticle.transform.LookAt(dir[i]);
@@ -82,18 +82,17 @@ public class ConeAbility : MonoBehaviour {
 
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
     {
-        print(go);
         yield return new WaitForSeconds(delayTime);
         if (go == null)
         {
-            print(go);
             ++cCounter;
         }
         else
         {
             print("applycone");
-            go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce);
-            go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position).normalized * pushForce);
+            GameManager.events.ConeAbilityHit(go);
+            go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce, ForceMode.Impulse);
+            go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
             go.GetComponent<EnemyStats>().PauseFor(stunTime);
             go.layer = 10;
             ++cCounter;

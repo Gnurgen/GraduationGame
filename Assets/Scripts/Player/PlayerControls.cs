@@ -41,8 +41,8 @@ public class PlayerControls : MonoBehaviour {
     private Rigidbody body;
     // Use this for initialization
     void Start () {
-        im = FindObjectOfType<InputManager>();
-        em = FindObjectOfType<EventManager>();
+        im = GameManager.input;
+        em = GameManager.events;
         em.OnWheelOpen += disableMovement;
         em.OnDrawComplete += enableMovement; // har ændret det til onDrawComplete, i stedet for onWheelSelect (kys Kris <3)
         body = GetComponent<Rigidbody>();
@@ -92,9 +92,8 @@ public class PlayerControls : MonoBehaviour {
     IEnumerator Moving()
     {
         state = State.Moving;
-        
+
         em.PlayerMove(gameObject);
-       
         while (state == State.Moving && shouldMove && Vector3.Distance(transform.position, MoveToPoint) > 0.1f)
         {
             body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;

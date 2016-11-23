@@ -167,11 +167,11 @@
 				</File>
 				<File Id="350427486" Language="SFX">
 					<ShortName>Enemy Swing Rock_2.wav</ShortName>
-					<Path>SFX\Enemy Swing Rock_2_4B41CF5B.wem</Path>
+					<Path>SFX\Enemy Swing Rock_2_CB76C922.wem</Path>
 				</File>
 				<File Id="358887198" Language="SFX">
 					<ShortName>Enemy Swing Rock_1.wav</ShortName>
-					<Path>SFX\Enemy Swing Rock_1_B8210C6C.wem</Path>
+					<Path>SFX\Enemy Swing Rock_1_57C785D3.wem</Path>
 				</File>
 				<File Id="392426319" Language="SFX">
 					<ShortName>Wheel_Close.wav</ShortName>
@@ -235,7 +235,7 @@
 				</File>
 				<File Id="598744978" Language="SFX">
 					<ShortName>Enemy Swing Rock_3.wav</ShortName>
-					<Path>SFX\Enemy Swing Rock_3_25902597.wem</Path>
+					<Path>SFX\Enemy Swing Rock_3_442DBB92.wem</Path>
 				</File>
 				<File Id="616539973" Language="SFX">
 					<ShortName>Pickup.wav</ShortName>
@@ -315,7 +315,7 @@
 				</File>
 				<File Id="1062194609" Language="SFX">
 					<ShortName>Enemy Swing Rock.wav</ShortName>
-					<Path>SFX\Enemy Swing Rock_B7709EFC.wem</Path>
+					<Path>SFX\Enemy Swing Rock_4C73367A.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
