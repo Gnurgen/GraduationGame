@@ -13,14 +13,7 @@ public class CameraOcclusion : MonoBehaviour
     RaycastHit[] hit;
     void Start()
     {
-        tarPoint[0] = GameManager.player.transform.position - transform.position;
-        if(scanAreas == 2)
-            tarPoint[1] = tarPoint[0] + Vector3.up * GameManager.player.GetComponent<CapsuleCollider>().height;
-        if(scanAreas == 3)
-        {
-            tarPoint[2] = tarPoint[0] + Vector3.right * GameManager.player.GetComponent<CapsuleCollider>().radius + Vector3.up * GameManager.player.GetComponent<CapsuleCollider>().height / 2f;
-            tarPoint[3] = tarPoint[2] - Vector3.right * GameManager.player.GetComponent<CapsuleCollider>().radius * 2;
-        }
+        StartCoroutine(WaitForAnim(3.0f));
     }
 
     void Update()
@@ -35,5 +28,20 @@ public class CameraOcclusion : MonoBehaviour
         ++curRay;
         if (curRay >= scanAreas + 1)
             curRay = 0;
+
+        Debug.DrawRay(ray.origin, tarPoint[0] * 1000);
+    }
+
+    IEnumerator WaitForAnim(float dur)
+    {
+        yield return new WaitForSeconds(dur);
+        tarPoint[0] = GameManager.player.transform.position - transform.position;
+        if (scanAreas == 2)
+            tarPoint[1] = tarPoint[0] + Vector3.up * GameManager.player.GetComponent<CapsuleCollider>().height;
+        if (scanAreas == 3)
+        {
+            tarPoint[2] = tarPoint[0] + Vector3.right * GameManager.player.GetComponent<CapsuleCollider>().radius + Vector3.up * GameManager.player.GetComponent<CapsuleCollider>().height / 2f;
+            tarPoint[3] = tarPoint[2] - Vector3.right * GameManager.player.GetComponent<CapsuleCollider>().radius * 2;
+        }
     }
 }
