@@ -13,6 +13,7 @@ public class FxManager : MonoBehaviour {
     public GameObject coneHit;
     public GameObject playerDeath;
     public GameObject playerPickup;
+    public GameObject playerSpearAttack;
    
 
     // Boss effects
@@ -31,6 +32,9 @@ public class FxManager : MonoBehaviour {
     public GameObject enemyDeath;
     public GameObject RagdollDespawn;
 
+    //variable caching
+    private Transform spearTip;
+
     // Use this for initialization
     void Start () {
         // Subscribe to player events with effects
@@ -45,6 +49,12 @@ public class FxManager : MonoBehaviour {
         // Insert ability effects here
         if(playerDeath != null)
             GameManager.events.OnPlayerDeath += PlayerDeathEffect;
+        if (playerSpearAttack != null)
+        {
+            spearTip = GameManager.player.GetComponent<PlayerControls>().SpearTip.transform;
+            //GameManager.events.OnPlayerSpear += SpearEffect;
+            print("####### EVENT FOR SPEAREFFECT HAS NOT BEEN ASSIGNED: doubleclick me and uncomment code #######");
+        }
 
         // Subscribe to boss events with effects
         if(bossActivation != null)
@@ -85,8 +95,7 @@ public class FxManager : MonoBehaviour {
 
     void PlayerMeleeAttackEffect(GameObject unit)
     {
-        GameObject ef =  GameManager.pool.GenerateObject(playerMeleeAttack.tag); 
-        ef.transform.position = unit.transform.position;
+        GameObject ef =  GameManager.pool.GenerateObject(playerMeleeAttack.tag);
         StartCoroutine(DestroyAfter(ef, 2));
         ef.GetComponent<PKFxFX>().StartEffect();
     }
@@ -130,6 +139,14 @@ public class FxManager : MonoBehaviour {
         ef.transform.SetParent(GameManager.player.transform);
         ef.transform.localPosition = Vector3.zero;
         
+        ef.GetComponent<PKFxFX>().StartEffect();
+        StartCoroutine(DestroyAfter(ef, 2));
+    }
+
+    private void SpearEffect()
+    {
+        GameObject ef = GameManager.pool.GenerateObject(playerSpearAttack.tag);
+        ef.transform.position = spearTip.position;
         ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
