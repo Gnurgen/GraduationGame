@@ -21,7 +21,7 @@ public class MenuWheel : MonoBehaviour {
     private int currentButton;
     private int selectedButton;
     private Vector2 tempTouchPos;
-
+    private bool firstFinger = false;
     
     //Calulating circle
     private Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
@@ -52,7 +52,9 @@ public class MenuWheel : MonoBehaviour {
         IM = GameManager.input;
         ID = IM.GetID();
         IM.OnFirstTouchBeginSub(checkIfCenter, ID);
+        IM.OnSecondTouchBeginSub(checkIfCenter, ID);
         IM.OnFirstTouchEndSub(OnRelease, ID);
+        IM.OnSecondTouchEndSub(OnRelease, ID);
         IM.OnFirstTouchMoveSub(updateMouse, ID);
         Wheel.SetActive(false);
     }
@@ -207,6 +209,7 @@ public class MenuWheel : MonoBehaviour {
     
     void OnClick()
     {
+
         GameManager.events.WheelOpen();
         updateMouse(new Vector2(Screen.width / 2, Screen.height / 2));
         IM.TakeControl(ID);
@@ -215,6 +218,9 @@ public class MenuWheel : MonoBehaviour {
 
     void OnRelease(Vector2 p)
     {
+        //if(firstFinger)
+            //firstfinger = false;
+        //else
         if (wheelClicked)
         {
             mouseRelease = true;
@@ -223,7 +229,11 @@ public class MenuWheel : MonoBehaviour {
     }
     void checkIfCenter(Vector2 touchPos) {
         if (Vector2.Distance(center, touchPos) <= centerDistance)
-            OnClick();
+        {
+            if(firstFinger)
+                OnClick();
+            firstFinger = true;
+        }
     }
     void updateMouse(Vector2 touchPos) {
         tempTouchPos = touchPos - new Vector2(Screen.width / 2, Screen.height / 2);
