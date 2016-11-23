@@ -8,7 +8,7 @@ public class StartElevator : MonoBehaviour {
     private float speed = 1;
 
 	void Start () {
-        player = GameObject.Find("Kumo");
+        player = GameManager.player;
         fade = GameObject.Find("Fade");
         fade.GetComponent<Fade>().fadeFromBlack(3);
 
