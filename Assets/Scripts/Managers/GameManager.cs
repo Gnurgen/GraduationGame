@@ -33,12 +33,19 @@ public class GameManager {
 
     public static void GameOver(bool CheckPoint)
     {
-        //move player??
+        player.SetActive(true);
+        //move player?? ++Setplayer active
         if (!CheckPoint)
         {
-            SceneManager.LoadScene(GAMEOVER_SCENE);
+            _instance = null;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
         }
-        //Application.Quit();
+        else
+        {
+            //player.transform.position
+        }
     }
 
     public static int score

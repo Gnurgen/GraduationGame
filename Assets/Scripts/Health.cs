@@ -37,8 +37,7 @@ public class Health : MonoBehaviour {
     }
 
 
-    public void decreaseHealth(float val)
-
+    public void decreaseHealth(float val, Vector3 forceDir, float pushForce)
     {
         health -= val;
         if (health <= 0)
@@ -50,11 +49,15 @@ public class Health : MonoBehaviour {
             else
             {
                 GameManager.events.EnemyDeath(gameObject);
-                GameManager.events.ResourceDrop(gameObject, 3); // AMOUNT OF BLOBS DROPS
+                GameManager.events.ResourceDrop(gameObject, 1); // AMOUNT OF BLOBS DROPS
             }
-            rd.Execute();
+            forceDir.y = 0;
+            forceDir = Vector3.Normalize(forceDir) * pushForce;
+            forceDir.y = 2;
+            rd.Execute(forceDir);
         }
     }
+
 
     public void increaseHealth(GameObject Id, int val)
     {
