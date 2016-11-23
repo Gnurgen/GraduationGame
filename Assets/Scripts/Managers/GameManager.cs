@@ -33,9 +33,10 @@ public class GameManager {
 
     public static void GameOver(bool CheckPoint)
     {
-        //move player??
+        //move player?? ++Setplayer active
         if (!CheckPoint)
         {
+            _instance = null;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             
