@@ -91,8 +91,9 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Moving()
     {
+        
         state = State.Moving;
-
+       
         em.PlayerMove(gameObject);
         while (state == State.Moving && shouldMove && Vector3.Distance(transform.position, MoveToPoint) > 0.1f)
         {
@@ -122,10 +123,12 @@ public class PlayerControls : MonoBehaviour {
         transform.Rotate(moveDir);
         yield return new WaitForFixedUpdate();
         SpearTip.SetActive(true);
+        em.PlayerIdle(gameObject);
         while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))
         {
             yield return null;
         }
+       
         SpearTip.SetActive(false);
 
         //currentAttackCooldown = attackCooldown;
