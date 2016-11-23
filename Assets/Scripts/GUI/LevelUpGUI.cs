@@ -27,7 +27,7 @@ public class LevelUpGUI : MonoBehaviour
 
     void Start()
     {
-        IM = FindObjectOfType<InputManager>();
+        IM = GameManager.input;
         IM.OnFirstTouchBeginSub(click, ID);
         IM.OnFirstTouchEndSub(release, ID);
         IM.OnFirstTouchMoveSub(followTouch, ID);
