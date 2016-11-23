@@ -15,7 +15,7 @@ public class MenuWheel : MonoBehaviour {
     private int nrOptions;
     public GameObject Wheel;
     GameObject[] listOfButtons2;
-    public GameObject coneCool, flyingCool;
+    private GameObject coneCool, flyingCool;
     private bool wheelClicked = false;
     private bool mouseRelease = false;
     private int currentButton;
@@ -47,6 +47,8 @@ public class MenuWheel : MonoBehaviour {
         minMax = new float[nrOptions * 2];
         angle = 2 * Mathf.PI / nrOptions;
         drawWheel();
+        flyingCool = GameObject.Find("flyingCool");
+        coneCool = GameObject.Find("coneCool");
         IM = GameManager.input;
         ID = IM.GetID();
         IM.OnFirstTouchBeginSub(checkIfCenter, ID);
@@ -227,7 +229,10 @@ public class MenuWheel : MonoBehaviour {
         tempTouchPos = touchPos - new Vector2(Screen.width / 2, Screen.height / 2);
     }
     void checkCooldown() {
-        flyingCool.GetComponent<Image>().fillAmount = flyingSpear.Cooldown();
+        float sCool = flyingSpear.Cooldown();
+        //Debug.Log("Cooldown: " + sCool);
+        flyingCool.GetComponent<Image>().fillAmount = sCool;
+       // Debug.Log(flyingCool.GetComponent<Image>().fillAmount);
         coneCool.GetComponent<Image>().fillAmount = coneDraw.Cooldown();
     }
 }

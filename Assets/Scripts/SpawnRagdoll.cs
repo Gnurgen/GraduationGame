@@ -23,17 +23,17 @@ public class SpawnRagdoll : MonoBehaviour {
             _tag = "KumoRagdoll";
     }
 
-    public void Execute()
+    public void Execute(Vector3 forceDir)
     {
-        poolManager.GenerateRagdoll(Ragdoll,_tag);
-        Destroy(gameObject);
+        poolManager.GenerateRagdoll(Ragdoll,_tag, forceDir);
+        gameObject.SetActive(false);
     }
 
     void Update()
     {
         if (debug)
         {
-            Execute();
+            Execute(Vector3.zero);
         }
     }
 }

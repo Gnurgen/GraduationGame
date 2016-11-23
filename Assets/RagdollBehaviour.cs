@@ -5,8 +5,13 @@ public class RagdollBehaviour : MonoBehaviour {
     public float DespawnTime;
     PoolManager pm;
 	// Use this for initialization
-	void Start () {
+    void Start ()
+    {
         pm = FindObjectOfType<PoolManager>();
+        Invoke("Repool", DespawnTime);
+    }
+	void OnEnable () {
+      
         Invoke("Repool", DespawnTime);
 	}
 	
@@ -18,5 +23,6 @@ public class RagdollBehaviour : MonoBehaviour {
     private void Repool()
     {
         pm.PoolObj(gameObject);
+        GameManager.events.EnemyRagdollDespawn(gameObject);
     }
 }

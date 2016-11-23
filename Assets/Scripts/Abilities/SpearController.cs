@@ -14,6 +14,7 @@ public class SpearController : MonoBehaviour {
     GameObject[] gameID = new GameObject[50];
     public  Vector3[] points;
     public float turnRate;
+    private float pushForce;
 
     // Use this for initialization
     void Start () {
@@ -61,7 +62,7 @@ public class SpearController : MonoBehaviour {
                     try
                     {
                         Destroy(gameID[i].GetComponent<SpringJoint>());
-                        gameID[gameIDIndex - 1].GetComponent<EnemyStats>().UnPause();
+                        //gameID[gameIDIndex - 1].GetComponent<EnemyStats>().PauseFor(0.2f);
                         gameID[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
                     }
                     catch { };
@@ -77,7 +78,22 @@ public class SpearController : MonoBehaviour {
     {
         if(col.tag == "Boss")
         {
-            GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
+            
+            bool hit = true;
+            for (int i = 0; i <= gameIDIndex; i++)
+            {
+                if (gameID[i] == col.gameObject)
+                {
+                    hit = false;
+                }
+            }
+            if (hit)
+            {
+                col.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
+                GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
+                gameID[gameIDIndex] = col.gameObject;
+                gameIDIndex++;
+            }
         }
         if(col.tag == "Enemy")
         {
@@ -91,7 +107,7 @@ public class SpearController : MonoBehaviour {
             }
             if(hit)
             {
-                col.GetComponent<Health>().decreaseHealth(damage);
+                col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position), pushForce);
                 GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
                 gameID[gameIDIndex] = col.gameObject;
                 gameIDIndex++;
@@ -100,7 +116,7 @@ public class SpearController : MonoBehaviour {
             {
                 gameID[gameIDIndex - 1].AddComponent<SpringJoint>();
                 gameID[gameIDIndex - 1].GetComponent<SpringJoint>().connectedBody = GetComponent<Rigidbody>();
-                gameID[gameIDIndex - 1].GetComponent<EnemyStats>().Pause();
+                gameID[gameIDIndex - 1].GetComponent<EnemyStats>().PauseFor(0.2f);
                 // DET HER ER NOK FIXED I PREFABEN FREMOVER !!!! 
                 //gameID[gameIDIndex - 1].GetComponent<CapsuleCollider>().isTrigger = false;
                 //Rigidbody gameRig = gameID[gameIDIndex - 1].GetComponent<Rigidbody>();
@@ -110,12 +126,13 @@ public class SpearController : MonoBehaviour {
         }
     }
 
-	public void SetParameters(List<Vector3> ps, float speed, float damage){
+	public void SetParameters(List<Vector3> ps, float speed, float damage, float force){
 		points = ps.ToArray ();
 		transform.position = points[0];
 		index = 1;
 		this.speed = speed;
         this.damage = damage;
+        pushForce = force;
 	}
     
 }

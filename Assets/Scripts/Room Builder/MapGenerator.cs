@@ -62,11 +62,12 @@ public class MapGenerator : MonoBehaviour {
         int l;
         int y;
         int index;
+        int offset;
         int total;
         int branchPasses = 0;
         int gridSize;
         List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
-        List<GameObject>[,,,,] roomsByDoors = new List<GameObject>[2, 2, 2, 2, 2];
+        List<GameObject>[,,,,] roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
         List<GameObject>[] list = new List<GameObject>[4];
         List<RoomBuilder> largeRooms = new List<RoomBuilder>();
         GameObject go;
@@ -86,15 +87,14 @@ public class MapGenerator : MonoBehaviour {
                 hashIndex = room.GetHashIndex();
                 if (hashIndex[0] == 0)
                 {
-                    if (roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
-                        roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
-                    roomsByDoors[0, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
-
-                    if (room.isRotatable || rotateAnyRoom)
+                    for (j = 0; j < 4; j++)
                     {
-                        if (roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
-                            roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
-                        roomsByDoors[1, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
+                        if (j == 0 || j == 1 && (room.isRotatable || rotateAnyRoom) || j == 2 && room.isBeaconRoom || j == 3 && room.isBeaconRoom && (room.isRotatable || rotateAnyRoom))
+                        {
+                            if (roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
+                                roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
+                            roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
+                        }
                     }
                 }
                 else
@@ -207,7 +207,7 @@ public class MapGenerator : MonoBehaviour {
         switch (shape)
         {
             case MapShape.Branching:
-                int offset = 1;
+                offset = 1;
                 List<int> indexList = new List<int>();
                 startRoom = new int[] { center, center };
 
@@ -383,8 +383,10 @@ public class MapGenerator : MonoBehaviour {
                         for (l = 0; l < largeRoomMask.GetLength(0) && b; l++)
                         {
                             if (mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]] == null ||
-                                i + largeRoomMask[l, 0] == startRoom[0] && j + largeRoomMask[l, 1] == startRoom[1] ||
-                                i + largeRoomMask[l, 0] == goalRoom[0] && j + largeRoomMask[l, 1] == goalRoom[1] ||
+                                largeRoomMask[l, 0] > 0 && largeRoomMask[l, 0] < 3 && largeRoomMask[l, 1] > 0 && largeRoomMask[l, 1] > 3 && (
+                                    i + largeRoomMask[l, 0] == startRoom[0] && j + largeRoomMask[l, 1] == startRoom[1] ||
+                                    i + largeRoomMask[l, 0] == goalRoom[0] && j + largeRoomMask[l, 1] == goalRoom[1]
+                                ) || 
                                 mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]].segment >= 0)
                             {
                                 b = false;
@@ -458,64 +460,70 @@ public class MapGenerator : MonoBehaviour {
             {
                 if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
                 {
-                    doors = mapGrid[i, j].doors;
-                    list[0] = roomsByDoors[
-                        0,
-                        doors[0] ? 1 : 0,
-                        doors[1] ? 1 : 0,
-                        doors[2] ? 1 : 0,
-                        doors[3] ? 1 : 0
-                    ];
-                    total = list[0].Count;
-
-                    for (l = 1; l < list.Length; l++)
+                    offset = startRoom[0] == i && startRoom[1] == j || goalRoom[0] == i && goalRoom[1] == j ? 1 : 0;
+                    do
                     {
-                        doors = rotateDoors(doors);
-                        list[l] = roomsByDoors[
-                            1,
+                        doors = mapGrid[i, j].doors;
+                        list[0] = roomsByDoors[
+                            offset * 2,
                             doors[0] ? 1 : 0,
                             doors[1] ? 1 : 0,
                             doors[2] ? 1 : 0,
                             doors[3] ? 1 : 0
                         ];
-                        if (list[l] == null)
-                            list[l] = new List<GameObject>();
-                        total += list[l].Count;
-                    }
+                        if (list[0] == null)
+                            list[0] = new List<GameObject>();
+                        total = list[0].Count;
 
-                    if (total > 0)
-                    {
-                        index = Random.Range(0, total - 1);
-
-                        if (index < list[0].Count)
+                        for (l = 1; l < list.Length; l++)
                         {
-                            l = 0;
-                        }
-                        else if (index < list[0].Count + list[1].Count)
-                        {
-                            index -= list[0].Count;
-                            l = 1;
-                        }
-                        else if (index < list[0].Count + list[1].Count + list[2].Count)
-                        {
-                            index -= list[0].Count + list[1].Count;
-                            l = 2;
-                        }
-                        else
-                        {
-                            index -= list[0].Count + list[1].Count + list[2].Count;
-                            l = 3;
+                            doors = rotateDoors(doors);
+                            list[l] = roomsByDoors[
+                                offset * 2 + 1,
+                                doors[0] ? 1 : 0,
+                                doors[1] ? 1 : 0,
+                                doors[2] ? 1 : 0,
+                                doors[3] ? 1 : 0
+                            ];
+                            if (list[l] == null)
+                                list[l] = new List<GameObject>();
+                            total += list[l].Count;
                         }
 
-                        go = Instantiate(list[l][index].gameObject);
-                        go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * j * RoomTile.TILE_SCALE);
-                        if (l > 0)
+                        if (total > 0)
                         {
-                            go.transform.Rotate(Vector3.up * -90 * l);
-                            go.transform.position = new Vector3(go.transform.position.x + (l < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1)  : 0), 0, go.transform.position.z + (l > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
+                            index = Random.Range(0, total - 1);
+
+                            if (index < list[0].Count)
+                            {
+                                l = 0;
+                            }
+                            else if (index < list[0].Count + list[1].Count)
+                            {
+                                index -= list[0].Count;
+                                l = 1;
+                            }
+                            else if (index < list[0].Count + list[1].Count + list[2].Count)
+                            {
+                                index -= list[0].Count + list[1].Count;
+                                l = 2;
+                            }
+                            else
+                            {
+                                index -= list[0].Count + list[1].Count + list[2].Count;
+                                l = 3;
+                            }
+
+                            go = Instantiate(list[l][index].gameObject);
+                            go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * j * RoomTile.TILE_SCALE);
+                            if (l > 0)
+                            {
+                                go.transform.Rotate(Vector3.up * -90 * l);
+                                go.transform.position = new Vector3(go.transform.position.x + (l < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0), 0, go.transform.position.z + (l > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
+                            }
+                            rooms.Add(go);
                         }
-                        rooms.Add(go);
-                    }
+                    } while (offset-- > 0 && total == 0);
                 }
             }
         }

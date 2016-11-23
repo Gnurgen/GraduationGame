@@ -137,6 +137,11 @@ public class RoomBuilder : MonoBehaviour {
         enemyList.Remove(enemy);
         if (enemyList.Count == 0)
         {
+            OpenCloseDoor[] toggleList = GetComponentsInChildren<OpenCloseDoor>();
+            for (int i = 0; i < toggleList.Length; i++)
+            {
+                toggleList[i].openDoor();
+            }
             // Room cleared
         }
     }
@@ -159,11 +164,6 @@ public class RoomBuilder : MonoBehaviour {
             hasDoorList[2] ? 1 : 0,
             hasDoorList[3] ? 1 : 0
         };
-    }
-
-    public void AddRoomObject(GameObject go)
-    {
-        go.transform.parent = transform;
     }
 
     /*

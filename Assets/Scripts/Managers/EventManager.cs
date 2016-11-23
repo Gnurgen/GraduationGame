@@ -7,7 +7,8 @@ public class EventManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        if (FindObjectOfType<GameOverFade>() == null)
+            Instantiate(Resources.Load<GameObject>("Prefabs/GameOverFade"));
     }
 
     // Update is called once per frame
@@ -28,6 +29,7 @@ public class EventManager : MonoBehaviour
     public event EnemyAction OnEnemyAggro;
     public event EnemyAction OnEnemyAggroLost;
     public event EnemyAction OnEnemyDeath;
+    public event EnemyAction OnEnemyRagdollDespawn;
     public event EnemyAction OnEnemyRangedMiss;
     public void EnemyAttack(GameObject Id)
     {
@@ -53,6 +55,11 @@ public class EventManager : MonoBehaviour
     {
         if (OnEnemyDeath != null)
             OnEnemyDeath(Id);
+    }
+    public void EnemyRagdollDespawn(GameObject Id)
+    {
+        if (OnEnemyRagdollDespawn != null)
+            OnEnemyRagdollDespawn(Id);
     }
     public void EnemyRangedMiss(GameObject Id)
     {
@@ -80,6 +87,7 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnPlayerDeath;
     public event PlayerAction OnPlayerMove;
     public event PlayerAction OnPlayerIdle;
+    public event PlayerAction OnConeAbilityHit;
 
     public delegate void PlayerAttackHitAction(GameObject Id, GameObject tar, float val);
     public event PlayerAttackHitAction OnPlayerAttackHit;
@@ -120,7 +128,11 @@ public class EventManager : MonoBehaviour
         if (OnPlayerIdle != null)
             OnPlayerIdle(Id);
     }
-
+    public void ConeAbilityHit(GameObject Id)
+    {
+        if (OnConeAbilityHit != null)
+            OnConeAbilityHit(Id);
+    }
 
     //##############################################################################################################################################################
     //################################################################################        ######################################################################
@@ -128,10 +140,12 @@ public class EventManager : MonoBehaviour
     //################################################################################        ######################################################################
     //##############################################################################################################################################################
 
-    public delegate void BossAction(GameObject boss);
+    public delegate void BossAction(GameObject Id);
     public event BossAction OnBossActivated;
     public event BossAction OnBossPhaseChange;
     public event BossAction OnBossLaserActivation;
+    public event BossAction OnBossLaserDeactivation;
+    public event BossAction OnBossLaserHitPlayer;
     public event BossAction OnBossMeteorActivation;
     public event BossAction OnBossMeteorImpact;
     public event BossAction OnBossDeath;
@@ -151,6 +165,17 @@ public class EventManager : MonoBehaviour
         if (OnBossLaserActivation != null)
             OnBossLaserActivation(Id);
     }
+    public void BossLaserDeactivation(GameObject Id)
+    {
+        if (OnBossLaserDeactivation != null)
+            OnBossLaserDeactivation(Id);
+    }
+    public void BossLaserHitPlayer (GameObject Id)
+    {
+        if (OnBossLaserHitPlayer != null)
+            OnBossLaserHitPlayer(Id);
+    }
+
     public void BossMeteorActivation(GameObject Id)
     {
         if (OnBossMeteorActivation != null)
@@ -166,6 +191,7 @@ public class EventManager : MonoBehaviour
         if (OnBossDeath != null)
             OnBossDeath(Id);
     }
+
 
     //##############################################################################################################################################################
     //#################################################################################     ########################################################################
