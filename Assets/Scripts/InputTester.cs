@@ -8,7 +8,7 @@ public class InputTester : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        im = FindObjectOfType<InputManager>();
+        im = GameManager.input;
         id = im.GetID();
         im.OnFirstTouchBeginSub(FirstDown, id);
         im.OnFirstTouchMoveSub(FirstMove, id);

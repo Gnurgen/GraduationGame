@@ -49,7 +49,7 @@ public class Health : MonoBehaviour {
             else
             {
                 GameManager.events.EnemyDeath(gameObject);
-                GameManager.events.ResourceDrop(gameObject, 3); // AMOUNT OF BLOBS DROPS
+                GameManager.events.ResourceDrop(gameObject, 1); // AMOUNT OF BLOBS DROPS
             }
             forceDir.y = 0;
             forceDir = Vector3.Normalize(forceDir) * pushForce;
