@@ -33,6 +33,7 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void IdleAni(GameObject Id)
     {
+        anim.SetBool("Attack", false);
         anim.SetBool("Run", false);
     }
 
@@ -50,7 +51,7 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void AttackAni(GameObject Id)
     {
-        anim.SetTrigger("Attack");
+        anim.SetBool("Attack", true);
         anim.SetBool("Run", false);
     }
 
