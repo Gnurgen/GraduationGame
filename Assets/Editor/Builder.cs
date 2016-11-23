@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class Builder : MonoBehaviour {
 
 	static void AndroidBuild(){
-
+        
 		string basePath = "C:/Users/dadiu/Google Drive/GraduationGames/Builds";
 		string buildFolder = System.DateTime.Now.ToString ("dd-MM-yy HH.mm.ss");
 		string initScene = "Splash.unity";
@@ -15,8 +15,9 @@ public class Builder : MonoBehaviour {
 		string studio = "highfiveproductions";
 
 
-		try{
 
+		try{
+            PKFxMenus.BakePack();
 			PlayerSettings.bundleIdentifier = "com." + studio + "." + title;
 			PlayerSettings.bundleVersion = "2.2"; 
 
