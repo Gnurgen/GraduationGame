@@ -26,7 +26,7 @@ public class SpawnRagdoll : MonoBehaviour {
     public void Execute(Vector3 forceDir)
     {
         poolManager.GenerateRagdoll(Ragdoll,_tag, forceDir);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
     void Update()

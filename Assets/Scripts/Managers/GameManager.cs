@@ -36,7 +36,9 @@ public class GameManager {
         //move player??
         if (!CheckPoint)
         {
-            SceneManager.LoadScene(GAMEOVER_SCENE);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
         }
         //Application.Quit();
     }
