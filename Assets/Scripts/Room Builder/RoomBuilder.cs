@@ -141,6 +141,7 @@ public class RoomBuilder : MonoBehaviour {
             for (int i = 0; i < toggleList.Length; i++)
             {
                 toggleList[i].openDoor();
+                Debug.Log("Doors Opening");
             }
             // Room cleared
         }
