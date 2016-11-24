@@ -222,11 +222,11 @@ public class InputManager : MonoBehaviour {
 		}
 	}
 
-	/*
+    /*
 	 * Helper methods to determine when an interaction is a tap, doubletap or a swipe.
-	 */
-
-	bool IsTap(SingleTouchSession sts)
+	*/
+    #region Methods
+    bool IsTap(SingleTouchSession sts)
 	{
 		return sts.endTime - sts.beginTime < tapTime && Vector2.Distance (sts.begin.position, sts.end.position) < tapDistance;
 	}
@@ -250,8 +250,14 @@ public class InputManager : MonoBehaviour {
 	{
 		return mouseEndTime - mouseBeginTime < swipeTime && Vector3.Distance (mouseBegin, mouseEnd) > swipeMinDistance;
 	}
+    #endregion
 
-	void OnFirstTouchBegin(Touch t)
+
+    /*
+     * Touch trigger methods.
+    */
+    #region Methods
+    void OnFirstTouchBegin(Touch t)
 	{
 		if (firstTouchBeginMethods.Count > 0) {
 			if (owner < 0) {
@@ -406,15 +412,14 @@ public class InputManager : MonoBehaviour {
 			}
 		}
 	}
+    #endregion
 
 
-	/*
-	 * 
+    /*
 	 * Mouse trigger methods.
-	 * 
-	 * 
-	*/
-	void OnMouseBegin(Vector3 p)
+    */
+    #region Methods
+    void OnMouseBegin(Vector3 p)
 	{
 		if (firstTouchBeginMethods.Count > 0) {
 			Vector2 point = new Vector2 (p.x,p.y);
@@ -523,14 +528,15 @@ public class InputManager : MonoBehaviour {
 			}
 		}
 	}
+    #endregion
 
-	/*
+    /*
 	 * 
 	 * Public Methods 
 	 * 
 	 */
 
-	public int GetID()
+    public int GetID()
 	{
 		int temp = idCount;
 		idCount++;

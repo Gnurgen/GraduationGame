@@ -1,189 +1,215 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Pathfinding;
+using System;
 
 public class PlayerControls : MonoBehaviour {
 
    
     private InputManager im;
     private EventManager em;
-    public enum State {Idle, Attacking, Moving, Dashing, Ability};
+    public enum State {Idle, Moving, Dashing, Ability};
     public State state;
+    State prevstate;
 
 
     // ----- Inspector -----
     public float moveSpeed = 4;
-    public float dashDuration = 0.5f;
+    [SerializeField]
+    private float minDashDistance = 3, maxDashDistance = 6, alwaysWalk = 1;
     public float dashSpeedMultiplier = 3;
-    //public float attackDuration = 0.3f;
-    //public float attackCooldown = 1;
     public float dashCooldown = 3;
-    public GameObject SpearTip;
+    [SerializeField]
+    private bool ControlDuringDash = false, AbilitiesDuringDash = false;
+    [SerializeField]
+    private float abilityTouchOffset, abilityTouchMoveDistance;
+    [SerializeField]
+    private bool ResumeMovementAfterAbility = false;
     public float Damage = 1;
     public float meeleeForce = 1;
     public float MovePointCooldown = 1;
     public GameObject ClickFeedBack;
 
     private float currentMovePointCooldown = 0;
-    private Path path;
-    private int pathIndex;
-    private Vector3 moveDir;
-    private Vector2 middleScreen;
-    private Seeker seeker;
+    private Vector3 prevPos;
     private int id;
-    private Camera mainCamera;
     private bool shouldMove;
-    private float currentDashCooldown;
-    private float currentAttackCooldown;
-    private Animator animator;
+    private float currentDashDistance;
     private Vector3 MoveToPoint;
+    private float currentDashCooldown;
+    private bool isMoving = false;
+
+    // --- Abilities ---
+    private Vector3 touchStart, touchEnd, touchCur;
+    private Vector2 playerScreenPos;
+    private float screenRes;
+    private float normAbilityTouchOffset;
+    private bool ab1 = false, ab2 = false;
+    FlyingSpear ability1;
+    ConeDraw ability2;
 
     private Rigidbody body;
+
     // Use this for initialization
     void Start () {
         im = GameManager.input;
         em = GameManager.events;
-        em.OnWheelOpen += disableMovement;
-        em.OnDrawComplete += enableMovement; // har ændret det til onDrawComplete, i stedet for onWheelSelect (kys Kris <3)
         body = GetComponent<Rigidbody>();
-        seeker = GetComponent<Seeker>();
         id = im.GetID();
         im.OnTapSub(Tap, id);
         im.OnFirstTouchBeginSub(Begin, id);
         im.OnFirstTouchMoveSub(Move, id);
         im.OnFirstTouchEndSub(End, id);
-        im.OnDoubleTapSub(DoubleTap, id);
-        im.OnSwipeSub(Swipe, id);
+        //im.TakeControl(id);
         StartCoroutine(Idle());
-        middleScreen = new Vector2(Screen.width / 2, Screen.height / 2);
-        Debug.Log(middleScreen);
-        mainCamera = FindObjectOfType<Camera>();
+        playerScreenPos = new Vector2(Screen.width / 2, Screen.height / 2);
         shouldMove = true;
-        currentAttackCooldown = 0;
-        currentDashCooldown = 0;
         currentMovePointCooldown = 0;
-        animator = GetComponent<Animator>();
+        currentDashDistance = 0;
+        currentDashCooldown = 0;
+        ability1 = GetComponent<FlyingSpear>();
+        ability2 = GetComponent<ConeDraw>();
+        //normalize for screen resolution
 	}
 	
-	void Awake()
-    {
-       
-    }
 
     void FixedUpdate()
     {
-        currentDashCooldown -= Time.fixedDeltaTime;
+        currentDashCooldown += currentDashCooldown < 0 ? 0 : -Time.fixedDeltaTime;
         body.velocity = Vector3.zero;
     }
 
     IEnumerator Idle()
     {
+        isMoving = false;
         ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
         state = State.Idle;
         em.PlayerIdle(gameObject);
-        path = null;
         while(state == State.Idle)
         {
             yield return null;
+        }
+        if (state == State.Ability)
+        {
+            StartCoroutine(Ability());
+            yield break;
         }
         yield break;
     }
 
     IEnumerator Moving()
     {
-        
         state = State.Moving;
-       
+        isMoving = true;
         em.PlayerMove(gameObject);
-        while (state == State.Moving && shouldMove && Vector3.Distance(transform.position, MoveToPoint) > 0.1f)
+        while (state == State.Moving && Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized) > 0)
         {
             body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate(); 
         }
+        if (state == State.Ability)
+        {
+            StartCoroutine(Ability());
+            yield break;
+        }
         StartCoroutine(Idle());
         yield break;
     }
 
-    IEnumerator Attacking(InputManager.Swipe s)
+    IEnumerator Ability()
     {
-        if(currentAttackCooldown > 0)
-        {
-            StartCoroutine(Idle());
-            yield break;
-        }
-        state = State.Attacking;
-        em.PlayerAttack(gameObject);
-        Vector2 tempDir = s.end - s.begin;
-        moveDir = new Vector3(tempDir.x, 0, tempDir.y);
-        moveDir = Camera.main.transform.TransformDirection(moveDir).normalized;
-        moveDir.y = 0;
-        moveDir = Quaternion.FromToRotation(transform.forward, moveDir).eulerAngles;
-        moveDir.x = 0;
-        moveDir.z = 0;
-        transform.Rotate(moveDir);
-        yield return new WaitForFixedUpdate();
-        SpearTip.SetActive(true);
-        em.PlayerIdle(gameObject);
-        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))
-        {
+        while (state == State.Ability)
             yield return null;
+        switch (state)
+        {
+            case State.Dashing: StartCoroutine(Dashing());
+                break;
+            case State.Moving: StartCoroutine(Moving());
+                break;
+            case State.Idle: StartCoroutine(Idle());
+                break;
         }
-       
-        SpearTip.SetActive(false);
-
-        //currentAttackCooldown = attackCooldown;
-        StartCoroutine(Idle());
         yield break;
     }
 
-    IEnumerator Dashing(Vector3 p)
+    IEnumerator Dashing()
     {
-        if(currentDashCooldown > 0)
-        {
-            StartCoroutine(Idle());
-            yield break;
-        }
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
-        float currentDashDuration = dashDuration;
-        while (currentDashDuration > 0)
+        while (state == State.Dashing && currentDashDistance < maxDashDistance && NotPassedPoint(transform.position, MoveToPoint) && Distance(transform.position, MoveToPoint)>alwaysWalk)
         {
-            currentDashDuration -= Time.fixedDeltaTime;
+            prevPos = transform.position;
             body.position += transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
+            currentDashDistance += Distance(prevPos, transform.position);
         }
         em.PlayerDashEnd(gameObject);
+        currentDashDistance = 0;
         currentDashCooldown = dashCooldown;
-        StartCoroutine(Idle());
+        if (state == State.Ability)
+        {
+            StartCoroutine(Ability());
+            yield break;
+        }
+        if (NotPassedPoint(transform.position, MoveToPoint))
+            StartCoroutine(Moving());
+        else
+            StartCoroutine(Idle());
         yield break;
     }
+
+
+    private bool NotPassedPoint(Vector3 pos, Vector3 tar)
+    {
+        if ((pos - tar).magnitude < minDashDistance)
+            return Vector3.Dot(transform.forward, (tar - pos).normalized) > 0f;
+        else return true;
+    }
+
 
     void Begin(Vector2 p)
     {
-             
+        abilityTouchMoveDistance = 0;
+        touchStart = im.GetWorldPoint(p);
+        prevstate = state;
+        print((p - playerScreenPos).magnitude);
+        print(ability1.Cooldown() <= 0);
+        if ((p - playerScreenPos).magnitude < abilityTouchOffset && ability1.Cooldown() <= 0)
+            ab1 = true;
+        else if (ability2.Cooldown()<=0)
+            ab2 = true;
     } 
     void Move(Vector2 p)
     {
-        
-        if (state != State.Dashing && state != State.Attacking)
+        touchCur = im.GetWorldPoint(p);
+        if(Distance(touchCur, touchStart) >= abilityTouchMoveDistance)
         {
-            ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
-            MoveToPoint = im.GetWorldPoint(p);
-            MoveToPoint.y = transform.position.y;
-            transform.LookAt(MoveToPoint);
-           
-            if (state == State.Idle)
+            state = State.Ability;
+            if(ab1)
             {
-                StartCoroutine(Moving());
+                ability1.UseAbility(touchStart);
+                em.SpearDrawAbilityStart(gameObject);
+            }
+            else
+            {
+                ability2.UseAbility(touchStart);
+                em.ConeAbilityStart(gameObject);
             }
         }
     }
 
     void End(Vector2 p)
     {
-        ClickFeedBack.transform.position = MoveToPoint;
-        ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
-        ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
+        ab1 = false; ab2 = false;
+    }
+
+    public void EndAbility()
+    {
+        ab1 = false; ab2 = false;
+        if (ResumeMovementAfterAbility)
+            state = prevstate;
+        else
+            state = State.Idle;
     }
 
     void disableMovement()
@@ -198,218 +224,26 @@ public class PlayerControls : MonoBehaviour {
 
     void Tap(Vector2 p)
     {
-       
-        if (state != State.Dashing && state != State.Attacking)
+        if (state != State.Dashing || ControlDuringDash)
         {
-           
-            currentMovePointCooldown = MovePointCooldown;
             MoveToPoint = im.GetWorldPoint(p);
             MoveToPoint.y = transform.position.y;
-            ClickFeedBack.transform.position = MoveToPoint;
             ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
+            ClickFeedBack.transform.position = MoveToPoint;
             ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
             transform.LookAt(MoveToPoint);
-            if (state == State.Idle)
-            {
+            if (Distance(transform.position, MoveToPoint) > minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing)
+                StartCoroutine(Dashing());
+            else if (!isMoving)
                 StartCoroutine(Moving());
-            }
         }
       
     }
-    void GetPointToMove() // gets the point from tap and move
+    private float Distance(Vector3 a, Vector3 b)
     {
-
+        return (a - b).magnitude;
     }
 
-    void DoubleTap(Vector2 p)
-    {
-        if(state == State.Idle || state == State.Moving)
-        {
-            StartCoroutine(Dashing(im.GetWorldPoint(p)));
-        }
-    }
-
-    void Swipe(InputManager.Swipe s)
-    {
-        if(state == State.Idle || state == State.Moving)
-        {
-            StartCoroutine(Attacking(s));
-        }
-    }
-
-    /*// Used to receive a new path and start calculating a new path
-    void ReceivePath(Path path)
-    {
-        if (!path.error && state == State.Moving)
-        {
-            this.path = path;
-            pathIndex = 0;
-            if(Vector3.Distance(transform.position, target) > 2)
-            {
-                target = im.GetWorldPoint(screenTarget);
-                seeker.StartPath(transform.position, target, ReceivePath);
-            }
-        }
-    }/*
-
-
-
-
-    /*
-    void MoveTo(Vector2 point)
-    {
-        if(!dashing && !attacking)
-        {
-            GameManager.events.PlayerMove(gameObject);
-            shouldMove = true;
-            target = IM.GetWorldPoint(point);
-            seeker.StartPath(transform.position, target, ReceivePath);
-            waitingForPath = true;
-        }
-    }
-    void DashTo(Vector2 point)
-    {
-        if(currentDashCooldown < 0)
-        {
-            GameManager.events.PlayerDashBegin(gameObject);
-            shouldMove = false;
-            target = IM.GetWorldPoint(point);
-            dashing = true;
-            StartCoroutine("Dash");
-            currentDashCooldown = dashCooldown;
-        }
-
-       // if (!dashing && !attacking)
-        //{
-        //    gamemanager.events.playerdashbegin(gameobject);
-        //    anim.settrigger("dash");
-        //    dashing = true;
-		//	dashingstartdis = vector3.distance(transform.position, im.getworldpoint(point));
-        //}
-    }
-	void AttackDir(InputManager.Swipe swipe)
-    {
-        if(currentAttackSpeed < 0)
-        {
-            GameManager.events.PlayerAttack(gameObject);
-            attacking = true;
-            // do attack;
-            transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end) - IM.GetWorldPoint(swipe.begin));
-            Collider[] hit = Physics.OverlapSphere(transform.position, attackRange);
-
-            foreach(Collider c in hit)
-            {
-                if(c.tag == "Melee")
-                {
-                    c.GetComponent<Health>().decreaseHealth(damage);
-                    GameManager.events.PlayerAttackHit(gameObject, c.gameObject, damage);
-                }
-            }
-
-
-            currentAttackSpeed = attackSpeed;
-            attacking = false;
-        }
-        //if (!dashing && !attacking)
-        //{
-        //    anim.SetTrigger("Attack");
-		//	transform.LookAt(transform.position + IM.GetWorldPoint(swipe.end) - IM.GetWorldPoint (swipe.begin));
-		//	ray = transform.position + IM.GetWorldPoint (swipe.end) - IM.GetWorldPoint (swipe.begin);
-        //    attacking = true;
-        //}
-    }
-    void FixedUpdate()
-    {
-        currentDashCooldown -= Time.fixedDeltaTime;
-        currentAttackSpeed -= Time.fixedDeltaTime;
-        
-        if (waitingForPath && shouldMove && false) // DET ER IKKE MED NU
-        {
-            if(Vector3.Distance(transform.position, target) > nextPointDistance)
-            {
-                dir = (target - transform.position).normalized;
-                dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
-                dir.x = 0;
-                dir.z = 0;
-                if (dir.y > 180) //If point is to the right, convert degrees to minus
-                    dir.y -= 360;
-                transform.Rotate(dir);
-                transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
-            }
-            else
-            {
-                GameManager.events.PlayerIdle(gameObject);
-                shouldMove = false;
-            }
-        }
-        else if (!waitingForPath && shouldMove)
-        {
-           
-            if (pathIndex < path.vectorPath.Count - 1)
-            {
-                if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
-                {
-                    pathIndex++;
-                }
-            }
-            else if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
-            {
-                shouldMove = false;
-                GameManager.events.PlayerIdle(gameObject);
-            }
-            dir = (path.vectorPath[pathIndex] - transform.position).normalized;
-            dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
-            dir.x = 0;
-            dir.z = 0;
-            if (dir.y > 180) //If point is to the right, convert degrees to minus
-                dir.y -= 360;
-            transform.Rotate(dir);
-            transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
-
-        }
-    }
-
-    void ReceivePath(Path path)
-    {
-        if (!path.error)
-        {
-            this.path = path;
-            waitingForPath = false;
-            pathIndex = 0;
-            while (IsBehind(path.vectorPath[pathIndex]))
-            {
-                pathIndex++;
-            }
-        }
-    }
-
-    bool IsBehind(Vector3 p)
-    {
-        return false;
-    }
-
-    IEnumerator Dash()
-    {
-        print("dash");
-       
-        for(;;)
-        {
-            if(Vector3.Distance(transform.position, target) < nextPointDistance)
-            {
-                GameManager.events.PlayerDashEnd(gameObject);
-                dashing = false;
-                yield break;
-            }
-
-            dir = (target - transform.position).normalized;
-            dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
-            dir.x = 0;
-            dir.z = 0;
-            transform.Rotate(dir);
-            transform.position += transform.forward  * dashingSpeed * Time.fixedDeltaTime;
-
-            yield return new WaitForSeconds(Time.fixedDeltaTime);
-        }
-    }*/
-
+   
 }
+

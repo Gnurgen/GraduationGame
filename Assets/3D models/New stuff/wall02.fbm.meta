@@ -1,7 +1,11 @@
 fileFormatVersion: 2
 guid: 0a1a189f4bdf944409b3e5bf4eadfc3f
 folderAsset: yes
+<<<<<<< HEAD:Assets/3D models/New stuff/wall02.fbm.meta
 timeCreated: 1479990694
+=======
+timeCreated: 1479998106
+>>>>>>> 068953bd4fbd30cd02f5e8c90e2a57fdf8b1c9a6:Assets/3D models/New stuff/wall02.fbm.meta
 licenseType: Pro
 DefaultImporter:
   userData: 
