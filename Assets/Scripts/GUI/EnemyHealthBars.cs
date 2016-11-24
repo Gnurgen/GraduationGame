@@ -8,18 +8,19 @@ public class EnemyHealthBars : MonoBehaviour {
     private float maxHealth;
     private float health;
     private float hightOfHealthbar = 300;
-    private float scale;
-    private GameObject enemy;
+    private float scale, distance;
+    private GameObject enemy, mainCamera;
     private int type;
     Vector3 position;
 
     void Awake()
     {
-        transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
     }
 
     void Start () {
-
+        mainCamera = GameObject.Find("Main Camera");
+        distance = Vector3.Distance(mainCamera.transform.position, GameObject.Find("Canvas").transform.position);                
     }
     void Update()
     {
@@ -41,12 +42,15 @@ public class EnemyHealthBars : MonoBehaviour {
     }
 
     void healthPosition() {
-        position = enemy.transform.position;  //stop
+        Vector3 enemyToCamera = enemy.transform.position - mainCamera.transform.position;
+        Ray myRay = new Ray(mainCamera.transform.position, enemyToCamera);
+        Vector3 posi = myRay.origin + (myRay.direction * 3);
+        position = posi;
         gameObject.transform.position = position;
-        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y+ hightOfHealthbar, 0);
+        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y + hightOfHealthbar, gameObject.transform.localPosition.z);
+
     }
     public void getMyEnemy(GameObject myEnemy, int myType) {
-        print(myEnemy);
         enemy = myEnemy;
         type = myType;
         maxHealth = enemy.GetComponent<Health>().health;
