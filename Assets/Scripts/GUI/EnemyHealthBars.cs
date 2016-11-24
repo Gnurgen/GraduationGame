@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class EnemyHealthBars : MonoBehaviour {
@@ -6,7 +7,7 @@ public class EnemyHealthBars : MonoBehaviour {
     private float minSize = 0.2f;
     private float maxHealth;
     private float health;
-    private float hightOfHealthbar = 200;
+    private float hightOfHealthbar = 300;
     private float scale;
     private GameObject enemy;
     private int type;
@@ -14,7 +15,7 @@ public class EnemyHealthBars : MonoBehaviour {
 
     void Awake()
     {
-        transform.localScale = new Vector3(0, 0, 0);
+        transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
     }
 
     void Start () {
@@ -33,8 +34,8 @@ public class EnemyHealthBars : MonoBehaviour {
 
     void updateHealthBar() {
         health = enemy.GetComponent<Health>().health;
-        scale = minSize+((maxSize-minSize)*(1-((maxHealth-health)/maxHealth))); 
-        gameObject.transform.localScale = new Vector3(scale, scale, 0); 
+        scale = 1 - ((maxHealth - health) / maxHealth);
+        gameObject.GetComponent<Image>().fillAmount = scale;
         if (health <= 0)
             gameObject.SetActive(false);
     }
