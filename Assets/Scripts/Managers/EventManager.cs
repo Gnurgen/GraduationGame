@@ -87,7 +87,14 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnPlayerDeath;
     public event PlayerAction OnPlayerMove;
     public event PlayerAction OnPlayerIdle;
+    public event PlayerAction OnConeAbilityStart;
+    public event PlayerAction OnConeAbilityUsed;
     public event PlayerAction OnConeAbilityHit;
+    public event PlayerAction OnConeAbilityEnd;
+    public event PlayerAction OnSpearDrawAbilityStart;
+    public event PlayerAction OnSpearDrawAbilityUsed;
+    public event PlayerAction OnSpearDrawAbilityHit;
+    public event PlayerAction OnSpearDrawAbilityEnd;
 
     public delegate void PlayerAttackHitAction(GameObject Id, GameObject tar, float val);
     public event PlayerAttackHitAction OnPlayerAttackHit;
@@ -128,10 +135,45 @@ public class EventManager : MonoBehaviour
         if (OnPlayerIdle != null)
             OnPlayerIdle(Id);
     }
+    public void ConeAbilityStart(GameObject Id)
+    {
+        if (OnConeAbilityStart != null)
+            OnConeAbilityStart(Id);
+    }
+    public void ConeAbilityUsed(GameObject Id)
+    {
+        if (OnConeAbilityUsed != null)
+            OnConeAbilityUsed(Id);
+    }
     public void ConeAbilityHit(GameObject Id)
     {
         if (OnConeAbilityHit != null)
             OnConeAbilityHit(Id);
+    }
+    public void ConeAbilityEnd(GameObject Id)
+    {
+        if (OnConeAbilityEnd != null)
+            OnConeAbilityEnd(Id);
+    }
+    public void SpearDrawAbilityStart(GameObject Id)
+    {
+        if (OnSpearDrawAbilityStart != null)
+            OnSpearDrawAbilityStart(Id);
+    }
+    public void SpearDrawAbilityUsed(GameObject Id)
+    {
+        if (OnSpearDrawAbilityUsed != null)
+            OnSpearDrawAbilityUsed(Id);
+    }
+    public void SpearDrawAbilityHit(GameObject Id)
+    {
+        if (OnSpearDrawAbilityHit != null)
+            OnSpearDrawAbilityHit(Id);
+    }
+    public void SpearDrawAbilityEnd(GameObject Id)
+    {
+        if (OnSpearDrawAbilityEnd != null)
+            OnSpearDrawAbilityEnd(Id);
     }
 
     //##############################################################################################################################################################

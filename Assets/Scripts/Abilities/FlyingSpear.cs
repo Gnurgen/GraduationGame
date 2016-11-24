@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class FlyingSpear : MonoBehaviour, IAbility {
+public class FlyingSpear : MonoBehaviour {
 
     public GameObject spear;
     public float baseDamage;
@@ -52,20 +52,24 @@ public class FlyingSpear : MonoBehaviour, IAbility {
     public float Cooldown()
     {
 
-        return currentCooldown < 0 ? 1 : (cooldown - currentCooldown) / cooldown;
+        return currentCooldown;
     }
 
-    public void UseAbility()
+    public void UseAbility(Vector3 p)
     {
-        if (currentCooldown < 0)
+        Vector3 worldPoint = p;
+        if (currentDrawLength + Vector3.Distance(transform.position, worldPoint) < drawLength)
         {
-            StartCoroutine("Ability");
+            LR.AddPoint(transform.position);
+            LR.AddPoint(worldPoint);
+            currentDrawLength += Vector3.Distance(transform.position, worldPoint);
+            newPointAdded = true;
         }
+        StartCoroutine(Ability());
     }
 
     IEnumerator Ability()
     {
-        IM.OnFirstTouchBeginSub(GetDown, ID);
         IM.OnFirstTouchMoveSub(GetMove, ID);
         IM.OnFirstTouchEndSub(GetEnd, ID);
         IM.TakeControl(ID);
@@ -76,12 +80,12 @@ public class FlyingSpear : MonoBehaviour, IAbility {
         newPointAdded = false;
         currentDrawTimer = drawTimer;
 
-        yield return StartCoroutine("DrawLine");
+        yield return StartCoroutine(DrawLine());
 
         IM.ReleaseControl(ID);
-        IM.OnFirstTouchBeginUnsub(ID);
         IM.OnFirstTouchMoveUnsub(ID);
         IM.OnFirstTouchEndUnsub(ID);
+        GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
 
         GameObject s = Instantiate(spear) as GameObject;
@@ -102,18 +106,6 @@ public class FlyingSpear : MonoBehaviour, IAbility {
             yield return null;
         }
         yield break;
-    }
-
-    void GetDown(Vector2 p)
-    {
-        Vector3 worldPoint = IM.GetWorldPoint(p);
-        if(currentDrawLength + Vector3.Distance(transform.position, worldPoint) < drawLength)
-        {
-            LR.AddPoint(transform.position);
-            LR.AddPoint(worldPoint);
-            currentDrawLength += Vector3.Distance(transform.position, worldPoint);
-            newPointAdded = true;
-        }
     }
 
     void GetMove(Vector2 p)
