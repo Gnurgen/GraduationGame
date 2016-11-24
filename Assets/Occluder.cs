@@ -5,11 +5,11 @@ public class Occluder : MonoBehaviour {
 
     float hideTime = 0.5f, hidTime;
     MeshFilter meshFilter;
+    public bool hasDoor;
     public Mesh wallOcc, wallShow, wallDoorOcc, wallDoorShow;
     void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
-           
     }
 	// Update is called once per frame
 	void Update () {
@@ -29,22 +29,22 @@ public class Occluder : MonoBehaviour {
     {
         if(enable)
         {
-            if (meshFilter.mesh == wallOcc)
+            if (!hasDoor)
             {
                 meshFilter.mesh = wallShow;
             }
-            else if(meshFilter.mesh == wallDoorOcc)
+            else if(hasDoor)
             {
                 meshFilter.mesh = wallDoorShow;
             }
         }
         else if(!enable)
         {
-            if(meshFilter.mesh = wallShow)
+            if(!hasDoor)
             {
                 meshFilter.mesh = wallOcc;
             }
-            else if (meshFilter.mesh == wallDoorShow)
+            else if (hasDoor)
             {
                 meshFilter.mesh = wallDoorOcc;
             }

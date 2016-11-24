@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 47dc6f5547146d946932432c339af836
-timeCreated: 1478698568
+guid: 8bb357bec4463dc408cf322464fd0196
+timeCreated: 1479987473
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: wall02_geo
-    100004: wall02_geo_grp
+    100002: wall01_geo_grp
+    100004: wall_01_geo
     400000: //RootNode
-    400002: wall02_geo
-    400004: wall02_geo_grp
-    2300000: wall02_geo
-    3300000: wall02_geo
-    4300000: wall02_geo
+    400002: wall01_geo_grp
+    400004: wall_01_geo
+    2300000: wall_01_geo
+    3300000: wall_01_geo
+    4300000: wall_01_geo
   materials:
     importMaterials: 1
     materialName: 0
@@ -38,7 +38,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.9166667
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
