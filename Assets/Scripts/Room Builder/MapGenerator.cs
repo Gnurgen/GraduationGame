@@ -232,7 +232,8 @@ public class MapGenerator : MonoBehaviour {
 
                                 if (indexList.Count > 0)
                                 {
-                                    mask[indexList[Random.Range(0, indexList.Count - 1)]] = offset + 2;
+                                    if (Random.Range(0, 2) < 2)
+                                        mask[indexList[Random.Range(0, indexList.Count - 1)]] = offset + 2;
 
                                     for (i = 0; i < indexList.Count; i++)
                                     {
@@ -247,7 +248,7 @@ public class MapGenerator : MonoBehaviour {
                     offset++;
                     branchPasses--;
                 }
-                Debug.Log(offset + 1);
+
                 indexList.Clear();
                 for (j = 0; j < mask.Length; j++)
                 {
@@ -306,7 +307,6 @@ public class MapGenerator : MonoBehaviour {
                 break;
         }
 
-        Debug.Log(goalRoom[0] + " " + goalRoom[1]);
         GameManager.player.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -2.0f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
         Camera.main.transform.position = new Vector3(GameManager.player.transform.position.x - 7.5f, GameManager.player.transform.position.y + 11.1f, GameManager.player.transform.position.z - 7.5f);
         GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -0.75f, - (goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
@@ -520,6 +520,7 @@ public class MapGenerator : MonoBehaviour {
                             {
                                 go.transform.Rotate(Vector3.up * -90 * l);
                                 go.transform.position = new Vector3(go.transform.position.x + (l < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0), 0, go.transform.position.z + (l > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
+                                go.GetComponent<RoomBuilder>().HideWalls(mapGrid[i + 1, j] != null, mapGrid[i, j + 1] != null);
                             }
                             rooms.Add(go);
                         }
@@ -619,7 +620,6 @@ public class MapGenerator : MonoBehaviour {
         }
         else
         {
-            Debug.Log(i + ", " + j);
             for (l = 0; l < entry.doors.Length; l++)
             {
                 neighbour = getNeighbour(i, j, l);
