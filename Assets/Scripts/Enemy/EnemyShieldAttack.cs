@@ -39,7 +39,7 @@ public class EnemyShieldAttack : MonoBehaviour
     {
         if (col.tag == "Player")
         {
-            col.GetComponent<Health>().decreaseHealth(dmg);
+           // col.GetComponent<Health>().decreaseHealth(dmg);
             myCol.enabled = false;
             GameManager.events.EnemyAttackHit(body.gameObject, dmg);
         }

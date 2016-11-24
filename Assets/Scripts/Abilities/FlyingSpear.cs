@@ -19,6 +19,7 @@ public class FlyingSpear : MonoBehaviour, IAbility {
     private EventManager EM;
     private CurveDraw LR;
     public float damage;
+    public float pushForce;
     public float currentCooldown;
     public float currentDrawTimer;
     public float currentDrawLength;
@@ -51,7 +52,7 @@ public class FlyingSpear : MonoBehaviour, IAbility {
     public float Cooldown()
     {
 
-        return currentCooldown < 0 ? 0 : currentCooldown;
+        return currentCooldown < 0 ? 1 : (cooldown - currentCooldown) / cooldown;
     }
 
     public void UseAbility()
@@ -84,7 +85,7 @@ public class FlyingSpear : MonoBehaviour, IAbility {
         // Actually use the ability with the drawn points
 
         GameObject s = Instantiate(spear) as GameObject;
-        s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage);
+        s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce);
         LR.CleanUp();
         GameManager.events.DrawComplete(10); // takes input 10 because it is complete.
         currentCooldown = cooldown;

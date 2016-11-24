@@ -179,9 +179,15 @@ public class AudioManager : MonoBehaviour {
     public void BossBeamTargetPlay(GameObject GO, string tag)
     {
         //Beams noise where it hits (continuous sound)
-        if(tag == "Player" || tag == "Indestructable")
+        if(tag == "Player")
         {
             AkSoundEngine.SetSwitch("Target", tag, GO);
+            AkSoundEngine.PostEvent("Boss_Beam_Target_Play", GO);
+            AkSoundEngine.RenderAudio();
+        }
+        else if (tag== "Indestructable" || tag == "Walkable" || tag == "Occluder")
+        {
+            AkSoundEngine.SetSwitch("Target", "Indestructable", GO);
             AkSoundEngine.PostEvent("Boss_Beam_Target_Play", GO);
             AkSoundEngine.RenderAudio();
         }
@@ -197,38 +203,13 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.RenderAudio();
     }
    
-    public void BossRainMovePlay(GameObject GO)
-    {
-        //Boss's rain plays a sound of it moving (continuous sound)
-        AkSoundEngine.PostEvent("Boss_Rain_Move_Play", GO);
-        AkSoundEngine.RenderAudio();
-    }
-    public void BossRainMoveStop(GameObject GO)
-    {
-        //Boss's rain stops its sound of it moving (continuous sound)
-        AkSoundEngine.PostEvent("Boss_Rain_Move_Stop", GO);
-        AkSoundEngine.RenderAudio();
-    }
     public void BossRainPlay(GameObject GO)
     {
         //Boss's rain plays a sound when spawning
         AkSoundEngine.PostEvent("Boss_Rain_Play", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void BossRainTargetPlay(GameObject GO, string tag)
-    {
-        //Boss's rain plays a sound when hitting a target (Continuous sound)
-        if (tag == "Player" || tag == "Indestructable")
-        {
-            AkSoundEngine.SetSwitch("Target", tag, GO);
-            AkSoundEngine.PostEvent("Boss_Rain_Target_Play", GO);
-            AkSoundEngine.RenderAudio();
-         }
-        else
-        {
-            Debug.LogError(tag + "is wrong tag and event doesn't play audio");
-        }
-    }
+
 
     // ######################################################################################################################################
     // ##########################################################                       #####################################################
@@ -380,7 +361,7 @@ public class AudioManager : MonoBehaviour {
     {
         //Enemie Dies and stops his random growls
         AggroedEnemies--;
-        AkSoundEngine.PostEvent("Enemy_Chatter_Stop", GO);
+        AkSoundEngine.PostEvent("Enemy_Aggro_Stop", GO);
         AkSoundEngine.PostEvent("Enemy_Death_Play", GO);
         AkSoundEngine.RenderAudio();
     }

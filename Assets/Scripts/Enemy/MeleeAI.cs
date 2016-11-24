@@ -5,6 +5,7 @@ using Pathfinding;
 
 [RequireComponent (typeof(Seeker))]
 [RequireComponent (typeof(Rigidbody))]
+[RequireComponent(typeof(SpawnRagdoll))]
 public class MeleeAI : EnemyStats {
 
     public GameObject Weapon;
@@ -25,11 +26,14 @@ public class MeleeAI : EnemyStats {
     private Vector3 startPosition;
     private float currentAttackSpeed;
     private Rigidbody body;
+    private SpawnRagdoll myDoll;
 
    	// Use this for initialization
-	void Start () {
+	void Awake () {
        // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
+        myDoll = GetComponent<SpawnRagdoll>();
+        myDoll.myTag = "EnemyMeleeRagdoll";
 		seeker = GetComponent<Seeker> ();
         body = GetComponent<Rigidbody>();
         StartCoroutine(Waiting(3));
@@ -42,7 +46,21 @@ public class MeleeAI : EnemyStats {
     {
         isInTransition = animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
         currentAttackSpeed -= Time.fixedDeltaTime;
-        body.velocity = Vector3.zero;
+        if(!onPause)
+        {
+            body.velocity = Vector3.zero;
+        }
+        else if(pauseFor > 0)
+        {
+            animator.SetBool("PushPull",true);
+            pauseFor -= Time.fixedDeltaTime;
+            if (pauseFor <= 0)
+            {
+                animator.SetBool("PushPull", false);
+                pauseFor = 0;
+                onPause = false;
+            }
+        }
     }
 
     public void Taunt(GameObject newTarget)
@@ -60,7 +78,6 @@ public class MeleeAI : EnemyStats {
         StartCoroutine(Idle());
         yield break;
     }
-
 
 	IEnumerator Idle()
 	{

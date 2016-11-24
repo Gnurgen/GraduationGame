@@ -7,10 +7,6 @@ public class InputManager : MonoBehaviour {
 	// ----- Method wrappers for subscribing to input -----
 	public delegate void Vector2Delegate(Vector2 points);
 	public delegate void SwipeDelegate(Swipe swipe);
-	enum State
-	{
-		Touch, Mouse
-	};
 
 	// ----- Mouse Variables -----
 	private bool mouseIsDown;
@@ -28,8 +24,6 @@ public class InputManager : MonoBehaviour {
 	private float previousMouseTapTime;
 
 	// ----- Inspector Variables -----
-	[SerializeField]
-	private State inputState = State.Touch;
 	[SerializeField]
 	private float distanceToMove = 20f;
 	[SerializeField]
@@ -108,95 +102,91 @@ public class InputManager : MonoBehaviour {
         fingersTouching = 0;
 	}
 
-	void Update () {
-		if (inputState == State.Touch) {
-			foreach (Touch t in Input.touches) {
-				switch (t.phase) {
-				case TouchPhase.Began:
-                        fingersTouching += 1;
-					if (currentTouchSession.FirstTouchID () == -1) {
-						currentTouchSession.AddFirstTouchBegin (t);
-						lastValidFirstMovePoint = t.position;
-						OnFirstTouchBegin (t);
-					} else if (currentTouchSession.SecondTouchID () == -1) {
-						currentTouchSession.AddSecondTouchBegin (t);
-						lastValidSecondMovePoint = t.position;
-						OnSecondTouchBegin (t);
-					}
-					break;
-				case TouchPhase.Moved:
-					if (t.fingerId == currentTouchSession.FirstTouchID () && Vector2.Distance (t.position, lastValidFirstMovePoint) > distanceToMove && currentTouchSession.FirstFingerTouching()) {
-						lastValidFirstMovePoint = t.position;
-						OnFirstTouchMove (t);
-
-					} else if (t.fingerId == currentTouchSession.SecondTouchID () && Vector2.Distance (t.position, lastValidSecondMovePoint) > distanceToMove && currentTouchSession.SecondFingerTouching()) {
-						lastValidSecondMovePoint = t.position;
-						OnSecondTouchMove (t);
-					}
-					break;
-				case TouchPhase.Ended:
-                        fingersTouching -= 1;
-					if (t.fingerId == currentTouchSession.FirstTouchID () && currentTouchSession.FirstFingerTouching()) {
-						currentTouchSession.AddFirstTouchEnd (t);
-						OnFirstTouchEnd (t);
-					} else if (t.fingerId == currentTouchSession.SecondTouchID () && currentTouchSession.SecondFingerTouching()) {
-						currentTouchSession.AddSecondTouchEnd (t);
-						OnSecondTouchEnd (t);
-					}
-
-                        if (fingersTouching == 0) // The last finger has lifted, do advanced input analysis
-                        {
-                            AdvancedInputAnalysis();
-                            // Rotate the sessions so the current session becomes the previous one,
-                            // and the previous one becomes the current one, but cleaned so its ready for new input.
-                            TouchSession temp = previousTouchSession;
-                            previousTouchSession = currentTouchSession;
-                            currentTouchSession = temp;
-                            currentTouchSession.CleanSession();
-                        }
-
-					break;
+	void Update () { 
+		foreach (Touch t in Input.touches) {
+			switch (t.phase) {
+			case TouchPhase.Began:
+                    fingersTouching += 1;
+				if (currentTouchSession.FirstTouchID () == -1) {
+					currentTouchSession.AddFirstTouchBegin (t);
+					lastValidFirstMovePoint = t.position;
+					OnFirstTouchBegin (t);
+				} else if (currentTouchSession.SecondTouchID () == -1) {
+					currentTouchSession.AddSecondTouchBegin (t);
+					lastValidSecondMovePoint = t.position;
+					OnSecondTouchBegin (t);
 				}
+				break;
+			case TouchPhase.Moved:
+				if (t.fingerId == currentTouchSession.FirstTouchID () && Vector2.Distance (t.position, lastValidFirstMovePoint) > distanceToMove && currentTouchSession.FirstFingerTouching()) {
+					lastValidFirstMovePoint = t.position;
+					OnFirstTouchMove (t);
+
+				} else if (t.fingerId == currentTouchSession.SecondTouchID () && Vector2.Distance (t.position, lastValidSecondMovePoint) > distanceToMove && currentTouchSession.SecondFingerTouching()) {
+					lastValidSecondMovePoint = t.position;
+					OnSecondTouchMove (t);
+				}
+				break;
+			case TouchPhase.Ended:
+                    fingersTouching -= 1;
+				if (t.fingerId == currentTouchSession.FirstTouchID () && currentTouchSession.FirstFingerTouching()) {
+					currentTouchSession.AddFirstTouchEnd (t);
+					OnFirstTouchEnd (t);
+				} else if (t.fingerId == currentTouchSession.SecondTouchID () && currentTouchSession.SecondFingerTouching()) {
+					currentTouchSession.AddSecondTouchEnd (t);
+					OnSecondTouchEnd (t);
+				}
+
+                    if (fingersTouching == 0) // The last finger has lifted, do advanced input analysis
+                    {
+                        AdvancedInputAnalysis();
+                        // Rotate the sessions so the current session becomes the previous one,
+                        // and the previous one becomes the current one, but cleaned so its ready for new input.
+                        TouchSession temp = previousTouchSession;
+                        previousTouchSession = currentTouchSession;
+                        currentTouchSession = temp;
+                        currentTouchSession.CleanSession();
+                    }
+
+				break;
 			}
 		}
-		else 
-		{
-			// Support for mouse input.
-			if (!mouseIsDown && !mouseAnalysed) {
-				// Advanced analysis
-				mouseAnalysed = true;
-				mouseTap = IsMouseTap ();
-				if (mouseTap) {
-					OnMouseTap (mouseEnd);
-					if (previousMouseTap && mouseEndTime - previousMouseTapTime < doubleTapTime) {
-						OnMouseDoubleTap (mouseEnd);
-					}
-				}
-				if (IsMouseSwipe ()) {
-					OnMouseSwipe (mouseBegin, mouseEnd);
-				}
-				previousMouseTap = mouseTap;
-				previousMouseTapTime = mouseEndTime;
 
-			} else {
-				if (Input.GetMouseButtonDown (0)) {
-					mouseIsDown = true;
-					mouseAnalysed = false;
-					mouseBegin = Input.mousePosition;
-					mouseBeginTime = Time.unscaledTime;
-					lastValidMouseMovePoint = Input.mousePosition;
-					OnMouseBegin (mouseBegin);
-				} else if (Input.GetMouseButton (0)) {
-					if (Vector3.Distance (Input.mousePosition, lastValidMouseMovePoint) > distanceToMove) {
-						lastValidMouseMovePoint = Input.mousePosition;
-						OnMouseMove (lastValidMouseMovePoint);
-					}
-				} else if (Input.GetMouseButtonUp (0)) {
-					mouseEnd = Input.mousePosition;
-					mouseEndTime = Time.unscaledTime;
-					mouseIsDown = false;
-					OnMouseEnd (mouseEnd);
+		// Support for mouse input.
+		if (!mouseIsDown && !mouseAnalysed) {
+			// Advanced analysis
+			mouseAnalysed = true;
+			mouseTap = IsMouseTap ();
+			if (mouseTap) {
+				OnMouseTap (mouseEnd);
+				if (previousMouseTap && mouseEndTime - previousMouseTapTime < doubleTapTime) {
+					OnMouseDoubleTap (mouseEnd);
 				}
+			}
+			if (IsMouseSwipe ()) {
+				OnMouseSwipe (mouseBegin, mouseEnd);
+			}
+			previousMouseTap = mouseTap;
+			previousMouseTapTime = mouseEndTime;
+
+		} else {
+			if (Input.GetMouseButtonDown (0)) {
+				mouseIsDown = true;
+				mouseAnalysed = false;
+				mouseBegin = Input.mousePosition;
+				mouseBeginTime = Time.unscaledTime;
+				lastValidMouseMovePoint = Input.mousePosition;
+				OnMouseBegin (mouseBegin);
+			} else if (Input.GetMouseButton (0)) {
+				if (Vector3.Distance (Input.mousePosition, lastValidMouseMovePoint) > distanceToMove) {
+					lastValidMouseMovePoint = Input.mousePosition;
+					OnMouseMove (lastValidMouseMovePoint);
+				}
+			} else if (Input.GetMouseButtonUp (0)) {
+				mouseEnd = Input.mousePosition;
+				mouseEndTime = Time.unscaledTime;
+				mouseIsDown = false;
+				OnMouseEnd (mouseEnd);
 			}
 		}
 	}
@@ -576,9 +566,10 @@ public class InputManager : MonoBehaviour {
 	public Vector3 GetWorldPoint(Vector2 pos)
 	{
 		ray = Camera.main.ScreenPointToRay (pos);
-		if (Physics.Raycast (ray, out hit, Mathf.Infinity))
+        int layermask = 1 << LayerMask.NameToLayer("Walkable");
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, layermask))
 			return hit.point;
-		return Vector3.down*100;
+		return GameManager.player.transform.position;
 		//return Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 10));
 	}
 

@@ -254,10 +254,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011484425064}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 5.64, y: -0.796, z: 8.01}
   m_LocalScale: {x: 1.7362908, y: 1.736291, z: 1.736291}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_Children:
   - {fileID: 4000012309092154}
   m_Father: {fileID: 0}
@@ -860,8 +860,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invisibleWalls: {fileID: 1000010292476228}
-  fade: {fileID: 0}
-  player: {fileID: 0}
 --- !u!136 &136000012241592612
 CapsuleCollider:
   m_ObjectHideFlags: 1

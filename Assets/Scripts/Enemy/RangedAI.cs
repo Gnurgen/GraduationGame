@@ -4,6 +4,7 @@ using Pathfinding;
 
 [RequireComponent(typeof(Seeker))]
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SpawnRagdoll))]
 public class RangedAI : EnemyStats {
 
     public GameObject projectile;
@@ -27,7 +28,7 @@ public class RangedAI : EnemyStats {
     private Vector3 startPosition;
     private float currentAttackSpeed;
     private Rigidbody body;
-
+    private SpawnRagdoll myDoll;
     private int taunts;
     private int aggros;
 
@@ -42,7 +43,7 @@ public class RangedAI : EnemyStats {
         mySpeed = moveSpeed;
         startPosition = transform.position;
         currentAttackSpeed = 0;
-
+        myDoll.myTag = "EnemyRangedRagdoll";
         taunts = 0;
         aggros = 0;
     }
@@ -50,7 +51,19 @@ public class RangedAI : EnemyStats {
     void FixedUpdate()
     {
         currentAttackSpeed -= Time.fixedDeltaTime;
-        body.velocity = Vector3.zero;
+        if (!onPause)
+        {
+            body.velocity = Vector3.zero;
+        }
+        else if (pauseFor > 0)
+        {
+            pauseFor -= Time.fixedDeltaTime;
+            if (pauseFor <= 0)
+            {
+                pauseFor = 0;
+                onPause = false;
+            }
+        }
     }
 
     public void Taunt(GameObject newTarget)
@@ -68,7 +81,6 @@ public class RangedAI : EnemyStats {
         StartCoroutine(Idle());
         yield break;
     }
-
 
     IEnumerator Idle()
     {
@@ -271,7 +283,7 @@ public class RangedAI : EnemyStats {
                         GameObject proj = GameManager.pool.GenerateObject("EnemyRangedAttack");
                         proj.transform.position = transform.position+Vector3.up; // SO IT SPAWNS FROM THE HEAD
                         proj.transform.rotation = transform.rotation;
-                        proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage);
+                        proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage, force);
                     }
                 }
                 dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;

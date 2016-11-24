@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class MenuWheel : MonoBehaviour {
@@ -13,13 +14,14 @@ public class MenuWheel : MonoBehaviour {
     //Private variables
     private int nrOptions;
     public GameObject Wheel;
-    GameObject[] listOfButtons2; 
+    GameObject[] listOfButtons2;
+    private GameObject coneCool, flyingCool;
     private bool wheelClicked = false;
     private bool mouseRelease = false;
     private int currentButton;
     private int selectedButton;
     private Vector2 tempTouchPos;
-
+    private bool firstFinger = false;
     
     //Calulating circle
     private Vector2 center = new Vector2(Screen.width / 2, Screen.height / 2);
@@ -41,29 +43,29 @@ public class MenuWheel : MonoBehaviour {
         coneDraw = FindObjectOfType<ConeDraw>();
         nrOptions = listOfButtons.Length;
         listOfButtons2 = new GameObject[nrOptions];
-
         coordinates = new Vector2[nrOptions+1];
         minMax = new float[nrOptions * 2];
         angle = 2 * Mathf.PI / nrOptions;
         drawWheel();
+        flyingCool = GameObject.Find("flyingCool");
+        coneCool = GameObject.Find("coneCool");
         IM = GameManager.input;
         ID = IM.GetID();
         IM.OnFirstTouchBeginSub(checkIfCenter, ID);
+        IM.OnSecondTouchBeginSub(checkIfCenter, ID);
         IM.OnFirstTouchEndSub(OnRelease, ID);
+        IM.OnSecondTouchEndSub(OnRelease, ID);
         IM.OnFirstTouchMoveSub(updateMouse, ID);
         Wheel.SetActive(false);
     }
     
-       
-        
-   
-
     void Update()    {
        
         if (wheelClicked == true)
         {
             Wheel.SetActive(true);
             checkWhichState();
+            checkCooldown();
             if (mouseRelease == true)
             {
                 select();
@@ -179,13 +181,14 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 2:
                 Debug.Log("Button 3 selected");
+                GameObject.Find("Canvas").GetComponent<saveLoad>().openMenu();
                 break;
             case 3:
                 Debug.Log("Button 4 selected");
                 break;
             case 10:
                 Debug.Log("Nothing selected");
-                
+                GameManager.events.DrawComplete(10);
                 break;
         }
     }
@@ -206,6 +209,7 @@ public class MenuWheel : MonoBehaviour {
     
     void OnClick()
     {
+
         GameManager.events.WheelOpen();
         updateMouse(new Vector2(Screen.width / 2, Screen.height / 2));
         IM.TakeControl(ID);
@@ -214,6 +218,9 @@ public class MenuWheel : MonoBehaviour {
 
     void OnRelease(Vector2 p)
     {
+        //if(firstFinger)
+            //firstfinger = false;
+        //else
         if (wheelClicked)
         {
             mouseRelease = true;
@@ -222,9 +229,20 @@ public class MenuWheel : MonoBehaviour {
     }
     void checkIfCenter(Vector2 touchPos) {
         if (Vector2.Distance(center, touchPos) <= centerDistance)
-            OnClick();
+        {
+            if(firstFinger)
+                OnClick();
+            firstFinger = true;
+        }
     }
     void updateMouse(Vector2 touchPos) {
         tempTouchPos = touchPos - new Vector2(Screen.width / 2, Screen.height / 2);
+    }
+    void checkCooldown() {
+        float sCool = flyingSpear.Cooldown();
+        //Debug.Log("Cooldown: " + sCool);
+        flyingCool.GetComponent<Image>().fillAmount = sCool;
+       // Debug.Log(flyingCool.GetComponent<Image>().fillAmount);
+        coneCool.GetComponent<Image>().fillAmount = coneDraw.Cooldown();
     }
 }

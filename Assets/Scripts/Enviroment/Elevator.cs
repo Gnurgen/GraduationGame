@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Elevator : MonoBehaviour
 {
     public GameObject invisibleWalls;
-    public GameObject fade;
-    public GameObject player;
+    private GameObject fade;
+    private GameObject player;
     private float preLift = 2;
-    private float underLift = 2;
+    private float underLift = 3;
     private InputManager IM;
     int ID;
     float speed = 1;
@@ -16,6 +17,8 @@ public class Elevator : MonoBehaviour
 
     void Start()
     {
+        fade = GameObject.Find("Fade");
+        player = GameManager.player;
         IM = GameManager.input;
         ID = IM.GetID();
     }
@@ -33,6 +36,8 @@ public class Elevator : MonoBehaviour
             invisibleWalls.SetActive(true);
             Debug.Log("Kumo has entered the elevator");
             player.transform.parent = gameObject.transform;
+            Debug.Log(player.transform.parent);
+            //player.transform.localPosition = Vector3.zero;
             StartCoroutine(waitForAniStart());
         }
     }
@@ -48,6 +53,6 @@ public class Elevator : MonoBehaviour
         fade.GetComponent<Fade>().fadeToBlack(2);
         isMoving = true;
         yield return new WaitForSeconds(underLift);
-        Application.LoadLevel("Elevator");
+        SceneManager.LoadScene("BossLevel");
     }
 }

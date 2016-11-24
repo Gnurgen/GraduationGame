@@ -6,17 +6,29 @@
 				<MusicSwitchContainer Name="Music_System" ID="{A4F52877-5710-4651-8A27-3C56936AEE9B}" ShortID="342980893">
 					<PropertyList>
 						<Property Name="Tempo" Type="Real64" Value="94"/>
+						<Property Name="Volume" Type="Real64">
+							<ValueList>
+								<Value>-13</Value>
+							</ValueList>
+						</Property>
 					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 						</Reference>
 						<Reference Name="OutputBus">
-							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+							<ObjectRef Name="Music" ID="{955DDBE7-C44B-4BCD-8BA9-847D9E52C1F8}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
 						<MusicPlaylistContainer Name="Music_After_Boss" ID="{924F6AE6-083C-4E86-9F17-A83CE4820897}" ShortID="852159964">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-96</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -113,6 +125,13 @@
 							</Playlist>
 						</MusicPlaylistContainer>
 						<MusicPlaylistContainer Name="Music_In_Ability_Control" ID="{738F8159-9CE9-4C03-B6C3-98A0CCCBAA1F}" ShortID="84308214">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-96</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -209,6 +228,13 @@
 							</Playlist>
 						</MusicPlaylistContainer>
 						<MusicPlaylistContainer Name="Music_In_Ability_Wheel" ID="{EA3C802E-844F-4083-904F-8C8D24628FF5}" ShortID="749497948">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-96</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -593,6 +619,13 @@
 							</Playlist>
 						</MusicPlaylistContainer>
 						<MusicPlaylistContainer Name="Music_In_Ending_Cutscene" ID="{FC2C6F29-1105-4623-8E50-92EB0CBC3E80}" ShortID="147883740">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-96</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -686,6 +719,13 @@
 							</Playlist>
 						</MusicPlaylistContainer>
 						<MusicPlaylistContainer Name="Music_In_Intro_Cutscene" ID="{08E82D7F-CF75-45AE-BBF5-BD14433F8C70}" ShortID="620423398">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-96</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -1443,7 +1483,7 @@
 						<Property Name="Tempo" Type="Real64" Value="94"/>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
-								<Value>-8</Value>
+								<Value>-96</Value>
 							</ValueList>
 						</Property>
 					</PropertyList>
@@ -1452,7 +1492,7 @@
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 						</Reference>
 						<Reference Name="OutputBus">
-							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+							<ObjectRef Name="Music" ID="{955DDBE7-C44B-4BCD-8BA9-847D9E52C1F8}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>

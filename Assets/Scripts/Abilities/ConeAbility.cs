@@ -15,14 +15,11 @@ public class ConeAbility : MonoBehaviour {
     private Vector3 myRot;
     private Vector3[] dir;
     private Mesh dmgMesh;
-    [SerializeField]
     private GameObject coneParticle;
     Ray dmgRay;
     RaycastHit[] hit;
     PoolManager poolManager;
     int cCounter = 0, cStart = 0;
-
-    public GameObject test;
 	// Use this for initialization
 	void Awake () {
         poolManager = FindObjectOfType<PoolManager>();
@@ -59,12 +56,14 @@ public class ConeAbility : MonoBehaviour {
     {
         for(int i = 0; i<dir.Length; ++i)
         {
-            coneParticle = poolManager.GenerateObject("ConeParticle");
+            coneParticle = poolManager.GenerateObject("p_ConeParticle");
             coneParticle.transform.position = (transform.position-Vector3.up) + Vector3.up*Random.Range(0.1f, 1.5f);
             dir[i].y = coneParticle.transform.position.y;
             coneParticle.transform.LookAt(dir[i]);
             coneParticle.GetComponent<MovingConeParticle>().setVars(speed, tDist);
         }
+        if (cStart == 0)
+            Destroy(gameObject);
     }
 
     public void setVars(float l, float s, int t, Mesh m, float d, float p, float st)
@@ -80,14 +79,24 @@ public class ConeAbility : MonoBehaviour {
         myRot = transform.rotation.eulerAngles;
         detect = true;
     }
+
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce);
-        go.GetComponent<EnemyStats>().decreaseHealth(damage);
-        //go.GetComponent<EnemyStats>().PauseFor(stunTime);
-        go.layer = 10;
-        ++cCounter;
+        if (go == null)
+        {
+            ++cCounter;
+        }
+        else
+        {
+            print("applycone");
+            GameManager.events.ConeAbilityHit(go);
+            go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce, ForceMode.Impulse);
+            go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
+            go.GetComponent<EnemyStats>().PauseFor(stunTime);
+            go.layer = 10;
+            ++cCounter;
+        }
         if (cCounter == cStart)
             Destroy(gameObject);
     }

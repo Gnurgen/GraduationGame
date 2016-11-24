@@ -5,6 +5,7 @@ using System.Collections;
 public class GameManager {
     private const int START_SCENE = 0;
     private const int GAME_SCENE = 1;
+    private const string GAMEOVER_SCENE = "GameOver";
 
     private static GameManager _instance;
 
@@ -28,12 +29,23 @@ public class GameManager {
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
-        events.OnPlayerDeath += PlayerDeath;
     }
 
-    private void PlayerDeath(GameObject Id)
+    public static void GameOver(bool CheckPoint)
     {
-        Application.Quit();
+        player.SetActive(true);
+        //move player?? ++Setplayer active
+        if (!CheckPoint)
+        {
+            _instance = null;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            
+        }
+        else
+        {
+            //player.transform.position
+        }
     }
 
     public static int score

@@ -5,12 +5,11 @@ using System;
 
 public class PoolManager : MonoBehaviour {
 
-    public GameObject EnemyRangedAttackPrefab, BlobPrefab;
-    private Vector3 poolPosition = new Vector3(1000, 1000, 1000);
+    public GameObject EnemyRangedAttackPrefab, BlobPrefab, MeeleeRagdoll, RangedRagdoll;
     private Dictionary<string, List<GameObject>> pool;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         pool = new Dictionary<string, List<GameObject>>();
     }
 	
@@ -20,18 +19,15 @@ public class PoolManager : MonoBehaviour {
        // GameManager.events.OnEnemyDeath += GenerateRagdoll;
         //GameManager.events.OnEnemyDeath += PoolObj;
         GameManager.events.OnResourceDrop += GenerateBlob;
-        
-   
-
-    }
-
-    private void GenerateRagdoll(GameObject enemyID)
-    {
-        throw new NotImplementedException();
     }
 
     public void PoolObj(GameObject obj)
     {
+        if (obj.GetComponent<AutoPool>() != null)
+        {
+            obj.GetComponent<AutoPool>().enabled = false;
+            Destroy(obj.GetComponent<AutoPool>());
+        }
         List<GameObject> ListResult;
         if(pool.TryGetValue(obj.tag, out ListResult))
         {
@@ -113,11 +109,45 @@ public class PoolManager : MonoBehaviour {
         }
         else
             result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        if (result.GetComponent<AutoPool>() != null)
+        {
+            result.GetComponent<AutoPool>().enabled = false;
+            Destroy(result.GetComponent<AutoPool>());
+        }
         result.SetActive(true);
         return result;
     }
 
-
+    public void GenerateRagdoll(Transform[] p, string tag, Vector3 force)
+    {
+        GameObject result;
+        List<GameObject> ListResult;
+        if (pool.TryGetValue(tag, out ListResult))
+        {
+            if (ListResult.Count > 0)
+            {
+                result = ListResult[ListResult.Count - 1];
+                ListResult.RemoveAt(ListResult.Count - 1);
+            }
+            else
+                result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        }
+        else
+            result = Instantiate(Resources.Load<GameObject>("Pool/" + tag));
+        if (result.GetComponent<AutoPool>() != null)
+        {
+            result.GetComponent<AutoPool>().enabled = false;
+            Destroy(result.GetComponent<AutoPool>());
+        }
+        result.SetActive(true);
+        for(int k = 0; k<p.Length; ++k)
+        {
+            result.transform.GetChild(0).GetChild(k).transform.position = p[k].position;
+            result.transform.GetChild(0).GetChild(k).transform.rotation = p[k].rotation;
+            result.transform.GetChild(0).GetChild(k).transform.localScale = p[k].transform.lossyScale;
+            result.transform.GetChild(0).GetChild(k).GetComponent<Rigidbody>().AddForce(force, ForceMode.Impulse);
+        }
+    }
 
     // Update is called once per frame
     void Update () {

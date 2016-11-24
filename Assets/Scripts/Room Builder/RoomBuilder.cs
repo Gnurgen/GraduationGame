@@ -31,10 +31,12 @@ public class RoomBuilder : MonoBehaviour {
         {
             if (_roomSize != value)
             {
+                int i;
+                int j;
                 _roomSize = value;
-                for(int i = 0; i < roomUnits.GetLength(0); i++)
+                for(i = 0; i < roomUnits.GetLength(0); i++)
                 {
-                    for (int j = 0; j < roomUnits.GetLength(1); j++)
+                    for (j = 0; j < roomUnits.GetLength(1); j++)
                     {
                         if (!roomUnits[i, j])
                         {
@@ -137,34 +139,50 @@ public class RoomBuilder : MonoBehaviour {
         enemyList.Remove(enemy);
         if (enemyList.Count == 0)
         {
+            OpenCloseDoor[] toggleList = GetComponentsInChildren<OpenCloseDoor>();
+            for (int i = 0; i < toggleList.Length; i++)
+            {
+                toggleList[i].openDoor();
+            }
             // Room cleared
         }
     }
 
-    public int[] GetHashIndex()
+    public int[] GetHashIndex(int x = 0, int y = 0)
     {
-        if (roomUnits[0, 0] == null)
+        if (roomUnits[x, y] == null)
         {
             RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
-            if (units.Length > 0)
-                roomUnits[0, 0] = units[0];
+            int index = x + y * 2;
+            if (units.Length > index)
+                roomUnits[x, y] = units[index];
         }
-        bool[] hasDoorList = roomUnits[0, 0].GetDoors();
+        bool[] hasDoorList = roomUnits[x, y].GetDoors();
 
         return new int[] {
-                GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
-                hasDoorList[0] ? 1 : 0,
-                hasDoorList[1] ? 1 : 0,
-                hasDoorList[2] ? 1 : 0,
-                hasDoorList[3] ? 1 : 0
-            };
+            GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
+            hasDoorList[0] ? 1 : 0,
+            hasDoorList[1] ? 1 : 0,
+            hasDoorList[2] ? 1 : 0,
+            hasDoorList[3] ? 1 : 0
+        };
     }
 
-    public void AddRoomObject(GameObject go)
+
+    public void HideWalls(bool right, bool bottom)
     {
-        go.transform.parent = transform;
-    }
+        int i;
+        int j;
 
+        for (i = 0; i < roomUnits.GetLength(0); i++)
+        {
+            for (j = 0; j < roomUnits.GetLength(1); j++)
+            {
+                if (roomUnits[i, j])
+                    roomUnits[i, j].setWallDisplay(i == 0, j == 0, !right, !bottom);
+            }
+        }
+    }
     /*
     public void AddRoomObject(GameObject go)
     {

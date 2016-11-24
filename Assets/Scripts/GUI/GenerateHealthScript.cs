@@ -6,9 +6,10 @@ public class GenerateHealthScript : MonoBehaviour {
     private GameObject[] healthBars;
     private GameObject healthBar;
     public GameObject HealthBarPrefab;
+    public int amountOfHPBars = 20;
 
     void Start() {
-        healthBars = new GameObject[100];
+        healthBars = new GameObject[amountOfHPBars];
         for (int i = 0; i < healthBars.Length; i++) {
             healthBar = Instantiate(HealthBarPrefab);
             healthBar.transform.parent = GameObject.Find("Canvas").transform;

@@ -4,7 +4,7 @@ using System.Collections;
 public class EnemyMeleeAttack : MonoBehaviour {
 
     private Transform body;
-    private float dmg;
+    private float dmg, force;
     private BoxCollider myCol;
     void Start()
     {
@@ -20,6 +20,7 @@ public class EnemyMeleeAttack : MonoBehaviour {
         if (body.tag == "Enemy")
         {
             dmg = body.GetComponent<EnemyStats>().damage;
+            force = body.GetComponent<EnemyStats>().force;
         }
         else
         {
@@ -37,7 +38,7 @@ public class EnemyMeleeAttack : MonoBehaviour {
     {
         if(col.tag == "Player")
         {
-            col.GetComponent<Health>().decreaseHealth(dmg);
+            col.GetComponent<Health>().decreaseHealth(dmg, (col.transform.position - transform.position), force);
             myCol.enabled = false;
             GameManager.events.EnemyAttackHit(body.gameObject, dmg);
         }

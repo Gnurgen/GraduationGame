@@ -2,7 +2,6 @@ Library/
 Temp/
 Obj/
 Build/
-ProjectSettings/
 Assets/Wwise/
 Assets/Wwise/Editor/ProjectData/AkWwiseProjectData.asset
 
@@ -28,3 +27,4 @@ Assets/Wwise/Editor/ProjectData/AkWwiseProjectData.asset
 Icon?
 ehthumbs.db
 Thumbs.db
+GGTest18.11.apk

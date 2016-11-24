@@ -2,92 +2,68 @@
 using System.Collections;
 
 public class Health : MonoBehaviour {
-    public float _baseHealth;
     [Range(0,100)]
-    public float _healthIncreasePerLevelInPercentage;
-    private float _healthPerRes;
-    private bool _healthOnLevel = false;
-    public float _health, _maxHealth;
-    private const string _playerTag = "Player";
-    private bool _isPlayer = false;
+    public float healthIncreasePerLevelInPercentage;
+    private float healthPerRes;
+    private bool healthOnLevel = false;
+    public float health, maxHealth;
+    private const string playerTag = "Player";
+    SpawnRagdoll rd;
 
-    public float health
+    void Start()
     {
-        get
-        {
-            return _health;
-        }
-        set
-        {
-            _health = value;
-        }
-    }
-    public bool isPlayer
-    {
-        get
-        {
-            return _isPlayer;
-        }
+        health = maxHealth;
+        Subscribe();
+        rd = GetComponent<SpawnRagdoll>();
+
     }
 
-    public void setHealthVars(int multiplier)
+    public bool isPlayer(string tag)
     {
-        _baseHealth = 
-        _health = _baseHealth;
-        _maxHealth = _health;
-        _isPlayer = gameObject.tag == _playerTag;
-        Subscribe();
+        return tag == playerTag;
     }
-    public void setHealthVars(int _resHealth, bool levelUpHealth)
+
+    public void setHealthVars(int resHealth)
     {
-        _healthPerRes = _resHealth;
-        _healthOnLevel = levelUpHealth;
-        _health = _baseHealth;
-        _maxHealth = _health;
-        _isPlayer = gameObject.tag == _playerTag;
-        Subscribe();
+        healthPerRes = resHealth;
     }
 
     private void Subscribe()
     {
-        if (_isPlayer)
+        if (isPlayer(gameObject.tag))
         {
             GameManager.events.OnResourcePickup += increaseHealth;
         }
     }
 
 
-    public void decreaseHealth(float val)
-
+    public void decreaseHealth(float val, Vector3 forceDir, float pushForce)
     {
-        _health -= val;
-        if (_health <= 0)
+        health -= val;
+        if (health <= 0)
         {
-            if (_isPlayer)
+            if (isPlayer(gameObject.tag))
             {
                 GameManager.events.PlayerDeath(gameObject);
-                print("øv :( (pik)spiller er død \n #  #\n#   #\n ###");
             }
             else
             {
                 GameManager.events.EnemyDeath(gameObject);
-                GameManager.events.ResourceDrop(gameObject, 3); // AMOUNT OF BLOBS DROPS
-                Destroy(gameObject);
+                GameManager.events.ResourceDrop(gameObject, 1); // AMOUNT OF BLOBS DROPS
             }
+            forceDir.y = 0;
+            forceDir = Vector3.Normalize(forceDir) * pushForce;
+            forceDir.y = 2;
+            rd.Execute(forceDir);
         }
     }
 
+
     public void increaseHealth(GameObject Id, int val)
     {
-        _health += _healthPerRes;
-        if (_health > _maxHealth)
-            _health = _maxHealth;
+        health += healthPerRes;
+        if (health > maxHealth)
+            health = maxHealth;
 
-    }
-    public void levelUp(int id)
-    {
-        _maxHealth += _maxHealth * (_healthIncreasePerLevelInPercentage / 100);
-        if(_healthOnLevel)
-            _health = _maxHealth;
     }
 }
