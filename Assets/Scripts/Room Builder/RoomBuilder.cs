@@ -15,11 +15,12 @@ public class RoomBuilder : MonoBehaviour {
     public RoomUnit[,] roomUnits = new RoomUnit[MAX_UNIT_SIZE, MAX_UNIT_SIZE];
     public bool isBeaconRoom;
     public bool isRotatable;
-    public int roomLevel;
+    public int roomLevelMax = 3;
+    public int roomLevelMin = 1;
 
     private List<GameObject> objectList = new List<GameObject>();
     private Vector2 _roomSize = new Vector2(1, 1);
-    private List<GameObject> enemyList = new List<GameObject>();
+    private int enemyCount = 0;
 
     public Vector2 roomSize
     {
@@ -129,22 +130,20 @@ public class RoomBuilder : MonoBehaviour {
     void Update () {
 	}
 
-    public void AddEnemy(GameObject enemy)
+    public void IncrementEnemyCount()
     {
-        enemyList.Add(enemy);
+        enemyCount++;
     }
 
-    public void RemoveEnemy(GameObject enemy)
+    public void DecrementEnemyCount(GameObject enemy)
     {
-        enemyList.Remove(enemy);
-        if (enemyList.Count == 0)
+        if (--enemyCount == 0)
         {
-            OpenCloseDoor[] toggleList = GetComponentsInChildren<OpenCloseDoor>();
-            for (int i = 0; i < toggleList.Length; i++)
+            SpiritRock waypoint = GetComponentInParent<SpiritRock>();
+            if (waypoint != null)
             {
-                toggleList[i].openDoor();
+                waypoint.EnableFlame();
             }
-            // Room cleared
         }
     }
 
@@ -183,37 +182,6 @@ public class RoomBuilder : MonoBehaviour {
             }
         }
     }
-    /*
-    public void AddRoomObject(GameObject go)
-    {
-        refreshObjectList();
-        if (objectList.IndexOf(go) < 0)
-        {
-            objectList.Add(go);
-            Debug.Log("Added " + go.name + " to room");
-        }
-    }
- 
-    public Object[] GetObjects()
-    {
-        refreshObjectList();
-        Object[] objects = new Object[objectList.Count];
-        for (int i = 0; i < objectList.Count ; i++)
-            objects[i] = objectList[i];
-        return objects;
-    }
-
-    public int GetObjectsNum()
-    {
-        refreshObjectList();
-        return objectList.Count;
-    }
-
-    private void refreshObjectList()
-    {
-        objectList = objectList.Where(item => item != null).ToList();
-    }
-    */
 
     private RoomUnit createRoomUnit()
     {

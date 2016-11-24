@@ -19,6 +19,8 @@ public class GameManager {
     private Menu _menu;
     private static int _score, _experience, _playerLevel;
 
+    public SpiritRock waypoint;
+
     public GameManager()
     {
         Debug.Log("GameManager constructed");

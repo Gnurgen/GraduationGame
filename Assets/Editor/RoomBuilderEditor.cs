@@ -105,7 +105,9 @@ public class RoomEditor : Editor {
         roomSize.x = EditorGUILayout.IntSlider("Room Size", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
         roomSize.y = roomSize.x;
 
-        workbench.roomLevel = EditorGUILayout.IntSlider("Room Level", workbench.roomLevel, 1, RoomBuilder.MAX_LEVEL);
+        GUILayout.Label("Room Level");
+        workbench.roomLevelMax = EditorGUILayout.IntSlider("   Maximum", workbench.roomLevelMax, 1, RoomBuilder.MAX_LEVEL);
+        workbench.roomLevelMax = EditorGUILayout.IntSlider("   Minimum", workbench.roomLevelMin, 1, RoomBuilder.MAX_LEVEL);
 
         GUILayout.Space(10);
         GUI.enabled = roomSize.x == 1 && roomSize.y == 1;

@@ -66,7 +66,7 @@ public class MapGenerator : MonoBehaviour {
         int total;
         int branchPasses = 0;
         int gridSize;
-        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
+        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevelMax <= mapLevel && g.GetComponent<RoomBuilder>().roomLevelMin >= mapLevel).ToList();
         List<GameObject>[,,,,] roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
         List<GameObject>[] list = new List<GameObject>[4];
         List<RoomBuilder> largeRooms = new List<RoomBuilder>();
