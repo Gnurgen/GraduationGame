@@ -31,10 +31,12 @@ public class RoomBuilder : MonoBehaviour {
         {
             if (_roomSize != value)
             {
+                int i;
+                int j;
                 _roomSize = value;
-                for(int i = 0; i < roomUnits.GetLength(0); i++)
+                for(i = 0; i < roomUnits.GetLength(0); i++)
                 {
-                    for (int j = 0; j < roomUnits.GetLength(1); j++)
+                    for (j = 0; j < roomUnits.GetLength(1); j++)
                     {
                         if (!roomUnits[i, j])
                         {
@@ -166,6 +168,21 @@ public class RoomBuilder : MonoBehaviour {
         };
     }
 
+
+    public void HideWalls(bool right, bool bottom)
+    {
+        int i;
+        int j;
+
+        for (i = 0; i < roomUnits.GetLength(0); i++)
+        {
+            for (j = 0; j < roomUnits.GetLength(1); j++)
+            {
+                if (roomUnits[i, j])
+                    roomUnits[i, j].setWallDisplay(i == 0, j == 0, !right, !bottom);
+            }
+        }
+    }
     /*
     public void AddRoomObject(GameObject go)
     {
