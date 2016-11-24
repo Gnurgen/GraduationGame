@@ -14,7 +14,7 @@ public class NewEditorTest {
 
         ih.ClearReceivedCalls();
         hc.DecreaseHealth(true, 10, 5, 0, 0, 0, 0);
-        ih.Received().SetHealth(Arg.Is(4));
+        ih.Received().SetHealth(Arg.Is<float>(x => x == 5));
 	}
 
     [Test]
@@ -38,7 +38,7 @@ public class NewEditorTest {
 
         ih.ClearReceivedCalls();
         hc.IncreaseHealth(10, 15, 20);
-        ih.ReceivedWithAnyArgs().SetHealth(0);
+        ih.Received().SetHealth(Arg.Is<float>(x => x == 20));
     }
 
     [Test]
@@ -50,6 +50,6 @@ public class NewEditorTest {
 
         ih.ClearReceivedCalls();
         hc.IncreaseHealth(10, 15, 30);
-        ih.rece.SetHealth(0);
+        ih.Received().SetHealth(Arg.Is<float>(x => x == 25));
     }
 }
