@@ -1,22 +1,55 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using NUnit.Framework;
+using NSubstitute;
 
 public class NewEditorTest {
 
 	[Test]
-	public void EditorTest()
+	public void HealthDeathTrue()
 	{
-		//Arrange
-		var gameObject = new GameObject();
+        var ih = Substitute.For<IHealth>();
+        HealthController hc = new HealthController();
+        hc.SetHealth(ih);
 
-		//Act
-		//Try to rename the GameObject
-		var newGameObjectName = "My game object";
-		gameObject.name = newGameObjectName;
-
-		//Assert
-		//The object has a new name
-		Assert.AreEqual(newGameObjectName, gameObject.name);
+        ih.ClearReceivedCalls();
+        hc.DecreaseHealth(true, 10, 5, 0, 0, 0, 0);
+        ih.Received().SetHealth(Arg.Is(4));
 	}
+
+    [Test]
+    public void HealthDeathFalse()
+    {
+        var ih = Substitute.For<IHealth>();
+        HealthController hc = new HealthController();
+        hc.SetHealth(ih);
+
+        ih.ClearReceivedCalls();
+        hc.DecreaseHealth(false, 10, 5, 0, 0, 0, 0);
+        ih.DidNotReceiveWithAnyArgs().SetHealth(0);
+    }
+
+    [Test]
+    public void HealthMaxTrue()
+    {
+        var ih = Substitute.For<IHealth>();
+        HealthController hc = new HealthController();
+        hc.SetHealth(ih);
+
+        ih.ClearReceivedCalls();
+        hc.IncreaseHealth(10, 15, 20);
+        ih.ReceivedWithAnyArgs().SetHealth(0);
+    }
+
+    [Test]
+    public void HealthMaxFalse()
+    {
+        var ih = Substitute.For<IHealth>();
+        HealthController hc = new HealthController();
+        hc.SetHealth(ih);
+
+        ih.ClearReceivedCalls();
+        hc.IncreaseHealth(10, 15, 30);
+        ih.rece.SetHealth(0);
+    }
 }
