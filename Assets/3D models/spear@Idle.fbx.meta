@@ -1,0 +1,217 @@
+fileFormatVersion: 2
+guid: 87d4b6891861b764a8da32d37e17944d
+timeCreated: 1479986747
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: playerCharacter_rig:cape_back_a_jnt
+    100002: playerCharacter_rig:cape_back_b_jnt
+    100004: playerCharacter_rig:cape_backSide_base_jnt
+    100006: playerCharacter_rig:cape_front_a_jnt
+    100008: playerCharacter_rig:cape_front_b_jnt
+    100010: playerCharacter_rig:cape_frontSide_base_jnt
+    100012: playerCharacter_rig:cape_leftElbow_jnt
+    100014: playerCharacter_rig:cape_leftShoulder_jnt
+    100016: playerCharacter_rig:cape_leftSide_base_jnt
+    100018: playerCharacter_rig:cape_rightElbow_jnt
+    100020: playerCharacter_rig:cape_rightShoulder_jnt
+    100022: playerCharacter_rig:cape_rightSide_base_jnt
+    100024: playerCharacter_rig:cape_root_jnt
+    100026: playerCharacter_rig:character_grp
+    100028: playerCharacter_rig:character_grp_jnt
+    100030: playerCharacter_rig:CoG_jnt
+    100032: playerCharacter_rig:head_jnt
+    100034: playerCharacter_rig:headEnd_jnt
+    100036: playerCharacter_rig:headLeaf_left_a_jnt
+    100038: playerCharacter_rig:headLeaf_left_b_jnt
+    100040: playerCharacter_rig:headLeaf_left_c_jnt
+    100042: playerCharacter_rig:headLeaf_left_end_jnt
+    100044: playerCharacter_rig:headLeaf_middle_a_jnt
+    100046: playerCharacter_rig:headLeaf_middle_b_jnt
+    100048: playerCharacter_rig:headLeaf_middle_c_jnt
+    100050: playerCharacter_rig:headLeaf_middle_end_jnt
+    100052: playerCharacter_rig:headLeaf_right_a_jnt
+    100054: playerCharacter_rig:headLeaf_right_b_jnt
+    100056: playerCharacter_rig:headLeaf_right_c_jnt
+    100058: playerCharacter_rig:headLeaf_right_end_jnt
+    100060: playerCharacter_rig:left_ankle_jnt
+    100062: playerCharacter_rig:left_clavecle_jnt
+    100064: playerCharacter_rig:left_elbow_jnt
+    100066: playerCharacter_rig:left_fingers_a_jnt
+    100068: playerCharacter_rig:left_fingers_b_jnt
+    100070: playerCharacter_rig:left_fingers_tip_jnt
+    100072: playerCharacter_rig:left_foot_jnt
+    100074: playerCharacter_rig:left_hand_jnt
+    100076: playerCharacter_rig:left_hip_jnt
+    100078: playerCharacter_rig:left_knee_jnt
+    100080: playerCharacter_rig:left_shoulder_jnt
+    100082: playerCharacter_rig:left_thumb_a_jnt
+    100084: playerCharacter_rig:left_thumb_b_jnt
+    100086: playerCharacter_rig:left_thumb_tip_jnt
+    100088: playerCharacter_rig:left_toe_jnt
+    100090: playerCharacter_rig:neck_jnt
+    100092: playerCharacter_rig:pelvis_jnt
+    100094: playerCharacter_rig:right_ankle_jnt
+    100096: playerCharacter_rig:right_clavecle_jnt
+    100098: playerCharacter_rig:right_elbow_jnt
+    100100: playerCharacter_rig:right_fingers_a_jnt
+    100102: playerCharacter_rig:right_fingers_b_jnt
+    100104: playerCharacter_rig:right_fingers_tip_jnt
+    100106: playerCharacter_rig:right_foot_jnt
+    100108: playerCharacter_rig:right_hand_jnt
+    100110: playerCharacter_rig:right_hip_jnt
+    100112: playerCharacter_rig:right_knee_jnt
+    100114: playerCharacter_rig:right_shoulder_jnt
+    100116: playerCharacter_rig:right_thumb_a_jnt
+    100118: playerCharacter_rig:right_thumb_b_jnt
+    100120: playerCharacter_rig:right_thumb_tip_jnt
+    100122: playerCharacter_rig:right_toe_jnt
+    100124: playerCharacter_rig:root_jnt
+    100126: playerCharacter_rig:spine_a_jnt
+    100128: playerCharacter_rig:spine_b_jnt
+    100130: playerCharacter_rig:spine_c_jnt
+    100132: playerCharacter_rig:torso_jnt
+    100134: //RootNode
+    100136: spear_rig:end_jnt
+    100138: spear_rig:root_jnt
+    100140: spear_rig:spear_grp
+    100142: spear_rig:spear_grp_jnt
+    400000: playerCharacter_rig:cape_back_a_jnt
+    400002: playerCharacter_rig:cape_back_b_jnt
+    400004: playerCharacter_rig:cape_backSide_base_jnt
+    400006: playerCharacter_rig:cape_front_a_jnt
+    400008: playerCharacter_rig:cape_front_b_jnt
+    400010: playerCharacter_rig:cape_frontSide_base_jnt
+    400012: playerCharacter_rig:cape_leftElbow_jnt
+    400014: playerCharacter_rig:cape_leftShoulder_jnt
+    400016: playerCharacter_rig:cape_leftSide_base_jnt
+    400018: playerCharacter_rig:cape_rightElbow_jnt
+    400020: playerCharacter_rig:cape_rightShoulder_jnt
+    400022: playerCharacter_rig:cape_rightSide_base_jnt
+    400024: playerCharacter_rig:cape_root_jnt
+    400026: playerCharacter_rig:character_grp
+    400028: playerCharacter_rig:character_grp_jnt
+    400030: playerCharacter_rig:CoG_jnt
+    400032: playerCharacter_rig:head_jnt
+    400034: playerCharacter_rig:headEnd_jnt
+    400036: playerCharacter_rig:headLeaf_left_a_jnt
+    400038: playerCharacter_rig:headLeaf_left_b_jnt
+    400040: playerCharacter_rig:headLeaf_left_c_jnt
+    400042: playerCharacter_rig:headLeaf_left_end_jnt
+    400044: playerCharacter_rig:headLeaf_middle_a_jnt
+    400046: playerCharacter_rig:headLeaf_middle_b_jnt
+    400048: playerCharacter_rig:headLeaf_middle_c_jnt
+    400050: playerCharacter_rig:headLeaf_middle_end_jnt
+    400052: playerCharacter_rig:headLeaf_right_a_jnt
+    400054: playerCharacter_rig:headLeaf_right_b_jnt
+    400056: playerCharacter_rig:headLeaf_right_c_jnt
+    400058: playerCharacter_rig:headLeaf_right_end_jnt
+    400060: playerCharacter_rig:left_ankle_jnt
+    400062: playerCharacter_rig:left_clavecle_jnt
+    400064: playerCharacter_rig:left_elbow_jnt
+    400066: playerCharacter_rig:left_fingers_a_jnt
+    400068: playerCharacter_rig:left_fingers_b_jnt
+    400070: playerCharacter_rig:left_fingers_tip_jnt
+    400072: playerCharacter_rig:left_foot_jnt
+    400074: playerCharacter_rig:left_hand_jnt
+    400076: playerCharacter_rig:left_hip_jnt
+    400078: playerCharacter_rig:left_knee_jnt
+    400080: playerCharacter_rig:left_shoulder_jnt
+    400082: playerCharacter_rig:left_thumb_a_jnt
+    400084: playerCharacter_rig:left_thumb_b_jnt
+    400086: playerCharacter_rig:left_thumb_tip_jnt
+    400088: playerCharacter_rig:left_toe_jnt
+    400090: playerCharacter_rig:neck_jnt
+    400092: playerCharacter_rig:pelvis_jnt
+    400094: playerCharacter_rig:right_ankle_jnt
+    400096: playerCharacter_rig:right_clavecle_jnt
+    400098: playerCharacter_rig:right_elbow_jnt
+    400100: playerCharacter_rig:right_fingers_a_jnt
+    400102: playerCharacter_rig:right_fingers_b_jnt
+    400104: playerCharacter_rig:right_fingers_tip_jnt
+    400106: playerCharacter_rig:right_foot_jnt
+    400108: playerCharacter_rig:right_hand_jnt
+    400110: playerCharacter_rig:right_hip_jnt
+    400112: playerCharacter_rig:right_knee_jnt
+    400114: playerCharacter_rig:right_shoulder_jnt
+    400116: playerCharacter_rig:right_thumb_a_jnt
+    400118: playerCharacter_rig:right_thumb_b_jnt
+    400120: playerCharacter_rig:right_thumb_tip_jnt
+    400122: playerCharacter_rig:right_toe_jnt
+    400124: playerCharacter_rig:root_jnt
+    400126: playerCharacter_rig:spine_a_jnt
+    400128: playerCharacter_rig:spine_b_jnt
+    400130: playerCharacter_rig:spine_c_jnt
+    400132: playerCharacter_rig:torso_jnt
+    400134: //RootNode
+    400136: spear_rig:end_jnt
+    400138: spear_rig:root_jnt
+    400140: spear_rig:spear_grp
+    400142: spear_rig:spear_grp_jnt
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
