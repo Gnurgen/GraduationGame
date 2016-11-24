@@ -3,7 +3,7 @@ using UnityEditor;
 using NUnit.Framework;
 using NSubstitute;
 
-public class NewEditorTest {
+public class AutoTest {
 
 	[Test]
 	public void HealthDeathTrue()
