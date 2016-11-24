@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SplashScreens : MonoBehaviour {
     public GameObject[] splashScreens;
@@ -26,10 +27,11 @@ public class SplashScreens : MonoBehaviour {
         splashScreens[1].SetActive(false);
 
         fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
+        AkSoundEngine.SetState("Game_State", "In_Main_Menu"); // Start sound
         yield return new WaitForSeconds(fadingTime + showTime);
         fade.GetComponent<Image>().CrossFadeAlpha(1, 2, true);
         yield return new WaitForSeconds(fadingTime);
         splashScreens[2].SetActive(false);
-        Application.LoadLevel("Menu");
+        SceneManager.LoadScene("Menu");
     }
 }

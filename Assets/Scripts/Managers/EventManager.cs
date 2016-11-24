@@ -7,7 +7,8 @@ public class EventManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-
+        if (FindObjectOfType<GameOverFade>() == null)
+            Instantiate(Resources.Load<GameObject>("Prefabs/GameOverFade"));
     }
 
     // Update is called once per frame
