@@ -7,6 +7,8 @@ using System.Linq;
 [CustomEditor(typeof(RoomBuilder))]
 public class RoomEditor : Editor {
 
+//    private static SceneView[] sceneViews = new SceneView[2];
+
     [MenuItem("Tools/Room Builder/Create Workbench", false, 0)]
     public static void CreateWorkbench()
     {
@@ -70,19 +72,30 @@ public class RoomEditor : Editor {
         }
     }
 
-    private static void replace(GameObject original, GameObject replacement)
+    /*
+    [MenuItem("Tools/Room Builder/Save View &q", false, 23)]
+    public static void EnableCam1()
     {
-        GameObject obj = Instantiate(replacement) as GameObject;
-        obj.name = original.name;
-        Undo.RegisterCreatedObjectUndo(obj, "Created replacement object");
-        obj.transform.position = original.transform.position;
-        obj.transform.rotation = original.transform.rotation;
-        obj.transform.localScale = original.transform.localScale;
+        SceneView view = SceneView.currentDrawingSceneView;
+        RoomBuilder workbench = FindObjectOfType<RoomBuilder>();
 
-        obj.transform.parent = original.transform.parent;
-        obj.transform.SetSiblingIndex(original.transform.GetSiblingIndex());
-        Undo.DestroyObjectImmediate(original);
+        if (view == null)
+            view = SceneView.sceneViews[0] as SceneView;
+
+        var target = new GameObject();
+        target.transform.position = workbench.transform.position + new Vector3(0, 200, 0);
+        target.transform.rotation = Quaternion.Euler(90, 0, 0);
+        view.AlignViewToObject(target.transform);
+        view.orthographic = true;
+        SceneView.
+        GameObject.DestroyImmediate(target);
     }
+
+    [MenuItem("Tools/Room Builder/Toggle View &e", false, 23)]
+    public static void EnableCam2()
+    {
+    }
+    */
 
     override public void OnInspectorGUI()
     {
