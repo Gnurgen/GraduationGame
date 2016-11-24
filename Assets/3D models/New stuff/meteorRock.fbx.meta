@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 6b7553773b595a04a87156c38a5d8b97
-timeCreated: 1479912941
+guid: da85a0fff1c831345820c25150205846
+timeCreated: 1479982495
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: wallStump02_geo
-    100004: wallStump02_geo_grp
+    100002: meteorRock_geo
+    100004: meteorRock_geo_grp
     400000: //RootNode
-    400002: wallStump02_geo
-    400004: wallStump02_geo_grp
-    2300000: wallStump02_geo
-    3300000: wallStump02_geo
-    4300000: wallStump02_geo
+    400002: meteorRock_geo
+    400004: meteorRock_geo_grp
+    2300000: meteorRock_geo
+    3300000: meteorRock_geo
+    4300000: meteorRock_geo
   materials:
     importMaterials: 1
     materialName: 0
