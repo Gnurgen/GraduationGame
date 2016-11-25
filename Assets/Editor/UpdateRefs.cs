@@ -324,7 +324,6 @@ public class UpdateRefs : EditorWindow{
     {
         GameObject obj = Instantiate(replacement) as GameObject;
         obj.name = original.name;
-        Undo.RegisterCreatedObjectUndo(obj, "Created replacement object");
         obj.transform.position = original.transform.position;
         obj.transform.rotation = original.transform.rotation;
         obj.transform.localScale = original.transform.localScale;
@@ -335,6 +334,6 @@ public class UpdateRefs : EditorWindow{
         if (original.transform.childCount > 0 && !original.transform.GetChild(0).gameObject.activeSelf)
             obj.transform.GetChild(0).gameObject.SetActive(false);
 
-        Undo.DestroyObjectImmediate(original);
+        DestroyImmediate(original);
     }
 }

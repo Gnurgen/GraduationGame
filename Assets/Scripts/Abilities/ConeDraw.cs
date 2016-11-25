@@ -68,7 +68,8 @@ public class ConeDraw : MonoBehaviour {
         // Actually use the ability with the drawn points
         Destroy(drawCone);
         if (dirSat)//If abality was not cancelled
-        { 
+        {
+            GameManager.events.ConeAbilityUsed(GameManager.player);
             currentCooldown = cooldown;
             dmgCone = (GameObject)Instantiate(coneDmgObject, drawCone.transform.position, drawCone.transform.rotation);
             dmgCone.GetComponent<ConeAbility>().setVars(length, coneSpeed, activeTris, coneMesh, damage, pushForce, stunTime);
