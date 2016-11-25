@@ -19,6 +19,8 @@ public class Health : MonoBehaviour, IHealth {
         health = maxHealth;
         Subscribe();
         rd = GetComponent<SpawnRagdoll>();
+        if (ht == null)
+            ht = new HealthController();
         ht.SetHealth(this);
     }
 
