@@ -457,6 +457,7 @@ public class MapGenerator : MonoBehaviour {
                             hashIndex[3] == 1,
                             hashIndex[4] == 1
                         };
+
                     }
 
                     go = Instantiate(room.gameObject);

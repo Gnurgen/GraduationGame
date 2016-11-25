@@ -159,6 +159,7 @@ public class RoomBuilder : MonoBehaviour {
         }
         bool[] hasDoorList = roomUnits[x, y].GetDoors();
 
+//        Debug.Log(hashIndex[0] + ":" + hashIndex[1] + "." + hashIndex[2] + "." + hashIndex[3] + "." + hashIndex[4]);
         return new int[] {
             GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
             hasDoorList[0] ? 1 : 0,
