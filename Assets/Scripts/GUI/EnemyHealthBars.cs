@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class EnemyHealthBars : MonoBehaviour {
@@ -6,19 +7,20 @@ public class EnemyHealthBars : MonoBehaviour {
     private float minSize = 0.2f;
     private float maxHealth;
     private float health;
-    private float hightOfHealthbar = 200;
-    private float scale;
-    private GameObject enemy;
+    private float hightOfHealthbar = 300;
+    private float scale, distance;
+    private GameObject enemy, mainCamera;
     private int type;
     Vector3 position;
 
     void Awake()
     {
-        transform.localScale = new Vector3(0, 0, 0);
+        transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
     }
 
     void Start () {
-
+        mainCamera = GameObject.Find("Main Camera");
+        distance = Vector3.Distance(mainCamera.transform.position, GameObject.Find("Canvas").transform.position);                
     }
     void Update()
     {
@@ -33,19 +35,22 @@ public class EnemyHealthBars : MonoBehaviour {
 
     void updateHealthBar() {
         health = enemy.GetComponent<Health>().health;
-        scale = minSize+((maxSize-minSize)*(1-((maxHealth-health)/maxHealth))); 
-        gameObject.transform.localScale = new Vector3(scale, scale, 0); 
+        scale = 1 - ((maxHealth - health) / maxHealth);
+        gameObject.GetComponent<Image>().fillAmount = scale;
         if (health <= 0)
             gameObject.SetActive(false);
     }
 
     void healthPosition() {
-        position = enemy.transform.position;  //stop
+        Vector3 enemyToCamera = enemy.transform.position - mainCamera.transform.position;
+        Ray myRay = new Ray(mainCamera.transform.position, enemyToCamera);
+        Vector3 posi = myRay.origin + (myRay.direction * 3);
+        position = posi;
         gameObject.transform.position = position;
-        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y+ hightOfHealthbar, 0);
+        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y + hightOfHealthbar, gameObject.transform.localPosition.z);
+
     }
     public void getMyEnemy(GameObject myEnemy, int myType) {
-        print(myEnemy);
         enemy = myEnemy;
         type = myType;
         maxHealth = enemy.GetComponent<Health>().health;
