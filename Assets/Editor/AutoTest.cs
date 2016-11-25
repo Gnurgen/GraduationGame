@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using NUnit.Framework;
-//using NSubstitute;
+using NSubstitute;
 
 public class AutoTest {
 
