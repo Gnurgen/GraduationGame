@@ -119,7 +119,10 @@ public class PlayerControls : MonoBehaviour {
     IEnumerator Ability()
     {
         while (state == State.Ability)
+        {
+
             yield return null;
+        }
         switch (state)
         {
             case State.Dashing: StartCoroutine(Dashing());
@@ -136,7 +139,6 @@ public class PlayerControls : MonoBehaviour {
     {
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
-        print("Dashing");
         while (state == State.Dashing && currentDashDistance < maxDashDistance && NotPassedPoint(transform.position, MoveToPoint) && Distance(transform.position, MoveToPoint)>alwaysWalk)
         {
             prevPos = transform.position;
@@ -145,13 +147,13 @@ public class PlayerControls : MonoBehaviour {
             currentDashDistance += Distance(prevPos, transform.position);
         }
         em.PlayerDashEnd(gameObject);
-        currentDashDistance = 0;
-        currentDashCooldown = dashCooldown;
         if (state == State.Ability)
         {
             StartCoroutine(Ability());
             yield break;
         }
+        currentDashDistance = 0;
+        currentDashCooldown = dashCooldown;
         if (NotPassedPoint(transform.position, MoveToPoint))
             StartCoroutine(Moving());
         else
@@ -173,8 +175,6 @@ public class PlayerControls : MonoBehaviour {
         abilityTouchMoveDistance = 0;
         touchStart = im.GetWorldPoint(p);
         prevstate = state;
-        print((p - playerScreenPos).magnitude);
-        print(ability1.Cooldown() <= 0);
         if ((p - playerScreenPos).magnitude < abilityTouchOffset && ability1.Cooldown() <= 0)
             ab1 = true;
         else if (ability2.Cooldown()<=0)
@@ -206,6 +206,13 @@ public class PlayerControls : MonoBehaviour {
 
     public void EndAbility()
     {
+        if(state==State.Ability)
+        {
+            if (ab1)
+                em.SpearDrawAbilityEnd(gameObject);
+            else
+                em.ConeAbilityEnd(gameObject);
+        }
         ab1 = false; ab2 = false;
         if (ResumeMovementAfterAbility)
             state = prevstate;
