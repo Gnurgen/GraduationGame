@@ -171,15 +171,23 @@ public class RoomBuilder : MonoBehaviour {
 
     public void HideWalls(bool right, bool bottom)
     {
+        return;
         int i;
         int j;
 
+        if (roomUnits[0, 0] == null)
+        {
+            RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
+            for (i = 0; i < units.Length; i++)
+                roomUnits[i % 2, Mathf.FloorToInt(i/2)] = units[i];
+        }
         for (i = 0; i < roomUnits.GetLength(0); i++)
         {
             for (j = 0; j < roomUnits.GetLength(1); j++)
             {
                 if (roomUnits[i, j])
-                    roomUnits[i, j].setWallDisplay(i == 0, j == 0, !right, !bottom);
+                    roomUnits[i, j].setWallDisplay(true, true, false, false);
+                // Take rotation into consideration
             }
         }
     }
