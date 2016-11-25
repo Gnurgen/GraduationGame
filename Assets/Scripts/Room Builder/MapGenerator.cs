@@ -91,7 +91,7 @@ public class MapGenerator : MonoBehaviour {
                     {
                         for (j = 0; j < 4; j++)
                         {
-                            if (j == 0 || j == 1 && (room.isRotatable || rotateAnyRoom) || j == 2 && room.isBeaconRoom || j == 3 && room.isBeaconRoom && (room.isRotatable || rotateAnyRoom))
+                            if (!room.isBeaconRoom && (j == 0  || j == 1 && (room.isRotatable || rotateAnyRoom)) || room.isBeaconRoom && (j == 2 || j == 3 && (room.isRotatable || rotateAnyRoom)))
                             {
                                 if (roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
                                     roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
@@ -405,7 +405,7 @@ public class MapGenerator : MonoBehaviour {
                         for (l = 0; l < largeRoomMask.GetLength(0) && b; l++)
                         {
                             if (mapGrid[i + largeRoomMask[l, 0], j + largeRoomMask[l, 1]] == null ||
-                                largeRoomMask[l, 0] > 0 && largeRoomMask[l, 0] < 3 && largeRoomMask[l, 1] > 0 && largeRoomMask[l, 1] > 3 && (
+                                largeRoomMask[l, 0] > 0 && largeRoomMask[l, 0] < 3 && largeRoomMask[l, 1] > 0 && largeRoomMask[l, 1] < 3 && (
                                     i + largeRoomMask[l, 0] == startRoom[0] && j + largeRoomMask[l, 1] == startRoom[1] ||
                                     i + largeRoomMask[l, 0] == goalRoom[0] && j + largeRoomMask[l, 1] == goalRoom[1]
                                 ) || 
@@ -457,6 +457,7 @@ public class MapGenerator : MonoBehaviour {
                             hashIndex[3] == 1,
                             hashIndex[4] == 1
                         };
+
                     }
 
                     go = Instantiate(room.gameObject);
