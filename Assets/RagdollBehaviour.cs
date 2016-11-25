@@ -22,6 +22,8 @@ public class RagdollBehaviour : MonoBehaviour {
 
     private void Repool()
     {
+        GameObject whisp = pm.GenerateObject("Whisp");
+        pm.transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         pm.PoolObj(gameObject);
         GameManager.events.EnemyRagdollDespawn(gameObject);
     }
