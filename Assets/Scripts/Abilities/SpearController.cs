@@ -78,7 +78,6 @@ public class SpearController : MonoBehaviour {
     {
         if(col.tag == "Boss")
         {
-            
             bool hit = true;
             for (int i = 0; i <= gameIDIndex; i++)
             {
@@ -90,7 +89,7 @@ public class SpearController : MonoBehaviour {
             if (hit)
             {
                 col.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
-                GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
+                GameManager.events.SpearDrawAbilityHit(col.gameObject);
                 gameID[gameIDIndex] = col.gameObject;
                 gameIDIndex++;
             }
@@ -107,9 +106,8 @@ public class SpearController : MonoBehaviour {
             }
             if(hit)
             {
+                GameManager.events.SpearDrawAbilityHit(col.gameObject);
                 col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position), pushForce);
-                GameManager.events.PlayerAttackHit(gameObject, col.gameObject, damage);
-                gameID[gameIDIndex] = col.gameObject;
                 gameIDIndex++;
             }
             if(gameIDIndex<4) // HOOKS 4-1 = 3 ENEMIES
