@@ -18,7 +18,7 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         if(player!=null)
             transform.position = player.position - transform.forward * distance;
 

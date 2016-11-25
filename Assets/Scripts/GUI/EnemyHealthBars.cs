@@ -3,6 +3,11 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class EnemyHealthBars : MonoBehaviour {
+
+    public float timeBetweenFade = 2.0f;
+    public float fadeInDuration = 0.2f;
+    public float fadeOutDuration = 5.0f;
+
     private float maxSize = 0.8f;
     private float minSize = 0.2f;
     private float maxHealth;
@@ -12,6 +17,11 @@ public class EnemyHealthBars : MonoBehaviour {
     private GameObject enemy, mainCamera;
     private int type;
     Vector3 position;
+  
+    //Input manager and Event manager
+    private InputManager IM;
+    private EventManager EM;
+    int ID;
 
     void Awake()
     {
@@ -19,8 +29,17 @@ public class EnemyHealthBars : MonoBehaviour {
     }
 
     void Start () {
+        IM = GameManager.input;
+        ID = IM.GetID();
+        EM = GameManager.events;
+
         mainCamera = GameObject.Find("Main Camera");
         distance = Vector3.Distance(mainCamera.transform.position, GameObject.Find("Canvas").transform.position);                
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
+
+        EM.OnSpearDrawAbilityHit += makeVisible;
+        EM.OnConeAbilityHit += makeVisible;
+        
     }
     void Update()
     {
@@ -54,5 +73,17 @@ public class EnemyHealthBars : MonoBehaviour {
         enemy = myEnemy;
         type = myType;
         maxHealth = enemy.GetComponent<Health>().health;
+    }
+
+    void makeVisible(GameObject Id) {
+        if(Id == enemy)
+            StartCoroutine(fadeHealthBar());
+    }
+
+    IEnumerator fadeHealthBar()
+    {
+        gameObject.GetComponent<Image>().CrossFadeAlpha(1, fadeInDuration, true);
+        yield return new WaitForSeconds(timeBetweenFade);
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
     }
 }
