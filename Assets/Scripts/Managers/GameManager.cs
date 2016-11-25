@@ -14,6 +14,7 @@ public class GameManager {
     private InputManager _inputManager;
     private TimeManager _timeManager;
     private GameObject _player;
+    private GameObject _spear;
     private PoolManager _poolManager;
     private GameObject _managers;
     private Menu _menu;
@@ -215,6 +216,23 @@ public class GameManager {
         get
         {
             return game.Player;
+        }
+    }
+
+    public GameObject Spear
+    {
+        get
+        {
+            if (_spear == null)
+                _spear = GameObject.Find("spear_tip");
+            return _spear;
+        }
+    }
+    public static GameObject spear
+    {
+        get
+        {
+            return game.Spear;
         }
     }
 
