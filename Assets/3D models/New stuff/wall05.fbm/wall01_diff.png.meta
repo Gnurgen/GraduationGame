@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: abb7f6e05a92a4a46beccc262c2167e5
-timeCreated: 1480074773
+<<<<<<< HEAD
+guid: 37ff1ef548a898c4f8ead6a3575b2b5e
+timeCreated: 1479998110
+=======
+guid: d737c83d644632a4fb4d015660ba0c97
+timeCreated: 1479990958
+>>>>>>> RoomsTreeByThree
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}

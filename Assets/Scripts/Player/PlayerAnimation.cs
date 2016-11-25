@@ -7,23 +7,31 @@ public class PlayerAnimation : MonoBehaviour {
     Animator anim;
 	// Use this for initialization
 	void Start () {
-        GameManager.events.OnPlayerAttack += AttackAni;
+        GameManager.events.OnSpearDrawAbilityStart += SpearAbilityStart;
+        GameManager.events.OnSpearDrawAbilityUsed += SpearAttack;
         GameManager.events.OnPlayerDashBegin += DashBeginAni;
         GameManager.events.OnPlayerDashEnd += DashEndAni;
         GameManager.events.OnPlayerIdle += IdleAni;
         GameManager.events.OnPlayerMove += RunAni;
-        GameManager.events.OnWheelSelect += PowerAttackAni;
+        GameManager.events.OnConeAbilityStart += ConeAbilityStart;
+        GameManager.events.OnConeAbilityUsed += ConeAttack;
         anim = GetComponent<Animator>();
 	}
 
-    private void PowerAttackAni(int option)
+    private void SpearAbilityStart(GameObject Id)
     {
-        //print(option);
-        if(option == 1) // FLYING SPEAR
-        {
-            anim.SetTrigger("PowerAbility");
-            anim.SetBool("Run", false);
-        }
+        throw new NotImplementedException();
+    }
+
+    private void ConeAbilityStart(GameObject Id)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ConeAttack(GameObject option)
+    {
+        anim.SetBool("Dash", false);
+        anim.SetTrigger("PowerAbility");
     }
 
     private void RunAni(GameObject Id)
@@ -39,20 +47,19 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void DashEndAni(GameObject Id)
     {
-        anim.SetBool("Run", false);
+        anim.SetBool("Dash", false);
     }
 
     private void DashBeginAni(GameObject Id)
     {
-        anim.SetTrigger("Dash");
+        anim.SetBool("Dash", true);
         anim.SetBool("Run", false);
-
     }
 
-    private void AttackAni(GameObject Id)
+    private void SpearAttack(GameObject Id)
     {
-        anim.SetBool("Attack", true);
-        anim.SetBool("Run", false);
+        anim.SetBool("Dash", false);
+        anim.SetTrigger("Attack");
     }
 
     // Update is called once per frame

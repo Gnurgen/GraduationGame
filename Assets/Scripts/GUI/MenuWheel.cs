@@ -173,10 +173,10 @@ public class MenuWheel : MonoBehaviour {
                 break;
             case 0:
                 Debug.Log("Button 1 selected");
-                flyingSpear.UseAbility();
+                //flyingSpear.UseAbility();
                 break;
             case 1:
-                coneDraw.UseAbility();
+               // coneDraw.UseAbility();
                 Debug.Log("Button 2 selected");
                 break;
             case 2:

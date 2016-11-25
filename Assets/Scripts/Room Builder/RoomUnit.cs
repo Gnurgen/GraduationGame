@@ -73,6 +73,7 @@ public class RoomUnit : MonoBehaviour {
             walls[2] = wallList[1];
             walls[3] = wallList[2];
         }
+
         return new bool[]
         {
             walls.Length > 0 && walls[0].hasDoor,
