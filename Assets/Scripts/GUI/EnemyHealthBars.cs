@@ -3,6 +3,11 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class EnemyHealthBars : MonoBehaviour {
+
+    public float timeBetweenFade = 2.0f;
+    public float fadeInDuration = 1.0f;
+    public float fadeOutDuration = 10.0f;
+
     private float maxSize = 0.8f;
     private float minSize = 0.2f;
     private float maxHealth;
@@ -16,9 +21,11 @@ public class EnemyHealthBars : MonoBehaviour {
     void Awake()
     {
         transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
     }
 
     void Start () {
+
         mainCamera = GameObject.Find("Main Camera");
         distance = Vector3.Distance(mainCamera.transform.position, GameObject.Find("Canvas").transform.position);                
     }
@@ -39,6 +46,7 @@ public class EnemyHealthBars : MonoBehaviour {
         gameObject.GetComponent<Image>().fillAmount = scale;
         if (health <= 0)
             gameObject.SetActive(false);
+        StartCoroutine(fadeHealthBar());
     }
 
     void healthPosition() {
@@ -54,5 +62,12 @@ public class EnemyHealthBars : MonoBehaviour {
         enemy = myEnemy;
         type = myType;
         maxHealth = enemy.GetComponent<Health>().health;
+    }
+
+    IEnumerator fadeHealthBar()
+    {
+        gameObject.GetComponent<Image>().CrossFadeAlpha(1, fadeInDuration, true);
+        yield return new WaitForSeconds(timeBetweenFade);
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
     }
 }
