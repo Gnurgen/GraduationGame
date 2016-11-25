@@ -138,7 +138,7 @@ public class ConeDraw : MonoBehaviour {
             {
                 float phi = k * _2pi/(coneResolution-1);
                 Vector3 curVert = new Vector3(Mathf.Cos(phi), coneAltitude / length, -Mathf.Sin(phi));
-                ray = new Ray(transform.position, Quaternion.Euler(transform.rotation.eulerAngles)*curVert);
+                ray = new Ray(transform.position, Quaternion.Euler(drawCone.transform.rotation.eulerAngles)*curVert);
                 if(Physics.Raycast(ray, out hit, ray.direction.magnitude*length))
                 {
                     if (hit.transform.tag == "Indestructable")
