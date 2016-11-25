@@ -20,12 +20,16 @@ public class BossHealthBar : MonoBehaviour {
         ID = IM.GetID();
         EM = GameManager.events;
 
-        if (GameObject.Find("Boss") == null) 
-        gameObject.SetActive(false);
-
-        actor = GameObject.Find("Boss");
-        EM.OnPlayerAttackHit += updateVal;
-        maxVal = currentVal = actor.GetComponent<Health>().health;
+        if (GameObject.Find("Boss") == null)
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            actor = GameObject.Find("Boss");
+            EM.OnPlayerAttackHit += updateVal;
+            maxVal = currentVal = actor.GetComponent<Health>().health;
+        }
     }
 
     void updateVal(GameObject Id, GameObject tar, float val)
