@@ -232,11 +232,8 @@ public class MapGenerator : MonoBehaviour {
 
                                 if (indexList.Count > 0)
                                 {
-<<<<<<< HEAD
-                                    if (Random.Range(0, 2) < 2)
-=======
+
                                     if (Random.Range(0, 1) < 1)
->>>>>>> origin/master
                                         mask[indexList[Random.Range(0, indexList.Count - 1)]] = offset + 2;
 
                                     for (i = 0; i < indexList.Count; i++)
