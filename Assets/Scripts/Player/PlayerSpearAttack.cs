@@ -10,8 +10,7 @@ public class PlayerSpearAttack : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gameID = new GameObject[5];
-        dmg = GameManager.player.GetComponent<PlayerControls>().Damage;
-        spearForce = GameManager.player.GetComponent<PlayerControls>().meeleeForce;
+       
         gameObject.SetActive(false);
 	}
     void OnEnable()

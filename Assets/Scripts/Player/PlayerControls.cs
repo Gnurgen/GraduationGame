@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Pathfinding;
-using System;
 
 public class PlayerControls : MonoBehaviour {
 
@@ -14,19 +12,16 @@ public class PlayerControls : MonoBehaviour {
 
 
     // ----- Inspector -----
-    public float moveSpeed = 4;
     [SerializeField]
-    private float minDashDistance = 3, maxDashDistance = 6, alwaysWalk = 1;
-    public float dashSpeedMultiplier = 3;
-    public float dashCooldown = 3;
+    private float moveSpeed = 4, minDashDistance = 3, maxDashDistance = 6, dashCooldown = 3;
+    [SerializeField]
+    [Range(2, 5)]
+    private int dashSpeedMultiplier = 3, alwaysWalk = 3;
     [SerializeField]
     private bool ControlDuringDash = false, AbilitiesDuringDash = false;
     [SerializeField]
     private float abilityTouchOffset, abilityTouchMoveDistance;
-    [SerializeField]
     private bool ResumeMovementAfterAbility = false;
-    public float Damage = 1;
-    public float meeleeForce = 1;
     public float MovePointCooldown = 1;
     public GameObject ClickFeedBack;
 
@@ -41,9 +36,6 @@ public class PlayerControls : MonoBehaviour {
 
     // --- Abilities ---
     private Vector3 touchStart, touchEnd, touchCur;
-    private Vector2 playerScreenPos;
-    private float screenRes;
-    private float normAbilityTouchOffset;
     private bool ab1 = false, ab2 = false;
     FlyingSpear ability1;
     ConeDraw ability2;
@@ -60,16 +52,13 @@ public class PlayerControls : MonoBehaviour {
         im.OnFirstTouchBeginSub(Begin, id);
         im.OnFirstTouchMoveSub(Move, id);
         im.OnFirstTouchEndSub(End, id);
-        //im.TakeControl(id);
         StartCoroutine(Idle());
-        playerScreenPos = new Vector2(Screen.width / 2, Screen.height / 2);
         shouldMove = true;
         currentMovePointCooldown = 0;
         currentDashDistance = 0;
         currentDashCooldown = 0;
         ability1 = GetComponent<FlyingSpear>();
         ability2 = GetComponent<ConeDraw>();
-        //normalize for screen resolution
 	}
 	
 
@@ -175,7 +164,7 @@ public class PlayerControls : MonoBehaviour {
         abilityTouchMoveDistance = 0;
         touchStart = im.GetWorldPoint(p);
         prevstate = state;
-        if ((p - playerScreenPos).magnitude < abilityTouchOffset && ability1.Cooldown() <= 0)
+        if ((touchStart - GameManager.player.transform.position).magnitude < abilityTouchOffset && ability1.Cooldown() <= 0)
             ab1 = true;
         else if (ability2.Cooldown()<=0)
             ab2 = true;

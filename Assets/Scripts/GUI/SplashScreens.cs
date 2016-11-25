@@ -34,4 +34,13 @@ public class SplashScreens : MonoBehaviour {
         splashScreens[2].SetActive(false);
         SceneManager.LoadScene("Menu");
     }
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Mouse0) || Input.touchCount > 1)
+        {
+            AkSoundEngine.SetState("Game_State", "In_Main_Menu");
+            SceneManager.LoadScene("Menu");
+        }
+
+    }
 }
