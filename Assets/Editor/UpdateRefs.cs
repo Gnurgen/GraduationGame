@@ -201,10 +201,10 @@ public class UpdateRefs : EditorWindow{
 
                         if (ranged != null)
                         {
-                            roomEnemies = room.GetComponentsInChildren<EnemyRangedAttack>();
+                            roomEnemies = room.GetComponentsInChildren<RangedAI>();
                             for (j = 0; j < roomEnemies.Length; j++)
                             {
-                                replace((roomEnemies[j] as EnemyRangedAttack).gameObject, ranged as GameObject);
+                                replace((roomEnemies[j] as RangedAI).gameObject, ranged as GameObject);
                                 count++;
                             }
                         }
