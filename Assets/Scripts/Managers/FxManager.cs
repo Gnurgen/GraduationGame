@@ -49,12 +49,6 @@ public class FxManager : MonoBehaviour {
         // Insert ability effects here
         if(playerDeath != null)
             GameManager.events.OnPlayerDeath += PlayerDeathEffect;
-        if (playerSpearAttack != null)
-        {
-            spearTip = GameManager.player.GetComponent<PlayerControls>().SpearTip.transform;
-            //GameManager.events.OnPlayerSpear += SpearEffect;
-            print("####### EVENT FOR SPEAREFFECT HAS NOT BEEN ASSIGNED: doubleclick me and uncomment code #######");
-        }
 
         // Subscribe to boss events with effects
         if(bossActivation != null)

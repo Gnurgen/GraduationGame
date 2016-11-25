@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ConeDraw : MonoBehaviour, IAbility {
+public class ConeDraw : MonoBehaviour {
 
     [SerializeField]
     private float cooldown, maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime;
@@ -35,79 +35,86 @@ public class ConeDraw : MonoBehaviour, IAbility {
     public float Cooldown()
     {
 
-        return currentCooldown < 1 ? 0 : (cooldown - currentCooldown) / cooldown;
+        return currentCooldown;
     }
 
-    public void UseAbility()
+    public void UseAbility(Vector3 p)
     {
-        if (currentCooldown <= 0)
-        {
-            StartCoroutine("Ability");
-        }
+        start = p;
+        drawCone = (GameObject)Instantiate(drawConeObj, transform.position, Quaternion.identity);
+        Vector3 lookDir = start - drawCone.transform.position;
+        drawCone.transform.LookAt(transform.position + lookDir);
+        drawCone.transform.Rotate(Vector3.up * -90);
+        if (drawCone.GetComponent<MeshFilter>() == null)
+            drawCone.AddComponent<MeshFilter>();
+        if (drawCone.GetComponent<MeshRenderer>() == null)
+            drawCone.AddComponent<MeshRenderer>();
+        coneMesh = new Mesh();
+        coneMesh.name = "" + drawCone.GetInstanceID();
+        StartCoroutine("Ability");
     }
 
     IEnumerator Ability()
     {
-
-        im.OnFirstTouchBeginSub(GetDown, ID);
         im.OnFirstTouchMoveSub(GetMove, ID);
         im.OnFirstTouchEndSub(GetEnd, ID);
         im.TakeControl(ID);
         drawing = true;
         yield return StartCoroutine("DrawCone");
-
         im.ReleaseControl(ID);
-        im.OnFirstTouchBeginUnsub (ID);
         im.OnFirstTouchMoveUnsub(ID);
         im.OnFirstTouchEndUnsub(ID);
+        GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
-        GameManager.events.DrawComplete(10);
         Destroy(drawCone);
         if (dirSat)//If abality was not cancelled
-        { 
+        {
+            GameManager.events.ConeAbilityUsed(GameManager.player);
             currentCooldown = cooldown;
             dmgCone = (GameObject)Instantiate(coneDmgObject, drawCone.transform.position, drawCone.transform.rotation);
             dmgCone.GetComponent<ConeAbility>().setVars(length, coneSpeed, activeTris, coneMesh, damage, pushForce, stunTime);
         }
         yield return null;
     }
-    void GetDown(Vector2 p)
+
+    private bool coneDrawAnalysis(float y)
     {
-        start = im.GetWorldPoint(p);
-        drawCone = (GameObject)Instantiate(drawConeObj, transform.position, Quaternion.identity);
-        Vector3 lookDir = start - drawCone.transform.position;
-        drawCone.transform.LookAt(transform.position+lookDir);
-        drawCone.transform.Rotate(Vector3.up * -90);
-        if (drawCone.GetComponent<MeshFilter>() == null)
-            drawCone.AddComponent<MeshFilter>();
-        if (drawCone.GetComponent<MeshRenderer>() == null)
-            drawCone.AddComponent<MeshRenderer>();
-        coneMesh = new Mesh( );
-        coneMesh.name = ""+drawCone.GetInstanceID();
+        if (clockwise && y > 270)
+            dirSat = false;
+        else if (!clockwise && y < 90)
+            dirSat = false;
+
+        if (y < 270 && !dirSat)
+        {
+            clockwise = true;
+            dirSat = true;
+        }
+        else if(y > 90 && !dirSat)
+        {
+            clockwise = false;
+            dirSat = true;
+        }
+
+        return y > cancelAngle / 2f && clockwise|| y < 360f - cancelAngle / 2f && !clockwise;
     }
 
     void GetMove(Vector2 p)
     {
         cur = im.GetWorldPoint(p);
         float y =(int) Quaternion.FromToRotation((cur - transform.position), (start - transform.position)).eulerAngles.y;
-        if (y > cancelAngle/2f && y<180 && !dirSat || y < 360-(cancelAngle/2f) && !dirSat) //Decide which direction to draw cone in
-        {
-            clockwise = y < 180;
-            dirSat = true;
-        }
-        if (y <= cancelAngle/2f && y<180 || y >=360-(cancelAngle/2f))
+        bool doDraw = coneDrawAnalysis(y);
+        if (!doDraw)
         {
             coneMesh.Clear();
-            dirSat = false;
             coneMesh.vertices  = new Vector3[1];
             coneMesh.triangles = new int[3];
             drawCone.GetComponent<MeshFilter>( ).mesh = coneMesh;
         }
-        if (y > maxConeWidth && clockwise || y<360-maxConeWidth && !clockwise)
+        else if (y > maxConeWidth && clockwise || y<360-maxConeWidth && !clockwise)
         {
-            //Do nothing to the mesh
+            y = 180;
         }
-        else if (dirSat)
+        if(doDraw)
         {
             coneMesh.Clear();
             activeTris =(int) (clockwise ? y * (coneResolution  / 360) : (coneResolution) - (y * (coneResolution / 360))); //Calculate amount of triangles to draw (create a cone from sphere)
