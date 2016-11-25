@@ -10,9 +10,14 @@ public class WispAI : MonoBehaviour {
     [SerializeField]
     private float scatterDecay;
     [SerializeField]
-    private float distancetoPlayer;
+    private float distanceToPlayer;
     [SerializeField]
     private float movementSpeed;
+    [SerializeField]
+    private float orbitSpeed;
+    [SerializeField]
+    private float orbitTime;
+
 
 
     private PKFxFX effectControl;
@@ -20,7 +25,7 @@ public class WispAI : MonoBehaviour {
     private float scatter;
 
 	// Use this for initialization
-	void Start ()
+	void OnEnable ()
     {
         player = GameManager.player;
         scatter = startScatter;
@@ -47,43 +52,59 @@ public class WispAI : MonoBehaviour {
 
     IEnumerator FindPlayer()
     {
-        while(Vector3.Distance(transform.position, player.transform.position) > distancetoPlayer)
+        while(Vector3.Distance(transform.position, new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z)) > distanceToPlayer)
         {
             Vector3 dir = (player.transform.position - transform.position).normalized;
             dir.y = 0;
-            transform.position += dir * movementSpeed;
+            transform.position += dir * movementSpeed * Time.deltaTime;
             yield return new WaitForFixedUpdate();
         }
-        StartCoroutine(FollowPlayer());
+        if (Random.Range(0f,1f) > 0.5f)
+        {
+            StartCoroutine(OrbitPlayerRight());
+        }
+        else
+        {
+            StartCoroutine(OrbitPlayerLeft());
+        }
         yield break;
     }
 
-    IEnumerator FollowPlayer()
+    IEnumerator OrbitPlayerRight()
     {
-        for (;;)
+        float currentOrbitTime = orbitTime;
+        while (currentOrbitTime > 0)
         {
-            if(Vector3.Distance(transform.position, player.transform.position) > distancetoPlayer)
-            {
-                Vector3 dir = (player.transform.position - transform.position).normalized;
-                dir.y = 0;
-                transform.position += dir * movementSpeed;
-            }
+            transform.RotateAround(player.transform.position, Vector3.up, orbitSpeed * Time.deltaTime);
+            currentOrbitTime -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
+        StartCoroutine(EnterSpear());
+        yield break;
     }
 
-    IEnumerator OrbitPlayer()
+    IEnumerator OrbitPlayerLeft()
     {
+        float currentOrbitTime = orbitTime;
+        while (currentOrbitTime > 0)
+        {
+            transform.RotateAround(player.transform.position, -Vector3.up, orbitSpeed * Time.deltaTime);
+            currentOrbitTime -= Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        StartCoroutine(EnterSpear());
         yield break;
     }
 
     IEnumerator EnterSpear()
     {
-        yield break;
-    }
-
-    IEnumerator GuidePlayer()
-    {
+        while(Vector3.Distance(transform.position, GameManager.spear.transform.position) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, GameManager.spear.transform.position, movementSpeed * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
+        }
+        effectControl.StopEffect();
+        GameManager.pool.PoolObj(gameObject);
         yield break;
     }
 }
