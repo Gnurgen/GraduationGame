@@ -37,6 +37,7 @@ public class WispAI : MonoBehaviour {
         Vector3 pos = new Vector3(transform.position.x, 1, transform.position.z);
         transform.position = pos;
         effectControl = GetComponent<PKFxFX>();
+        effectControl.StartEffect();
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", startScatter));
         yield return new WaitForFixedUpdate();
         while (scatter > endScatter)
@@ -103,6 +104,7 @@ public class WispAI : MonoBehaviour {
             transform.position = Vector3.MoveTowards(transform.position, GameManager.spear.transform.position, movementSpeed * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
+        GameManager.events.ResourcePickup(gameObject, 1);
         effectControl.StopEffect();
         GameManager.pool.PoolObj(gameObject);
         yield break;
