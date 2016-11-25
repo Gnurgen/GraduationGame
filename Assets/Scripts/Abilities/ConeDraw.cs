@@ -11,7 +11,7 @@ public class ConeDraw : MonoBehaviour {
     private GameObject drawCone, dmgCone, drawConeObj, coneDmgObject;
     private InputManager im;
     private bool drawing = false, clockwise = true, fire = false;
-    private Vector3 start, end, cur;
+    private Vector3 start, end, cur, lookDir;
     private int coneResolution, ID, activeTris;
     private Mesh coneMesh;
     private float currentCooldown = 0, length;
@@ -42,7 +42,7 @@ public class ConeDraw : MonoBehaviour {
     {
         start = p;
         drawCone = (GameObject)Instantiate(drawConeObj, transform.position, Quaternion.identity);
-        Vector3 lookDir = start - drawCone.transform.position;
+        lookDir = start - drawCone.transform.position;
         drawCone.transform.LookAt(transform.position + lookDir);
         drawCone.transform.Rotate(Vector3.up * -90);
         if (drawCone.GetComponent<MeshFilter>() == null)
@@ -94,7 +94,6 @@ public class ConeDraw : MonoBehaviour {
             clockwise = false;
             dirSat = true;
         }
-
         return y > cancelAngle / 2f && clockwise|| y < 360f - cancelAngle / 2f && !clockwise;
     }
 
