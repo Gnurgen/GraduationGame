@@ -18,7 +18,7 @@ public class PoolManager : MonoBehaviour {
         GameManager.events.OnPoolObject += PoolObj;
        // GameManager.events.OnEnemyDeath += GenerateRagdoll;
         //GameManager.events.OnEnemyDeath += PoolObj;
-        GameManager.events.OnResourceDrop += GenerateBlob;
+        //GameManager.events.OnResourceDrop += GenerateBlob;
     }
 
     public void PoolObj(GameObject obj)
