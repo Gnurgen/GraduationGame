@@ -240,8 +240,12 @@ public class FxManager : MonoBehaviour {
 
     private void RagdollDespawnEffect(GameObject unit) 
     {
+
+        GameObject whisp = GameManager.pool.GenerateObject("Whisp");
+        Vector3 pos = unit.transform.GetChild(0).GetChild(10).position;
+        whisp.transform.position = new Vector3(pos.x, 1, pos.z);
         GameObject ef = GameManager.pool.GenerateObject(RagdollDespawn.tag);
-        ef.transform.position = unit.transform.GetChild(0).GetChild(10).position; // Special case for ragdoll position
+        ef.transform.position = pos; // Special case for ragdoll position
         ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
