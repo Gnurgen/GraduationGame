@@ -633,7 +633,27 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
-		}
+
+            if (firstTouchEndMethodsRemove.Count > 0)
+            {
+                foreach (int ID in firstTouchEndMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < firstTouchBeginMethods.Count; i++)
+                    {
+                        if (firstTouchBeginMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        firstTouchBeginMethods.RemoveAt(index);
+                    }
+                }
+                firstTouchBeginMethodsRemove.Clear();
+            }
+        }
 	}
 
 	void OnMouseMove(Vector3 p)
@@ -651,7 +671,27 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
-		}
+
+            if (firstTouchMoveMethodsRemove.Count > 0)
+            {
+                foreach (int ID in firstTouchMoveMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < firstTouchMoveMethods.Count; i++)
+                    {
+                        if (firstTouchMoveMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        firstTouchMoveMethods.RemoveAt(index);
+                    }
+                }
+                firstTouchMoveMethodsRemove.Clear();
+            }
+        }
 	}
 
 	void OnMouseEnd(Vector3 p)
@@ -669,7 +709,27 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
-		}
+
+            if (firstTouchEndMethodsRemove.Count > 0)
+            {
+                foreach (int ID in firstTouchEndMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < firstTouchEndMethods.Count; i++)
+                    {
+                        if (firstTouchEndMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        firstTouchEndMethods.RemoveAt(index);
+                    }
+                }
+                firstTouchEndMethodsRemove.Clear();
+            }
+        }
 	}
 
 	void OnMouseTap(Vector3 p)
@@ -687,7 +747,27 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
-		}
+
+            if (tapMethodsRemove.Count > 0)
+            {
+                foreach (int ID in tapMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < tapMethods.Count; i++)
+                    {
+                        if (tapMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        tapMethods.RemoveAt(index);
+                    }
+                }
+                tapMethodsRemove.Clear();
+            }
+        }
 	}
 
 	void OnMouseDoubleTap(Vector3 p)
@@ -705,7 +785,27 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
-		}
+
+            if (doubleTapMethodsRemove.Count > 0)
+            {
+                foreach (int ID in doubleTapMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < doubleTapMethods.Count; i++)
+                    {
+                        if (doubleTapMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        doubleTapMethods.RemoveAt(index);
+                    }
+                }
+                doubleTapMethodsRemove.Clear();
+            }
+        }
 	}
 
 	void OnMouseSwipe(Vector3 p1, Vector3 p2)
@@ -725,7 +825,27 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
-		}
+
+            if (swipeMethodsRemove.Count > 0)
+            {
+                foreach (int ID in swipeMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < swipeMethods.Count; i++)
+                    {
+                        if (swipeMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        swipeMethods.RemoveAt(index);
+                    }
+                }
+                swipeMethodsRemove.Clear();
+            }
+        }
 	}
     #endregion
 
