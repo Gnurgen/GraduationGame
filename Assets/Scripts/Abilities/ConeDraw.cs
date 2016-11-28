@@ -108,6 +108,7 @@ public class ConeDraw : MonoBehaviour {
         cur = im.GetWorldPoint(p);
         float y =(int) Quaternion.FromToRotation((cur - drawCone.transform.position), (start - drawCone.transform.position)).eulerAngles.y;
         doDraw = coneDrawAnalysis(y);
+        print(doDraw);
         if (!doDraw)
         {
             drawCone.GetComponent<MeshFilter>().mesh.Clear();
