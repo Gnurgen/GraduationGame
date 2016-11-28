@@ -53,12 +53,19 @@ public class WhispGuidingAI : MonoBehaviour {
             scatter -= 3;
             yield return null;
         }
+        scatter = 1;
+        effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
         StartCoroutine(Guiding());
         yield break;
     }
 
     IEnumerator Guiding()
     {
+        while(index < path.vectorPath.Count)
+        {
+            transform.position = guidingPoint;
+            yield return null;
+        }
         yield break;
     }
 

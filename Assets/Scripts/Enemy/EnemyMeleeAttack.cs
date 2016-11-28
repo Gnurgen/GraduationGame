@@ -21,6 +21,7 @@ public class EnemyMeleeAttack : MonoBehaviour {
         {
             dmg = body.GetComponent<EnemyStats>().damage;
             force = body.GetComponent<EnemyStats>().force;
+            body.GetComponent<MeleeAI>().Weapon = gameObject;
         }
         else
         {
