@@ -173,6 +173,7 @@ public class ConeDraw : MonoBehaviour {
             uvs[3] = new Vector2(topY, topX);
             Vector3 coneLook = vertices[triangles[(triangles.Length / 3 / 2 - 1) * 3]];
             coneLook.y = 0;
+            transform.LookAt(transform.position + coneLook);
             vertices[vertices.Length - 1] = vertices[1];
             normals [vertices.Length-1] = Vector3.up;
             drawCone.GetComponent<MeshFilter>().mesh.vertices = vertices;
