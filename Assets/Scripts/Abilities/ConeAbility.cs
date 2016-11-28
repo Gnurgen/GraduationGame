@@ -18,12 +18,8 @@ public class ConeAbility : MonoBehaviour {
     private GameObject coneParticle;
     Ray dmgRay;
     RaycastHit[] hit;
-    PoolManager poolManager;
     int cCounter = 0, cStart = 0;
 	// Use this for initialization
-	void Awake () {
-        poolManager = FindObjectOfType<PoolManager>();
-	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -57,7 +53,7 @@ public class ConeAbility : MonoBehaviour {
     {
         for(int i = 0; i<dir.Length; ++i)
         {
-            coneParticle = poolManager.GenerateObject("p_ConeParticle");
+            coneParticle = GameManager.pool.GenerateObject("p_ConeParticle");
             coneParticle.transform.position = (transform.position-Vector3.up) + Vector3.up*Random.Range(0.1f, 1.5f);
             float coneDist = (dir[i]-transform.position).magnitude;
             dir[i].y = coneParticle.transform.position.y;
