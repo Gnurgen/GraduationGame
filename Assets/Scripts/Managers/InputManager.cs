@@ -47,7 +47,7 @@ public class InputManager : MonoBehaviour {
 
 	// ----- Control Variables -----
 	private static int idCount;
-	private int owner;
+	public int owner;
     private int index;
 	private List<MethodVectorID> firstTouchBeginMethods;
 	private List<MethodVectorID> firstTouchMoveMethods;
@@ -816,10 +816,12 @@ public class InputManager : MonoBehaviour {
 
 	void OnMouseEnd(Vector3 p)
 	{
+    
         if (firstTouchEndMethodsAdd.Count > 0)
         {
             foreach (MethodVectorID mvi in firstTouchEndMethodsAdd)
             {
+                print("ADDER: " + mvi.id);
                 firstTouchEndMethods.Add(mvi);
             }
             firstTouchEndMethodsAdd.Clear();
@@ -854,6 +856,7 @@ public class InputManager : MonoBehaviour {
 			} else {
 				foreach (MethodVectorID mvi in firstTouchEndMethods) {
 					if (mvi.id == owner) {
+
 						mvi.method (point);
 					}
 				}

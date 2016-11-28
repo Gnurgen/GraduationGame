@@ -29,6 +29,7 @@ public class ConeDraw : MonoBehaviour {
         coneResolution = pointsPerDegreeInFullCircle * 360;
         im = GameManager.input;
         ID = im.GetID();
+
 	}
 	
     void Update()
@@ -66,10 +67,12 @@ public class ConeDraw : MonoBehaviour {
         im.OnFirstTouchEndSub(GetEnd, ID);
         im.TakeControl(ID);
         drawing = true;
+        print("HAR KONTROL_______");
         yield return StartCoroutine(DrawCone());
         im.ReleaseControl(ID);
         im.OnFirstTouchMoveUnsub(ID);
         im.OnFirstTouchEndUnsub(ID);
+        print("_________IKKE KONTROL");
         GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
         //Destroy(drawCone);
@@ -80,6 +83,8 @@ public class ConeDraw : MonoBehaviour {
             dmgCone = (GameObject)Instantiate(coneDmgObject, drawCone.transform.position, drawCone.transform.rotation);
             dmgCone.GetComponent<ConeAbility>().setVars(length, coneSpeed, activeTris, drawCone.GetComponent<MeshFilter>().mesh, damage, pushForce, stunTime);
         }
+        else
+            GameManager.events.ConeAbilityEnd(gameObject);
         yield break;
     }
 
@@ -108,7 +113,7 @@ public class ConeDraw : MonoBehaviour {
         cur = im.GetWorldPoint(p);
         float y =(int) Quaternion.FromToRotation((cur - drawCone.transform.position), (start - drawCone.transform.position)).eulerAngles.y;
         doDraw = coneDrawAnalysis(y);
-        print(doDraw);
+
         if (!doDraw)
         {
             drawCone.GetComponent<MeshFilter>().mesh.Clear();
@@ -188,6 +193,7 @@ public class ConeDraw : MonoBehaviour {
     void GetEnd(Vector2 p)
     {
         drawing = false;
+
     }
 
     IEnumerator DrawCone()
