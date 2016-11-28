@@ -391,5 +391,14 @@ public class EventManager : MonoBehaviour
         if (OnPoolObject != null)
             OnPoolObject(go);
     }
+
+    public delegate void MapGeneration();
+    public event MapGeneration OnMapGenerated;
+    public void MapGenerated()
+    {
+        if (OnMapGenerated != null)
+            OnMapGenerated();
+    }
+
 }
 
