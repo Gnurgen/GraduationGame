@@ -87,7 +87,6 @@ public class ConeAbility : MonoBehaviour {
         }
         else
         {
-            print("applycone");
             GameManager.events.ConeAbilityHit(go);
             go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce, ForceMode.Impulse);
             go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
