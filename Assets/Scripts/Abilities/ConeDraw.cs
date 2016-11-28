@@ -18,6 +18,11 @@ public class ConeDraw : MonoBehaviour {
     private const float _2pi = Mathf.PI * 2;
     private bool dirSat = false;
     private Vector3[] coneDir;
+    private bool doDraw = false;
+
+    //Collision checking
+    Ray ray;
+    RaycastHit hit;
 
     // Use this for initialization
     void Start () {
@@ -67,7 +72,7 @@ public class ConeDraw : MonoBehaviour {
         GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
         Destroy(drawCone);
-        if (dirSat)//If abality was not cancelled
+        if (doDraw)//If abality was not cancelled
         {
             GameManager.events.ConeAbilityUsed(GameManager.player);
             currentCooldown = cooldown;
@@ -101,7 +106,7 @@ public class ConeDraw : MonoBehaviour {
     {
         cur = im.GetWorldPoint(p);
         float y =(int) Quaternion.FromToRotation((cur - transform.position), (start - transform.position)).eulerAngles.y;
-        bool doDraw = coneDrawAnalysis(y);
+        doDraw = coneDrawAnalysis(y);
         if (!doDraw)
         {
             coneMesh.Clear();
@@ -132,7 +137,15 @@ public class ConeDraw : MonoBehaviour {
             for (int k = 1; k<coneResolution+1; ++k) //Generate verticies for full circle
             {
                 float phi = k * _2pi/(coneResolution-1);
-                vertices[k] = new Vector3(Mathf.Cos(phi) , coneAltitude / length, -Mathf.Sin(phi))*length;
+                Vector3 curVert = new Vector3(Mathf.Cos(phi), coneAltitude / length, -Mathf.Sin(phi));
+                ray = new Ray(transform.position, Quaternion.Euler(drawCone.transform.rotation.eulerAngles)*curVert);
+                if(Physics.Raycast(ray, out hit, ray.direction.magnitude*length))
+                {
+                    if (hit.transform.tag == "Indestructable")
+                        vertices[k] = curVert * hit.distance;
+                }
+                else
+                    vertices[k] = curVert*length;
                 normals[k] = Vector3.up;
                 if (k < activeTris) //Draw triangles only in fields encapsuled by the drawn angle
                 {
@@ -148,8 +161,10 @@ public class ConeDraw : MonoBehaviour {
                         triangles[k * 3 + 1] = vertices.Length - k;
                         triangles[k * 3 + 2] = 0;
                     }
+                    //if()
                 }
             }
+
             vertices[vertices.Length - 1] = vertices[1];
             normals [vertices.Length-1] = Vector3.up;
             coneMesh.vertices = vertices;

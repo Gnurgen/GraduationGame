@@ -1,6 +1,11 @@
 fileFormatVersion: 2
-guid: f712924ec2c80d8468da08070b4480e1
-timeCreated: 1480078999
+<<<<<<< HEAD:Assets/3D models/New stuff/tile01.fbm/tiles_diff.png.meta~HEAD.meta
+guid: b5fa9d53bd0de9b4ebb2a39d196648ff
+timeCreated: 1480080420
+=======
+guid: 64048c127f8c6af4f89ae48cb056dd3d
+timeCreated: 1480079036
+>>>>>>> 3ce4733141c022d5359d71d7e6557b4dd720a351:Assets/3D models/New stuff/tile01.fbm/tiles_diff.png.meta~HEAD.meta
 licenseType: Pro
 DefaultImporter:
   userData: 

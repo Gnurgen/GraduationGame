@@ -25,13 +25,15 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void ConeAbilityStart(GameObject Id)
     {
-        throw new NotImplementedException();
+        print("her!");
+        anim.SetBool("PowerAttack", true);
     }
 
     private void ConeAttack(GameObject option)
     {
+        print("færdig");
         anim.SetBool("Dash", false);
-        anim.SetTrigger("PowerAbility");
+        anim.SetBool("PowerAttack", false);
     }
 
     private void RunAni(GameObject Id)
