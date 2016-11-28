@@ -25,13 +25,11 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void ConeAbilityStart(GameObject Id)
     {
-        print("her!");
         anim.SetBool("PowerAttack", true);
     }
 
     private void ConeAttack(GameObject option)
-    {
-        print("færdig");
+    { 
         anim.SetBool("Dash", false);
         anim.SetBool("PowerAttack", false);
     }

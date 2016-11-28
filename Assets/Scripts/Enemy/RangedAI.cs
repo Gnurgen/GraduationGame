@@ -39,6 +39,7 @@ public class RangedAI : EnemyStats {
         animator = GetComponent<Animator>();
         seeker = GetComponent<Seeker>();
         body = GetComponent<Rigidbody>();
+        myDoll = GetComponent<SpawnRagdoll>();
         StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
         startPosition = transform.position;
