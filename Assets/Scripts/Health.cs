@@ -13,6 +13,7 @@ public class Health : MonoBehaviour, IHealth {
     SpawnRagdoll rd;
     HealthController ht;
     Vector3 cForceDir;
+    private RoomBuilder parentRoom = null;
 
     void Start()
     {
@@ -22,6 +23,13 @@ public class Health : MonoBehaviour, IHealth {
         if(ht==null)
             ht = new HealthController();
         ht.SetHealth(this);
+/*
+        if (this != GameManager.player)
+        {
+            parentRoom = GetComponentInParent<RoomBuilder>();
+            parentRoom.enemyCount--;
+            Debug.Log("Enemy died");
+        }*/
     }
 
     private void Subscribe()
