@@ -48,6 +48,7 @@ public class InputManager : MonoBehaviour {
 	// ----- Control Variables -----
 	private static int idCount;
 	private int owner;
+    private int index;
 	private List<MethodVectorID> firstTouchBeginMethods;
 	private List<MethodVectorID> firstTouchMoveMethods;
 	private List<MethodVectorID> firstTouchEndMethods;
@@ -57,9 +58,18 @@ public class InputManager : MonoBehaviour {
 	private List<MethodVectorID> tapMethods;
 	private List<MethodVectorID> doubleTapMethods;
 	private List<MethodSwipeID>  swipeMethods;
+    private List<int> firstTouchBeginMethodsRemove;
+    private List<int> firstTouchMoveMethodsRemove;
+    private List<int> firstTouchEndMethodsRemove;
+    private List<int> secondTouchBeginMethodsRemove;
+    private List<int> secondTouchMoveMethodsRemove;
+    private List<int> secondTouchEndMethodsRemove;
+    private List<int> tapMethodsRemove;
+    private List<int> doubleTapMethodsRemove;
+    private List<int> swipeMethodsRemove;
 
-	// ----- Screen to world point Variables -----
-	private Ray ray;
+    // ----- Screen to world point Variables -----
+    private Ray ray;
 	private RaycastHit hit;
 
     public struct MethodVectorID
@@ -94,7 +104,16 @@ public class InputManager : MonoBehaviour {
 		tapMethods = new List<MethodVectorID> ();
 		doubleTapMethods = new List<MethodVectorID> ();
 		swipeMethods = new List<MethodSwipeID> ();
-		owner = -1;
+        firstTouchBeginMethodsRemove = new List<int>();
+        firstTouchMoveMethodsRemove = new List<int>();
+        firstTouchEndMethodsRemove = new List<int>();
+        secondTouchBeginMethodsRemove = new List<int>();
+        secondTouchMoveMethodsRemove = new List<int>();
+        secondTouchEndMethodsRemove = new List<int>();
+        tapMethodsRemove = new List<int>();
+        doubleTapMethodsRemove = new List<int>();
+        swipeMethodsRemove = new List<int>();
+        owner = -1;
 		idCount = 0;
 		previousMouseTap = false;
 		mouseTap = false;
@@ -271,6 +290,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(firstTouchEndMethodsRemove.Count > 0)
+            {
+                foreach(int ID in firstTouchEndMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < firstTouchBeginMethods.Count; i++)
+                    {
+                        if (firstTouchBeginMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        firstTouchBeginMethods.RemoveAt(index);
+                    }
+                }
+                firstTouchBeginMethodsRemove.Clear();
+            }
 		}
 	}
 
@@ -288,6 +327,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(secondTouchBeginMethodsRemove.Count > 0)
+            {
+                foreach(int ID in secondTouchBeginMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < secondTouchBeginMethods.Count; i++)
+                    {
+                        if (secondTouchBeginMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        secondTouchBeginMethods.RemoveAt(index);
+                    }
+                }
+                secondTouchBeginMethodsRemove.Clear();
+            }
 		}
 	}
 
@@ -305,6 +364,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(firstTouchMoveMethodsRemove.Count > 0)
+            {
+                foreach(int ID in firstTouchMoveMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < firstTouchMoveMethods.Count; i++)
+                    {
+                        if (firstTouchMoveMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        firstTouchMoveMethods.RemoveAt(index);
+                    }
+                }
+                firstTouchMoveMethodsRemove.Clear();
+            }
 		}
 	}
 
@@ -322,6 +401,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(secondTouchMoveMethodsRemove.Count > 0)
+            {
+                foreach(int ID in secondTouchMoveMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < secondTouchMoveMethods.Count; i++)
+                    {
+                        if (secondTouchMoveMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        secondTouchMoveMethods.RemoveAt(index);
+                    }
+                }
+                secondTouchMoveMethodsRemove.Clear();
+            }
 		}
 	}
 
@@ -339,6 +438,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(firstTouchEndMethodsRemove.Count > 0)
+            {
+                foreach(int ID in firstTouchEndMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < firstTouchEndMethods.Count; i++)
+                    {
+                        if (firstTouchEndMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        firstTouchEndMethods.RemoveAt(index);
+                    }
+                }
+                firstTouchEndMethodsRemove.Clear();
+            }
 		}
 	}
 
@@ -356,6 +475,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(secondTouchEndMethodsRemove.Count > 0)
+            {
+                foreach(int ID in secondTouchEndMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < secondTouchEndMethods.Count; i++)
+                    {
+                        if (secondTouchEndMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        secondTouchEndMethods.RemoveAt(index);
+                    }
+                }
+                secondTouchEndMethodsRemove.Clear();
+            }
 		}
 	}
 
@@ -373,6 +512,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(tapMethodsRemove.Count > 0)
+            {
+                foreach(int ID in tapMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < tapMethods.Count; i++)
+                    {
+                        if (tapMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        tapMethods.RemoveAt(index);
+                    }
+                }
+                tapMethodsRemove.Clear();
+            }
 		}
 	}
 
@@ -390,6 +549,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(doubleTapMethodsRemove.Count > 0)
+            {
+                foreach(int ID in doubleTapMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < doubleTapMethods.Count; i++)
+                    {
+                        if (doubleTapMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        doubleTapMethods.RemoveAt(index);
+                    }
+                }
+                doubleTapMethodsRemove.Clear();
+            }
 		}
 	}
 
@@ -410,6 +589,26 @@ public class InputManager : MonoBehaviour {
 					}
 				}
 			}
+
+            if(swipeMethodsRemove.Count > 0)
+            {
+                foreach(int ID in swipeMethodsRemove)
+                {
+                    index = -1;
+                    for (int i = 0; i < swipeMethods.Count; i++)
+                    {
+                        if (swipeMethods[i].id == ID)
+                        {
+                            index = i;
+                        }
+                    }
+                    if (index >= 0)
+                    {
+                        swipeMethods.RemoveAt(index);
+                    }
+                }
+                swipeMethodsRemove.Clear();
+            }
 		}
 	}
     #endregion
@@ -600,7 +799,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnFirstTouchBeginUnsub(int ID)
 	{
-		int index = -1;
+        firstTouchBeginMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < firstTouchBeginMethods.Count; i++)
 		{
 			if(firstTouchBeginMethods[i].id == ID)
@@ -611,7 +811,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			firstTouchBeginMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 	public void OnFirstTouchMoveSub(Vector2Delegate vd, int ID)
@@ -635,7 +835,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnFirstTouchMoveUnsub(int ID)
 	{
-		int index = -1;
+        firstTouchMoveMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < firstTouchMoveMethods.Count; i++)
 		{
 			if(firstTouchMoveMethods[i].id == ID)
@@ -646,7 +847,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			firstTouchMoveMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 	public void OnFirstTouchEndSub(Vector2Delegate vd, int ID)
@@ -670,7 +871,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnFirstTouchEndUnsub(int ID)
 	{
-		int index = -1;
+        firstTouchEndMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < firstTouchEndMethods.Count; i++)
 		{
 			if(firstTouchEndMethods[i].id == ID)
@@ -681,7 +883,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			firstTouchEndMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 	public void OnSecondTouchBeginSub(Vector2Delegate vd, int ID)
@@ -705,7 +907,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnSecondTouchBeginUnsub(int ID)
 	{
-		int index = -1;
+        secondTouchBeginMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < secondTouchBeginMethods.Count; i++)
 		{
 			if(secondTouchBeginMethods[i].id == ID)
@@ -716,7 +919,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			secondTouchBeginMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 	public void OnSecondTouchMoveSub(Vector2Delegate vd, int ID)
@@ -740,7 +943,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnSecondTouchMoveUnsub(int ID)
 	{
-		int index = -1;
+        secondTouchMoveMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < secondTouchMoveMethods.Count; i++)
 		{
 			if(secondTouchMoveMethods[i].id == ID)
@@ -751,7 +955,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			secondTouchMoveMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 	public void OnSecondTouchEndSub(Vector2Delegate vd, int ID)
@@ -775,7 +979,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnSecondTouchEndUnsub(int ID)
 	{
-		int index = -1;
+        secondTouchEndMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < secondTouchEndMethods.Count; i++)
 		{
 			if(secondTouchEndMethods[i].id == ID)
@@ -786,7 +991,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			secondTouchEndMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 	public void OnTapSub(Vector2Delegate vd, int ID)
@@ -810,7 +1015,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnTapUnsub(int ID)
 	{
-		int index = -1;
+        tapMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < tapMethods.Count; i++)
 		{
 			if(tapMethods[i].id == ID)
@@ -821,7 +1027,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			tapMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 	public void OnDoubleTapSub(Vector2Delegate vd, int ID)
@@ -845,7 +1051,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnDoubleTapUnsub(int ID)
 	{
-		int index = -1;
+        doubleTapMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < doubleTapMethods.Count; i++)
 		{
 			if(doubleTapMethods[i].id == ID)
@@ -856,7 +1063,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			doubleTapMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 	public void OnSwipeSub(SwipeDelegate sd, int ID)
@@ -880,7 +1087,8 @@ public class InputManager : MonoBehaviour {
 
 	public void OnSwipeUnsub(int ID)
 	{
-		int index = -1;
+        swipeMethodsRemove.Add(ID);
+		/*int index = -1;
 		for(int i = 0; i < swipeMethods.Count; i++)
 		{
 			if(swipeMethods[i].id == ID)
@@ -891,7 +1099,7 @@ public class InputManager : MonoBehaviour {
 		if(index >= 0)
 		{
 			swipeMethods.RemoveAt (index);
-		}
+		}*/
 	}
 
 

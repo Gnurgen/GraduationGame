@@ -4,6 +4,11 @@
 		<WorkUnit Name="Default Work Unit" ID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}" PersistMode="Standalone">
 			<ChildrenList>
 				<Bus Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}">
+					<ReferenceList>
+						<Reference Name="Effect0" PluginName="Wwise Peak Limiter" CompanyID="0" PluginID="110" PluginType="3">
+							<ObjectRef Name="Brick_Wall_Minus_1dB_Peak_Fast_Release" ID="{2144284E-7ADD-4341-86A4-4E468BEC9A2D}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+						</Reference>
+					</ReferenceList>
 					<ChildrenList>
 						<Bus Name="Music" ID="{955DDBE7-C44B-4BCD-8BA9-847D9E52C1F8}">
 							<PropertyList>
@@ -79,7 +84,34 @@
 										<Bus Name="Ambience" ID="{E0ED3AAC-5D12-4754-884F-822F3795C409}"/>
 										<Bus Name="Reverb" ID="{D46D1F4E-7B0C-4E95-B699-E0091B07CAA0}">
 											<ChildrenList>
-												<AuxBus Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}"/>
+												<AuxBus Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}">
+													<PropertyList>
+														<Property Name="BusVolume" Type="Real64">
+															<ValueList>
+																<Value>-16</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Effect0">
+															<Custom>
+																<Effect Name="Wwise RoomVerb (Custom)" ID="{938D43CD-A640-42AA-9B95-727FAC45FC8A}" ShortID="987112962" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																	<PropertyList>
+																		<Property Name="DecayTime" Type="Real32" Value="2"/>
+																		<Property Name="Density" Type="Real32" Value="95"/>
+																		<Property Name="Diffusion" Type="Real32" Value="83"/>
+																		<Property Name="ERPattern" Type="int32" Value="11"/>
+																		<Property Name="HFDamping" Type="Real32" Value="1.55"/>
+																		<Property Name="PreDelay" Type="Real32" Value="0"/>
+																		<Property Name="Quality" Type="int32" Value="12"/>
+																		<Property Name="RoomShape" Type="Real32" Value="68"/>
+																		<Property Name="RoomSize" Type="Real32" Value="79"/>
+																	</PropertyList>
+																</Effect>
+															</Custom>
+														</Reference>
+													</ReferenceList>
+												</AuxBus>
 											</ChildrenList>
 										</Bus>
 									</ChildrenList>
