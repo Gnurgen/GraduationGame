@@ -94,12 +94,13 @@ Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
 	286443241	Spear Whoosh	SoundSeed Air/SoundSeed Woosh		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear\Spear Whoosh	
 	695947847	Dash Whoosh	SoundSeed Air/SoundSeed Woosh		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Dash\Dash Whoosh	
 	753104822	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Pickup_Move\Wwise Silence	
+	1043796269	SoundSeed Wind	SoundSeed Air/SoundSeed Wind		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw\Wind\SoundSeed Wind	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	46253538	Enemy Impact_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Enemy Impact_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact_1		5591
 	55832679	Button_Wheel_Hover	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Button_Wheel_Hover_2E403D0A.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Buttons\Button_Wheel_Hover		5416
 	58288704	Indestructable Impact_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Indestructable Impact_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact_1		7597
-	66799420	Draw_Ability	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Draw_Ability_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Draw_Ability		18768
+	61854502	Spear Throw Cast	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Spear Throw Cast_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw Cast		80776
 	73345813	Ambience_5	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Ambience_5_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_5		827302
 	77503931	Menu_Close	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Menu_Close_865244D9.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Menu_Close		5308
 	91948562	Ambience_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Ambience_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_3		578856
@@ -112,6 +113,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	163235136	Player Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Player Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Melee Player Impact\Player Impact_2		6317
 	168374737	Indestructable Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Indestructable Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact_3		7865
 	193622691	Button_Start_Game	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Button_Start_Game_5CAE6989.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Buttons\Button_Start_Game		5885
+	203288734	Spear Throw	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Spear Throw_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw\Spear Throw		105748
 	209859539	Draw_Ability_Control	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Draw_Ability_Control_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Ability Feedback\Draw_Ability_Control		30160
 	236484631	In Game Music - Main	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\In Game Music - Main_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Main		1325070
 	239801717	Ambience_4	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Ambience_4_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_4		617251
@@ -137,6 +139,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	577510896	Enemy_Ranged_Hit_Wall	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Enemy_Ranged_Hit_Wall_71DAFC6C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Ranged Target\Enemy_Ranged_Hit_Wall		8341
 	582697754	Indestructable Impact	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Indestructable Impact_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact		7036
 	588111419	Boss Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Boss Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Boss Impact\Boss Impact_3		5396
+	598171912	Spear Cone Cast	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Spear Cone Cast_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Cone Cast		80673
 	598744978	Enemy Swing Rock_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Enemy Swing Rock_3_442DBB92.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy Melee\Enemy Rock Swing\Enemy Swing Rock_3		5774
 	616539973	Pickup	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Pickup_0E2C7BFE.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Pickup		3220
 	667649109	Indestructable Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Indestructable Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact_2		7653
@@ -144,7 +147,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	743145374	Wheel_Open	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Wheel_Open_ECAC36E8.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Wheel_Open		3631
 	750327012	Boss_Rain	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Boss_Rain_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss_Rain		16766
 	755656711	Ambience_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Ambience_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Big\Ambience_1		740355
-	755737202	Circle_Ability	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Circle_Ability_9AF7828D.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Circle_Ability		23610
 	761651021	Enemy_Death	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Enemy_Death_0F350AAC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Enemy_Death		4913
 	784204649	Menu_Open	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Menu_Open_35E30ACE.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Menu_Open		4391
 	822169123	Player_Death	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Android\SFX\Player_Death_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Player_Death		5156

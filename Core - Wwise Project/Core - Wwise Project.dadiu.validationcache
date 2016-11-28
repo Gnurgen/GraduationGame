@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ValidationCache Version="1" SchemaVersion="72">
-	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="2011287767" DateHigh="30557549"/>
+	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Actor-Mixer Hierarchy\Default Work Unit.wwu" DateLow="3530556636" DateHigh="30558000"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Actor-Mixer Hierarchy\Factory Crankcase REV.wwu" DateLow="3066353926" DateHigh="30554402"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Actor-Mixer Hierarchy\Factory SoundSeed Air Objects.wwu" DateLow="695061309" DateHigh="30554922"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Actor-Mixer Hierarchy\Factory Synth One.wwu" DateLow="695261320" DateHigh="30554922"/>
@@ -9,7 +9,7 @@
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Control Surface Sessions\Default Work Unit.wwu" DateLow="695431330" DateHigh="30554922"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Conversion Settings\Default Work Unit.wwu" DateLow="3093962377" DateHigh="30557133"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Conversion Settings\Factory Conversion Settings.wwu" DateLow="695541337" DateHigh="30554922"/>
-	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Core - Wwise Project.dadiu.wsettings" DateLow="3432285145" DateHigh="30557546"/>
+	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Core - Wwise Project.dadiu.wsettings" DateLow="2389929585" DateHigh="30557995"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Core - Wwise Project.wproj" DateLow="695961361" DateHigh="30554922"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Dynamic Dialogue\Default Work Unit.wwu" DateLow="695971361" DateHigh="30554922"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Effects\Default Work Unit.wwu" DateLow="695991362" DateHigh="30554922"/>
@@ -25,11 +25,11 @@
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Effects\Factory iZotope Multiband Distortion.wwu" DateLow="696581396" DateHigh="30554922"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Effects\Factory iZotope Singleband Distortion.wwu" DateLow="696611398" DateHigh="30554922"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Effects\Factory McDSP Effects.wwu" DateLow="696521393" DateHigh="30554922"/>
-	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Events\Default Work Unit.wwu" DateLow="3004360669" DateHigh="30557546"/>
-	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Game Parameters\Default Work Unit.wwu" DateLow="3004380670" DateHigh="30557546"/>
+	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Events\Default Work Unit.wwu" DateLow="1341312884" DateHigh="30557993"/>
+	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Game Parameters\Default Work Unit.wwu" DateLow="1497601823" DateHigh="30557993"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Game Parameters\Factory SoundSeed Air Game Syncs.wwu" DateLow="696911415" DateHigh="30554922"/>
-	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="2011127757" DateHigh="30557549"/>
-	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="3014701261" DateHigh="30557546"/>
+	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Interactive Music Hierarchy\Default Work Unit.wwu" DateLow="2987291522" DateHigh="30557593"/>
+	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Master-Mixer Hierarchy\Default Work Unit.wwu" DateLow="1522089948" DateHigh="30557995"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Mixing Sessions\Default Work Unit.wwu" DateLow="700021593" DateHigh="30554922"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Modulators\Default Work Unit.wwu" DateLow="700031593" DateHigh="30554922"/>
 	<ValidationCacheItem File="C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\Presets\Default Work Unit.wwu" DateLow="766315385" DateHigh="30554922"/>
