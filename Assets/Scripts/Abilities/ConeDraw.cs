@@ -29,6 +29,7 @@ public class ConeDraw : MonoBehaviour {
         coneResolution = pointsPerDegreeInFullCircle * 360;
         im = GameManager.input;
         ID = im.GetID();
+
 	}
 	
     void Update()
@@ -72,7 +73,7 @@ public class ConeDraw : MonoBehaviour {
         im.OnFirstTouchEndUnsub(ID);
         GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
-        //Destroy(drawCone);
+        Destroy(drawCone);
         if (doDraw)//If abality was not cancelled
         {
             GameManager.events.ConeAbilityUsed(GameManager.player);
@@ -80,6 +81,8 @@ public class ConeDraw : MonoBehaviour {
             dmgCone = (GameObject)Instantiate(coneDmgObject, drawCone.transform.position, drawCone.transform.rotation);
             dmgCone.GetComponent<ConeAbility>().setVars(length, coneSpeed, activeTris, drawCone.GetComponent<MeshFilter>().mesh, damage, pushForce, stunTime);
         }
+        else
+            GameManager.events.ConeAbilityEnd(gameObject);
         yield break;
     }
 
@@ -108,7 +111,7 @@ public class ConeDraw : MonoBehaviour {
         cur = im.GetWorldPoint(p);
         float y =(int) Quaternion.FromToRotation((cur - drawCone.transform.position), (start - drawCone.transform.position)).eulerAngles.y;
         doDraw = coneDrawAnalysis(y);
-        print(doDraw);
+
         if (!doDraw)
         {
             drawCone.GetComponent<MeshFilter>().mesh.Clear();
@@ -128,10 +131,10 @@ public class ConeDraw : MonoBehaviour {
                 length = minConeLength;
             Vector3[] vertices = new  Vector3[coneResolution + 2];
             Vector3[] normals = new Vector3[vertices.Length];
-            Vector2[] uvs = new Vector2[4];
-            float topX = 0, topY  = 0;
+            Vector2[] uvs = new Vector2[vertices.Length];
             int[] triangles = new int[activeTris*3];
             vertices[0] = Vector3.up*coneAltitude; //Assign center vertix
+           
             normals[0] = Vector3.up;
             triangles[0] = 0;
             triangles[1] = clockwise ?  1 : vertices.Length - 2;
@@ -145,13 +148,16 @@ public class ConeDraw : MonoBehaviour {
                 {
                     if (hit.transform.tag == "Indestructable")
                         vertices[k] = curVert * hit.distance;
+                    else
+                        vertices[k] = curVert * length;
                 }
                 else
                     vertices[k] = curVert*length;
-                if (topX > vertices[k].x)
-                    topX = vertices[k].x;
-                if (topY > vertices[k].y)
-                    topY = vertices[k].y;
+                /*len = mathsqrt(x * x + y * y + z * z);
+                u = acos(y / len) / M_PI;
+                v = (atan2(z, x) / M_PI + 1.0f) * 0.5f; */
+                float r = Mathf.Sqrt(vertices[k].x * vertices[k].x + vertices[k].y * vertices[k].y + vertices[k].z * vertices[k].z);
+                uvs[k] = new Vector2((Mathf.Atan2(vertices[k].z, vertices[k].x) / Mathf.PI + 1f) / 2f, Mathf.Acos(vertices[k].y / r) / Mathf.PI);
                 normals[k] = Vector3.up;
                 if (k < activeTris) //Draw triangles only in fields encapsuled by the drawn angle
                 {
@@ -169,25 +175,24 @@ public class ConeDraw : MonoBehaviour {
                     }
                 }
             }
-            uvs[0] = new Vector2(0, 0);
-            uvs[1] = new Vector2(0, topX);
-            uvs[2] = new Vector2(topY, 0);
-            uvs[3] = new Vector2(topY, topX);
             Vector3 coneLook = vertices[triangles[(triangles.Length / 3 / 2 - 1) * 3]];
             coneLook.y = 0;
-            //transform.LookAt(transform.position + coneLook);
+            transform.LookAt(transform.position  + Quaternion.Euler(drawCone.transform.rotation.eulerAngles) * coneLook);
             vertices[vertices.Length - 1] = vertices[1];
+            uvs[0] = Vector2.one * 0.5f;
+            uvs[vertices.Length - 1] = Vector2.one * 0.5f;
             normals [vertices.Length-1] = Vector3.up;
             drawCone.GetComponent<MeshFilter>().mesh.vertices = vertices;
-            drawCone.GetComponent<MeshFilter>().mesh.normals = normals;
             drawCone.GetComponent<MeshFilter>().mesh.triangles = triangles;
-            //drawCone.GetComponent<MeshFilter>().mesh.uv = uvs;
+            drawCone.GetComponent<MeshFilter>().mesh.uv = uvs;
+            drawCone.GetComponent<MeshFilter>().mesh.normals = normals;
         }
     }
 
     void GetEnd(Vector2 p)
     {
         drawing = false;
+
     }
 
     IEnumerator DrawCone()
