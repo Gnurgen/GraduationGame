@@ -81,9 +81,9 @@
 					<ShortName>Indestructable Impact_1.wav</ShortName>
 					<Path>SFX\Indestructable Impact_1_C47F2D1B.wem</Path>
 				</File>
-				<File Id="66799420" Language="SFX">
-					<ShortName>Draw_Ability.wav</ShortName>
-					<Path>SFX\Draw_Ability_0ED39DC9.wem</Path>
+				<File Id="61854502" Language="SFX">
+					<ShortName>Spear Throw Cast.wav</ShortName>
+					<Path>SFX\Spear Throw Cast_C47F2D1B.wem</Path>
 				</File>
 				<File Id="73345813" Language="SFX">
 					<ShortName>Ambience_5.wav</ShortName>
@@ -132,6 +132,10 @@
 				<File Id="193622691" Language="SFX">
 					<ShortName>Button_Start_Game.wav</ShortName>
 					<Path>SFX\Button_Start_Game_5CAE6989.wem</Path>
+				</File>
+				<File Id="203288734" Language="SFX">
+					<ShortName>Spear Throw.wav</ShortName>
+					<Path>SFX\Spear Throw_0ED39DC9.wem</Path>
 				</File>
 				<File Id="209859539" Language="SFX">
 					<ShortName>Draw_Ability_Control.wav</ShortName>
@@ -233,6 +237,10 @@
 					<ShortName>Boss Impact_3.wav</ShortName>
 					<Path>SFX\Boss Impact_3_C47F2D1B.wem</Path>
 				</File>
+				<File Id="598171912" Language="SFX">
+					<ShortName>Spear Cone Cast.wav</ShortName>
+					<Path>SFX\Spear Cone Cast_C47F2D1B.wem</Path>
+				</File>
 				<File Id="598744978" Language="SFX">
 					<ShortName>Enemy Swing Rock_3.wav</ShortName>
 					<Path>SFX\Enemy Swing Rock_3_442DBB92.wem</Path>
@@ -260,10 +268,6 @@
 				<File Id="755656711" Language="SFX">
 					<ShortName>Ambience_1.wav</ShortName>
 					<Path>SFX\Ambience_1_C47F2D1B.wem</Path>
-				</File>
-				<File Id="755737202" Language="SFX">
-					<ShortName>Circle_Ability.wav</ShortName>
-					<Path>SFX\Circle_Ability_9AF7828D.wem</Path>
 				</File>
 				<File Id="761651021" Language="SFX">
 					<ShortName>Enemy_Death.wav</ShortName>
