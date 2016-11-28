@@ -34,8 +34,9 @@ public class ConeAbility : MonoBehaviour {
             //Calculate all targets hit, ensure only one instance is recorded and apply ability-effects delayed based on distance and speed.
             for (int k = 1; k < dmgMesh.triangles.Length - 1; k += 3)
             {
-                dmgRay = new Ray(transform.position, Quaternion.Euler(myRot) * ((transform.position + dmgMesh.vertices[dmgMesh.triangles[k]]) - transform.position));
-                hit = Physics.RaycastAll(dmgRay, tDist);
+                Vector3 partDir = Quaternion.Euler(myRot) * ((transform.position + dmgMesh.vertices[dmgMesh.triangles[k]]) - transform.position);
+                dmgRay = new Ray(transform.position, partDir);
+                hit = Physics.RaycastAll(dmgRay, partDir.magnitude);
                 for (int q = 0; q < hit.Length; ++q)
                 {
                     if(hit[q].transform.gameObject.layer == 10)
@@ -45,7 +46,7 @@ public class ConeAbility : MonoBehaviour {
                         ++cStart;
                     }
                 }
-                dir[i] = transform.position + Quaternion.Euler(myRot) * ((transform.position + dmgMesh.vertices[dmgMesh.triangles[k]]) - transform.position);
+                dir[i] = transform.position + partDir;
                 ++i;
             }
             Spawncone();
@@ -58,9 +59,10 @@ public class ConeAbility : MonoBehaviour {
         {
             coneParticle = poolManager.GenerateObject("p_ConeParticle");
             coneParticle.transform.position = (transform.position-Vector3.up) + Vector3.up*Random.Range(0.1f, 1.5f);
+            float coneDist = (dir[i]-transform.position).magnitude;
             dir[i].y = coneParticle.transform.position.y;
             coneParticle.transform.LookAt(dir[i]);
-            coneParticle.GetComponent<MovingConeParticle>().setVars(speed, tDist);
+            coneParticle.GetComponent<MovingConeParticle>().setVars(speed, coneDist);
         }
         if (cStart == 0)
             Destroy(gameObject);

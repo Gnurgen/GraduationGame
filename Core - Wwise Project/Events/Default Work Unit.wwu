@@ -190,7 +190,7 @@
 						<Action Name="Play" ID="{7FBB6453-E749-40FF-BA8C-6ABB56FA7C83}" ShortID="1069463429" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{921F38C2-E54B-454D-A200-CDEB764F797A}" Global="false">
-									<ObjectRef Name="Circle_Ability" ID="{BE86020D-9027-4801-8DCE-C540A1005975}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Spear Cone Cast" ID="{83C4DE18-6740-40E7-A4B8-EEB095B84883}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -212,7 +212,18 @@
 						<Action Name="Play" ID="{014AE664-9B12-40BB-AB33-AB41F2559E96}" ShortID="119964086" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{A86F4E08-C163-4C60-8BD8-DB43BE2808D0}" Global="false">
-									<ObjectRef Name="Draw_Ability" ID="{8B271036-6D29-4366-BD7B-EAFFFE7649D3}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Spear Throw Cast" ID="{D25E3902-DEC1-4BB6-A019-BAAF332AD8A2}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+						<Action Name="Play" ID="{0735ECCE-3E43-4FE6-8E36-671DD48F36F6}" ShortID="914336062" Type="Play" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="Delay" Type="Real64" Value="0.2"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.3"/>
+							</PropertyList>
+							<ElementList>
+								<Element ID="{2B051814-C0AC-4E8B-9013-424133FA7A44}" Global="false">
+									<ObjectRef Name="Spear Throw" ID="{2F55B14B-374A-4CF6-B939-81401ED9D4F1}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -232,9 +243,12 @@
 				<Event Name="Draw_Ability_Stop" ID="{D3D4C2DE-7448-4B5E-A6E3-B8749BAD41FE}">
 					<ChildrenList>
 						<Action Name="Stop" ID="{DF55A587-E818-41AF-BF68-48B8C5385C36}" ShortID="707470933" Type="Stop" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.7"/>
+							</PropertyList>
 							<ElementList>
 								<Element ID="{2598CEFB-03BE-40EE-857D-4AA3DDF57B30}" Global="false">
-									<ObjectRef Name="Draw_Ability" ID="{8B271036-6D29-4366-BD7B-EAFFFE7649D3}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Spear Throw" ID="{2F55B14B-374A-4CF6-B939-81401ED9D4F1}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
