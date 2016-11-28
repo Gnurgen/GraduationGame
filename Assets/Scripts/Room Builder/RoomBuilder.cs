@@ -172,24 +172,35 @@ public class RoomBuilder : MonoBehaviour {
 
     public void HideWalls(bool right, bool bottom)
     {
-        return;
         int i;
         int j;
+        RoomWall[] walls;
+        RoomWall rightWall;
+        RoomWall bottomWall;
+        GameObject go;
+        RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
 
-        if (roomUnits[0, 0] == null)
+        for (i = 0; i < units.Length; i++)
         {
-            RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
-            for (i = 0; i < units.Length; i++)
-                roomUnits[i % 2, Mathf.FloorToInt(i/2)] = units[i];
-        }
-        for (i = 0; i < roomUnits.GetLength(0); i++)
-        {
-            for (j = 0; j < roomUnits.GetLength(1); j++)
+            walls = units[i].GetComponentsInChildren<RoomWall>();
+            rightWall = null;
+            bottomWall = null;
+
+            for (j = 0; j < walls.Length; j++)
             {
-                if (roomUnits[i, j])
-                    roomUnits[i, j].setWallDisplay(true, true, false, false);
-                // Take rotation into consideration
+                if (rightWall == null || walls[j].transform.position.x > rightWall.transform.position.x)
+                    rightWall = walls[j];
+                if (bottomWall == null || walls[j].transform.position.z < bottomWall.transform.position.z)
+                    bottomWall = walls[j];
             }
+
+            go = rightWall.transform.GetChild(0).gameObject;
+            if (go.activeInHierarchy && right)
+                go.SetActive(!right);
+
+            go = bottomWall.transform.GetChild(0).gameObject;
+            if (go.activeInHierarchy && bottom)
+                go.SetActive(!bottom);
         }
     }
     /*

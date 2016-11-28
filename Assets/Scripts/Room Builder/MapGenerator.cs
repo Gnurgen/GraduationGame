@@ -457,11 +457,11 @@ public class MapGenerator : MonoBehaviour {
                             hashIndex[3] == 1,
                             hashIndex[4] == 1
                         };
-
                     }
 
                     go = Instantiate(room.gameObject);
                     go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * (j + 1) * RoomTile.TILE_SCALE);
+                    go.GetComponent<RoomBuilder>().HideWalls(true, true);
                     progress += 4;
                     rooms.Add(go);
                 }
@@ -576,8 +576,9 @@ public class MapGenerator : MonoBehaviour {
                         {
                             go.transform.Rotate(Vector3.up * -90 * l);
                             go.transform.position = new Vector3(go.transform.position.x + (l < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0), 0, go.transform.position.z + (l > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
-                            go.GetComponent<RoomBuilder>().HideWalls(i + 1 < mapGrid.GetLength(0) && mapGrid[progressCoords[0] + 1, j] != null, progressCoords[1] + 1 < mapGrid.GetLength(1) && mapGrid[progressCoords[0], progressCoords[1] + 1] != null);
                         }
+
+                        go.GetComponent<RoomBuilder>().HideWalls(i + 1 < mapGrid.GetLength(0) && mapGrid[i + 1, j] != null, j + 1 < mapGrid.GetLength(1) && mapGrid[i, j + 1] != null);
                         rooms.Add(go);
                     }
                 } while (offset-- > 0 && total == 0);
