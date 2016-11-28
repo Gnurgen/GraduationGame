@@ -1,7 +1,19 @@
 fileFormatVersion: 2
-guid: 4870104ba7398b745bf23e69f69ce21b
+<<<<<<< HEAD:Assets/3D models/New stuff/cube03.fbm.meta
+guid: 8a45c2a3ee2cc9d41991d0dabfdb4e55
 folderAsset: yes
-timeCreated: 1480338908
+timeCreated: 1480338050
+=======
+<<<<<<< HEAD
+guid: fa040dc8f4befab4ea6ce9421ae01c3e
+folderAsset: yes
+timeCreated: 1480074605
+=======
+guid: 701e9c2fd5265ae4ba5c5e528cf8de8a
+folderAsset: yes
+timeCreated: 1480334156
+>>>>>>> 4a4ded9bbd3c4790137039bd48338e792abeeae3
+>>>>>>> 8317c68dc6f0fd97ecb0683c57f1f82404a26673:Assets/3D models/New stuff/monsterMelee 1.fbm.meta
 licenseType: Pro
 DefaultImporter:
   userData: 
