@@ -37,12 +37,14 @@ public class MapGenerator : MonoBehaviour {
     private int i;
     private int j;
     private int l;
+    private int rotateMod;
     private int offset;
     private int index;
     private int total;
     private bool[] doors;
     private GameObject go;
     private List<GameObject>[] list = new List<GameObject>[4];
+    private RoomTile[] tiles;
 
     public enum MapSize
     {
@@ -550,32 +552,36 @@ public class MapGenerator : MonoBehaviour {
 
                         if (index < list[0].Count)
                         {
-                            l = 0;
+                            rotateMod = 0;
                         }
                         else if (index < list[0].Count + list[1].Count)
                         {
                             index -= list[0].Count;
-                            l = 1;
+                            rotateMod = 1;
                         }
                         else if (index < list[0].Count + list[1].Count + list[2].Count)
                         {
                             index -= list[0].Count + list[1].Count;
-                            l = 2;
+                            rotateMod = 2;
                         }
                         else
                         {
                             index -= list[0].Count + list[1].Count + list[2].Count;
-                            l = 3;
+                            rotateMod = 3;
                         }
 
-                        go = Instantiate(list[l][index].gameObject);
+                        go = Instantiate(list[rotateMod][index].gameObject);
                         go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * j * RoomTile.TILE_SCALE);
                         progress++;
 
-                        if (l > 0)
+                        if (rotateMod > 0)
                         {
-                            go.transform.Rotate(Vector3.up * -90 * l);
-                            go.transform.position = new Vector3(go.transform.position.x + (l < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0), 0, go.transform.position.z + (l > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
+                            go.transform.Rotate(Vector3.up * -90 * rotateMod);
+                            go.transform.position = new Vector3(go.transform.position.x + (rotateMod < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0), 0, go.transform.position.z + (rotateMod > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
+
+                            tiles = go.GetComponentsInChildren<RoomTile>();
+                            for (l = 0; l < tiles.Length; l++)
+                                tiles[l].transform.Rotate(Vector3.up * 90 * rotateMod);
                         }
 
                         go.GetComponent<RoomBuilder>().HideWalls(i + 1 < mapGrid.GetLength(0) && mapGrid[i + 1, j] != null, j + 1 < mapGrid.GetLength(1) && mapGrid[i, j + 1] != null);
