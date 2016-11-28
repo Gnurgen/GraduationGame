@@ -58,6 +58,15 @@ public class InputManager : MonoBehaviour {
 	private List<MethodVectorID> tapMethods;
 	private List<MethodVectorID> doubleTapMethods;
 	private List<MethodSwipeID>  swipeMethods;
+    private List<MethodVectorID> firstTouchBeginMethodsAdd;
+    private List<MethodVectorID> firstTouchMoveMethodsAdd;
+    private List<MethodVectorID> firstTouchEndMethodsAdd;
+    private List<MethodVectorID> secondTouchBeginMethodsAdd;
+    private List<MethodVectorID> secondTouchMoveMethodsAdd;
+    private List<MethodVectorID> secondTouchEndMethodsAdd;
+    private List<MethodVectorID> tapMethodsAdd;
+    private List<MethodVectorID> doubleTapMethodsAdd;
+    private List<MethodSwipeID> swipeMethodsAdd;
     private List<int> firstTouchBeginMethodsRemove;
     private List<int> firstTouchMoveMethodsRemove;
     private List<int> firstTouchEndMethodsRemove;
@@ -104,6 +113,7 @@ public class InputManager : MonoBehaviour {
 		tapMethods = new List<MethodVectorID> ();
 		doubleTapMethods = new List<MethodVectorID> ();
 		swipeMethods = new List<MethodSwipeID> ();
+
         firstTouchBeginMethodsRemove = new List<int>();
         firstTouchMoveMethodsRemove = new List<int>();
         firstTouchEndMethodsRemove = new List<int>();
@@ -113,6 +123,7 @@ public class InputManager : MonoBehaviour {
         tapMethodsRemove = new List<int>();
         doubleTapMethodsRemove = new List<int>();
         swipeMethodsRemove = new List<int>();
+
         owner = -1;
 		idCount = 0;
 		previousMouseTap = false;
@@ -279,21 +290,9 @@ public class InputManager : MonoBehaviour {
     void OnFirstTouchBegin(Touch t)
 	{
 		if (firstTouchBeginMethods.Count > 0) {
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
-					mvi.method (t.position);
-				}
-			} else {
-				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
-					if (mvi.id == owner) {
-						mvi.method (t.position);
-					}
-				}
-			}
-
-            if(firstTouchEndMethodsRemove.Count > 0)
+            if(firstTouchBeginMethodsRemove.Count > 0)
             {
-                foreach(int ID in firstTouchEndMethodsRemove)
+                foreach(int ID in firstTouchBeginMethodsRemove)
                 {
                     index = -1;
                     for (int i = 0; i < firstTouchBeginMethods.Count; i++)
@@ -310,24 +309,33 @@ public class InputManager : MonoBehaviour {
                 }
                 firstTouchBeginMethodsRemove.Clear();
             }
-		}
-	}
 
-	void OnSecondTouchBegin(Touch t)
-	{
-		if (secondTouchBeginMethods.Count > 0) {
+            if (firstTouchBeginMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in firstTouchBeginMethodsAdd)
+                {
+                    firstTouchBeginMethods.Add(mvi);
+                }
+                firstTouchBeginMethodsAdd.Clear();
+            }
+
 			if (owner < 0) {
-				foreach (MethodVectorID mvi in secondTouchBeginMethods) {
+				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
 					mvi.method (t.position);
 				}
 			} else {
-				foreach (MethodVectorID mvi in secondTouchBeginMethods) {
+				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
 					if (mvi.id == owner) {
 						mvi.method (t.position);
 					}
 				}
 			}
+        }
+	}
 
+	void OnSecondTouchBegin(Touch t)
+	{
+		if (secondTouchBeginMethods.Count > 0) {
             if(secondTouchBeginMethodsRemove.Count > 0)
             {
                 foreach(int ID in secondTouchBeginMethodsRemove)
@@ -347,24 +355,33 @@ public class InputManager : MonoBehaviour {
                 }
                 secondTouchBeginMethodsRemove.Clear();
             }
-		}
-	}
 
-	void OnFirstTouchMove(Touch t)
-	{
-		if (firstTouchMoveMethods.Count > 0) {
+            if (secondTouchBeginMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in secondTouchBeginMethodsAdd)
+                {
+                    secondTouchBeginMethods.Add(mvi);
+                }
+                secondTouchBeginMethodsAdd.Clear();
+            }
+
 			if (owner < 0) {
-				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
+				foreach (MethodVectorID mvi in secondTouchBeginMethods) {
 					mvi.method (t.position);
 				}
 			} else {
-				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
+				foreach (MethodVectorID mvi in secondTouchBeginMethods) {
 					if (mvi.id == owner) {
 						mvi.method (t.position);
 					}
 				}
 			}
+        }
+	}
 
+	void OnFirstTouchMove(Touch t)
+	{
+		if (firstTouchMoveMethods.Count > 0) {
             if(firstTouchMoveMethodsRemove.Count > 0)
             {
                 foreach(int ID in firstTouchMoveMethodsRemove)
@@ -384,24 +401,33 @@ public class InputManager : MonoBehaviour {
                 }
                 firstTouchMoveMethodsRemove.Clear();
             }
-		}
-	}
 
-	void OnSecondTouchMove(Touch t)
-	{
-		if (secondTouchMoveMethods.Count > 0) {
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in secondTouchMoveMethods) {
+            if (firstTouchMoveMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in firstTouchMoveMethodsAdd)
+                {
+                    firstTouchMoveMethods.Add(mvi);
+                }
+                firstTouchMoveMethodsAdd.Clear();
+            }
+
+            if (owner < 0) {
+				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
 					mvi.method (t.position);
 				}
 			} else {
-				foreach (MethodVectorID mvi in secondTouchMoveMethods) {
+				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
 					if (mvi.id == owner) {
 						mvi.method (t.position);
 					}
 				}
 			}
+        }
+	}
 
+	void OnSecondTouchMove(Touch t)
+	{
+		if (secondTouchMoveMethods.Count > 0) {
             if(secondTouchMoveMethodsRemove.Count > 0)
             {
                 foreach(int ID in secondTouchMoveMethodsRemove)
@@ -421,24 +447,33 @@ public class InputManager : MonoBehaviour {
                 }
                 secondTouchMoveMethodsRemove.Clear();
             }
-		}
-	}
 
-	void OnFirstTouchEnd(Touch t)
-	{
-		if (firstTouchEndMethods.Count > 0) {
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in firstTouchEndMethods) {
+            if (secondTouchMoveMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in secondTouchMoveMethodsAdd)
+                {
+                    secondTouchMoveMethods.Add(mvi);
+                }
+                secondTouchMoveMethodsAdd.Clear();
+            }
+
+            if (owner < 0) {
+				foreach (MethodVectorID mvi in secondTouchMoveMethods) {
 					mvi.method (t.position);
 				}
 			} else {
-				foreach (MethodVectorID mvi in firstTouchEndMethods) {
+				foreach (MethodVectorID mvi in secondTouchMoveMethods) {
 					if (mvi.id == owner) {
 						mvi.method (t.position);
 					}
 				}
 			}
+        }
+	}
 
+	void OnFirstTouchEnd(Touch t)
+	{
+		if (firstTouchEndMethods.Count > 0) {
             if(firstTouchEndMethodsRemove.Count > 0)
             {
                 foreach(int ID in firstTouchEndMethodsRemove)
@@ -458,24 +493,33 @@ public class InputManager : MonoBehaviour {
                 }
                 firstTouchEndMethodsRemove.Clear();
             }
-		}
-	}
 
-	void OnSecondTouchEnd(Touch t)
-	{
-		if (secondTouchEndMethods.Count > 0) {
+            if (firstTouchEndMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in firstTouchEndMethodsAdd)
+                {
+                    firstTouchEndMethods.Add(mvi);
+                }
+                firstTouchEndMethodsAdd.Clear();
+            }
+
 			if (owner < 0) {
-				foreach (MethodVectorID mvi in secondTouchEndMethods) {
+				foreach (MethodVectorID mvi in firstTouchEndMethods) {
 					mvi.method (t.position);
 				}
 			} else {
-				foreach (MethodVectorID mvi in secondTouchEndMethods) {
+				foreach (MethodVectorID mvi in firstTouchEndMethods) {
 					if (mvi.id == owner) {
 						mvi.method (t.position);
 					}
 				}
 			}
+        }
+	}
 
+	void OnSecondTouchEnd(Touch t)
+	{
+		if (secondTouchEndMethods.Count > 0) {
             if(secondTouchEndMethodsRemove.Count > 0)
             {
                 foreach(int ID in secondTouchEndMethodsRemove)
@@ -495,24 +539,33 @@ public class InputManager : MonoBehaviour {
                 }
                 secondTouchEndMethodsRemove.Clear();
             }
-		}
-	}
 
-	void OnTap(Touch t)
-	{
-		if (tapMethods.Count > 0) {
+            if (secondTouchEndMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in secondTouchEndMethodsAdd)
+                {
+                    secondTouchEndMethods.Add(mvi);
+                }
+                secondTouchEndMethodsAdd.Clear();
+            }
+
 			if (owner < 0) {
-				foreach (MethodVectorID mvi in tapMethods) {
+				foreach (MethodVectorID mvi in secondTouchEndMethods) {
 					mvi.method (t.position);
 				}
 			} else {
-				foreach (MethodVectorID mvi in tapMethods) {
+				foreach (MethodVectorID mvi in secondTouchEndMethods) {
 					if (mvi.id == owner) {
 						mvi.method (t.position);
 					}
 				}
 			}
+        }
+	}
 
+	void OnTap(Touch t)
+	{
+		if (tapMethods.Count > 0) {
             if(tapMethodsRemove.Count > 0)
             {
                 foreach(int ID in tapMethodsRemove)
@@ -532,24 +585,33 @@ public class InputManager : MonoBehaviour {
                 }
                 tapMethodsRemove.Clear();
             }
-		}
+
+            if (tapMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in tapMethodsAdd)
+                {
+                    tapMethods.Add(mvi);
+                }
+                tapMethodsAdd.Clear();
+            }
+
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in tapMethods) {
+					mvi.method (t.position);
+				}
+			} else {
+				foreach (MethodVectorID mvi in tapMethods) {
+					if (mvi.id == owner) {
+						mvi.method (t.position);
+					}
+				}
+			}
+        }
 	}
 
 	void OnDoubleTap(Touch tp, Touch tc)
 	{
 		if (doubleTapMethods.Count > 0) {
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in doubleTapMethods) {
-					mvi.method (tc.position);
-				}
-			} else {
-				foreach (MethodVectorID mvi in doubleTapMethods) {
-					if (mvi.id == owner) {
-						mvi.method (tc.position);
-					}
-				}
-			}
-
             if(doubleTapMethodsRemove.Count > 0)
             {
                 foreach(int ID in doubleTapMethodsRemove)
@@ -569,27 +631,33 @@ public class InputManager : MonoBehaviour {
                 }
                 doubleTapMethodsRemove.Clear();
             }
-		}
+
+            if (doubleTapMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in doubleTapMethodsAdd)
+                {
+                    doubleTapMethods.Add(mvi);
+                }
+                doubleTapMethodsAdd.Clear();
+            }
+
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in doubleTapMethods) {
+					mvi.method (tc.position);
+				}
+			} else {
+				foreach (MethodVectorID mvi in doubleTapMethods) {
+					if (mvi.id == owner) {
+						mvi.method (tc.position);
+					}
+				}
+			}
+        }
 	}
 
 	void OnSwipe(Touch p1, Touch p2)
 	{
 		if (swipeMethods.Count > 0) {
-            Swipe s = new Swipe ();
-			s.begin = p1.position;
-			s.end = p2.position;
-			if (owner < 0) {
-				foreach (MethodSwipeID msi in swipeMethods) {
-					msi.method (s);
-				}
-			} else {
-				foreach (MethodSwipeID msi in swipeMethods) {
-					if (msi.id == owner) {
-						msi.method (s);
-					}
-				}
-			}
-
             if(swipeMethodsRemove.Count > 0)
             {
                 foreach(int ID in swipeMethodsRemove)
@@ -609,7 +677,31 @@ public class InputManager : MonoBehaviour {
                 }
                 swipeMethodsRemove.Clear();
             }
-		}
+
+            if (swipeMethodsAdd.Count > 0)
+            {
+                foreach (MethodSwipeID msi in swipeMethodsAdd)
+                {
+                    swipeMethods.Add(msi);
+                }
+                swipeMethodsAdd.Clear();
+            }
+
+            Swipe s = new Swipe ();
+			s.begin = p1.position;
+			s.end = p2.position;
+			if (owner < 0) {
+				foreach (MethodSwipeID msi in swipeMethods) {
+					msi.method (s);
+				}
+			} else {
+				foreach (MethodSwipeID msi in swipeMethods) {
+					if (msi.id == owner) {
+						msi.method (s);
+					}
+				}
+			}
+        }
 	}
     #endregion
 
@@ -854,7 +946,7 @@ public class InputManager : MonoBehaviour {
 	 * Public Methods 
 	 * 
 	 */
-
+    #region Methods
     public int GetID()
 	{
 		int temp = idCount;
@@ -897,8 +989,13 @@ public class InputManager : MonoBehaviour {
 		return GameManager.player.transform.position;
 		//return Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, 10));
 	}
+    #endregion
 
-	public void OnFirstTouchBeginSub(Vector2Delegate vd, int ID)
+    /*
+     * Subscibe and Unsubscribe methods
+    */
+    #region Methods
+    public void OnFirstTouchBeginSub(Vector2Delegate vd, int ID)
 	{
 		bool exists = false;
 		for(int i = 0; i < firstTouchBeginMethods.Count; i++)
@@ -913,25 +1010,13 @@ public class InputManager : MonoBehaviour {
 			MethodVectorID mvi = new MethodVectorID ();
 			mvi.id = ID;
 			mvi.method = vd;
-			firstTouchBeginMethods.Add (mvi);
+			firstTouchBeginMethodsAdd.Add (mvi);
 		}
 	}
 
 	public void OnFirstTouchBeginUnsub(int ID)
 	{
         firstTouchBeginMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < firstTouchBeginMethods.Count; i++)
-		{
-			if(firstTouchBeginMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			firstTouchBeginMethods.RemoveAt (index);
-		}*/
 	}
 
 	public void OnFirstTouchMoveSub(Vector2Delegate vd, int ID)
@@ -949,25 +1034,13 @@ public class InputManager : MonoBehaviour {
 			MethodVectorID mvi = new MethodVectorID ();
 			mvi.id = ID;
 			mvi.method = vd;
-			firstTouchMoveMethods.Add (mvi);
+            firstTouchMoveMethodsAdd.Add (mvi);
 		}
 	}
 
 	public void OnFirstTouchMoveUnsub(int ID)
 	{
         firstTouchMoveMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < firstTouchMoveMethods.Count; i++)
-		{
-			if(firstTouchMoveMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			firstTouchMoveMethods.RemoveAt (index);
-		}*/
 	}
 
 	public void OnFirstTouchEndSub(Vector2Delegate vd, int ID)
@@ -985,25 +1058,13 @@ public class InputManager : MonoBehaviour {
 			MethodVectorID mvi = new MethodVectorID ();
 			mvi.id = ID;
 			mvi.method = vd;
-			firstTouchEndMethods.Add (mvi);
+            firstTouchEndMethodsAdd.Add (mvi);
 		}
 	}
 
 	public void OnFirstTouchEndUnsub(int ID)
 	{
         firstTouchEndMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < firstTouchEndMethods.Count; i++)
-		{
-			if(firstTouchEndMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			firstTouchEndMethods.RemoveAt (index);
-		}*/
 	}
 
 	public void OnSecondTouchBeginSub(Vector2Delegate vd, int ID)
@@ -1021,25 +1082,13 @@ public class InputManager : MonoBehaviour {
 			MethodVectorID mvi = new MethodVectorID ();
 			mvi.id = ID;
 			mvi.method = vd;
-			secondTouchBeginMethods.Add (mvi);
+            secondTouchBeginMethodsAdd.Add (mvi);
 		}
 	}
 
 	public void OnSecondTouchBeginUnsub(int ID)
 	{
         secondTouchBeginMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < secondTouchBeginMethods.Count; i++)
-		{
-			if(secondTouchBeginMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			secondTouchBeginMethods.RemoveAt (index);
-		}*/
 	}
 
 	public void OnSecondTouchMoveSub(Vector2Delegate vd, int ID)
@@ -1057,25 +1106,13 @@ public class InputManager : MonoBehaviour {
 			MethodVectorID mvi = new MethodVectorID ();
 			mvi.id = ID;
 			mvi.method = vd;
-			secondTouchMoveMethods.Add (mvi);
+            secondTouchMoveMethodsAdd.Add (mvi);
 		}
 	}
 
 	public void OnSecondTouchMoveUnsub(int ID)
 	{
         secondTouchMoveMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < secondTouchMoveMethods.Count; i++)
-		{
-			if(secondTouchMoveMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			secondTouchMoveMethods.RemoveAt (index);
-		}*/
 	}
 
 	public void OnSecondTouchEndSub(Vector2Delegate vd, int ID)
@@ -1093,25 +1130,13 @@ public class InputManager : MonoBehaviour {
 			MethodVectorID mvi = new MethodVectorID ();
 			mvi.id = ID;
 			mvi.method = vd;
-			secondTouchEndMethods.Add (mvi);
+            secondTouchEndMethodsAdd.Add (mvi);
 		}
 	}
 
 	public void OnSecondTouchEndUnsub(int ID)
 	{
         secondTouchEndMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < secondTouchEndMethods.Count; i++)
-		{
-			if(secondTouchEndMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			secondTouchEndMethods.RemoveAt (index);
-		}*/
 	}
 
 	public void OnTapSub(Vector2Delegate vd, int ID)
@@ -1129,25 +1154,13 @@ public class InputManager : MonoBehaviour {
 			MethodVectorID mvi = new MethodVectorID ();
 			mvi.id = ID;
 			mvi.method = vd;
-			tapMethods.Add (mvi);
+            tapMethodsAdd.Add (mvi);
 		}
 	}
 
 	public void OnTapUnsub(int ID)
 	{
         tapMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < tapMethods.Count; i++)
-		{
-			if(tapMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			tapMethods.RemoveAt (index);
-		}*/
 	}
 
 	public void OnDoubleTapSub(Vector2Delegate vd, int ID)
@@ -1165,25 +1178,13 @@ public class InputManager : MonoBehaviour {
 			MethodVectorID mvi = new MethodVectorID ();
 			mvi.id = ID;
 			mvi.method = vd;
-			doubleTapMethods.Add (mvi);
+            doubleTapMethodsAdd.Add (mvi);
 		}
 	}
 
 	public void OnDoubleTapUnsub(int ID)
 	{
         doubleTapMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < doubleTapMethods.Count; i++)
-		{
-			if(doubleTapMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			doubleTapMethods.RemoveAt (index);
-		}*/
 	}
 
 	public void OnSwipeSub(SwipeDelegate sd, int ID)
@@ -1201,26 +1202,15 @@ public class InputManager : MonoBehaviour {
 			MethodSwipeID mvi = new MethodSwipeID ();
 			mvi.id = ID;
 			mvi.method = sd;
-			swipeMethods.Add (mvi);
+            swipeMethodsAdd.Add (mvi);
 		}
 	}
 
-	public void OnSwipeUnsub(int ID)
+    public void OnSwipeUnsub(int ID)
 	{
         swipeMethodsRemove.Add(ID);
-		/*int index = -1;
-		for(int i = 0; i < swipeMethods.Count; i++)
-		{
-			if(swipeMethods[i].id == ID)
-			{
-				index = i;
-			}
-		}
-		if(index >= 0)
-		{
-			swipeMethods.RemoveAt (index);
-		}*/
 	}
+    #endregion
 
 
 	public class TouchSession
