@@ -28,8 +28,6 @@ public class CameraOcclusion : MonoBehaviour
         ++curRay;
         if (curRay >= scanAreas + 1)
             curRay = 0;
-
-        Debug.DrawRay(ray.origin, tarPoint[0] * 1000);
     }
 
     IEnumerator WaitForAnim(float dur)
