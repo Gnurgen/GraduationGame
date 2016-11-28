@@ -114,6 +114,16 @@ public class InputManager : MonoBehaviour {
 		doubleTapMethods = new List<MethodVectorID> ();
 		swipeMethods = new List<MethodSwipeID> ();
 
+        firstTouchBeginMethodsAdd = new List<MethodVectorID>();
+        firstTouchMoveMethodsAdd = new List<MethodVectorID>();
+        firstTouchEndMethodsAdd = new List<MethodVectorID>();
+        secondTouchBeginMethodsAdd = new List<MethodVectorID>();
+        secondTouchMoveMethodsAdd = new List<MethodVectorID>();
+        secondTouchEndMethodsAdd = new List<MethodVectorID>();
+        tapMethodsAdd = new List<MethodVectorID>();
+        doubleTapMethodsAdd = new List<MethodVectorID>();
+        swipeMethodsAdd = new List<MethodSwipeID>();
+
         firstTouchBeginMethodsRemove = new List<int>();
         firstTouchMoveMethodsRemove = new List<int>();
         firstTouchEndMethodsRemove = new List<int>();
