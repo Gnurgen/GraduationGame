@@ -183,7 +183,6 @@ public class PlayerControls : MonoBehaviour {
             else
             {
                 ability2.UseAbility(touchStart);
-               
                 GameManager.events.ConeAbilityStart(gameObject);
             }
         }

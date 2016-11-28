@@ -34,15 +34,15 @@ public class WispAI : MonoBehaviour {
 
     IEnumerator Spawn()
     {
-        Vector3 pos = new Vector3(transform.position.x, 1, transform.position.z);
-        transform.position = pos;
+        //Vector3 pos = new Vector3(transform.position.x, 1, transform.position.z);
+        //transform.position = pos;
         effectControl = GetComponent<PKFxFX>();
         effectControl.StartEffect();
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", startScatter));
         yield return new WaitForFixedUpdate();
         while (scatter > endScatter)
         {
-            transform.position = pos; // delete after testing
+            //transform.position = pos; // delete after testing
             scatter -= scatterDecay;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
             yield return new WaitForFixedUpdate();
