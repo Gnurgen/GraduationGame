@@ -605,7 +605,8 @@ public class MapGenerator : MonoBehaviour {
             GameManager.player.transform.parent = go.transform;
             completed = true;
 
-            StartCoroutine("DelayedScan");
+            GameManager.events.MapGenerated();
+            StartCoroutine(DelayedScan());
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
             hideProgress();
         }
