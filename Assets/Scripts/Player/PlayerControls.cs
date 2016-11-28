@@ -174,6 +174,7 @@ public class PlayerControls : MonoBehaviour {
         touchCur = im.GetWorldPoint(p);
         if(Distance(touchCur, touchStart) >= abilityTouchMoveDistance)
         {
+            body.velocity = Vector3.zero;
             state = State.Ability;
             if(ab1)
             {
@@ -183,7 +184,6 @@ public class PlayerControls : MonoBehaviour {
             else
             {
                 ability2.UseAbility(touchStart);
-               
                 GameManager.events.ConeAbilityStart(gameObject);
             }
         }
@@ -196,13 +196,6 @@ public class PlayerControls : MonoBehaviour {
 
     public void EndAbility()
     {
-        if(state==State.Ability)
-        {
-            if (ab1)
-                em.SpearDrawAbilityEnd(gameObject);
-            else
-                em.ConeAbilityEnd(gameObject);
-        }
         ab1 = false; ab2 = false;
         if (ResumeMovementAfterAbility)
             state = prevstate;

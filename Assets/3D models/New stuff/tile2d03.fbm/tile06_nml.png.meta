@@ -1,6 +1,16 @@
 fileFormatVersion: 2
-guid: 405e8af20baca7649b960d14d5faa90d
-timeCreated: 1480060580
+<<<<<<< HEAD
+guid: 2186d66497447114fa05f1702a81796f
+timeCreated: 1480333999
+=======
+<<<<<<< HEAD
+guid: 2673a62987aa17347a1552bdf6a26d09
+timeCreated: 1480333913
+=======
+guid: e0cf28ac45729fc46938176e595d107a
+timeCreated: 1480334315
+>>>>>>> 4a4ded9bbd3c4790137039bd48338e792abeeae3
+>>>>>>> 8317c68dc6f0fd97ecb0683c57f1f82404a26673
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -8,7 +18,7 @@ TextureImporter:
   mipmaps:
     mipMapMode: 0
     enableMipMap: 1
-    linearTexture: 1
+    linearTexture: 0
     correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
@@ -16,7 +26,7 @@ TextureImporter:
     mipMapFadeDistanceEnd: 3
   bumpmap:
     convertToNormalMap: 0
-    externalNormalMap: 1
+    externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
@@ -47,7 +57,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: 1
+  textureType: -1
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
