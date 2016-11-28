@@ -713,22 +713,9 @@ public class InputManager : MonoBehaviour {
     void OnMouseBegin(Vector3 p)
 	{
 		if (firstTouchBeginMethods.Count > 0) {
-			Vector2 point = new Vector2 (p.x,p.y);
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
-					mvi.method (point);
-				}
-			} else {
-				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
-					if (mvi.id == owner) {
-						mvi.method (point);
-					}
-				}
-			}
-
-            if (firstTouchEndMethodsRemove.Count > 0)
+            if (firstTouchBeginMethodsRemove.Count > 0)
             {
-                foreach (int ID in firstTouchEndMethodsRemove)
+                foreach (int ID in firstTouchBeginMethodsRemove)
                 {
                     index = -1;
                     for (int i = 0; i < firstTouchBeginMethods.Count; i++)
@@ -745,25 +732,34 @@ public class InputManager : MonoBehaviour {
                 }
                 firstTouchBeginMethodsRemove.Clear();
             }
+
+            if (firstTouchBeginMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in firstTouchBeginMethodsAdd)
+                {
+                    firstTouchBeginMethods.Add(mvi);
+                }
+                firstTouchBeginMethodsAdd.Clear();
+            }
+
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in firstTouchBeginMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
         }
 	}
 
 	void OnMouseMove(Vector3 p)
 	{
 		if (firstTouchMoveMethods.Count > 0) {
-			Vector2 point = new Vector2 (p.x,p.y);
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
-					mvi.method (point);
-				}
-			} else {
-				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
-					if (mvi.id == owner) {
-						mvi.method (point);
-					}
-				}
-			}
-
             if (firstTouchMoveMethodsRemove.Count > 0)
             {
                 foreach (int ID in firstTouchMoveMethodsRemove)
@@ -783,25 +779,34 @@ public class InputManager : MonoBehaviour {
                 }
                 firstTouchMoveMethodsRemove.Clear();
             }
+
+            if (firstTouchMoveMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in firstTouchMoveMethodsAdd)
+                {
+                    firstTouchMoveMethods.Add(mvi);
+                }
+                firstTouchMoveMethodsAdd.Clear();
+            }
+
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in firstTouchMoveMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
         }
 	}
 
 	void OnMouseEnd(Vector3 p)
 	{
 		if (firstTouchEndMethods.Count > 0) {
-			Vector2 point = new Vector2 (p.x,p.y);
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in firstTouchEndMethods) {
-					mvi.method (point);
-				}
-			} else {
-				foreach (MethodVectorID mvi in firstTouchEndMethods) {
-					if (mvi.id == owner) {
-						mvi.method (point);
-					}
-				}
-			}
-
             if (firstTouchEndMethodsRemove.Count > 0)
             {
                 foreach (int ID in firstTouchEndMethodsRemove)
@@ -821,25 +826,34 @@ public class InputManager : MonoBehaviour {
                 }
                 firstTouchEndMethodsRemove.Clear();
             }
+
+            if (firstTouchEndMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in firstTouchEndMethodsAdd)
+                {
+                    firstTouchEndMethods.Add(mvi);
+                }
+                firstTouchEndMethodsAdd.Clear();
+            }
+
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in firstTouchEndMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in firstTouchEndMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
         }
 	}
 
 	void OnMouseTap(Vector3 p)
 	{
 		if (tapMethods.Count > 0) {
-			Vector2 point = new Vector2 (p.x,p.y);
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in tapMethods) {
-					mvi.method (point);
-				}
-			} else {
-				foreach (MethodVectorID mvi in tapMethods) {
-					if (mvi.id == owner) {
-						mvi.method (point);
-					}
-				}
-			}
-
             if (tapMethodsRemove.Count > 0)
             {
                 foreach (int ID in tapMethodsRemove)
@@ -859,25 +873,34 @@ public class InputManager : MonoBehaviour {
                 }
                 tapMethodsRemove.Clear();
             }
+
+            if (tapMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in tapMethodsAdd)
+                {
+                    tapMethods.Add(mvi);
+                }
+                tapMethodsAdd.Clear();
+            }
+
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in tapMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in tapMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
         }
 	}
 
 	void OnMouseDoubleTap(Vector3 p)
 	{
 		if (doubleTapMethods.Count > 0) {
-			Vector2 point = new Vector2 (p.x,p.y);
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in doubleTapMethods) {
-					mvi.method (point);
-				}
-			} else {
-				foreach (MethodVectorID mvi in doubleTapMethods) {
-					if (mvi.id == owner) {
-						mvi.method (point);
-					}
-				}
-			}
-
             if (doubleTapMethodsRemove.Count > 0)
             {
                 foreach (int ID in doubleTapMethodsRemove)
@@ -897,27 +920,34 @@ public class InputManager : MonoBehaviour {
                 }
                 doubleTapMethodsRemove.Clear();
             }
+
+            if (doubleTapMethodsAdd.Count > 0)
+            {
+                foreach (MethodVectorID mvi in doubleTapMethodsAdd)
+                {
+                    doubleTapMethods.Add(mvi);
+                }
+                doubleTapMethodsAdd.Clear();
+            }
+
+			Vector2 point = new Vector2 (p.x,p.y);
+			if (owner < 0) {
+				foreach (MethodVectorID mvi in doubleTapMethods) {
+					mvi.method (point);
+				}
+			} else {
+				foreach (MethodVectorID mvi in doubleTapMethods) {
+					if (mvi.id == owner) {
+						mvi.method (point);
+					}
+				}
+			}
         }
 	}
 
 	void OnMouseSwipe(Vector3 p1, Vector3 p2)
 	{
 		if (swipeMethods.Count > 0) {
-			Swipe s = new Swipe ();
-			s.begin = new Vector2 (p1.x,p1.y);
-			s.end = new Vector2 (p2.x,p2.y);
-			if (owner < 0) {
-				foreach (MethodSwipeID msi in swipeMethods) {
-					msi.method (s);
-				}
-			} else {
-				foreach (MethodSwipeID msi in swipeMethods) {
-					if (msi.id == owner) {
-						msi.method (s);
-					}
-				}
-			}
-
             if (swipeMethodsRemove.Count > 0)
             {
                 foreach (int ID in swipeMethodsRemove)
@@ -937,6 +967,30 @@ public class InputManager : MonoBehaviour {
                 }
                 swipeMethodsRemove.Clear();
             }
+
+            if (swipeMethodsAdd.Count > 0)
+            {
+                foreach (MethodSwipeID msi in swipeMethodsAdd)
+                {
+                    swipeMethods.Add(msi);
+                }
+                swipeMethodsAdd.Clear();
+            }
+
+			Swipe s = new Swipe ();
+			s.begin = new Vector2 (p1.x,p1.y);
+			s.end = new Vector2 (p2.x,p2.y);
+			if (owner < 0) {
+				foreach (MethodSwipeID msi in swipeMethods) {
+					msi.method (s);
+				}
+			} else {
+				foreach (MethodSwipeID msi in swipeMethods) {
+					if (msi.id == owner) {
+						msi.method (s);
+					}
+				}
+			}
         }
 	}
     #endregion
