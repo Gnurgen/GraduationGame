@@ -36,7 +36,7 @@ public class ConeAbility : MonoBehaviour {
                     if (hit[q].transform.gameObject.layer == enemy)
                     {
                         hit[q].transform.gameObject.layer = enemyhit;
-                        print(hit[q].transform.GetComponent<Rigidbody>().velocity * speed);
+                     
                         StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position+hit[q].transform.GetComponent<EnemyStats>().velo*speed) / speed));
                         ++cStart;
                     }

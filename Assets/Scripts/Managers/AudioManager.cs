@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnConeAbilityUsed += ConeAbilityPlay;
         GameManager.events.OnConeAbilityHit += ConeAbilityHitPlay;
         GameManager.events.OnConeAbilityEnd += ConeAbilityStop;
-        // GameManager.events.OnConeAbilityCancel += ConeAbilityInteractStop;
+        GameManager.events.OnConeAbilityCancel += ConeAbilityInteractStop;
 
         GameManager.events.OnSpearDrawAbilityStart += SpearAbilityStart;
         GameManager.events.OnSpearDrawAbilityUsed += SpearAbilityUsed;
@@ -236,9 +236,9 @@ public class AudioManager : MonoBehaviour {
 
     // CONE
 
-    private void ConeAbilityStop(GameObject Id)
+    private void ConeAbilityStop(GameObject GO)
     {
-        //throw new NotImplementedException();
+        AkSoundEngine.PostEvent("Cone_Ability_Stop", GO);
     }
 
     private void ConeAbilityHitPlay(GameObject Id)
