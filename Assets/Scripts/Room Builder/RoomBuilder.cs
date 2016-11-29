@@ -19,7 +19,7 @@ public class RoomBuilder : MonoBehaviour {
 
     private List<GameObject> objectList = new List<GameObject>();
     private Vector2 _roomSize = new Vector2(1, 1);
-    private List<GameObject> enemyList = new List<GameObject>();
+    public int enemyCount = 0;
 
     public Vector2 roomSize
     {
@@ -108,12 +108,8 @@ public class RoomBuilder : MonoBehaviour {
     void Start()
     {
         RoomTile[] tiles = GetComponentsInChildren<RoomTile>();
-
-        for(int i = 0; i < tiles.Length; i++)
-        {
-            if (tiles[i].referenceName == "Default Tile")
-                tiles[i].gameObject.layer = 8;
-        }
+        Health[] enemies = GetComponentsInChildren<Health>();
+        enemyCount = enemies.Length;
 
 
         for(int i = 0; i < transform.childCount; i++)
@@ -129,21 +125,12 @@ public class RoomBuilder : MonoBehaviour {
     void Update () {
 	}
 
-    public void AddEnemy(GameObject enemy)
-    {
-        enemyList.Add(enemy);
-    }
 
-    public void RemoveEnemy(GameObject enemy)
+    public void DecrementEnemyCount()
     {
-        enemyList.Remove(enemy);
-        if (enemyList.Count == 0)
+        if (--enemyCount <= 0)
         {
-            OpenCloseDoor[] toggleList = GetComponentsInChildren<OpenCloseDoor>();
-            for (int i = 0; i < toggleList.Length; i++)
-            {
-                toggleList[i].openDoor();
-            }
+            
             // Room cleared
         }
     }
@@ -159,7 +146,6 @@ public class RoomBuilder : MonoBehaviour {
         }
         bool[] hasDoorList = roomUnits[x, y].GetDoors();
 
-//        Debug.Log(hashIndex[0] + ":" + hashIndex[1] + "." + hashIndex[2] + "." + hashIndex[3] + "." + hashIndex[4]);
         return new int[] {
             GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
             hasDoorList[0] ? 1 : 0,

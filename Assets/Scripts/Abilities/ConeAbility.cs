@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 public class ConeAbility : MonoBehaviour {
 
-    /*TODO:
-     * STOP CONE ANIMATION AT SOLID OBJECTS 
-    */
 
 
     private float tDist, speed, cDist, norm, damage, pushForce, stunTime;
@@ -19,6 +16,7 @@ public class ConeAbility : MonoBehaviour {
     Ray dmgRay;
     RaycastHit[] hit;
     int cCounter = 0, cStart = 0;
+    int enemy, enemyhit;
 	// Use this for initialization
 	
 	// Update is called once per frame
@@ -35,9 +33,9 @@ public class ConeAbility : MonoBehaviour {
                 hit = Physics.RaycastAll(dmgRay, partDir.magnitude);
                 for (int q = 0; q < hit.Length; ++q)
                 {
-                    if(hit[q].transform.gameObject.layer == 10)
+                    if (hit[q].transform.gameObject.layer == enemy)
                     {
-                        hit[q].transform.gameObject.layer = 11;
+                        hit[q].transform.gameObject.layer = enemyhit;
                         StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position) / speed));
                         ++cStart;
                     }
@@ -61,11 +59,13 @@ public class ConeAbility : MonoBehaviour {
             coneParticle.GetComponent<MovingConeParticle>().setVars(speed, coneDist);
         }
         if (cStart == 0)
-            Destroy(gameObject);
+            EndConeAbility();
     }
 
     public void setVars(float l, float s, int t, Mesh m, float d, float p, float st)
     {
+        enemy = LayerMask.NameToLayer("Enemy");
+        enemyhit = LayerMask.NameToLayer("EnemyHit");
         tDist = l;
         speed = s;
         pushForce = p;
@@ -91,10 +91,15 @@ public class ConeAbility : MonoBehaviour {
             go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce, ForceMode.Impulse);
             go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
             go.GetComponent<EnemyStats>().PauseFor(stunTime);
-            go.layer = 10;
+            go.layer = enemy;
             ++cCounter;
         }
         if (cCounter == cStart)
-            Destroy(gameObject);
+            EndConeAbility();
+    }
+    void EndConeAbility()
+    {
+        GameManager.events.ConeAbilityEnd(gameObject);
+        Destroy(gameObject);
     }
 }
