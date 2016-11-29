@@ -6,7 +6,7 @@ public class ConeAbility : MonoBehaviour {
 
 
 
-    private float tDist, speed, cDist, norm, damage, pushForce, stunTime;
+    private float tDist, speed, cDist, norm, damage, pushForce, stunTime, killTime;
     private int tris;
     private bool detect = false;
     private Vector3 myRot;
@@ -54,22 +54,22 @@ public class ConeAbility : MonoBehaviour {
             coneParticle = GameManager.pool.GenerateObject("p_ConeParticle");
             coneParticle.transform.position = (transform.position-Vector3.up) + Vector3.up*Random.Range(0.1f, 1.5f);
             float coneDist = (dir[i]-transform.position).magnitude;
+            tDist = tDist < coneDist ? coneDist : tDist;
             dir[i].y = coneParticle.transform.position.y;
             coneParticle.transform.LookAt(dir[i]);
             coneParticle.GetComponent<MovingConeParticle>().setVars(speed, coneDist);
         }
-        if (cStart == 0)
-            EndConeAbility();
+        StartCoroutine(EndConeAbility(tDist/speed));
     }
 
-    public void setVars(float l, float s, int t, Mesh m, float d, float p, float st)
+    public void setVars(float s, int t, Mesh m, float d, float p, float st)
     {
         enemy = LayerMask.NameToLayer("Enemy");
         enemyhit = LayerMask.NameToLayer("EnemyHit");
-        tDist = l;
         speed = s;
         pushForce = p;
         damage = d;
+        tDist = 0;
         stunTime = st;
         dir = new Vector3[t];
         dmgMesh = m;
@@ -81,24 +81,18 @@ public class ConeAbility : MonoBehaviour {
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        if (go == null)
-        {
-            ++cCounter;
-        }
-        else
+        if (go != null)
         {
             GameManager.events.ConeAbilityHit(go);
             go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce, ForceMode.Impulse);
             go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
             go.GetComponent<EnemyStats>().PauseFor(stunTime);
             go.layer = enemy;
-            ++cCounter;
         }
-        if (cCounter == cStart)
-            EndConeAbility();
     }
-    void EndConeAbility()
+    IEnumerator EndConeAbility(float delay)
     {
+        yield return new WaitForSeconds(delay);
         GameManager.events.ConeAbilityEnd(gameObject);
         Destroy(gameObject);
     }

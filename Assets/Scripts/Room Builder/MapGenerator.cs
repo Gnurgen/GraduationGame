@@ -503,9 +503,19 @@ public class MapGenerator : MonoBehaviour {
 
     IEnumerator DelayedScan()
     {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject obj in enemies)
+        {
+            obj.SetActive(false);
+        }
         yield return new WaitForSeconds(2f);
         AstarPath p = FindObjectOfType<AstarPath>();
         AstarPath.active.Scan();
+        yield return new WaitForSeconds(1f);
+        foreach (GameObject obj in enemies)
+        {
+            obj.SetActive(true);
+        }
     }
 
     void Update() {
