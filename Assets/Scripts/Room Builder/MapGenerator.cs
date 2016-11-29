@@ -459,11 +459,18 @@ public class MapGenerator : MonoBehaviour {
                             hashIndex[3] == 1,
                             hashIndex[4] == 1
                         };
+
+                        Debug.Log(
+                            hashIndex[1] + ", " + 
+                            hashIndex[2] + ", " +
+                            hashIndex[3] + ", " +
+                            hashIndex[4]
+                        );
                     }
 
                     go = Instantiate(room.gameObject);
                     go.transform.position = new Vector3(RoomUnit.TILE_RATIO * i * RoomTile.TILE_SCALE, 0, -RoomUnit.TILE_RATIO * (j + 1) * RoomTile.TILE_SCALE);
-                    go.GetComponent<RoomBuilder>().HideWalls(true, true);
+//                    go.GetComponent<RoomBuilder>().HideWalls(true, true);
                     progress += 4;
                     rooms.Add(go);
                 }
@@ -507,11 +514,8 @@ public class MapGenerator : MonoBehaviour {
 
         for (i = 0; i < mapGrid.GetLength(0); i++)
         {
-            if (i >= mapGrid.GetLength(0))
-            {
-                i = 0;
-                j++;
-            }
+
+            Debug.Log(i + " " + j);
 
             if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
             {
@@ -605,7 +609,8 @@ public class MapGenerator : MonoBehaviour {
             GameManager.player.transform.parent = go.transform;
             completed = true;
 
-            StartCoroutine("DelayedScan");
+            GameManager.events.MapGenerated();
+            StartCoroutine(DelayedScan());
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
             hideProgress();
         }
@@ -613,7 +618,7 @@ public class MapGenerator : MonoBehaviour {
 
     private void displayProgress()
     {
-        Debug.Log("Progress: " + progress + "/" + totalProgress);
+
     }
 
     private void hideProgress()

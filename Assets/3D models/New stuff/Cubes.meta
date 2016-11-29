@@ -1,12 +1,13 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/3D models/New stuff/Cubes.meta
-guid: 8c9cfd02e013b1e47b55623fbf8f58b4
-=======
-guid: d25a7aca7c27e4c44bf2e7bd96cef2d5
->>>>>>> aacabcf2b9847ea7b41982af5394587bbfbe61f5:Assets/3D models/New stuff/Materials.meta
+<<<<<<< HEAD
+guid: b8b8bd0ce9d818049b16c98bb572bf27
 folderAsset: yes
-timeCreated: 1480326874
+timeCreated: 1480405414
 licenseType: Pro
+=======
+guid: 8534ad012f69929498696c78a21fb030
+folderAsset: yes
+>>>>>>> a1a523b23a9074435a06543483bbe0d0b889d40d
 DefaultImporter:
   userData: 
   assetBundleName: 

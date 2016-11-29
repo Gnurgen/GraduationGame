@@ -90,6 +90,7 @@ public class FxManager : MonoBehaviour {
     void PlayerMeleeAttackEffect(GameObject unit)
     {
         GameObject ef =  GameManager.pool.GenerateObject(playerMeleeAttack.tag);
+        ef.transform.position = new Vector3(ef.transform.position.x, 1.0f, ef.transform.position.z);
         StartCoroutine(DestroyAfter(ef, 2));
         ef.GetComponent<PKFxFX>().StartEffect();
     }
@@ -213,8 +214,8 @@ public class FxManager : MonoBehaviour {
         if(unit.GetComponent<MeleeAI>() != null)
         {
             GameObject ef =  GameManager.pool.GenerateObject(enemyMeleeAttack.tag); 
-            ef.transform.position = GameManager.player.transform.position;
-        ef.GetComponent<PKFxFX>().StartEffect();
+            ef.transform.position = GameManager.player.transform.position + Vector3.up;
+            ef.GetComponent<PKFxFX>().StartEffect();
             StartCoroutine(DestroyAfter(ef, 2));
         }
     }
