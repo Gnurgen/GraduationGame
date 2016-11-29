@@ -53,11 +53,20 @@ public class Elevator : MonoBehaviour
         fade.GetComponent<Fade>().fadeToBlack(2);
         isMoving = true;
         yield return new WaitForSeconds(underLift);
-        SceneManager.LoadScene("BossLevel");
+        LoadCorrectScene();
     }
 
     void LoadCorrectScene()
     {
-
+        GameManager.progress++;
+        PlayerPrefs.SetInt("Progress", GameManager.progress);
+        if (GameManager.progress <= 2)
+        {
+            SceneManager.LoadScene("Final");
+        }
+        else
+        {
+            SceneManager.LoadScene("BossLevel");
+        }
     }
 }
