@@ -3,6 +3,10 @@ using System.Collections;
 
 public class PlayerControls : MonoBehaviour {
 
+    /// <summary> KRIS!!!
+    /// Animationer for ability cancel skal addes - events er aktiverede.
+    /// </summary>
+
    
     private InputManager im;
     private EventManager em;
@@ -161,7 +165,6 @@ public class PlayerControls : MonoBehaviour {
 
     void Begin(Vector2 p)
     {
-        abilityTouchMoveDistance = 0;
         touchStart = im.GetWorldPoint(p);
         prevstate = state;
         if ((touchStart - GameManager.player.transform.position).magnitude < abilityTouchOffset && ability1.Cooldown() <= 0)
@@ -172,14 +175,14 @@ public class PlayerControls : MonoBehaviour {
     void Move(Vector2 p)
     {
         touchCur = im.GetWorldPoint(p);
-        if(Distance(touchCur, touchStart) >= abilityTouchMoveDistance)
+        if (Distance(touchCur, touchStart) >= abilityTouchMoveDistance)
         {
             body.velocity = Vector3.zero;
             state = State.Ability;
             if(ab1)
             {
                 ability1.UseAbility(touchStart);
-                em.SpearDrawAbilityStart(gameObject);
+                GameManager.events.SpearDrawAbilityStart(gameObject);
             }
             else
             {

@@ -20,7 +20,7 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void SpearAbilityStart(GameObject Id)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void ConeAbilityStart(GameObject Id)

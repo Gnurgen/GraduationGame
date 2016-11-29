@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
 public class CurveDraw : MonoBehaviour {
 
 	//public Vector3[] points;
@@ -9,8 +8,8 @@ public class CurveDraw : MonoBehaviour {
 	private GameObject line;
 	private bool drawing;
 	private List<Vector3> curvePoints;
-	public int verticeIndex;
-	public int indicieIndex;
+	private int verticeIndex;
+	private int indicieIndex;
 	private Mesh mesh;
 	private Vector3[] vertices;
     private Material matTexture;

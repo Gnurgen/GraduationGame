@@ -18,6 +18,7 @@ public class ConeDraw : MonoBehaviour {
     private bool dirSat = false;
     private bool doDraw = false;
     private int onlyHitLayermask;
+
     //Collision checking
     Ray ray;
     RaycastHit hit;
@@ -38,8 +39,7 @@ public class ConeDraw : MonoBehaviour {
     }
     public float Cooldown()
     {
-
-        return currentCooldown;
+        return currentCooldown < 0 ? 0 : currentCooldown;
     }
 
     public void UseAbility(Vector3 p)
@@ -79,7 +79,7 @@ public class ConeDraw : MonoBehaviour {
             GameManager.events.ConeAbilityUsed(GameManager.player);
             currentCooldown = cooldown;
             dmgCone = (GameObject)Instantiate(coneDmgObject, drawCone.transform.position, drawCone.transform.rotation);
-            dmgCone.GetComponent<ConeAbility>().setVars(length, coneSpeed, activeTris, drawCone.GetComponent<MeshFilter>().mesh, damage, pushForce, stunTime);
+            dmgCone.GetComponent<ConeAbility>().setVars(coneSpeed, activeTris, drawCone.GetComponent<MeshFilter>().mesh, damage, pushForce, stunTime);
         }
         else
             GameManager.events.ConeAbilityCancel(gameObject);
@@ -141,14 +141,12 @@ public class ConeDraw : MonoBehaviour {
             {
                 float phi = k * _2pi/(coneResolution-1);
                 Vector3 curVert = new Vector3(Mathf.Cos(phi), coneAltitude / length, -Mathf.Sin(phi));
+                normals[k] = Vector3.up;
                 ray = new Ray(drawCone.transform.position, Quaternion.Euler(drawCone.transform.rotation.eulerAngles)*curVert);
                 if(Physics.Raycast(ray, out hit, length, onlyHitLayermask))
-                {
-                        vertices[k] = curVert * hit.distance;
-                }
+                    vertices[k] = curVert * hit.distance;
                 else
                     vertices[k] = curVert*length;
-                normals[k] = Vector3.up;
                 if (k < activeTris) //Draw triangles only in fields encapsuled by the drawn angle
                 {
                     if (!clockwise)
