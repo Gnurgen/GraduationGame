@@ -51,7 +51,7 @@ public class MeleeAI : EnemyStats {
     {
         isInTransition = animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
         currentAttackSpeed -= Time.fixedDeltaTime;
-        if(!onPause)
+        if (!onPause)
         {
             body.velocity = Vector3.zero;
         }
