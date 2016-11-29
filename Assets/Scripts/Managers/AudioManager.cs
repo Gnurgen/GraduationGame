@@ -123,6 +123,7 @@ public class AudioManager : MonoBehaviour {
     {
         //When the Boss fires the beam, the sound keeps playing until he stops (continuous sound)
         
+
         AkSoundEngine.PostEvent("Boss_Beam_Play", GO);
         AkSoundEngine.RenderAudio();
     }
@@ -141,7 +142,7 @@ public class AudioManager : MonoBehaviour {
             AkSoundEngine.PostEvent("Boss_Beam_Target_Play", GO);
             AkSoundEngine.RenderAudio();
         }
-        else if (tag== "Indestructable" || tag == "Walkable" || tag == "Occluder")
+        else if (tag== "Indestructable")
         {
             AkSoundEngine.SetSwitch("Target", "Indestructable", GO);
             AkSoundEngine.PostEvent("Boss_Beam_Target_Play", GO);

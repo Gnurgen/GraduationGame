@@ -7,32 +7,39 @@ public class PlayerAnimation : MonoBehaviour {
     Animator anim;
 	// Use this for initialization
 	void Start () {
-        GameManager.events.OnSpearDrawAbilityStart += SpearAbilityStart;
-        GameManager.events.OnSpearDrawAbilityUsed += SpearAttack;
         GameManager.events.OnPlayerDashBegin += DashBeginAni;
         GameManager.events.OnPlayerDashEnd += DashEndAni;
         GameManager.events.OnPlayerIdle += IdleAni;
         GameManager.events.OnPlayerMove += RunAni;
         GameManager.events.OnConeAbilityStart += ConeAbilityStart;
         GameManager.events.OnConeAbilityUsed += ConeAttack;
+        GameManager.events.OnSpearDrawAbilityStart += ConeAbilityStart;
+        GameManager.events.OnSpearDrawAbilityUsed += ConeAttack;
+        GameManager.events.OnConeAbilityCancel += ConeCancel;
         anim = GetComponent<Animator>();
 	}
 
-    private void SpearAbilityStart(GameObject Id)
-    {
-        //throw new NotImplementedException();
-    }
+ 
 
     private void ConeAbilityStart(GameObject Id)
     {
         anim.SetBool("PowerAttack", true);
+        anim.SetBool("Cancel", false);
     }
 
     private void ConeAttack(GameObject option)
     { 
         anim.SetBool("Dash", false);
         anim.SetBool("PowerAttack", false);
+        anim.SetBool("Cancel", false);
     }
+
+    private void ConeCancel(GameObject Id)
+    {
+        anim.SetBool("PowerAttack", false);
+        anim.SetBool("Cancel", true);
+    }
+
 
     private void RunAni(GameObject Id)
     {
