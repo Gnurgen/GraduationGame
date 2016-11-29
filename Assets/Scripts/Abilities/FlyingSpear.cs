@@ -69,11 +69,12 @@ public class FlyingSpear : MonoBehaviour {
         IM.ReleaseControl(ID);
         IM.OnFirstTouchMoveUnsub(ID);
         IM.OnFirstTouchEndUnsub(ID);
-        GameManager.events.SpearDrawAbilityUsed(gameObject);
+       
         GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
 
         GameObject s = Instantiate(spear) as GameObject;
+        GameManager.events.SpearDrawAbilityUsed(s);
         s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets);
         LR.CleanUp();
         currentCooldown = cooldown;

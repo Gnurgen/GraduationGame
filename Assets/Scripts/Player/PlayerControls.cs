@@ -70,6 +70,7 @@ public class PlayerControls : MonoBehaviour {
     {
         currentDashCooldown += currentDashCooldown < 0 ? 0 : -Time.fixedDeltaTime;
         body.velocity = Vector3.zero;
+
     }
 
     IEnumerator Idle()
