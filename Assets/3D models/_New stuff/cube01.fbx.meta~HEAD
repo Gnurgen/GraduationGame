@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 90256b399da3b95419e0f63b093c99c5
-timeCreated: 1480326883
+guid: f63d81d4d22f742479e7a2b164b3dc58
+timeCreated: 1480326885
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: cube07_geo
-    100004: cube07_geo_grp
+    100002: cube01_geo
+    100004: cube01_geo_grp
     400000: //RootNode
-    400002: cube07_geo
-    400004: cube07_geo_grp
-    2300000: cube07_geo
-    3300000: cube07_geo
-    4300000: cube07_geo
+    400002: cube01_geo
+    400004: cube01_geo_grp
+    2300000: cube01_geo
+    3300000: cube01_geo
+    4300000: cube01_geo
   materials:
     importMaterials: 1
     materialName: 0

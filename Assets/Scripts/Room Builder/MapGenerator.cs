@@ -505,9 +505,19 @@ public class MapGenerator : MonoBehaviour {
 
     IEnumerator DelayedScan()
     {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject obj in enemies)
+        {
+            obj.SetActive(false);
+        }
         yield return new WaitForSeconds(2f);
         AstarPath p = FindObjectOfType<AstarPath>();
         AstarPath.active.Scan();
+        yield return new WaitForSeconds(1f);
+        foreach (GameObject obj in enemies)
+        {
+            obj.SetActive(true);
+        }
     }
 
     void Update() {
@@ -516,6 +526,8 @@ public class MapGenerator : MonoBehaviour {
 
         for (i = 0; i < mapGrid.GetLength(0); i++)
         {
+
+            Debug.Log(i + " " + j);
 
             if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
             {
