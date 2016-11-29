@@ -14,16 +14,11 @@ public class TriggerBox : MonoBehaviour {
     {      
         if (col.tag == "Player")
         {
+            Debug.Log("Hit player");
             mainCanvas.gameObject.SetActive(true);  
-            mainCanvas.overrideSprite = tutorialPic;       
+            mainCanvas.overrideSprite = tutorialPic;
+            gameObject.SetActive(false);    
         }
     }
-    public void closeTutorial() {
-        mainCanvas.GetComponent<Animator>().Play("TutorialClose");
-    }
-    IEnumerator waitForAniStart()
-    {
-        yield return new WaitForSeconds(2);
-        
-    }
+
 }
