@@ -67,7 +67,7 @@ public class WhispGuidingAI : MonoBehaviour {
         {
             transform.position = spear.position;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
-            scatter += scatterRate;
+            scatter += scatterRate * Time.deltaTime;
             yield return null;
         }
         transform.position = guidingPoint;
@@ -75,7 +75,7 @@ public class WhispGuidingAI : MonoBehaviour {
         {
             transform.position = guidingPoint;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
-            scatter -= scatterRate;
+            scatter -= scatterRate * Time.deltaTime;
             yield return null;
         }
         scatter = endScatter;
