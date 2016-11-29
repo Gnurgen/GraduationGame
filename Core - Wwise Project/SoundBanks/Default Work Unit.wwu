@@ -29,8 +29,6 @@
 						<ObjectRef Name="Elevator_Play" ID="{23F18E27-D25C-467A-BDFE-C37B4C5B0687}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Cone_Ability_Control_Stop" ID="{BFF3440D-31E5-46A2-9F19-0CD0E95CF47D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Dash_Play" ID="{D56AD03D-152A-46C6-B975-5C87C977D961}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
-						<ObjectRef Name="Boss_Rain_Move_Stop" ID="{7300E986-AEE3-46CB-A008-6F3E8559F2BE}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
-						<ObjectRef Name="Boss_Rain_Target_Play" ID="{B4A9906A-854D-4730-AC50-9140B6CBD89C}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Enemy_Ranged_Projectile_Stop" ID="{496284C8-3B63-4745-A8C1-3C23C147FA27}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Enemy_Aggro_Play" ID="{A9DC77DA-FCE5-479B-BD0E-AA7030D844E0}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Draw_Ability_Play" ID="{0655D82E-0B50-48E6-828A-B88A558A2401}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
@@ -50,7 +48,6 @@
 						<ObjectRef Name="Enemy_Aggro_Stop" ID="{DB47A304-20FC-4D1E-A2CA-BE73D81CA6B7}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Pickup_Play" ID="{60FA5104-5A49-4D24-ACE3-A1B1191DD73D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Player_Respawn_Play" ID="{9DAF49A4-4569-4DB7-ADBF-09CB53E9CC2A}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
-						<ObjectRef Name="Boss_Rain_Move_Play" ID="{B35C0CE7-A9CB-4DF5-8CDC-537180D648DF}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Wheel_Close_Play" ID="{ED71231C-818E-4E1E-9C7A-E0DDFDB02E2E}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Cone_Ability_Control_Play" ID="{D5BD6912-5CDF-4E56-91E5-77DC00C3A2D4}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
 						<ObjectRef Name="Button_Menu_Play" ID="{786D9BDF-350E-4EBF-9251-E7D38FD9A30D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}" Filter="7" Origin="Manual"/>
