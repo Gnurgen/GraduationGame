@@ -23,7 +23,6 @@ public class EnemyStats : Health {
     public float force;
 
 
-
     public void Pause()
     {
         onPause = true;

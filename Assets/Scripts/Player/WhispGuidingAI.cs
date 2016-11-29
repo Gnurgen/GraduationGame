@@ -9,6 +9,17 @@ public class WhispGuidingAI : MonoBehaviour {
     private float guidingRange;
     [SerializeField]
     private float pointSkipRange;
+    [SerializeField]
+    private GameObject activatorWhisp;
+    [SerializeField]
+    private int numberOfActivators;
+    [SerializeField]
+    private float maxScatter;
+    [SerializeField]
+    private float scatterRate;
+    [SerializeField]
+    private float endScatter;
+
 
     // PRIVATE FIELDS
     private Seeker seeker;
@@ -18,6 +29,7 @@ public class WhispGuidingAI : MonoBehaviour {
     private PKFxFX effectControl;
     private float scatter;
     private Path path;
+    private bool waiting;
     private int index;
     private Vector3 guidingPoint;
 
@@ -28,37 +40,56 @@ public class WhispGuidingAI : MonoBehaviour {
         effectControl = GetComponent<PKFxFX>();
         player = GameManager.player.transform;
         spear = GameManager.spear.transform;
-        seeker.StartPath(player.position, elevator.position, ReceivePath);
         StartCoroutine(Spawning());
     }
 
     IEnumerator Spawning()
     {
+        effectControl.StopEffect();
+        seeker.StartPath(player.position, elevator.position, ReceivePath);
+        waiting = true;
+        while (waiting || path == null)
+        {
+            if (!waiting)
+            {
+                seeker.StartPath(player.position, elevator.position, ReceivePath);
+                waiting = true;
+            }
+            yield return null;
+        }
         transform.position = spear.position;
-        scatter = 2;
+        scatter = endScatter;
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
         effectControl.StartEffect();
-        while (scatter < 100)
+        while (scatter < maxScatter)
         {
             transform.position = spear.position;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
-            scatter += 3;
+            scatter += scatterRate;
             yield return null;
         }
         transform.position = guidingPoint;
-        while(scatter > 2)
+        while(scatter > endScatter)
         {
             transform.position = guidingPoint;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
-            scatter -= 3;
+            scatter -= scatterRate;
             yield return null;
         }
+        scatter = endScatter;
+        effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
         StartCoroutine(Guiding());
         yield break;
     }
 
     IEnumerator Guiding()
     {
+        while(index < path.vectorPath.Count && Vector3.Distance(transform.position, elevator.position) > 2)
+        {
+            transform.position = guidingPoint;
+            yield return null;
+        }
+        StartCoroutine(ActivatingElevator());
         yield break;
     }
 
@@ -74,12 +105,23 @@ public class WhispGuidingAI : MonoBehaviour {
 
     IEnumerator ActivatingElevator()
     {
+        while(numberOfActivators > 0)
+        {
+            GameObject a = Instantiate(activatorWhisp) as GameObject;
+            a.GetComponent<WhispActivationAI>().Activate(new Vector3(elevator.position.x, 0, elevator.position.z), transform.position);
+            numberOfActivators -= 1;
+            yield return new WaitForSeconds(0.05f);
+        }
+        effectControl.StopEffect();
+        Destroy(gameObject);
         yield break;
     }
 
     void ReceivePath(Path path)
     {
+        waiting = false;
         this.path = path;
+        print(path.vectorPath.Count);
         index = 0;
         StartCoroutine(PathFollower());
     }
@@ -89,7 +131,7 @@ public class WhispGuidingAI : MonoBehaviour {
         while(index < path.vectorPath.Count)
         {
             Vector3 dir = (path.vectorPath[index] - player.position).normalized;
-            guidingPoint = new Vector3(dir.x * guidingRange, 1, dir.z * guidingRange);
+            guidingPoint = player.position + new Vector3(dir.x * guidingRange, 1, dir.z * guidingRange);
             if(Vector3.Distance(transform.position, path.vectorPath[index]) < pointSkipRange)
             {
                 index++;

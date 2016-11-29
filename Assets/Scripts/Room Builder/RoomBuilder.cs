@@ -19,7 +19,7 @@ public class RoomBuilder : MonoBehaviour {
 
     private List<GameObject> objectList = new List<GameObject>();
     private Vector2 _roomSize = new Vector2(1, 1);
-    private List<GameObject> enemyList = new List<GameObject>();
+    public int enemyCount = 0;
 
     public Vector2 roomSize
     {
@@ -108,12 +108,8 @@ public class RoomBuilder : MonoBehaviour {
     void Start()
     {
         RoomTile[] tiles = GetComponentsInChildren<RoomTile>();
-
-        for(int i = 0; i < tiles.Length; i++)
-        {
-            if (tiles[i].referenceName == "Default Tile")
-                tiles[i].gameObject.layer = 8;
-        }
+        Health[] enemies = GetComponentsInChildren<Health>();
+        enemyCount = enemies.Length;
 
 
         for(int i = 0; i < transform.childCount; i++)
@@ -129,21 +125,12 @@ public class RoomBuilder : MonoBehaviour {
     void Update () {
 	}
 
-    public void AddEnemy(GameObject enemy)
-    {
-        enemyList.Add(enemy);
-    }
 
-    public void RemoveEnemy(GameObject enemy)
+    public void DecrementEnemyCount()
     {
-        enemyList.Remove(enemy);
-        if (enemyList.Count == 0)
+        if (--enemyCount <= 0)
         {
-            OpenCloseDoor[] toggleList = GetComponentsInChildren<OpenCloseDoor>();
-            for (int i = 0; i < toggleList.Length; i++)
-            {
-                toggleList[i].openDoor();
-            }
+            
             // Room cleared
         }
     }
@@ -159,7 +146,6 @@ public class RoomBuilder : MonoBehaviour {
         }
         bool[] hasDoorList = roomUnits[x, y].GetDoors();
 
-//        Debug.Log(hashIndex[0] + ":" + hashIndex[1] + "." + hashIndex[2] + "." + hashIndex[3] + "." + hashIndex[4]);
         return new int[] {
             GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
             hasDoorList[0] ? 1 : 0,
@@ -172,24 +158,35 @@ public class RoomBuilder : MonoBehaviour {
 
     public void HideWalls(bool right, bool bottom)
     {
-        return;
         int i;
         int j;
+        RoomWall[] walls;
+        RoomWall rightWall;
+        RoomWall bottomWall;
+        GameObject go;
+        RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
 
-        if (roomUnits[0, 0] == null)
+        for (i = 0; i < units.Length; i++)
         {
-            RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
-            for (i = 0; i < units.Length; i++)
-                roomUnits[i % 2, Mathf.FloorToInt(i/2)] = units[i];
-        }
-        for (i = 0; i < roomUnits.GetLength(0); i++)
-        {
-            for (j = 0; j < roomUnits.GetLength(1); j++)
+            walls = units[i].GetComponentsInChildren<RoomWall>();
+            rightWall = null;
+            bottomWall = null;
+
+            for (j = 0; j < walls.Length; j++)
             {
-                if (roomUnits[i, j])
-                    roomUnits[i, j].setWallDisplay(true, true, false, false);
-                // Take rotation into consideration
+                if (rightWall == null || walls[j].transform.position.x > rightWall.transform.position.x)
+                    rightWall = walls[j];
+                if (bottomWall == null || walls[j].transform.position.z < bottomWall.transform.position.z)
+                    bottomWall = walls[j];
             }
+
+            go = rightWall.transform.GetChild(0).gameObject;
+            if (go.activeInHierarchy && right)
+                go.SetActive(!right);
+
+            go = bottomWall.transform.GetChild(0).gameObject;
+            if (go.activeInHierarchy && bottom)
+                go.SetActive(!bottom);
         }
     }
     /*
