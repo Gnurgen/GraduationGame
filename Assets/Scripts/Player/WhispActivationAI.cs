@@ -8,6 +8,8 @@ public class WhispActivationAI : MonoBehaviour {
     [SerializeField]
     private float orbitTimeMax;
     [SerializeField]
+    private float orbitDistance;
+    [SerializeField]
     private float orbitSpeed;
     [SerializeField]
     private float enterSpeed;
@@ -26,7 +28,7 @@ public class WhispActivationAI : MonoBehaviour {
 
     IEnumerator MoveToCenter()
     {
-        while (Vector3.Distance(transform.position, center) > 3f)
+        while (Vector3.Distance(transform.position, center) > orbitDistance)
         {
             transform.position = Vector3.MoveTowards(transform.position, center, enterSpeed * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();

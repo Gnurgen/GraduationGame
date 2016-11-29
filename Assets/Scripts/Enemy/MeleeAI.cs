@@ -141,11 +141,17 @@ public class MeleeAI : EnemyStats {
                     yield break;
                 }
 
+                if(Vector3.Distance(transform.position, startPosition) < 2)
+                {
+                    StartCoroutine(Idle());
+                    yield break;
+                }
+
                 if (Vector3.Distance(transform.position, path.vectorPath[pathIndex]) < nextPointDistance)
                 {
                     pathIndex++;
                     // If the previous target point was the final one in the path, go to idle
-                    if (pathIndex == path.vectorPath.Count || Vector3.Distance(transform.position, startPosition) < 5)
+                    if (pathIndex == path.vectorPath.Count)
                     {
                         StartCoroutine(Idle());
                         yield break;
