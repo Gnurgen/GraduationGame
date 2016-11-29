@@ -2,11 +2,14 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Elevator : MonoBehaviour
 {
     public GameObject invisibleWalls;
     private GameObject fade;
+    CapsuleCollider CC;
+    Material mat;
     private GameObject player;
     private float preLift = 2;
     private float underLift = 3;
@@ -17,41 +20,68 @@ public class Elevator : MonoBehaviour
 
     void Start()
     {
+        transform.position = new Vector3(transform.position.x, -3.45f, transform.position.z);
+        CC = GetComponent<CapsuleCollider>();
+        CC.enabled = false;
+        mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
+        GameManager.events.OnElevatorActivated += ActivateME;
         fade = GameObject.Find("Fade");
         player = GameManager.player;
         IM = GameManager.input;
         ID = IM.GetID();
+        Color col = new Color(0.3f, 0.3f, 0.3f);
+        mat.color = col;
     }
 
-    void Update()
+    private void ActivateME()
     {
-        if (isMoving == true)
-            elevatorLif();
+        CC.enabled = true;
+        StartCoroutine(ShineGold());
     }
+    IEnumerator ShineGold()
+    {
+        float step = .3f;
+        while (step < 1)
+        {
+            step += 0.3f * Time.deltaTime;
+            Color col = new Color(step, step, step);
+            mat.color = col;
+            yield return null;
+        }
+        yield return null;
+    }
+   
 
     void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Player")
         {
             invisibleWalls.SetActive(true);
-            Debug.Log("Kumo has entered the elevator");
             player.transform.parent = gameObject.transform;
-            Debug.Log(player.transform.parent);
-            //player.transform.localPosition = Vector3.zero;
+            StartCoroutine(elevatorLif());
             StartCoroutine(waitForAniStart());
         }
     }
 
-    void elevatorLif()
+    IEnumerator elevatorLif()
     {
+        yield return new WaitForSeconds(preLift);
+        
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
+        while (newPos < 20f)
+        {
+        newPos = gameObject.transform.position.y + Time.deltaTime * speed;
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos, gameObject.transform.position.z);
+            yield return null;
+        }
+        yield return null;
     }
+
     IEnumerator waitForAniStart()
     {
         yield return new WaitForSeconds(preLift);
         fade.GetComponent<Fade>().fadeToBlack(2);
-        isMoving = true;
+      
         yield return new WaitForSeconds(underLift);
         LoadCorrectScene();
     }
