@@ -8,7 +8,7 @@ public class SpearController : MonoBehaviour {
     private float stunTime;
     private float damage;
 	private float speed;
-	private int index;
+	private int index, dragTars;
     //private float step;
     private int gameIDIndex = 0;
     private GameObject[] gameID = new GameObject[50];
@@ -18,9 +18,11 @@ public class SpearController : MonoBehaviour {
 
     IEnumerator fly()
     {
+        
         while (index < points.Length)
         {
             transform.LookAt(points[index]);
+            float dist = Vector3.Distance(transform.position, points[index]);
             while (Vector3.Distance(transform.position, points[index]) > 0 && NotPassedPoint(transform.position, points[index]))
             {
                 transform.position += transform.forward * speed * Time.deltaTime;
@@ -31,12 +33,13 @@ public class SpearController : MonoBehaviour {
         }
         for (int i = 0; i < gameIDIndex; i++)
         {
-            if (i == 3)
+            if (i == dragTars)
                 break;
             else
             {
                 try
                 {
+                    GameManager.events.SpearDrawAbilityDragEnd(gameObject, gameID[i]);
                     Destroy(gameID[i].GetComponent<SpringJoint>());
                     gameID[gameIDIndex - 1].GetComponent<EnemyStats>().PauseFor(0.2f);
                     gameID[i].GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -49,21 +52,8 @@ public class SpearController : MonoBehaviour {
         yield break;
     }
 
-	/*void Update () {
-        
-		if (index < points.Length) {
-            transform.LookAt(points[index]);
-            transform.position += transform.forward * speed * Time.deltaTime;
-            if (!NotPassedPoint(transform.position, points[index]))
-                index++;
-
-        } else {
-            
-	}*/
-
     private bool NotPassedPoint(Vector3 pos, Vector3 tar)
     {
-        print(Vector3.Dot(transform.forward, (tar - pos).normalized));
        return Vector3.Dot(transform.forward, (tar - pos).normalized) > 0f;
     }
 
@@ -104,23 +94,25 @@ public class SpearController : MonoBehaviour {
                 gameID[gameIDIndex] = col.gameObject;
                 gameIDIndex++;
             }
-            if(gameIDIndex<4) // HOOKS 4-1 = 3 ENEMIES
+            if(gameIDIndex<dragTars+1) // HOOKS 4-1 = 3 ENEMIES
             {
                 gameID[gameIDIndex - 1].AddComponent<SpringJoint>();
                 gameID[gameIDIndex - 1].GetComponent<SpringJoint>().spring = springForce;
                 gameID[gameIDIndex - 1].GetComponent<SpringJoint>().connectedBody = GetComponent<Rigidbody>();
+                GameManager.events.SpearDrawAbilityDragStart(gameObject, col.gameObject);
                 gameID[gameIDIndex - 1].GetComponent<EnemyStats>().PauseFor(stunTime);
             }
         }
     }
 
-	public void SetParameters(List<Vector3> ps, float speed, float damage, float force, int dragForce, float altitude, float turn, float st){
+	public void SetParameters(List<Vector3> ps, float speed, float damage, float force, int dragForce, float altitude, float turn, float st, int dragAmount){
 		points = ps.ToArray ();
         for (int i = 0; i < points.Length; i++)
         {
             points[i] = new Vector3(points[i].x, altitude, points[i].z);
         }
         transform.position = points[0];
+        dragTars = dragAmount;
 		index = 1;
 		this.speed = speed;
         this.damage = damage;
