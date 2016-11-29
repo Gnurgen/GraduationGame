@@ -11,6 +11,8 @@ public class FlyingSpear : MonoBehaviour {
     [SerializeField]
     [Range(1, 10)]
     private int dragForce = 1;
+    [SerializeField]
+    private int dragTargets;
 
 
 
@@ -72,7 +74,7 @@ public class FlyingSpear : MonoBehaviour {
         // Actually use the ability with the drawn points
 
         GameObject s = Instantiate(spear) as GameObject;
-        s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime);
+        s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets);
         LR.CleanUp();
         currentCooldown = cooldown;
     }
