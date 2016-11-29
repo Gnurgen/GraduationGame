@@ -32,11 +32,11 @@
 				<Event Id="378387809" Name="Button_Wheel_Select_Play" ObjectPath="\Events\Default Work Unit\Button_Wheel_Select_Play"/>
 				<Event Id="1005055766" Name="Cone_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Play"/>
 				<Event Id="1735593128" Name="Cone_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="1610256012" Name="Cone_Ability_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Play"/>
-				<Event Id="2174485018" Name="Dash_Play" ObjectPath="\Events\Default Work Unit\Dash_Play"/>
+				<Event Id="1610256012" Name="Cone_Ability_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Play" MaxAttenuation="15.000000"/>
+				<Event Id="2174485018" Name="Dash_Play" ObjectPath="\Events\Default Work Unit\Dash_Play" MaxAttenuation="15.000000"/>
 				<Event Id="669353839" Name="Draw_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Play"/>
 				<Event Id="3386881389" Name="Draw_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="1855658509" Name="Draw_Ability_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Play"/>
+				<Event Id="1855658509" Name="Draw_Ability_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2972852827" Name="Draw_Ability_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="482819944" Name="Elevator_Play" ObjectPath="\Events\Default Work Unit\Elevator_Play"/>
 				<Event Id="2818913498" Name="Elevator_Stop" ObjectPath="\Events\Default Work Unit\Elevator_Stop" MaxAttenuation="0.000000"/>
@@ -58,10 +58,10 @@
 				<Event Id="789084040" Name="Pickup_Move_Play" ObjectPath="\Events\Default Work Unit\Pickup_Move_Play"/>
 				<Event Id="3166651386" Name="Pickup_Move_Stop" ObjectPath="\Events\Default Work Unit\Pickup_Move_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1715783110" Name="Pickup_Play" ObjectPath="\Events\Default Work Unit\Pickup_Play"/>
-				<Event Id="2348472398" Name="Player_Death_Play" ObjectPath="\Events\Default Work Unit\Player_Death_Play"/>
-				<Event Id="1389849668" Name="Player_Respawn_Play" ObjectPath="\Events\Default Work Unit\Player_Respawn_Play"/>
-				<Event Id="2880001405" Name="Spear_Play" ObjectPath="\Events\Default Work Unit\Spear_Play"/>
-				<Event Id="2770920781" Name="Spear_Target_Play" ObjectPath="\Events\Default Work Unit\Spear_Target_Play"/>
+				<Event Id="2348472398" Name="Player_Death_Play" ObjectPath="\Events\Default Work Unit\Player_Death_Play" MaxAttenuation="15.000000"/>
+				<Event Id="1389849668" Name="Player_Respawn_Play" ObjectPath="\Events\Default Work Unit\Player_Respawn_Play" MaxAttenuation="15.000000"/>
+				<Event Id="2880001405" Name="Spear_Play" ObjectPath="\Events\Default Work Unit\Spear_Play" MaxAttenuation="15.000000"/>
+				<Event Id="2770920781" Name="Spear_Target_Play" ObjectPath="\Events\Default Work Unit\Spear_Target_Play" MaxAttenuation="15.000000"/>
 				<Event Id="3056915868" Name="Wheel_Close_Play" ObjectPath="\Events\Default Work Unit\Wheel_Close_Play"/>
 				<Event Id="2645717374" Name="Wheel_Open_Play" ObjectPath="\Events\Default Work Unit\Wheel_Open_Play"/>
 			</IncludedEvents>

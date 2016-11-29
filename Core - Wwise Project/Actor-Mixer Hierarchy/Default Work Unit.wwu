@@ -2743,7 +2743,14 @@
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Player" ID="{1959CC9B-3C3C-47B1-BFB3-A2E87050B0DE}" ShortID="776205002">
+							<PropertyList>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="PositioningType" Type="int16" Value="1"/>
+							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Player Abilities" ID="{F319B123-0642-447F-8EDB-2F9282B87DD5}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 								</Reference>
@@ -3322,8 +3329,12 @@
 														</ModifierInfo>
 													</ModifierList>
 												</Property>
+												<Property Name="PositioningType" Type="int16" Value="1"/>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Player Abilities" ID="{F319B123-0642-447F-8EDB-2F9282B87DD5}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 												</Reference>
