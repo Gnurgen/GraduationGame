@@ -37,7 +37,12 @@ public class ConeAbility : MonoBehaviour {
                     {
                         hit[q].transform.gameObject.layer = enemyhit;
                         print(hit[q].transform.GetComponent<Rigidbody>().velocity * speed);
-                        StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position+hit[q].transform.GetComponent<EnemyStats>().velo*speed) / speed));
+                        if(hit[q].transform.tag == "Boss")
+                        {
+                            StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position) / speed));
+                        }
+                        else
+                            StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position+hit[q].transform.GetComponent<EnemyStats>().velo*speed) / speed));
                         ++cStart;
                     }
                 }
@@ -86,8 +91,15 @@ public class ConeAbility : MonoBehaviour {
         {
             GameManager.events.ConeAbilityHit(go);
             go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce, ForceMode.Impulse);
-            go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
-            go.GetComponent<EnemyStats>().PauseFor(stunTime);
+            if(go.tag == "Enemy")
+            {
+                go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
+                go.GetComponent<EnemyStats>().PauseFor(stunTime);
+            }
+            else
+            {
+                go.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, 0);
+            }
             go.layer = enemy;
         }
     }

@@ -1678,7 +1678,7 @@
 												<Property Name="NoiseLPFFreq" Type="Real32" Value="1470"/>
 												<Property Name="NoiseLevel" Type="Real32" Value="-30"/>
 												<Property Name="NoiseRange" Type="Real32" Value="-18.3"/>
-												<Property Name="SIMType" Type="int32" Value="75"/>
+												<Property Name="SIMType" Type="int32" Value="33"/>
 											</PropertyList>
 										</Effect>
 										<Effect Name="Phone_Home" ID="{B438E597-2B66-426D-A9F4-C51FC9B1E604}" PluginName="McDSP FutzBox" CompanyID="256" PluginID="110" PluginType="3">

@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnConeAbilityUsed += ConeAbilityPlay;
         GameManager.events.OnConeAbilityHit += ConeAbilityHitPlay;
         GameManager.events.OnConeAbilityEnd += ConeAbilityStop;
-        // GameManager.events.OnConeAbilityCancel += ConeAbilityInteractStop;
+        GameManager.events.OnConeAbilityCancel += ConeAbilityInteractStop;
 
         GameManager.events.OnSpearDrawAbilityStart += SpearAbilityStart;
         GameManager.events.OnSpearDrawAbilityUsed += SpearAbilityUsed;
@@ -123,6 +123,7 @@ public class AudioManager : MonoBehaviour {
     {
         //When the Boss fires the beam, the sound keeps playing until he stops (continuous sound)
         
+
         AkSoundEngine.PostEvent("Boss_Beam_Play", GO);
         AkSoundEngine.RenderAudio();
     }
@@ -141,7 +142,7 @@ public class AudioManager : MonoBehaviour {
             AkSoundEngine.PostEvent("Boss_Beam_Target_Play", GO);
             AkSoundEngine.RenderAudio();
         }
-        else if (tag== "Indestructable" || tag == "Walkable" || tag == "Occluder")
+        else if (tag== "Indestructable")
         {
             AkSoundEngine.SetSwitch("Target", "Indestructable", GO);
             AkSoundEngine.PostEvent("Boss_Beam_Target_Play", GO);
@@ -235,9 +236,9 @@ public class AudioManager : MonoBehaviour {
 
     // CONE
 
-    private void ConeAbilityStop(GameObject Id)
+    private void ConeAbilityStop(GameObject GO)
     {
-        //throw new NotImplementedException();
+        AkSoundEngine.PostEvent("Cone_Ability_Stop", GO);
     }
 
     private void ConeAbilityHitPlay(GameObject Id)

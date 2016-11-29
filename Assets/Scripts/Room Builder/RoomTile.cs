@@ -12,11 +12,4 @@ public class RoomTile : MonoBehaviour {
     [HideInInspector]
     public int index;
 
-    void Start () {
-	
-	}
-	
-	void Update () {
-	
-	}
 }
