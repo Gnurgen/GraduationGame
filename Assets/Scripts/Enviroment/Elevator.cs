@@ -55,4 +55,9 @@ public class Elevator : MonoBehaviour
         yield return new WaitForSeconds(underLift);
         SceneManager.LoadScene("BossLevel");
     }
+
+    void LoadCorrectScene()
+    {
+
+    }
 }

@@ -19,7 +19,7 @@ public class GameManager {
     private GameObject _managers;
     private GameObject _activeCheckPoint;
     private Menu _menu;
-    private static int _score, _experience, _playerLevel;
+    private static int _score, _experience, _playerLevel, _progress;
 
     public GameManager()
     {
@@ -86,6 +86,18 @@ public class GameManager {
         set
         {
             _playerLevel = value;
+        }
+    }
+
+    public static int progress
+    {
+        get
+        {
+            return _progress;
+        }
+        set
+        {
+            _progress = value;
         }
     }
 
