@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RoomTile : MonoBehaviour {
 
-    public const int TILE_SCALE = 3;
+    public const int TILE_SCALE = 2;
 
     public string referenceName;
     public bool isDefault;
