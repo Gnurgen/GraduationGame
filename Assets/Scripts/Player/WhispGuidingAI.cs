@@ -9,6 +9,17 @@ public class WhispGuidingAI : MonoBehaviour {
     private float guidingRange;
     [SerializeField]
     private float pointSkipRange;
+    [SerializeField]
+    private GameObject activatorWhisp;
+    [SerializeField]
+    private int numberOfActivators;
+    [SerializeField]
+    private float maxScatter;
+    [SerializeField]
+    private float scatterRate;
+    [SerializeField]
+    private float endScatter;
+
 
     // PRIVATE FIELDS
     private Seeker seeker;
@@ -47,25 +58,25 @@ public class WhispGuidingAI : MonoBehaviour {
             yield return null;
         }
         transform.position = spear.position;
-        scatter = 2;
+        scatter = endScatter;
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
         effectControl.StartEffect();
-        while (scatter < 100)
+        while (scatter < maxScatter)
         {
             transform.position = spear.position;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
-            scatter += 3;
+            scatter += scatterRate;
             yield return null;
         }
         transform.position = guidingPoint;
-        while(scatter > 2)
+        while(scatter > endScatter)
         {
             transform.position = guidingPoint;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
-            scatter -= 3;
+            scatter -= scatterRate;
             yield return null;
         }
-        scatter = 1;
+        scatter = endScatter;
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
         StartCoroutine(Guiding());
         yield break;
@@ -73,11 +84,12 @@ public class WhispGuidingAI : MonoBehaviour {
 
     IEnumerator Guiding()
     {
-        while(index < path.vectorPath.Count)
+        while(index < path.vectorPath.Count && Vector3.Distance(transform.position, elevator.position) > 2)
         {
             transform.position = guidingPoint;
             yield return null;
         }
+        StartCoroutine(ActivatingElevator());
         yield break;
     }
 
@@ -93,6 +105,15 @@ public class WhispGuidingAI : MonoBehaviour {
 
     IEnumerator ActivatingElevator()
     {
+        while(numberOfActivators > 0)
+        {
+            GameObject a = Instantiate(activatorWhisp) as GameObject;
+            a.GetComponent<WhispActivationAI>().Activate(new Vector3(elevator.position.x, 0, elevator.position.z), transform.position);
+            numberOfActivators -= 1;
+            yield return new WaitForSeconds(0.05f);
+        }
+        effectControl.StopEffect();
+        Destroy(gameObject);
         yield break;
     }
 

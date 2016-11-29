@@ -91,10 +91,12 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnConeAbilityUsed;
     public event PlayerAction OnConeAbilityHit;
     public event PlayerAction OnConeAbilityEnd;
+    public event PlayerAction OnConeAbilityCancel;
     public event PlayerAction OnSpearDrawAbilityStart;
     public event PlayerAction OnSpearDrawAbilityUsed;
     public event PlayerAction OnSpearDrawAbilityHit;
     public event PlayerAction OnSpearDrawAbilityEnd;
+    public event PlayerAction OnSpearDrawAbilityCancel;
 
     public delegate void PlayerAttackHitAction(GameObject Id, GameObject tar, float val);
     public event PlayerAttackHitAction OnPlayerAttackHit;
@@ -137,23 +139,33 @@ public class EventManager : MonoBehaviour
     }
     public void ConeAbilityStart(GameObject Id)
     {
+        print("cone ability START");
         if (OnConeAbilityStart != null)
             OnConeAbilityStart(Id);
     }
     public void ConeAbilityUsed(GameObject Id)
     {
+        print("cone ability USED");
         if (OnConeAbilityUsed != null)
             OnConeAbilityUsed(Id);
     }
     public void ConeAbilityHit(GameObject Id)
     {
+        print("cone ability HIT");
         if (OnConeAbilityHit != null)
             OnConeAbilityHit(Id);
     }
     public void ConeAbilityEnd(GameObject Id)
     {
+        print("cone ability END");
         if (OnConeAbilityEnd != null)
             OnConeAbilityEnd(Id);
+    }
+    public void ConeAbilityCancel(GameObject Id)
+    {
+        print("cone ability CANCEL");
+        if (OnConeAbilityCancel != null)
+            OnConeAbilityCancel(Id);
     }
     public void SpearDrawAbilityStart(GameObject Id)
     {
@@ -174,6 +186,11 @@ public class EventManager : MonoBehaviour
     {
         if (OnSpearDrawAbilityEnd != null)
             OnSpearDrawAbilityEnd(Id);
+    }
+    public void SpearDrawAbilityCancel(GameObject Id)
+    {
+        if (OnSpearDrawAbilityCancel != null)
+            OnSpearDrawAbilityCancel(Id);
     }
 
     //##############################################################################################################################################################
@@ -383,5 +400,12 @@ public class EventManager : MonoBehaviour
             OnMapGenerated();
     }
 
+    public delegate void ReSpawn();
+    public event ReSpawn OnRespawn;
+    public void Respawned()
+    {
+        if (OnRespawn != null)
+            OnRespawn();
+    }
 }
 

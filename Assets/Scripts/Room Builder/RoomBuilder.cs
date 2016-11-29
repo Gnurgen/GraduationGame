@@ -111,12 +111,6 @@ public class RoomBuilder : MonoBehaviour {
         Health[] enemies = GetComponentsInChildren<Health>();
         enemyCount = enemies.Length;
 
-        for (int i = 0; i < tiles.Length; i++)
-        {
-            if (tiles[i].referenceName == "Default Tile")
-                tiles[i].gameObject.layer = 8;
-        }
-
 
         for(int i = 0; i < transform.childCount; i++)
         {
@@ -152,7 +146,6 @@ public class RoomBuilder : MonoBehaviour {
         }
         bool[] hasDoorList = roomUnits[x, y].GetDoors();
 
-//        Debug.Log(hashIndex[0] + ":" + hashIndex[1] + "." + hashIndex[2] + "." + hashIndex[3] + "." + hashIndex[4]);
         return new int[] {
             GetComponentsInChildren<RoomUnit>().Length > 1 ? 1 : 0,
             hasDoorList[0] ? 1 : 0,
