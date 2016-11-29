@@ -3949,13 +3949,6 @@
 					</ChildrenList>
 				</ActorMixer>
 				<ActorMixer Name="SFX" ID="{BFCE14C4-5D9E-4DF2-B57D-8856307A995F}" ShortID="228960186">
-					<PropertyList>
-						<Property Name="Volume" Type="Real64">
-							<ValueList>
-								<Value>-96</Value>
-							</ValueList>
-						</Property>
-					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -3968,8 +3961,20 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<Sound Name="Pickup" ID="{7265034E-43DD-4CDD-9D36-BA0773AB6B4D}" ShortID="639511441" Type="SoundFX">
+						<Sound Name="Corpse Despawn" ID="{E0827BA8-6608-4D5F-BCCF-899B6564BC07}" ShortID="559292568" Type="SoundFX">
+							<PropertyList>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="PositioningType" Type="int16" Value="1"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-22</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 								</Reference>
@@ -3978,22 +3983,25 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<AudioFileSource Name="Pickup" ID="{63D11A9C-AC88-4262-86DB-847246ED1D8B}" ShortID="616539973">
-									<PropertyList>
-										<Property Name="FadeInDuration" Type="Real64" Value="2.02399553571429E-02"/>
-										<Property Name="TrimBegin" Type="Real64" Value="0.221986607142857"/>
-									</PropertyList>
+								<AudioFileSource Name="Corpse Despawn" ID="{69D327A4-6C25-4B53-92BE-91C7B9423309}" ShortID="628448248">
 									<Language>SFX</Language>
-									<AudioFile>Pickup.wav</AudioFile>
+									<AudioFile>Corpse Despawn.wav</AudioFile>
 								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="Pickup" ID="{63D11A9C-AC88-4262-86DB-847246ED1D8B}" Platform="Linked"/>
+								<ActiveSource Name="Corpse Despawn" ID="{69D327A4-6C25-4B53-92BE-91C7B9423309}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="Pickup_Move" ID="{AB990215-7253-4576-9691-5BC9EA2AF5E8}" ShortID="1012424173" Type="SoundFX">
+						<Sound Name="Elevator" ID="{04C72D56-04E4-47E1-9A8D-6BAE387D5108}" ShortID="893068381" Type="SoundFX">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="PositioningType" Type="int16" Value="1"/>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-4</Value>
+									</ValueList>
+								</Property>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -4004,18 +4012,16 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<SourcePlugin Name="Wwise Silence" ID="{9F717B19-0764-4D48-B3A2-DE69FA52ADD2}" ShortID="753104822" PluginName="Wwise Silence" CompanyID="0" PluginID="101">
+								<AudioFileSource Name="Elevator" ID="{AE3E757E-FBC2-481E-82D7-97C25FE52906}" ShortID="411008274">
 									<Language>SFX</Language>
-								</SourcePlugin>
+									<AudioFile>Elevator.wav</AudioFile>
+								</AudioFileSource>
 							</ChildrenList>
 							<ActiveSourceList>
-								<ActiveSource Name="Wwise Silence" ID="{9F717B19-0764-4D48-B3A2-DE69FA52ADD2}" Platform="Linked"/>
+								<ActiveSource Name="Elevator" ID="{AE3E757E-FBC2-481E-82D7-97C25FE52906}" Platform="Linked"/>
 							</ActiveSourceList>
 						</Sound>
-						<Sound Name="Elevator" ID="{DD5C15F4-B2E2-4964-B5A0-45F5DCD1EE27}" ShortID="829273902" Type="SoundFX">
-							<PropertyList>
-								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-							</PropertyList>
+						<ActorMixer Name="Spirit" ID="{B705E89C-7363-48FA-B253-7FEBE3D9091F}" ShortID="372723583">
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -4025,17 +4031,161 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<SourcePlugin Name="Wwise Sine" ID="{22BD4497-611C-429E-9552-32F89E5E860A}" ShortID="89324303" PluginName="Wwise Sine" CompanyID="0" PluginID="100">
+								<Sound Name="Orb Loop" ID="{6BD821A5-A9FB-4E36-BB98-56951D4CC11B}" ShortID="525437121" Type="SoundFX">
 									<PropertyList>
-										<Property Name="SineFrequency" Type="Real32" Value="189"/>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="PositioningType" Type="int16" Value="1"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-15</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
-									<Language>SFX</Language>
-								</SourcePlugin>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Orb" ID="{C6D3A3AD-8B08-461A-A9AE-35E6E98D4288}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{81064A31-8B87-4288-990F-22A6A30286EA}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Orb Loop" ID="{B835C7AC-6165-4500-8A8B-EED779031DE3}" ShortID="1051025274">
+											<Language>SFX</Language>
+											<AudioFile>Orb Loop.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Orb Loop" ID="{B835C7AC-6165-4500-8A8B-EED779031DE3}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Orb Spawn" ID="{1B1A443C-0D14-4A4E-8CC4-0D7F793C4D81}" ShortID="49964364" Type="SoundFX">
+									<PropertyList>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="PositioningType" Type="int16" Value="1"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Spirit Event" ID="{CD8E7EF4-AECB-472D-BE22-6B7C251C7F66}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{81064A31-8B87-4288-990F-22A6A30286EA}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Orb Spawn" ID="{664078B9-8830-44C8-9DBF-227030FCC4F5}" ShortID="482960185">
+											<Language>SFX</Language>
+											<AudioFile>Orb Spawn.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Orb Spawn" ID="{664078B9-8830-44C8-9DBF-227030FCC4F5}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Wisp Elevator" ID="{7DD4D620-555A-4148-A2F8-F5AAA201DFC3}" ShortID="488250440" Type="SoundFX">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-9</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{81064A31-8B87-4288-990F-22A6A30286EA}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Wisp Elevator" ID="{7F6FF77B-622F-47B2-A6DA-E28ECB148124}" ShortID="127406643">
+											<Language>SFX</Language>
+											<AudioFile>Wisp Elevator.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Wisp Elevator" ID="{7F6FF77B-622F-47B2-A6DA-E28ECB148124}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Wisp Loop" ID="{F1338134-D965-4BF2-9FCD-811B8A735474}" ShortID="98661703" Type="SoundFX">
+									<PropertyList>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="PositioningType" Type="int16" Value="1"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-7</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Wisp" ID="{9379710B-A6EE-4514-9BF0-D819DBE3785D}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{81064A31-8B87-4288-990F-22A6A30286EA}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Wisp Loop" ID="{A3B80357-92DD-4FF9-BF98-4A31A5B365E1}" ShortID="590688327">
+											<Language>SFX</Language>
+											<AudioFile>Wisp Loop.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Wisp Loop" ID="{A3B80357-92DD-4FF9-BF98-4A31A5B365E1}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Wisp Spawn Loop" ID="{DA83063B-5E09-4843-B172-2150B365ECFA}" ShortID="340811461" Type="SoundFX">
+									<PropertyList>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{81064A31-8B87-4288-990F-22A6A30286EA}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Wisp Spawn Loop" ID="{2A125D8D-4CC1-4C5E-87D9-36C5F9FF0F42}" ShortID="792153528">
+											<Language>SFX</Language>
+											<AudioFile>Wisp Spawn Loop.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Wisp Spawn Loop" ID="{2A125D8D-4CC1-4C5E-87D9-36C5F9FF0F42}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="Wwise Sine" ID="{22BD4497-611C-429E-9552-32F89E5E860A}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
+						</ActorMixer>
 					</ChildrenList>
 					<StateInfo>
 						<StateGroupList>

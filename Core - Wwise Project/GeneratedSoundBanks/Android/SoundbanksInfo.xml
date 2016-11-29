@@ -33,6 +33,7 @@
 				<Event Id="1005055766" Name="Cone_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Play"/>
 				<Event Id="1735593128" Name="Cone_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1610256012" Name="Cone_Ability_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Play" MaxAttenuation="15.000000"/>
+				<Event Id="2017253371" Name="Corpse_Despawn_Play" ObjectPath="\Events\Default Work Unit\Corpse_Despawn_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2174485018" Name="Dash_Play" ObjectPath="\Events\Default Work Unit\Dash_Play" MaxAttenuation="15.000000"/>
 				<Event Id="669353839" Name="Draw_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Play"/>
 				<Event Id="3386881389" Name="Draw_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Stop" MaxAttenuation="0.000000"/>
@@ -55,15 +56,20 @@
 				<Event Id="900962796" Name="Menu_Open_Play" ObjectPath="\Events\Default Work Unit\Menu_Open_Play"/>
 				<Event Id="350081739" Name="Music_System_Play" ObjectPath="\Events\Default Work Unit\Music_System_Play"/>
 				<Event Id="3509289057" Name="Music_System_Stop" ObjectPath="\Events\Default Work Unit\Music_System_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="789084040" Name="Pickup_Move_Play" ObjectPath="\Events\Default Work Unit\Pickup_Move_Play"/>
+				<Event Id="789084040" Name="Pickup_Move_Play" ObjectPath="\Events\Default Work Unit\Pickup_Move_Play" MaxAttenuation="8.000000"/>
 				<Event Id="3166651386" Name="Pickup_Move_Stop" ObjectPath="\Events\Default Work Unit\Pickup_Move_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="1715783110" Name="Pickup_Play" ObjectPath="\Events\Default Work Unit\Pickup_Play"/>
+				<Event Id="1715783110" Name="Pickup_Play" ObjectPath="\Events\Default Work Unit\Pickup_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2348472398" Name="Player_Death_Play" ObjectPath="\Events\Default Work Unit\Player_Death_Play" MaxAttenuation="15.000000"/>
 				<Event Id="1389849668" Name="Player_Respawn_Play" ObjectPath="\Events\Default Work Unit\Player_Respawn_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2880001405" Name="Spear_Play" ObjectPath="\Events\Default Work Unit\Spear_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2770920781" Name="Spear_Target_Play" ObjectPath="\Events\Default Work Unit\Spear_Target_Play" MaxAttenuation="15.000000"/>
 				<Event Id="3056915868" Name="Wheel_Close_Play" ObjectPath="\Events\Default Work Unit\Wheel_Close_Play"/>
 				<Event Id="2645717374" Name="Wheel_Open_Play" ObjectPath="\Events\Default Work Unit\Wheel_Open_Play"/>
+				<Event Id="461033142" Name="Wisp_Elevator_Play" ObjectPath="\Events\Default Work Unit\Wisp_Elevator_Play"/>
+				<Event Id="209020650" Name="Wisp_Loop_Play" ObjectPath="\Events\Default Work Unit\Wisp_Loop_Play" MaxAttenuation="10.000000"/>
+				<Event Id="1654799124" Name="Wisp_Loop_Stop" ObjectPath="\Events\Default Work Unit\Wisp_Loop_Stop" MaxAttenuation="0.000000"/>
+				<Event Id="3241222100" Name="Wisp_Scatter_Play" ObjectPath="\Events\Default Work Unit\Wisp_Scatter_Play"/>
+				<Event Id="608683694" Name="Wisp_Scatter_Stop" ObjectPath="\Events\Default Work Unit\Wisp_Scatter_Stop" MaxAttenuation="0.000000"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="46253538" Language="SFX">
@@ -105,6 +111,10 @@
 				<File Id="117927810" Language="SFX">
 					<ShortName>In Game Music - Gongs.wav</ShortName>
 					<Path>SFX\In Game Music - Gongs_0ED39DC9.wem</Path>
+				</File>
+				<File Id="127406643" Language="SFX">
+					<ShortName>Wisp Elevator.wav</ShortName>
+					<Path>SFX\Wisp Elevator_C47F2D1B.wem</Path>
 				</File>
 				<File Id="163235136" Language="SFX">
 					<ShortName>Player Impact_2.wav</ShortName>
@@ -166,6 +176,10 @@
 					<ShortName>Player Impact.wav</ShortName>
 					<Path>SFX\Player Impact_C47F2D1B.wem</Path>
 				</File>
+				<File Id="411008274" Language="SFX">
+					<ShortName>Elevator.wav</ShortName>
+					<Path>SFX\Elevator_0ED39DC9.wem</Path>
+				</File>
 				<File Id="425836869" Language="SFX">
 					<ShortName>Ambience.wav</ShortName>
 					<Path>SFX\Ambience_C47F2D1B.wem</Path>
@@ -173,6 +187,10 @@
 				<File Id="450165256" Language="SFX">
 					<ShortName>Player Impact_3.wav</ShortName>
 					<Path>SFX\Player Impact_3_C47F2D1B.wem</Path>
+				</File>
+				<File Id="482960185" Language="SFX">
+					<ShortName>Orb Spawn.wav</ShortName>
+					<Path>SFX\Orb Spawn_C47F2D1B.wem</Path>
 				</File>
 				<File Id="494802499" Language="SFX">
 					<ShortName>Player_Respawn.wav</ShortName>
@@ -206,6 +224,10 @@
 					<ShortName>Boss Impact_3.wav</ShortName>
 					<Path>SFX\Boss Impact_3_C47F2D1B.wem</Path>
 				</File>
+				<File Id="590688327" Language="SFX">
+					<ShortName>Wisp Loop.wav</ShortName>
+					<Path>SFX\Wisp Loop_0ED39DC9.wem</Path>
+				</File>
 				<File Id="598171912" Language="SFX">
 					<ShortName>Spear Cone Cast.wav</ShortName>
 					<Path>SFX\Spear Cone Cast_C47F2D1B.wem</Path>
@@ -214,9 +236,9 @@
 					<ShortName>Enemy Swing Rock_3.wav</ShortName>
 					<Path>SFX\Enemy Swing Rock_3_442DBB92.wem</Path>
 				</File>
-				<File Id="616539973" Language="SFX">
-					<ShortName>Pickup.wav</ShortName>
-					<Path>SFX\Pickup_0E2C7BFE.wem</Path>
+				<File Id="628448248" Language="SFX">
+					<ShortName>Corpse Despawn.wav</ShortName>
+					<Path>SFX\Corpse Despawn_C47F2D1B.wem</Path>
 				</File>
 				<File Id="667649109" Language="SFX">
 					<ShortName>Indestructable Impact_2.wav</ShortName>
@@ -245,6 +267,10 @@
 				<File Id="785860472" Language="SFX">
 					<ShortName>Boss Beam.wav</ShortName>
 					<Path>SFX\Boss Beam_0ED39DC9.wem</Path>
+				</File>
+				<File Id="792153528" Language="SFX">
+					<ShortName>Wisp Spawn Loop.wav</ShortName>
+					<Path>SFX\Wisp Spawn Loop_0ED39DC9.wem</Path>
 				</File>
 				<File Id="818329351" Language="SFX">
 					<ShortName>Ranged Projectile.wav</ShortName>
@@ -289,6 +315,10 @@
 				<File Id="1020289391" Language="SFX">
 					<ShortName>Ambience_2.wav</ShortName>
 					<Path>SFX\Ambience_2_C47F2D1B.wem</Path>
+				</File>
+				<File Id="1051025274" Language="SFX">
+					<ShortName>Orb Loop.wav</ShortName>
+					<Path>SFX\Orb Loop_0ED39DC9.wem</Path>
 				</File>
 				<File Id="1062194609" Language="SFX">
 					<ShortName>Enemy Swing Rock.wav</ShortName>
