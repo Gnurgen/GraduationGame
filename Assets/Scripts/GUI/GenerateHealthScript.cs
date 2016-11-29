@@ -30,7 +30,7 @@ public class GenerateHealthScript : MonoBehaviour {
         {
             for (int i = 0; i < enemies.Length; i++)
             {
-                healthBars[i].GetComponent<EnemyHealthBars>().getMyEnemy(enemies[i], 0);
+                healthBars[i].GetComponent<EnemyHealthBars>().getMyEnemy(enemies[i]);
             }
         }
         
