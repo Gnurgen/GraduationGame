@@ -1,19 +1,14 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 47f636192dcc587498e3776ba2f3f6ff
-timeCreated: 1480412951
-=======
-guid: ee4be9966b925cd47b09afb4068b1549
-timeCreated: 1480412497
->>>>>>> master
+guid: fff048d7f37e55647a0ba9d69c9b3781
+timeCreated: 1480413680
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
-    linearTexture: 0
+    enableMipMap: 0
+    linearTexture: 1
     correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
@@ -31,13 +26,13 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
-  maxTextureSize: 2048
+  textureFormat: -3
+  maxTextureSize: 1024
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    filterMode: 1
+    aniso: 0
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 1
   lightmap: 0
   rGBM: 0
@@ -52,7 +47,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
-  textureType: -1
+  textureType: 5
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
