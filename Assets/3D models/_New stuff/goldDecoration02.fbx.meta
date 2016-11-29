@@ -1,24 +1,19 @@
 fileFormatVersion: 2
-guid: fb335f346acfd454d9d63d8e1793b385
-timeCreated: 1479720706
+guid: 0ca11490236e7614a8367852714f1a83
+timeCreated: 1480414899
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: elevator02_geo
-    100002: elevator02_geo_grp
-    100004: elevator02Mask_geo
-    100006: //RootNode
-    400000: elevator02_geo
-    400002: elevator02_geo_grp
-    400004: elevator02Mask_geo
-    400006: //RootNode
-    2300000: elevator02_geo
-    2300002: elevator02Mask_geo
-    3300000: elevator02_geo
-    3300002: elevator02Mask_geo
-    4300000: elevator02Mask_geo
-    4300002: elevator02_geo
+    100000: goldDecoration02_geo
+    100002: goldDecoration02_geo_grp
+    100004: //RootNode
+    400000: goldDecoration02_geo
+    400002: goldDecoration02_geo_grp
+    400004: //RootNode
+    2300000: goldDecoration02_geo
+    3300000: goldDecoration02_geo
+    4300000: goldDecoration02_geo
   materials:
     importMaterials: 1
     materialName: 0
