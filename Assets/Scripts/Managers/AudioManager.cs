@@ -17,13 +17,6 @@ public class AudioManager : MonoBehaviour {
 
     void Start()
     {
-        
-        Subscribe2EM();
-       
-    }
-
-    private void Subscribe2EM()
-    {
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyAggro += CheckState;
 
@@ -33,10 +26,12 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnEnemyDeath += EnemyDeathPlay;
         GameManager.events.OnEnemyDeath += CheckState;
 
+        GameManager.events.OnEnemyAttack += EnemyMeleePlay;
+        GameManager.events.OnEnemyRangedAttack += EnemyRangedPlay;
         GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
         GameManager.events.OnEnemyRangedMiss += EnemyRangedAttackMissPlaySub;
 
-        GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
+        //GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
         GameManager.events.OnPlayerDashBegin += DashPlay;
         GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
         GameManager.events.OnPlayerDeath += PlayerDeathPlay;
@@ -58,8 +53,8 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
         GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
         GameManager.events.OnResourcePickup += PickupPlaySub;
-     
-       
+        GameManager.events.OnResourceDrop += PickupMovePlay;
+        
     }
 
     private void CheckState(GameObject go)
@@ -109,9 +104,9 @@ public class AudioManager : MonoBehaviour {
     
     public void EnemyAttackHitPlaySub(GameObject enemyID, float dmg)
     {
-        if (enemyID.tag == "Melee")
+        if (enemyID.GetComponent<MeleeAI>())
             EnemyMeleeHitPlayerPlay(GameManager.player);
-        else if (enemyID.tag == "Ranged")
+        else if (enemyID.GetComponent<RangedAI>())
             EnemyRangedTargetPlay(GameManager.player, "Player");
 
     }
@@ -373,7 +368,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Music_System_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void PickupMovePlay(GameObject GO)
+    public void PickupMovePlay(GameObject GO,int i)
     {
         AkSoundEngine.PostEvent("Pickup_Move_Play", GO);
         AkSoundEngine.RenderAudio();

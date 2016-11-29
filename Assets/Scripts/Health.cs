@@ -72,8 +72,9 @@ public class Health : MonoBehaviour, IHealth {
             ht = new HealthController();
             ht.SetHealth(this);
         }
-        hpBar.updateHealthBar();
         ht.DecreaseHealth(vulnerable, health, dmg, forceDir.x, forceDir.y, forceDir.z, pushForce);
+        if(hpBar != null)
+            hpBar.updateHealthBar();
     }
 
     public void EqualHealth()
