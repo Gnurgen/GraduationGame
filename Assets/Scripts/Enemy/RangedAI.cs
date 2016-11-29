@@ -42,7 +42,6 @@ public class RangedAI : EnemyStats {
         myDoll = GetComponent<SpawnRagdoll>();
         StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
-        startPosition = transform.position;
         currentAttackSpeed = 0;
         myDoll.myTag = "EnemyRangedRagdoll";
         taunts = 0;
@@ -79,6 +78,7 @@ public class RangedAI : EnemyStats {
             sec -= Time.deltaTime;
             yield return null;
         }
+        startPosition = transform.position;
         StartCoroutine(Idle());
         yield break;
     }
@@ -87,7 +87,7 @@ public class RangedAI : EnemyStats {
     {
         animator.SetBool("Backwards", false);
         animator.SetBool("Run", false);
-
+        target = null;
         for (;;)
         {
             if (!onPause)
@@ -141,6 +141,12 @@ public class RangedAI : EnemyStats {
                 {
                     GameManager.events.EnemyAggro(gameObject);
                     StartCoroutine(Chasing());
+                    yield break;
+                }
+
+                if (Vector3.Distance(transform.position, startPosition) < 2)
+                {
+                    StartCoroutine(Idle());
                     yield break;
                 }
 

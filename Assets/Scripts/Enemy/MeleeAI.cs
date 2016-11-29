@@ -89,6 +89,7 @@ public class MeleeAI : EnemyStats {
 	IEnumerator Idle()
 	{
         state = "idle";
+        target = null;
         animator.SetBool("Run", false);
         for (;;)
         {
