@@ -145,6 +145,7 @@ public class EventManager : MonoBehaviour
     }
     public void ConeAbilityUsed(GameObject Id)
     {
+        print("hey!");
         if (OnConeAbilityUsed != null)
             OnConeAbilityUsed(Id);
     }

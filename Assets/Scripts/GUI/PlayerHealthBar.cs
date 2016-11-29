@@ -35,7 +35,6 @@ public class PlayerHealthBar : MonoBehaviour {
     void updateVal(GameObject ID, float dmg) {
 
         StartCoroutine(UpdateHP());
-        Debug.Log("PlayerHit!");
     }
     void updateVal(GameObject ID, int heal)
     {
