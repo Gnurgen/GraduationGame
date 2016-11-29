@@ -20,6 +20,7 @@ public class Elevator : MonoBehaviour
 
     void Start()
     {
+        transform.position = new Vector3(transform.position.x, -3.45f, transform.position.z);
         CC = GetComponent<CapsuleCollider>();
         CC.enabled = false;
         mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
@@ -64,15 +65,38 @@ public class Elevator : MonoBehaviour
 
     IEnumerator elevatorLif()
     {
+        yield return new WaitForSeconds(preLift);
+        
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
+        while (newPos < 20f)
+        {
+        newPos = gameObject.transform.position.y + Time.deltaTime * speed;
         gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos, gameObject.transform.position.z);
+            yield return null;
+        }
+        yield return null;
     }
+
     IEnumerator waitForAniStart()
     {
         yield return new WaitForSeconds(preLift);
         fade.GetComponent<Fade>().fadeToBlack(2);
-        isMoving = true;
+      
         yield return new WaitForSeconds(underLift);
-        SceneManager.LoadScene("BossLevel");
+        LoadCorrectScene();
+    }
+
+    void LoadCorrectScene()
+    {
+        GameManager.progress++;
+        PlayerPrefs.SetInt("Progress", GameManager.progress);
+        if (GameManager.progress <= 2)
+        {
+            SceneManager.LoadScene("Final");
+        }
+        else
+        {
+            SceneManager.LoadScene("BossLevel");
+        }
     }
 }
