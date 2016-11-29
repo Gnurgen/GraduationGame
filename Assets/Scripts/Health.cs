@@ -3,8 +3,6 @@ using System.Collections;
 using System;
 
 public class Health : MonoBehaviour, IHealth {
-    [Range(0,100)]
-    public float healthIncreasePerLevelInPercentage;
     private float healthPerRes;
     private bool healthOnLevel = false;
     private bool vulnerable = true;

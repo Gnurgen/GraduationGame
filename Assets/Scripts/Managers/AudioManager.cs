@@ -57,15 +57,7 @@ public class AudioManager : MonoBehaviour {
         
     }
 
-    private void ConeAbilityStop(GameObject Id)
-    {
-        //throw new NotImplementedException();
-    }
-
-    private void ConeAbilityHitPlay(GameObject Id)
-    {
-        //throw new NotImplementedException();
-    }
+  
 
     private void CheckState(GameObject go)
     {
@@ -243,6 +235,15 @@ public class AudioManager : MonoBehaviour {
 
     // CONE
 
+    private void ConeAbilityStop(GameObject Id)
+    {
+        //throw new NotImplementedException();
+    }
+
+    private void ConeAbilityHitPlay(GameObject Id)
+    {
+        //throw new NotImplementedException();
+    }
     public void ConeAbilityPlay(GameObject GO)
     {
         //When finnished drawing the cone Ability and activates 
