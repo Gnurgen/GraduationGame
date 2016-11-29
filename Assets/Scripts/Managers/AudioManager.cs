@@ -15,9 +15,15 @@ public class AudioManager : MonoBehaviour {
     // ##########################################################                            ################################################
     // ######################################################################################################################################
 
-    void Subscribe()
+    void Start()
     {
         
+        Subscribe2EM();
+       
+    }
+
+    private void Subscribe2EM()
+    {
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyAggro += CheckState;
 
@@ -37,7 +43,7 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnPlayerDeath += EnemyChatterStop;
         //  GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
         //  GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
-        GameManager.events.OnConeAbilityStart += ConeAbilityInteractPlay; 
+        GameManager.events.OnConeAbilityStart += ConeAbilityInteractPlay;
         GameManager.events.OnConeAbilityUsed += ConeAbilityPlay;
         GameManager.events.OnConeAbilityHit += ConeAbilityHitPlay;
         GameManager.events.OnConeAbilityEnd += ConeAbilityStop;
@@ -52,12 +58,9 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
         GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
         GameManager.events.OnResourcePickup += PickupPlaySub;
-
-        print("AudioManager Subscribed");
-        
+     
+       
     }
-
-  
 
     private void CheckState(GameObject go)
     {
@@ -241,12 +244,25 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Cone_Ability_Stop", GO);
     }
 
-    private void ConeAbilityHitPlay(GameObject Id)
+    private void ConeAbilityHitPlay(GameObject GO)
     {
-        //throw new NotImplementedException();
+
+        // TEMP AUDIO TEST start
+        if (GO.tag == "Boss" || GO.tag == "Enemy" || GO.tag == "Indestructable")
+        {
+            AkSoundEngine.SetSwitch("Target", GO.tag, GO);
+            AkSoundEngine.PostEvent("Spear_Target_Play", GO);
+            AkSoundEngine.RenderAudio();
+        }
+        else
+        {
+            Debug.LogError(GO.tag + "is wrong tag and event doesn't play audio");
+        }
+        //TEMP AUDIO TEST end
     }
     public void ConeAbilityPlay(GameObject GO)
     {
+        print("hej");
         //When finnished drawing the cone Ability and activates 
         AkSoundEngine.PostEvent("Cone_Ability_Play", GO);
         AkSoundEngine.RenderAudio();

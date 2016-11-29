@@ -5,14 +5,16 @@ public class GenerateHealthScript : MonoBehaviour {
     private GameObject[] enemies;
     private GameObject[] healthBars;
     private GameObject healthBar;
+    Transform canvas;
     public GameObject HealthBarPrefab;
     public int amountOfHPBars = 20;
 
     void Start() {
+        canvas = GameObject.Find("Canvas").transform;
         healthBars = new GameObject[amountOfHPBars];
         for (int i = 0; i < healthBars.Length; i++) {
             healthBar = Instantiate(HealthBarPrefab);
-            healthBar.transform.parent = GameObject.Find("Canvas").transform;
+            healthBar.transform.SetParent(canvas);
             healthBar.transform.localRotation = Quaternion.Euler(0,0,0);
             healthBars[i] = healthBar;
         }
