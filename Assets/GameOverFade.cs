@@ -30,9 +30,9 @@ public class GameOverFade : MonoBehaviour {
             {
                 curTime = fadeTime;
                 img.color = fadeColor;
-                if(FindObjectOfType<SpiritRock>() != null)
+                if(GameManager.game.activeCheckpoint != null)
                 {
-                    GameManager.player.transform.position = FindObjectOfType<SpiritRock>().transform.position;
+                    GameManager.player.transform.position = GameManager.game.activeCheckpoint.transform.position;
                     GameManager.GameOver(true);
                 }
                 else

@@ -13,15 +13,24 @@ public class Health : MonoBehaviour, IHealth {
     SpawnRagdoll rd;
     HealthController ht;
     Vector3 cForceDir;
+    private RoomBuilder parentRoom = null;
 
-    void Start()
+    void OnEnable()
     {
+        print("det blir kørt");
         health = maxHealth;
         Subscribe();
         rd = GetComponent<SpawnRagdoll>();
         if(ht==null)
             ht = new HealthController();
         ht.SetHealth(this);
+/*
+        if (this != GameManager.player)
+        {
+            parentRoom = GetComponentInParent<RoomBuilder>();
+            parentRoom.enemyCount--;
+            Debug.Log("Enemy died");
+        }*/
     }
 
     private void Subscribe()
@@ -61,6 +70,11 @@ public class Health : MonoBehaviour, IHealth {
 
     public void decreaseHealth(float dmg, Vector3 forceDir, float pushForce)
     {
+        if (ht == null)
+        {
+            ht = new HealthController();
+            ht.SetHealth(this);
+        }
         ht.DecreaseHealth(vulnerable, health, dmg, forceDir.x, forceDir.y, forceDir.z, pushForce);
     }
 
@@ -89,6 +103,8 @@ public class Health : MonoBehaviour, IHealth {
         Vector3 forceDir = new Vector3(forceX, forceY, forceZ);
         forceDir = Vector3.Normalize(forceDir) * pushForce;
         forceDir.y = 2;
+        if(rd == null)
+            rd = GetComponent<SpawnRagdoll>();
         rd.Execute(forceDir);
     }
 

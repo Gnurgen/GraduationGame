@@ -59,12 +59,12 @@ public class AudioManager : MonoBehaviour {
 
     private void ConeAbilityStop(GameObject Id)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void ConeAbilityHitPlay(GameObject Id)
     {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     private void CheckState(GameObject go)
