@@ -18,7 +18,8 @@ public class TutorialClose : MonoBehaviour {
 
     private void OnEnable()
     {
-        terminateTouch();
+        if(IM != null)
+            terminateTouch();
     }
 
     void Update () {

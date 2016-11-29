@@ -3,13 +3,14 @@ using System.Collections;
 
 public class SpiritRock : MonoBehaviour {
     public GameObject blueFlame;
-    private GameObject[] spiritRocks;
+    public GameObject[] spiritRocks;
     private bool isLit = false;
     private GameObject room;
   
     void Start() {
         GameManager.events.OnMapGenerated += getAllSpiritStones;
         room = gameObject.transform.parent.gameObject;
+        getAllSpiritStones();
     }
 
     void OnTriggerEnter(Collider col)
