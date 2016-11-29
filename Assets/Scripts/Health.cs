@@ -15,6 +15,9 @@ public class Health : MonoBehaviour, IHealth {
     Vector3 cForceDir;
     private RoomBuilder parentRoom = null;
 
+    void Start() {
+        GameManager.events.OnRespawn += removeRagdoll;
+    }
     void OnEnable()
     {
         print("det blir kørt");
@@ -106,6 +109,13 @@ public class Health : MonoBehaviour, IHealth {
         if(rd == null)
             rd = GetComponent<SpawnRagdoll>();
         rd.Execute(forceDir);
+    }
+
+    void removeRagdoll() {
+        GameObject[] ragdolls = GameObject.FindGameObjectsWithTag("KumoRagdoll");
+        for (int i = 0; i < ragdolls.Length; i++)
+            ragdolls[i].SetActive(false);
+
     }
 
     public void Dead()
