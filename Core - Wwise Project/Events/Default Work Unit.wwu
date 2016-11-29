@@ -53,23 +53,12 @@
 						</Action>
 					</ChildrenList>
 				</Event>
-				<Event Name="Boss_Rain_Target_Play" ID="{B4A9906A-854D-4730-AC50-9140B6CBD89C}">
-					<ChildrenList>
-						<Action Name="Play" ID="{721FF816-A4EE-4536-A53D-A3EBD3764D2A}" ShortID="740328660" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{EF1DF335-93D6-439E-AABB-C6259000BF79}" Global="false">
-									<ObjectRef Name="Boss Rain Target" ID="{8D02DC58-C9FA-464C-8DED-C4E588312C8D}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
 				<Event Name="Boss_Beam_Play" ID="{B2DF52C3-BDB9-4352-966F-634CF2D78AC2}">
 					<ChildrenList>
 						<Action Name="Play" ID="{93136EFC-15F4-4A0C-8EF5-B7859944E6E5}" ShortID="51605005" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{36B7B327-9037-4AC1-A58C-EA9A634B0395}" Global="false">
-									<ObjectRef Name="Boss_Beam" ID="{BEAF516F-7DC8-4C34-8D38-E3343B648515}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Boss Beam" ID="{B72D321D-BC2A-4412-8014-47CDEB7DA509}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -80,7 +69,7 @@
 						<Action Name="Stop" ID="{B5C66C0A-A3D0-4D29-8380-7C1CD2904412}" ShortID="937827350" Type="Stop" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{91E47454-B23A-42E5-9C96-9BE00888D56A}" Global="false">
-									<ObjectRef Name="Boss_Beam" ID="{BEAF516F-7DC8-4C34-8D38-E3343B648515}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Boss Beam" ID="{B72D321D-BC2A-4412-8014-47CDEB7DA509}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -91,29 +80,7 @@
 						<Action Name="Play" ID="{3036522B-D8C4-4508-8718-51536CF5A6C0}" ShortID="730905270" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{6B1ED707-6BB5-4E6D-B179-6F7F13CC5984}" Global="false">
-									<ObjectRef Name="Boss_Rain" ID="{E5D67104-F6F0-4A75-AE02-DAC2000980AB}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Boss_Rain_Move_Play" ID="{B35C0CE7-A9CB-4DF5-8CDC-537180D648DF}">
-					<ChildrenList>
-						<Action Name="Play" ID="{1F7CEC4F-7D1A-459C-B4D9-CDE84CE39CB8}" ShortID="128030624" Type="Play" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{4D6F7427-5135-4051-B3CC-C60593B266E8}" Global="false">
-									<ObjectRef Name="Boss_Rain_Move" ID="{FF595D17-5793-42E8-8BFA-238738E68129}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Boss_Rain_Move_Stop" ID="{7300E986-AEE3-46CB-A008-6F3E8559F2BE}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{6B3A8E35-5C48-47C3-B3DC-69DF183F7EA5}" ShortID="914247144" Type="Stop" Scope="One" Global="false">
-							<ElementList>
-								<Element ID="{5D46CCB3-8E1A-4C9A-859E-2706466E0A0D}" Global="false">
-									<ObjectRef Name="Boss_Rain_Move" ID="{FF595D17-5793-42E8-8BFA-238738E68129}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Boss Meteor" ID="{D6D01031-C42B-4A90-8663-1D070EB1DDF9}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -135,7 +102,7 @@
 						<Action Name="Play" ID="{CA7CB79F-2B65-4A34-AB7A-832B05F4E527}" ShortID="505827347" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{C7536861-4077-4D5A-8613-10D1B4A39100}" Global="false">
-									<ObjectRef Name="Enemy_Ranged" ID="{13FB1816-B73C-4B6C-A35A-53D845A99159}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Ranged Attack" ID="{28CABFC2-3757-4583-815D-F6CBC1B316EA}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -490,7 +457,7 @@
 						<Action Name="Play" ID="{8C59E210-9550-43CE-8AB0-B62BBE28673E}" ShortID="572083441" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{36870D3B-20A0-48D1-9136-D96A22BDA134}" Global="false">
-									<ObjectRef Name="Enemy_Ranged_Projectile" ID="{9A802BAF-536F-4C13-B492-AFC80ECA0DA7}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Ranged Projectile" ID="{7D000869-9AB1-4D04-80AA-4F98C18C5AB1}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -501,7 +468,7 @@
 						<Action Name="Stop" ID="{E34E9779-7B6F-44D6-B9D4-489716030356}" ShortID="917756294" Type="Stop" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{9F6B17B6-83F1-47DB-80E4-038CB983D8CE}" Global="false">
-									<ObjectRef Name="Enemy_Ranged_Projectile" ID="{9A802BAF-536F-4C13-B492-AFC80ECA0DA7}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Ranged Projectile" ID="{7D000869-9AB1-4D04-80AA-4F98C18C5AB1}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>

@@ -21,14 +21,11 @@
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
-				<Event Id="3074393677" Name="Boss_Beam_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Play"/>
+				<Event Id="3074393677" Name="Boss_Beam_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Play" MaxAttenuation="5.000000"/>
 				<Event Id="4191587739" Name="Boss_Beam_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="1433984317" Name="Boss_Beam_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Play"/>
+				<Event Id="1433984317" Name="Boss_Beam_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Play" MaxAttenuation="5.000000"/>
 				<Event Id="3661299883" Name="Boss_Beam_Target_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="169826302" Name="Boss_Rain_Move_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Move_Play"/>
-				<Event Id="1207719104" Name="Boss_Rain_Move_Stop" ObjectPath="\Events\Default Work Unit\Boss_Rain_Move_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="2907375116" Name="Boss_Rain_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Play"/>
-				<Event Id="4044112498" Name="Boss_Rain_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Target_Play"/>
+				<Event Id="2907375116" Name="Boss_Rain_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Play" MaxAttenuation="10.000000"/>
 				<Event Id="3906322206" Name="Button_Menu_Play" ObjectPath="\Events\Default Work Unit\Button_Menu_Play"/>
 				<Event Id="789154922" Name="Button_Start_Game_Play" ObjectPath="\Events\Default Work Unit\Button_Start_Game_Play"/>
 				<Event Id="3837168167" Name="Button_Wheel_Hover_Play" ObjectPath="\Events\Default Work Unit\Button_Wheel_Hover_Play"/>
@@ -43,13 +40,13 @@
 				<Event Id="2972852827" Name="Draw_Ability_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="482819944" Name="Elevator_Play" ObjectPath="\Events\Default Work Unit\Elevator_Play"/>
 				<Event Id="2818913498" Name="Elevator_Stop" ObjectPath="\Events\Default Work Unit\Elevator_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="2317625885" Name="Enemy_Aggro_Play" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Play"/>
+				<Event Id="2317625885" Name="Enemy_Aggro_Play" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Play" MaxAttenuation="15.000000"/>
 				<Event Id="208500619" Name="Enemy_Aggro_Stop" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="4192965245" Name="Enemy_Death_Play" ObjectPath="\Events\Default Work Unit\Enemy_Death_Play"/>
+				<Event Id="4192965245" Name="Enemy_Death_Play" ObjectPath="\Events\Default Work Unit\Enemy_Death_Play" MaxAttenuation="15.000000"/>
 				<Event Id="1233116581" Name="Enemy_Melee_Hit_Player_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Hit_Player_Play"/>
 				<Event Id="2339069971" Name="Enemy_Melee_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Play"/>
-				<Event Id="4072057392" Name="Enemy_Ranged_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Play"/>
-				<Event Id="3961649480" Name="Enemy_Ranged_Projectile_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Projectile_Play"/>
+				<Event Id="4072057392" Name="Enemy_Ranged_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Play" MaxAttenuation="15.000000"/>
+				<Event Id="3961649480" Name="Enemy_Ranged_Projectile_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Projectile_Play" MaxAttenuation="10.000000"/>
 				<Event Id="2044352442" Name="Enemy_Ranged_Projectile_Stop" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Projectile_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="914283814" Name="Enemy_Ranged_Target_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Target_Play"/>
 				<Event Id="2813179063" Name="Environmental_Ambience_Play" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Play"/>
@@ -97,10 +94,6 @@
 					<ShortName>Ambience_3.wav</ShortName>
 					<Path>SFX\Ambience_3_C47F2D1B.wem</Path>
 				</File>
-				<File Id="97329504" Language="SFX">
-					<ShortName>Boss_Beam_Hit_Wall.wav</ShortName>
-					<Path>SFX\Boss_Beam_Hit_Wall_0ED39DC9.wem</Path>
-				</File>
 				<File Id="105078837" Language="SFX">
 					<ShortName>Enemy Impact_3.wav</ShortName>
 					<Path>SFX\Enemy Impact_3_C47F2D1B.wem</Path>
@@ -112,14 +105,6 @@
 				<File Id="117927810" Language="SFX">
 					<ShortName>In Game Music - Gongs.wav</ShortName>
 					<Path>SFX\In Game Music - Gongs_0ED39DC9.wem</Path>
-				</File>
-				<File Id="134979899" Language="SFX">
-					<ShortName>Enemy_Ranged.wav</ShortName>
-					<Path>SFX\Enemy_Ranged_D8CE6611.wem</Path>
-				</File>
-				<File Id="145486535" Language="SFX">
-					<ShortName>Boss_Rain_Hit_Player.wav</ShortName>
-					<Path>SFX\Boss_Rain_Hit_Player_C47F2D1B.wem</Path>
 				</File>
 				<File Id="163235136" Language="SFX">
 					<ShortName>Player Impact_2.wav</ShortName>
@@ -149,17 +134,9 @@
 					<ShortName>Ambience_4.wav</ShortName>
 					<Path>SFX\Ambience_4_C47F2D1B.wem</Path>
 				</File>
-				<File Id="248240721" Language="SFX">
-					<ShortName>Enemy_Ranged_Hit_Player.wav</ShortName>
-					<Path>SFX\Enemy_Ranged_Hit_Player_D643B37C.wem</Path>
-				</File>
 				<File Id="314800765" Language="SFX">
 					<ShortName>Button_Wheel_Select.wav</ShortName>
 					<Path>SFX\Button_Wheel_Select_785D9045.wem</Path>
-				</File>
-				<File Id="325711566" Language="SFX">
-					<ShortName>Boss_Beam.wav</ShortName>
-					<Path>SFX\Boss_Beam_0ED39DC9.wem</Path>
 				</File>
 				<File Id="335394518" Language="SFX">
 					<ShortName>Button_Menu.wav</ShortName>
@@ -221,14 +198,6 @@
 					<ShortName>Music_In_Ending_Cutscene.wav</ShortName>
 					<Path>SFX\Music_In_Ending_Cutscene_0ED39DC9.wem</Path>
 				</File>
-				<File Id="574730426" Language="SFX">
-					<ShortName>Boss_Beam_Hit_Player.wav</ShortName>
-					<Path>SFX\Boss_Beam_Hit_Player_0ED39DC9.wem</Path>
-				</File>
-				<File Id="577510896" Language="SFX">
-					<ShortName>Enemy_Ranged_Hit_Wall.wav</ShortName>
-					<Path>SFX\Enemy_Ranged_Hit_Wall_71DAFC6C.wem</Path>
-				</File>
 				<File Id="582697754" Language="SFX">
 					<ShortName>Indestructable Impact.wav</ShortName>
 					<Path>SFX\Indestructable Impact_C47F2D1B.wem</Path>
@@ -261,10 +230,6 @@
 					<ShortName>Wheel_Open.wav</ShortName>
 					<Path>SFX\Wheel_Open_ECAC36E8.wem</Path>
 				</File>
-				<File Id="750327012" Language="SFX">
-					<ShortName>Boss_Rain.wav</ShortName>
-					<Path>SFX\Boss_Rain_C47F2D1B.wem</Path>
-				</File>
 				<File Id="755656711" Language="SFX">
 					<ShortName>Ambience_1.wav</ShortName>
 					<Path>SFX\Ambience_1_C47F2D1B.wem</Path>
@@ -277,6 +242,14 @@
 					<ShortName>Menu_Open.wav</ShortName>
 					<Path>SFX\Menu_Open_35E30ACE.wem</Path>
 				</File>
+				<File Id="785860472" Language="SFX">
+					<ShortName>Boss Beam.wav</ShortName>
+					<Path>SFX\Boss Beam_0ED39DC9.wem</Path>
+				</File>
+				<File Id="818329351" Language="SFX">
+					<ShortName>Ranged Projectile.wav</ShortName>
+					<Path>SFX\Ranged Projectile_0ED39DC9.wem</Path>
+				</File>
 				<File Id="822169123" Language="SFX">
 					<ShortName>Player_Death.wav</ShortName>
 					<Path>SFX\Player_Death_C47F2D1B.wem</Path>
@@ -284,6 +257,10 @@
 				<File Id="835280033" Language="SFX">
 					<ShortName>Circle_Ability_Control.wav</ShortName>
 					<Path>SFX\Circle_Ability_Control_0ED39DC9.wem</Path>
+				</File>
+				<File Id="885455871" Language="SFX">
+					<ShortName>Boss Meteor.wav</ShortName>
+					<Path>SFX\Boss Meteor_C47F2D1B.wem</Path>
 				</File>
 				<File Id="898309102" Language="SFX">
 					<ShortName>Enemy Impact.wav</ShortName>
@@ -297,13 +274,13 @@
 					<ShortName>Player Impact_1.wav</ShortName>
 					<Path>SFX\Player Impact_1_C47F2D1B.wem</Path>
 				</File>
-				<File Id="963882025" Language="SFX">
-					<ShortName>Boss_Rain_Move.wav</ShortName>
-					<Path>SFX\Boss_Rain_Move_0ED39DC9.wem</Path>
-				</File>
 				<File Id="974188488" Language="SFX">
 					<ShortName>Boss Impact.wav</ShortName>
 					<Path>SFX\Boss Impact_C47F2D1B.wem</Path>
+				</File>
+				<File Id="999833992" Language="SFX">
+					<ShortName>Ranged Attack.wav</ShortName>
+					<Path>SFX\Ranged Attack_C47F2D1B.wem</Path>
 				</File>
 				<File Id="1011084308" Language="SFX">
 					<ShortName>Main Menu Music.wav</ShortName>
@@ -312,10 +289,6 @@
 				<File Id="1020289391" Language="SFX">
 					<ShortName>Ambience_2.wav</ShortName>
 					<Path>SFX\Ambience_2_C47F2D1B.wem</Path>
-				</File>
-				<File Id="1053373378" Language="SFX">
-					<ShortName>Boss_Beam_Hit_Enemy.wav</ShortName>
-					<Path>SFX\Boss_Beam_Hit_Enemy_0ED39DC9.wem</Path>
 				</File>
 				<File Id="1062194609" Language="SFX">
 					<ShortName>Enemy Swing Rock.wav</ShortName>

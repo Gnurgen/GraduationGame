@@ -17,10 +17,7 @@ namespace AK
         static const AkUniqueID BOSS_BEAM_STOP = 4191587739U;
         static const AkUniqueID BOSS_BEAM_TARGET_PLAY = 1433984317U;
         static const AkUniqueID BOSS_BEAM_TARGET_STOP = 3661299883U;
-        static const AkUniqueID BOSS_RAIN_MOVE_PLAY = 169826302U;
-        static const AkUniqueID BOSS_RAIN_MOVE_STOP = 1207719104U;
         static const AkUniqueID BOSS_RAIN_PLAY = 2907375116U;
-        static const AkUniqueID BOSS_RAIN_TARGET_PLAY = 4044112498U;
         static const AkUniqueID BUTTON_MENU_PLAY = 3906322206U;
         static const AkUniqueID BUTTON_START_GAME_PLAY = 789154922U;
         static const AkUniqueID BUTTON_WHEEL_HOVER_PLAY = 3837168167U;
