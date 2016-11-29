@@ -14,6 +14,8 @@ public class WhispGuidingAI : MonoBehaviour {
     [SerializeField]
     private int numberOfActivators;
     [SerializeField]
+    private float activationDistance;
+    [SerializeField]
     private float maxScatter;
     [SerializeField]
     private float scatterRate;
@@ -84,22 +86,12 @@ public class WhispGuidingAI : MonoBehaviour {
 
     IEnumerator Guiding()
     {
-        while(index < path.vectorPath.Count && Vector3.Distance(transform.position, elevator.position) > 2)
+        while(index < path.vectorPath.Count && Vector3.Distance(transform.position, elevator.position) > activationDistance)
         {
             transform.position = guidingPoint;
             yield return null;
         }
         StartCoroutine(ActivatingElevator());
-        yield break;
-    }
-
-    IEnumerator Hiding()
-    {
-        yield break;
-    }
-
-    IEnumerator Reappearing()
-    {
         yield break;
     }
 
@@ -113,6 +105,8 @@ public class WhispGuidingAI : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
         }
         effectControl.StopEffect();
+        yield return new WaitForSeconds(1f);
+        GameManager.events.ElevatorActivated();
         Destroy(gameObject);
         yield break;
     }
