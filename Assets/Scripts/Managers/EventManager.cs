@@ -314,6 +314,7 @@ public class EventManager : MonoBehaviour
 
     public delegate void MapAction();
     public event MapAction OnMapComplete;
+    public event MapAction OnElevatorActivated;
 
     public delegate void ObjectDestroyAction(GameObject GO);
     public event ObjectDestroyAction OnObjDestroyed;
@@ -342,6 +343,11 @@ public class EventManager : MonoBehaviour
     {
         if (OnMapComplete!= null)
             OnMapComplete();
+    }
+    public void ElevatorActivated()
+    {
+        if (OnElevatorActivated != null)
+            OnElevatorActivated();
     }
     public void ResourceDrop(GameObject go, int i)
     {

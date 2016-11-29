@@ -93,16 +93,6 @@ public class WhispGuidingAI : MonoBehaviour {
         yield break;
     }
 
-    IEnumerator Hiding()
-    {
-        yield break;
-    }
-
-    IEnumerator Reappearing()
-    {
-        yield break;
-    }
-
     IEnumerator ActivatingElevator()
     {
         while(numberOfActivators > 0)
@@ -113,6 +103,8 @@ public class WhispGuidingAI : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
         }
         effectControl.StopEffect();
+        yield return new WaitForSeconds(1f);
+        GameManager.events.ElevatorActivated();
         Destroy(gameObject);
         yield break;
     }
