@@ -12,10 +12,12 @@ public class EnemyTracker : MonoBehaviour {
     private int allEnemies;
     [SerializeField]
     private int currentEnemiesAlive;
+    private bool guideSpawned;
 
 	// Use this for initialization
 	void Start () {
         GameManager.events.OnResourcePickup += OnPickUp;
+        guideSpawned = false;
         StartCoroutine(GetTotalEnemies());
 	}
 	
@@ -27,9 +29,10 @@ public class EnemyTracker : MonoBehaviour {
     void OnPickUp(GameObject go, int blob)
     {
         currentEnemiesAlive -= 1;
-        if(((float)currentEnemiesAlive / (float)allEnemies) < (1 - percentageToKill))
+        if(!guideSpawned && ((float)currentEnemiesAlive / (float)allEnemies) < (1 - percentageToKill))
         {
             Instantiate(guidingWhisp, GameManager.spear.transform.position, Quaternion.identity);
+            guideSpawned = true;
         }
     }
 

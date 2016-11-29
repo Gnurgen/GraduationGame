@@ -14,6 +14,8 @@ public class WhispGuidingAI : MonoBehaviour {
     [SerializeField]
     private int numberOfActivators;
     [SerializeField]
+    private float activationDistance;
+    [SerializeField]
     private float maxScatter;
     [SerializeField]
     private float scatterRate;
@@ -84,7 +86,7 @@ public class WhispGuidingAI : MonoBehaviour {
 
     IEnumerator Guiding()
     {
-        while(index < path.vectorPath.Count && Vector3.Distance(transform.position, elevator.position) > 2)
+        while(index < path.vectorPath.Count && Vector3.Distance(transform.position, elevator.position) > activationDistance)
         {
             transform.position = guidingPoint;
             yield return null;
