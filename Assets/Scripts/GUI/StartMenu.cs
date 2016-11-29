@@ -15,14 +15,35 @@ public class StartMenu : MonoBehaviour {
     void Start()
     {
         StartCoroutine(FadeinStartScreen());
+        if (PlayerPrefs.GetInt("Progress") == 0)
+            GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
+    }
+
+    public void ResetProgress()
+    {
+        GameManager.progress = 0;
+        PlayerPrefs.SetInt("Progress", 0);
+        GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
     }
 
     public void newGame() {
+        ResetProgress();
+        Time.timeScale = 1;
         SceneManager.LoadScene("CutScene"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
     }
 
-    public void loadGame() {
-        SceneManager.LoadScene("KrisTester"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+    public void loadGame()
+    {
+        GameManager.progress = PlayerPrefs.GetInt("Progress");
+        Time.timeScale = 1;
+        if (GameManager.progress <= 2)
+        {
+            SceneManager.LoadScene("Final");
+        }
+        else
+        {
+            SceneManager.LoadScene("BossLevel");
+        }
     }
 
     public void selectMenu(int menu) {

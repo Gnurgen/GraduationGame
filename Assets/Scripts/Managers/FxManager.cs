@@ -13,6 +13,7 @@ public class FxManager : MonoBehaviour {
     public GameObject coneHit;
     public GameObject playerDeath;
     public GameObject playerPickup;
+    public GameObject playerSpearAttack;
    
 
     // Boss effects
@@ -30,6 +31,9 @@ public class FxManager : MonoBehaviour {
     public GameObject enemyRangedAttackHit;
     public GameObject enemyDeath;
     public GameObject RagdollDespawn;
+
+    //variable caching
+    private Transform spearTip;
 
     // Use this for initialization
     void Start () {
@@ -85,8 +89,8 @@ public class FxManager : MonoBehaviour {
 
     void PlayerMeleeAttackEffect(GameObject unit)
     {
-        GameObject ef =  GameManager.pool.GenerateObject(playerMeleeAttack.tag); 
-        ef.transform.position = unit.transform.position;
+        GameObject ef =  GameManager.pool.GenerateObject(playerMeleeAttack.tag);
+        ef.transform.position = new Vector3(ef.transform.position.x, 1.0f, ef.transform.position.z);
         StartCoroutine(DestroyAfter(ef, 2));
         ef.GetComponent<PKFxFX>().StartEffect();
     }
@@ -130,6 +134,14 @@ public class FxManager : MonoBehaviour {
         ef.transform.SetParent(GameManager.player.transform);
         ef.transform.localPosition = Vector3.zero;
         
+        ef.GetComponent<PKFxFX>().StartEffect();
+        StartCoroutine(DestroyAfter(ef, 2));
+    }
+
+    private void SpearEffect()
+    {
+        GameObject ef = GameManager.pool.GenerateObject(playerSpearAttack.tag);
+        ef.transform.position = spearTip.position;
         ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }
@@ -202,8 +214,8 @@ public class FxManager : MonoBehaviour {
         if(unit.GetComponent<MeleeAI>() != null)
         {
             GameObject ef =  GameManager.pool.GenerateObject(enemyMeleeAttack.tag); 
-            ef.transform.position = GameManager.player.transform.position;
-        ef.GetComponent<PKFxFX>().StartEffect();
+            ef.transform.position = GameManager.player.transform.position + Vector3.up;
+            ef.GetComponent<PKFxFX>().StartEffect();
             StartCoroutine(DestroyAfter(ef, 2));
         }
     }
@@ -229,8 +241,12 @@ public class FxManager : MonoBehaviour {
 
     private void RagdollDespawnEffect(GameObject unit) 
     {
+
+        GameObject whisp = GameManager.pool.GenerateObject("Whisp");
+        Vector3 pos = unit.transform.GetChild(0).GetChild(10).position;
+        whisp.transform.position = new Vector3(pos.x, 1, pos.z);
         GameObject ef = GameManager.pool.GenerateObject(RagdollDespawn.tag);
-        ef.transform.position = unit.transform.GetChild(0).GetChild(10).position; // Special case for ragdoll position
+        ef.transform.position = pos; // Special case for ragdoll position
         ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
     }

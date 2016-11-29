@@ -17,10 +17,7 @@ namespace AK
         static const AkUniqueID BOSS_BEAM_STOP = 4191587739U;
         static const AkUniqueID BOSS_BEAM_TARGET_PLAY = 1433984317U;
         static const AkUniqueID BOSS_BEAM_TARGET_STOP = 3661299883U;
-        static const AkUniqueID BOSS_RAIN_MOVE_PLAY = 169826302U;
-        static const AkUniqueID BOSS_RAIN_MOVE_STOP = 1207719104U;
         static const AkUniqueID BOSS_RAIN_PLAY = 2907375116U;
-        static const AkUniqueID BOSS_RAIN_TARGET_PLAY = 4044112498U;
         static const AkUniqueID BUTTON_MENU_PLAY = 3906322206U;
         static const AkUniqueID BUTTON_START_GAME_PLAY = 789154922U;
         static const AkUniqueID BUTTON_WHEEL_HOVER_PLAY = 3837168167U;
@@ -28,6 +25,7 @@ namespace AK
         static const AkUniqueID CONE_ABILITY_CONTROL_PLAY = 1005055766U;
         static const AkUniqueID CONE_ABILITY_CONTROL_STOP = 1735593128U;
         static const AkUniqueID CONE_ABILITY_PLAY = 1610256012U;
+        static const AkUniqueID CORPSE_DESPAWN_PLAY = 2017253371U;
         static const AkUniqueID DASH_PLAY = 2174485018U;
         static const AkUniqueID DRAW_ABILITY_CONTROL_PLAY = 669353839U;
         static const AkUniqueID DRAW_ABILITY_CONTROL_STOP = 3386881389U;
@@ -59,6 +57,11 @@ namespace AK
         static const AkUniqueID SPEAR_TARGET_PLAY = 2770920781U;
         static const AkUniqueID WHEEL_CLOSE_PLAY = 3056915868U;
         static const AkUniqueID WHEEL_OPEN_PLAY = 2645717374U;
+        static const AkUniqueID WISP_ELEVATOR_PLAY = 461033142U;
+        static const AkUniqueID WISP_LOOP_PLAY = 209020650U;
+        static const AkUniqueID WISP_LOOP_STOP = 1654799124U;
+        static const AkUniqueID WISP_SCATTER_PLAY = 3241222100U;
+        static const AkUniqueID WISP_SCATTER_STOP = 608683694U;
     } // namespace EVENTS
 
     namespace STATES

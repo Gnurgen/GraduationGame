@@ -10,6 +10,7 @@ public class MeleeAI : EnemyStats {
 
     public GameObject Weapon;
 	public GameObject target;
+    public string state;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
@@ -36,17 +37,21 @@ public class MeleeAI : EnemyStats {
         myDoll.myTag = "EnemyMeleeRagdoll";
 		seeker = GetComponent<Seeker> ();
         body = GetComponent<Rigidbody>();
-        StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
-        startPosition = transform.position;
         currentAttackSpeed = 0;
 	}
+
+    void OnEnable()
+    {
+        StartCoroutine(Waiting(3));
+    }
+
     public bool isInTransition;
     void FixedUpdate()
     {
         isInTransition = animator.IsInTransition(0) || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack");
         currentAttackSpeed -= Time.fixedDeltaTime;
-        if(!onPause)
+        if (!onPause)
         {
             body.velocity = Vector3.zero;
         }
@@ -70,17 +75,21 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Waiting(float sec)
     {
+        state = "waiting";
         while(sec > 0)
         {
             sec -= Time.deltaTime;
             yield return null;
         }
+        startPosition = transform.position;
         StartCoroutine(Idle());
         yield break;
     }
 
 	IEnumerator Idle()
 	{
+        state = "idle";
+        target = null;
         animator.SetBool("Run", false);
         for (;;)
         {
@@ -113,6 +122,7 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Reset()
     {
+        state = "reset";
         GameManager.events.EnemyAggroLost(gameObject);
         animator.SetBool("Run", true);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
@@ -129,6 +139,12 @@ public class MeleeAI : EnemyStats {
                 {
                     GameManager.events.EnemyAggro(gameObject);
                     StartCoroutine(Chasing());
+                    yield break;
+                }
+
+                if(Vector3.Distance(transform.position, startPosition) < 2)
+                {
+                    StartCoroutine(Idle());
                     yield break;
                 }
 
@@ -164,6 +180,7 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Chasing()
 	{
+        state = "chasing";
         animator.SetBool("Run", true);
         for (;;)
         {
@@ -231,6 +248,7 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Attacking()
     {
+        state = "attacking";
         for (;;)
         {
             if (!onPause)

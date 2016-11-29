@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RoomTile : MonoBehaviour {
 
-    public const int TILE_SCALE = 2;
+    public const int TILE_SCALE = 3;
 
     public string referenceName;
     public bool isDefault;
@@ -12,11 +12,4 @@ public class RoomTile : MonoBehaviour {
     [HideInInspector]
     public int index;
 
-    void Start () {
-	
-	}
-	
-	void Update () {
-	
-	}
 }

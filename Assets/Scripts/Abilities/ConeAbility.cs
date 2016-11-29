@@ -4,12 +4,9 @@ using System.Collections.Generic;
 
 public class ConeAbility : MonoBehaviour {
 
-    /*TODO:
-     * STOP CONE ANIMATION AT SOLID OBJECTS 
-    */
 
 
-    private float tDist, speed, cDist, norm, damage, pushForce, stunTime;
+    private float tDist, speed, cDist, norm, damage, pushForce, stunTime, killTime;
     private int tris;
     private bool detect = false;
     private Vector3 myRot;
@@ -18,12 +15,9 @@ public class ConeAbility : MonoBehaviour {
     private GameObject coneParticle;
     Ray dmgRay;
     RaycastHit[] hit;
-    PoolManager poolManager;
     int cCounter = 0, cStart = 0;
+    int enemy, enemyhit;
 	// Use this for initialization
-	void Awake () {
-        poolManager = FindObjectOfType<PoolManager>();
-	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -34,18 +28,25 @@ public class ConeAbility : MonoBehaviour {
             //Calculate all targets hit, ensure only one instance is recorded and apply ability-effects delayed based on distance and speed.
             for (int k = 1; k < dmgMesh.triangles.Length - 1; k += 3)
             {
-                dmgRay = new Ray(transform.position, Quaternion.Euler(myRot) * ((transform.position + dmgMesh.vertices[dmgMesh.triangles[k]]) - transform.position));
-                hit = Physics.RaycastAll(dmgRay, tDist);
+                Vector3 partDir = Quaternion.Euler(myRot) * ((transform.position + dmgMesh.vertices[dmgMesh.triangles[k]]) - transform.position);
+                dmgRay = new Ray(transform.position, partDir);
+                hit = Physics.RaycastAll(dmgRay, partDir.magnitude);
                 for (int q = 0; q < hit.Length; ++q)
                 {
-                    if(hit[q].transform.gameObject.layer == 10)
+                    if (hit[q].transform.gameObject.layer == enemy)
                     {
-                        hit[q].transform.gameObject.layer = 11;
-                        StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position) / speed));
+                        hit[q].transform.gameObject.layer = enemyhit;
+                        print(hit[q].transform.GetComponent<Rigidbody>().velocity * speed);
+                        if(hit[q].transform.tag == "Boss")
+                        {
+                            StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position) / speed));
+                        }
+                        else
+                            StartCoroutine(ApplyConeEffect(hit[q].transform.gameObject, Vector3.Distance(transform.position, hit[q].transform.position+hit[q].transform.GetComponent<EnemyStats>().velo*speed) / speed));
                         ++cStart;
                     }
                 }
-                dir[i] = transform.position + Quaternion.Euler(myRot) * ((transform.position + dmgMesh.vertices[dmgMesh.triangles[k]]) - transform.position);
+                dir[i] = transform.position + partDir;
                 ++i;
             }
             Spawncone();
@@ -56,22 +57,25 @@ public class ConeAbility : MonoBehaviour {
     {
         for(int i = 0; i<dir.Length; ++i)
         {
-            coneParticle = poolManager.GenerateObject("p_ConeParticle");
+            coneParticle = GameManager.pool.GenerateObject("p_ConeParticle");
             coneParticle.transform.position = (transform.position-Vector3.up) + Vector3.up*Random.Range(0.1f, 1.5f);
+            float coneDist = (dir[i]-transform.position).magnitude;
+            tDist = tDist < coneDist ? coneDist : tDist;
             dir[i].y = coneParticle.transform.position.y;
             coneParticle.transform.LookAt(dir[i]);
-            coneParticle.GetComponent<MovingConeParticle>().setVars(speed, tDist);
+            coneParticle.GetComponent<MovingConeParticle>().setVars(speed, coneDist);
         }
-        if (cStart == 0)
-            Destroy(gameObject);
+        StartCoroutine(EndConeAbility(tDist/speed));
     }
 
-    public void setVars(float l, float s, int t, Mesh m, float d, float p, float st)
+    public void setVars(float s, int t, Mesh m, float d, float p, float st)
     {
-        tDist = l;
+        enemy = LayerMask.NameToLayer("Enemy");
+        enemyhit = LayerMask.NameToLayer("EnemyHit");
         speed = s;
         pushForce = p;
         damage = d;
+        tDist = 0;
         stunTime = st;
         dir = new Vector3[t];
         dmgMesh = m;
@@ -83,21 +87,26 @@ public class ConeAbility : MonoBehaviour {
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        if (go == null)
+        if (go != null)
         {
-            ++cCounter;
-        }
-        else
-        {
-            print("applycone");
             GameManager.events.ConeAbilityHit(go);
             go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized*pushForce, ForceMode.Impulse);
-            go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
-            go.GetComponent<EnemyStats>().PauseFor(stunTime);
-            go.layer = 10;
-            ++cCounter;
+            if(go.tag == "Enemy")
+            {
+                go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
+                go.GetComponent<EnemyStats>().PauseFor(stunTime);
+            }
+            else
+            {
+                go.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, 0);
+            }
+            go.layer = enemy;
         }
-        if (cCounter == cStart)
-            Destroy(gameObject);
+    }
+    IEnumerator EndConeAbility(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameManager.events.ConeAbilityEnd(gameObject);
+        Destroy(gameObject);
     }
 }

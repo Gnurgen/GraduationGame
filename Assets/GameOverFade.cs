@@ -30,9 +30,11 @@ public class GameOverFade : MonoBehaviour {
             {
                 curTime = fadeTime;
                 img.color = fadeColor;
-                if(FindObjectOfType<SpiritRock>() != null)
+                if(GameManager.game.activeCheckpoint != null)
                 {
-                    GameManager.player.transform.position = FindObjectOfType<SpiritRock>().transform.position;
+                    GameManager.events.Respawned();
+                    GameManager.player.transform.position = GameManager.game.activeCheckpoint.transform.position;
+                    GameManager.player.GetComponent<Health>().health = GameManager.player.GetComponent<Health>().maxHealth;
                     GameManager.GameOver(true);
                 }
                 else

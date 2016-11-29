@@ -1,53 +1,68 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class EnemyHealthBars : MonoBehaviour {
+
+    public float timeBetweenFade = 2.0f;
+    public float fadeInDuration = 0.2f;
+    public float fadeOutDuration = 5.0f;
+
     private float maxSize = 0.8f;
     private float minSize = 0.2f;
     private float maxHealth;
     private float health;
-    private float hightOfHealthbar = 200;
-    private float scale;
-    private GameObject enemy;
+    private float hightOfHealthbar = 300;
+    private GameObject enemy, mainCamera;
     private int type;
-    Vector3 position;
+
+  
 
     void Awake()
     {
-        transform.localScale = new Vector3(0, 0, 0);
+        transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
     }
 
     void Start () {
+        mainCamera = GameObject.Find("Main Camera");            
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
 
+        
     }
     void Update()
     {
         if (enemy != null)
-        {
             healthPosition();
-            updateHealthBar();//Could actually just call this whenever enemy takes damage
-        }
         else
             gameObject.SetActive(false);
     }
 
-    void updateHealthBar() {
+   public void updateHealthBar() {
+        StartCoroutine(fadeHealthBar());
         health = enemy.GetComponent<Health>().health;
-        scale = minSize+((maxSize-minSize)*(1-((maxHealth-health)/maxHealth))); 
-        gameObject.transform.localScale = new Vector3(scale, scale, 0); 
+        gameObject.GetComponent<Image>().fillAmount = 1 - ((maxHealth - health) / maxHealth);
         if (health <= 0)
             gameObject.SetActive(false);
     }
 
     void healthPosition() {
-        position = enemy.transform.position;  //stop
-        gameObject.transform.position = position;
-        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y+ hightOfHealthbar, 0);
+        gameObject.transform.position = mainCamera.transform.position + (enemy.transform.position - mainCamera.transform.position).normalized * 3;
+        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y + hightOfHealthbar, gameObject.transform.localPosition.z);
     }
-    public void getMyEnemy(GameObject myEnemy, int myType) {
-        print(myEnemy);
+
+
+    public void getMyEnemy(GameObject myEnemy) {
         enemy = myEnemy;
-        type = myType;
+        myEnemy.GetComponent<Health>().SetHealthBar(this);
         maxHealth = enemy.GetComponent<Health>().health;
+        updateHealthBar();
+    }
+
+
+    IEnumerator fadeHealthBar()
+    {
+        gameObject.GetComponent<Image>().CrossFadeAlpha(1, fadeInDuration, true);
+        yield return new WaitForSeconds(timeBetweenFade);
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
     }
 }

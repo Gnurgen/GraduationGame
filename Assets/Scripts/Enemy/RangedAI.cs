@@ -33,19 +33,23 @@ public class RangedAI : EnemyStats {
     private int aggros;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
         seeker = GetComponent<Seeker>();
         body = GetComponent<Rigidbody>();
-        StartCoroutine(Waiting(3));
+        myDoll = GetComponent<SpawnRagdoll>();
         mySpeed = moveSpeed;
-        startPosition = transform.position;
         currentAttackSpeed = 0;
         myDoll.myTag = "EnemyRangedRagdoll";
         taunts = 0;
         aggros = 0;
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(Waiting(3));
     }
 
     void FixedUpdate()
@@ -78,6 +82,7 @@ public class RangedAI : EnemyStats {
             sec -= Time.deltaTime;
             yield return null;
         }
+        startPosition = transform.position;
         StartCoroutine(Idle());
         yield break;
     }
@@ -86,7 +91,7 @@ public class RangedAI : EnemyStats {
     {
         animator.SetBool("Backwards", false);
         animator.SetBool("Run", false);
-
+        target = null;
         for (;;)
         {
             if (!onPause)
@@ -140,6 +145,12 @@ public class RangedAI : EnemyStats {
                 {
                     GameManager.events.EnemyAggro(gameObject);
                     StartCoroutine(Chasing());
+                    yield break;
+                }
+
+                if (Vector3.Distance(transform.position, startPosition) < 2)
+                {
+                    StartCoroutine(Idle());
                     yield break;
                 }
 

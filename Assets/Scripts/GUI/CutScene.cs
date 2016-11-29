@@ -74,7 +74,7 @@ public class CutScene : MonoBehaviour {
         frames[24].GetComponent<Image>().CrossFadeAlpha(0, 1, true);
         yield return new WaitForSeconds(4);
 
-        SceneManager.LoadScene("Alpha");
+        SceneManager.LoadScene("Tutorial");
     }
     void Update()
     {
@@ -85,6 +85,6 @@ public class CutScene : MonoBehaviour {
     }
     public void SkipCutscene()
     {
-        SceneManager.LoadScene("Alpha");
+        SceneManager.LoadScene("Tutorial");
     }
 }

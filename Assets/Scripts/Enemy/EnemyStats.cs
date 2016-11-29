@@ -22,7 +22,9 @@ public class EnemyStats : Health {
     public float pauseFor;
     public float force;
 
-
+    [HideInInspector]
+    public Vector3 velo;
+    private Vector3 prevPos;
 
     public void Pause()
     {
@@ -52,5 +54,10 @@ public class EnemyStats : Health {
 
     void Update()
     {
+        velo = transform.position - prevPos;
+    }
+    void LateUpdate()
+    {
+        prevPos = transform.position;
     }
 }

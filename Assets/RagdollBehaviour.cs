@@ -8,11 +8,9 @@ public class RagdollBehaviour : MonoBehaviour {
     void Start ()
     {
         pm = FindObjectOfType<PoolManager>();
-        Invoke("Repool", DespawnTime);
     }
 	void OnEnable () {
-      
-        Invoke("Repool", DespawnTime);
+        StartCoroutine(Repool());
 	}
 	
 	// Update is called once per frame
@@ -20,8 +18,9 @@ public class RagdollBehaviour : MonoBehaviour {
 	
 	}
 
-    private void Repool()
+    IEnumerator Repool()
     {
+        yield return new WaitForSeconds(DespawnTime);
         pm.PoolObj(gameObject);
         GameManager.events.EnemyRagdollDespawn(gameObject);
     }

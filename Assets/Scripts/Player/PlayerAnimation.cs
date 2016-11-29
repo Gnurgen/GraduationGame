@@ -7,24 +7,39 @@ public class PlayerAnimation : MonoBehaviour {
     Animator anim;
 	// Use this for initialization
 	void Start () {
-        GameManager.events.OnPlayerAttack += AttackAni;
         GameManager.events.OnPlayerDashBegin += DashBeginAni;
         GameManager.events.OnPlayerDashEnd += DashEndAni;
         GameManager.events.OnPlayerIdle += IdleAni;
         GameManager.events.OnPlayerMove += RunAni;
-        GameManager.events.OnWheelSelect += PowerAttackAni;
+        GameManager.events.OnConeAbilityStart += ConeAbilityStart;
+        GameManager.events.OnConeAbilityUsed += ConeAttack;
+        GameManager.events.OnSpearDrawAbilityStart += ConeAbilityStart;
+        GameManager.events.OnSpearDrawAbilityUsed += ConeAttack;
+        GameManager.events.OnConeAbilityCancel += ConeCancel;
         anim = GetComponent<Animator>();
 	}
 
-    private void PowerAttackAni(int option)
+ 
+
+    private void ConeAbilityStart(GameObject Id)
     {
-        //print(option);
-        if(option == 1) // FLYING SPEAR
-        {
-            anim.SetTrigger("PowerAbility");
-            anim.SetBool("Run", false);
-        }
+        anim.SetBool("PowerAttack", true);
+        anim.SetBool("Cancel", false);
     }
+
+    private void ConeAttack(GameObject option)
+    { 
+        anim.SetBool("Dash", false);
+        anim.SetBool("PowerAttack", false);
+        anim.SetBool("Cancel", false);
+    }
+
+    private void ConeCancel(GameObject Id)
+    {
+        anim.SetBool("PowerAttack", false);
+        anim.SetBool("Cancel", true);
+    }
+
 
     private void RunAni(GameObject Id)
     {
@@ -39,20 +54,19 @@ public class PlayerAnimation : MonoBehaviour {
 
     private void DashEndAni(GameObject Id)
     {
-        anim.SetBool("Run", false);
+        anim.SetBool("Dash", false);
     }
 
     private void DashBeginAni(GameObject Id)
     {
-        anim.SetTrigger("Dash");
+        anim.SetBool("Dash", true);
         anim.SetBool("Run", false);
-
     }
 
-    private void AttackAni(GameObject Id)
+    private void SpearAttack(GameObject Id)
     {
-        anim.SetBool("Attack", true);
-        anim.SetBool("Run", false);
+        anim.SetBool("Dash", false);
+        anim.SetTrigger("Attack");
     }
 
     // Update is called once per frame

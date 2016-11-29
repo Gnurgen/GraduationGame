@@ -35,3 +35,7 @@ Audio Bus	ID	Name			Wwise Object Path	Notes
 Auxiliary Bus	ID	Name			Wwise Object Path	Notes
 	3633416828	Hall			\Default Work Unit\Master Audio Bus\Sound Effects\Environmental\Reverb\Hall	
 
+Effect plug-ins	ID	Name	Type				Notes
+	987112962	Wwise RoomVerb (Custom)	Wwise RoomVerb			
+	1459522457	Brick_Wall_Minus_1dB_Peak_Fast_Release	Wwise Peak Limiter			
+

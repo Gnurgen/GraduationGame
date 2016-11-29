@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PluginInfo Project="Core - Wwise Project" Platform="Mac" BasePlatform="Mac">
 	<Plugins>
-		<Plugin Name="Wwise Sine" ID="6553602" DLL="Sine"/>
 		<Plugin Name="Wwise Silence" ID="6619138" DLL="SilenceGenerator"/>
+		<Plugin Name="Wwise Peak Limiter" ID="7208963" DLL="AkPeakLimiter"/>
+		<Plugin Name="Wwise RoomVerb" ID="7733251" DLL="AkRoomVerb"/>
+		<Plugin Name="SoundSeed Air/SoundSeed Wind" ID="7798786" DLL="AkSoundSeedAir"/>
 		<Plugin Name="SoundSeed Air/SoundSeed Woosh" ID="7864322" DLL="AkSoundSeedAir"/>
+		<Plugin Name="Wwise Guitar Distortion" ID="8257539" DLL="AkGuitarDistortion"/>
 	</Plugins>
 </PluginInfo>

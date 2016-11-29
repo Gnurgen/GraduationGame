@@ -14,10 +14,12 @@ public class GameManager {
     private InputManager _inputManager;
     private TimeManager _timeManager;
     private GameObject _player;
+    private GameObject _spear;
     private PoolManager _poolManager;
     private GameObject _managers;
+    private GameObject _activeCheckPoint;
     private Menu _menu;
-    private static int _score, _experience, _playerLevel;
+    private static int _score, _experience, _playerLevel, _progress;
 
     public GameManager()
     {
@@ -84,6 +86,18 @@ public class GameManager {
         set
         {
             _playerLevel = value;
+        }
+    }
+
+    public static int progress
+    {
+        get
+        {
+            return _progress;
+        }
+        set
+        {
+            _progress = value;
         }
     }
 
@@ -218,6 +232,32 @@ public class GameManager {
         }
     }
 
+    public GameObject Spear
+    {
+        get
+        {
+            if (_spear == null)
+                _spear = GameObject.Find("spear_tip");
+            return _spear;
+        }
+    }
+    public static GameObject spear
+    {
+        get
+        {
+            return game.Spear;
+        }
+    }
+    public GameObject activeCheckpoint
+    {
+        get
+        {
+            return _activeCheckPoint;
+        }
+        set {
+            _activeCheckPoint = value;
+        }
+    }
     private Menu menu
     {
         get

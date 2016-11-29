@@ -9,14 +9,16 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour {
     private Vector3 viewingAngle;
     private Transform player;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         transform.rotation = Quaternion.identity;
         player = GameManager.player.transform;
         transform.Rotate(viewingAngle);
+        if (player != null)
+            transform.position = player.position - transform.forward * distance;
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
         if(player!=null)
             transform.position = player.position - transform.forward * distance;
 

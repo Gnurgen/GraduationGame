@@ -19,7 +19,7 @@ public class RoomBuilder : MonoBehaviour {
 
     private List<GameObject> objectList = new List<GameObject>();
     private Vector2 _roomSize = new Vector2(1, 1);
-    private List<GameObject> enemyList = new List<GameObject>();
+    public int enemyCount = 0;
 
     public Vector2 roomSize
     {
@@ -31,10 +31,12 @@ public class RoomBuilder : MonoBehaviour {
         {
             if (_roomSize != value)
             {
+                int i;
+                int j;
                 _roomSize = value;
-                for(int i = 0; i < roomUnits.GetLength(0); i++)
+                for(i = 0; i < roomUnits.GetLength(0); i++)
                 {
-                    for (int j = 0; j < roomUnits.GetLength(1); j++)
+                    for (j = 0; j < roomUnits.GetLength(1); j++)
                     {
                         if (!roomUnits[i, j])
                         {
@@ -106,12 +108,8 @@ public class RoomBuilder : MonoBehaviour {
     void Start()
     {
         RoomTile[] tiles = GetComponentsInChildren<RoomTile>();
-
-        for(int i = 0; i < tiles.Length; i++)
-        {
-            if (tiles[i].referenceName == "Default Tile")
-                tiles[i].gameObject.layer = 8;
-        }
+        Health[] enemies = GetComponentsInChildren<Health>();
+        enemyCount = enemies.Length;
 
 
         for(int i = 0; i < transform.childCount; i++)
@@ -127,21 +125,12 @@ public class RoomBuilder : MonoBehaviour {
     void Update () {
 	}
 
-    public void AddEnemy(GameObject enemy)
-    {
-        enemyList.Add(enemy);
-    }
 
-    public void RemoveEnemy(GameObject enemy)
+    public void DecrementEnemyCount()
     {
-        enemyList.Remove(enemy);
-        if (enemyList.Count == 0)
+        if (--enemyCount <= 0)
         {
-            OpenCloseDoor[] toggleList = GetComponentsInChildren<OpenCloseDoor>();
-            for (int i = 0; i < toggleList.Length; i++)
-            {
-                toggleList[i].openDoor();
-            }
+            
             // Room cleared
         }
     }
@@ -166,6 +155,40 @@ public class RoomBuilder : MonoBehaviour {
         };
     }
 
+
+    public void HideWalls(bool right, bool bottom)
+    {
+        int i;
+        int j;
+        RoomWall[] walls;
+        RoomWall rightWall;
+        RoomWall bottomWall;
+        GameObject go;
+        RoomUnit[] units = GetComponentsInChildren<RoomUnit>();
+
+        for (i = 0; i < units.Length; i++)
+        {
+            walls = units[i].GetComponentsInChildren<RoomWall>();
+            rightWall = null;
+            bottomWall = null;
+
+            for (j = 0; j < walls.Length; j++)
+            {
+                if (rightWall == null || walls[j].transform.position.x > rightWall.transform.position.x)
+                    rightWall = walls[j];
+                if (bottomWall == null || walls[j].transform.position.z < bottomWall.transform.position.z)
+                    bottomWall = walls[j];
+            }
+
+            go = rightWall.transform.GetChild(0).gameObject;
+            if (go.activeInHierarchy && right)
+                go.SetActive(!right);
+
+            go = bottomWall.transform.GetChild(0).gameObject;
+            if (go.activeInHierarchy && bottom)
+                go.SetActive(!bottom);
+        }
+    }
     /*
     public void AddRoomObject(GameObject go)
     {

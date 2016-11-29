@@ -27,7 +27,6 @@ public class TimeManager : MonoBehaviour {
         GameManager.events.OnWheelOpen += SlowTime;
         GameManager.events.OnWheelSelect += NormalTime;
         GameManager.events.OnDrawComplete += NormalTime;
-        print("TimeManager subscribed");
     }
 
 

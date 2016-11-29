@@ -3,91 +3,80 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-public class FlyingSpear : MonoBehaviour, IAbility {
+public class FlyingSpear : MonoBehaviour {
 
     public GameObject spear;
-    public float baseDamage;
-    [Range(0, 100)]
-    public float DmgIncreasePerLvlPercentage;
-    public float flyingSpeed;
-    public float cooldown = 5;
-    public float drawTimer;
-    public float drawLength;
+    [SerializeField]
+    private float baseDamage, flyingSpeed, cooldown = 5, drawLength, damage, pushForce, spearAltitude, turnRate, stunTime;
+    [SerializeField]
+    [Range(1, 10)]
+    private int dragForce = 1;
+    [SerializeField]
+    private int dragTargets;
 
 
+
+    private float currentCooldown;
     private InputManager IM;
     private EventManager EM;
     private CurveDraw LR;
-    public float damage;
-    public float pushForce;
-    public float currentCooldown;
-    public float currentDrawTimer;
-    public float currentDrawLength;
+    private float currentDrawLength;
     private List<Vector3> drawnPoints;
     private int ID;
 
     private bool shouldDraw;
-    private bool newPointAdded;
-    private int pointIndex;
 
     // Use this for initialization
     void Start () {
         damage = baseDamage;
         currentCooldown = 0;
         currentDrawLength = 0;
-        currentDrawTimer = 0;
         IM = GameManager.input;
         EM = GameManager.events;
         LR = GetComponent<CurveDraw>();
         ID = IM.GetID();
-        EM.OnLevelUp += levelUpSpear;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         currentCooldown -= Time.deltaTime;
-        currentDrawTimer -= Time.deltaTime;
 	}
 
     public float Cooldown()
     {
 
-        return currentCooldown < 0 ? 1 : (cooldown - currentCooldown) / cooldown;
+        return currentCooldown< 0 ? 0 : currentCooldown;
     }
 
-    public void UseAbility()
+    public void UseAbility(Vector3 p)
     {
-        if (currentCooldown < 0)
-        {
-            StartCoroutine("Ability");
-        }
+        currentDrawLength = 0;
+        shouldDraw = true;
+        drawnPoints = new List<Vector3>();
+        LR.AddPoint(transform.position);
+        LR.AddPoint(p);
+        currentDrawLength += Vector3.Distance(transform.position, p);
+        drawnPoints.Add(p);
+        StartCoroutine(Ability());
     }
 
     IEnumerator Ability()
     {
-        IM.OnFirstTouchBeginSub(GetDown, ID);
         IM.OnFirstTouchMoveSub(GetMove, ID);
         IM.OnFirstTouchEndSub(GetEnd, ID);
         IM.TakeControl(ID);
-
-        drawnPoints = new List<Vector3>();
-        currentDrawLength = 0;
-        shouldDraw = true;
-        newPointAdded = false;
-        currentDrawTimer = drawTimer;
-
-        yield return StartCoroutine("DrawLine");
-
+        yield return StartCoroutine(DrawLine());
         IM.ReleaseControl(ID);
-        IM.OnFirstTouchBeginUnsub(ID);
         IM.OnFirstTouchMoveUnsub(ID);
         IM.OnFirstTouchEndUnsub(ID);
+       
+        GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
 
         GameObject s = Instantiate(spear) as GameObject;
-        s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce);
+        GameManager.events.SpearDrawAbilityUsed(s);
+        s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets);
         LR.CleanUp();
-        GameManager.events.DrawComplete(10); // takes input 10 because it is complete.
         currentCooldown = cooldown;
     }
 
@@ -95,50 +84,47 @@ public class FlyingSpear : MonoBehaviour, IAbility {
     {
         while (shouldDraw)
         {
-            if(currentDrawTimer < 0)
-            {
-                yield break;
-            }
             yield return null;
         }
         yield break;
     }
 
-    void GetDown(Vector2 p)
-    {
-        Vector3 worldPoint = IM.GetWorldPoint(p);
-        if(currentDrawLength + Vector3.Distance(transform.position, worldPoint) < drawLength)
-        {
-            LR.AddPoint(transform.position);
-            LR.AddPoint(worldPoint);
-            currentDrawLength += Vector3.Distance(transform.position, worldPoint);
-            newPointAdded = true;
-        }
-    }
-
     void GetMove(Vector2 p)
     {
         Vector3 worldPoint = IM.GetWorldPoint(p);
-        if (currentDrawLength + Vector3.Distance(transform.position, worldPoint) < drawLength)
+        if (currentDrawLength + Vector3.Distance(drawnPoints[drawnPoints.Count-1], worldPoint) < drawLength)
         {
+            currentDrawLength += Vector3.Distance(drawnPoints[drawnPoints.Count - 1], worldPoint);
             LR.AddPoint(worldPoint);
-            currentDrawLength += Vector3.Distance(transform.position, worldPoint);
-            newPointAdded = true;
+            drawnPoints.Add(worldPoint);
+        }
+        else if (drawLength - currentDrawLength > 0)
+        {
+            Vector3 k = drawnPoints[drawnPoints.Count - 1] + (worldPoint - drawnPoints[drawnPoints.Count - 1]).normalized * (drawLength - currentDrawLength);
+            LR.AddPoint(k);
+            drawnPoints.Add(k);
+            currentDrawLength = drawLength;
         }
     }
+
+
 
     void GetEnd(Vector2 p)
     {
         Vector3 worldPoint = IM.GetWorldPoint(p);
-        if (currentDrawLength + Vector3.Distance(transform.position, worldPoint) < drawLength)
+        if (currentDrawLength + Vector3.Distance(drawnPoints[drawnPoints.Count - 1], worldPoint) < drawLength)
         {
+            currentDrawLength += Vector3.Distance(drawnPoints[drawnPoints.Count - 1], worldPoint);
             LR.AddPoint(worldPoint);
-            currentDrawLength += Vector3.Distance(transform.position, worldPoint);
-            newPointAdded = true;
+            drawnPoints.Add(worldPoint);
+        }
+        else if (drawLength - currentDrawLength > 0)
+        {
+            Vector3 k = drawnPoints[drawnPoints.Count - 1] + (worldPoint - drawnPoints[drawnPoints.Count - 1]).normalized * (drawLength - currentDrawLength);
+            LR.AddPoint(k);
+            drawnPoints.Add(k);
+            currentDrawLength = drawLength;
         }
         shouldDraw = false;
-    }
-    void levelUpSpear(int level) {
-        damage += damage * (DmgIncreasePerLvlPercentage / 100);
     }
 }
