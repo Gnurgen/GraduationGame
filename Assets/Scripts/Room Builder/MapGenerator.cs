@@ -41,6 +41,7 @@ public class MapGenerator : MonoBehaviour {
     private int offset;
     private int index;
     private int total;
+    private bool firstSet;
     private bool[] doors;
     private GameObject go;
     private List<GameObject>[] list = new List<GameObject>[4];
@@ -138,6 +139,7 @@ public class MapGenerator : MonoBehaviour {
         totalProgress = 0;
         progressCoords = new int[] {0, 0};
         completed = false;
+        firstSet = false;
 
         switch (size)
         {
