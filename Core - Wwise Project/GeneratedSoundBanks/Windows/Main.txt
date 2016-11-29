@@ -1,5 +1,4 @@
 Event	ID	Name			Wwise Object Path	Notes
-	169826302	Boss_Rain_Move_Play			\Default Work Unit\Boss_Rain_Move_Play	
 	208500619	Enemy_Aggro_Stop			\Default Work Unit\Enemy_Aggro_Stop	
 	350081739	Music_System_Play			\Default Work Unit\Music_System_Play	
 	378387809	Button_Wheel_Select_Play			\Default Work Unit\Button_Wheel_Select_Play	
@@ -11,7 +10,6 @@ Event	ID	Name			Wwise Object Path	Notes
 	914283814	Enemy_Ranged_Target_Play			\Default Work Unit\Enemy_Ranged_Target_Play	
 	1005055766	Cone_Ability_Control_Play			\Default Work Unit\Cone_Ability_Control_Play	
 	1206082786	Menu_Close_Play			\Default Work Unit\Menu_Close_Play	
-	1207719104	Boss_Rain_Move_Stop			\Default Work Unit\Boss_Rain_Move_Stop	
 	1233116581	Enemy_Melee_Hit_Player_Play			\Default Work Unit\Enemy_Melee_Hit_Player_Play	
 	1389849668	Player_Respawn_Play			\Default Work Unit\Player_Respawn_Play	
 	1433984317	Boss_Beam_Target_Play			\Default Work Unit\Boss_Beam_Target_Play	
@@ -41,7 +39,6 @@ Event	ID	Name			Wwise Object Path	Notes
 	3837168167	Button_Wheel_Hover_Play			\Default Work Unit\Button_Wheel_Hover_Play	
 	3906322206	Button_Menu_Play			\Default Work Unit\Button_Menu_Play	
 	3961649480	Enemy_Ranged_Projectile_Play			\Default Work Unit\Enemy_Ranged_Projectile_Play	
-	4044112498	Boss_Rain_Target_Play			\Default Work Unit\Boss_Rain_Target_Play	
 	4072057392	Enemy_Ranged_Play			\Default Work Unit\Enemy_Ranged_Play	
 	4191587739	Boss_Beam_Stop			\Default Work Unit\Boss_Beam_Stop	
 	4192965245	Enemy_Death_Play			\Default Work Unit\Enemy_Death_Play	
@@ -87,11 +84,15 @@ Custom State	ID	Name	State Group	Owner		Notes
 Trigger	ID	Name			Wwise Object Path	Notes
 	2788114033	Boss_Stinger			\Default Work Unit\Boss_Stinger	
 
+Effect plug-ins	ID	Name	Type				Notes
+	60794791	Wwise Guitar Distortion (Custom)	Wwise Guitar Distortion			
+
 Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
 	7162753	Enemy Melee Whoosh	SoundSeed Air/SoundSeed Woosh		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy Melee\Enemy_Melee\Enemy Melee Whoosh	
-	57638891	Wwise Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy_Ranged_Projectile\Wwise Sine	
 	89324303	Wwise Sine	Wwise Sine		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Elevator\Wwise Sine	
 	286443241	Spear Whoosh	SoundSeed Air/SoundSeed Woosh		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear\Spear Whoosh	
+	328513533	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Beam Target\Boss_Beam_Hit_Wall\Wwise Silence	
+	492821427	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Ranged Target\Enemy_Ranged_Hit_Wall\Wwise Silence	
 	695947847	Dash Whoosh	SoundSeed Air/SoundSeed Woosh		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Dash\Dash Whoosh	
 	753104822	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Pickup_Move\Wwise Silence	
 	1043796269	SoundSeed Wind	SoundSeed Air/SoundSeed Wind		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw\Wind\SoundSeed Wind	
@@ -104,12 +105,9 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	73345813	Ambience_5	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Ambience_5_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_5		827302
 	77503931	Menu_Close	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Menu_Close_865244D9.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Menu_Close		5308
 	91948562	Ambience_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Ambience_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_3		578856
-	97329504	Boss_Beam_Hit_Wall	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Beam_Hit_Wall_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Beam Target\Boss_Beam_Hit_Wall		7084
 	105078837	Enemy Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact_3		5862
 	108351414	Enemy Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact_2		6060
 	117927810	In Game Music - Gongs	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\In Game Music - Gongs_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Gongs		974943
-	134979899	Enemy_Ranged	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy_Ranged_D8CE6611.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy_Ranged		21291
-	145486535	Boss_Rain_Hit_Player	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Rain_Hit_Player_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Rain Target\Boss_Rain_Hit_Player		8465
 	163235136	Player Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Player Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Melee Player Impact\Player Impact_2		6317
 	168374737	Indestructable Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Indestructable Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact_3		7865
 	193622691	Button_Start_Game	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Button_Start_Game_5CAE6989.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Buttons\Button_Start_Game		5885
@@ -117,9 +115,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	209859539	Draw_Ability_Control	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Draw_Ability_Control_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Ability Feedback\Draw_Ability_Control		30160
 	236484631	In Game Music - Main	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\In Game Music - Main_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Main		1325070
 	239801717	Ambience_4	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Ambience_4_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_4		617251
-	248240721	Enemy_Ranged_Hit_Player	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy_Ranged_Hit_Player_D643B37C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Ranged Target\Enemy_Ranged_Hit_Player		8644
 	314800765	Button_Wheel_Select	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Button_Wheel_Select_785D9045.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Buttons\Button_Wheel_Select		7157
-	325711566	Boss_Beam	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Beam_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss_Beam		15356
 	335394518	Button_Menu	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Button_Menu_C5CDED70.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Buttons\Button_Menu		4052
 	349841009	Enemy_Chatter	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy_Chatter_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Enemy Aggro\Enemy_Chatter		20535
 	350427486	Enemy Swing Rock_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy Swing Rock_2_CB76C922.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy Melee\Enemy Rock Swing\Enemy Swing Rock_2		6229
@@ -135,8 +131,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	547466270	In Game Music - Rhythm	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\In Game Music - Rhythm_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Rhythm		1634068
 	554798888	Boss Impact_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss Impact_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Boss Impact\Boss Impact_1		5860
 	568477832	Music_In_Ending_Cutscene	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Music_In_Ending_Cutscene_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\Music_In_Ending_Cutscene\Music_In_Ending_Cutscene\Music_In_Ending_Cutscene		29786
-	574730426	Boss_Beam_Hit_Player	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Beam_Hit_Player_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Beam Target\Boss_Beam_Hit_Player		7364
-	577510896	Enemy_Ranged_Hit_Wall	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy_Ranged_Hit_Wall_71DAFC6C.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Ranged Target\Enemy_Ranged_Hit_Wall		8341
 	582697754	Indestructable Impact	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Indestructable Impact_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact		7036
 	588111419	Boss Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Boss Impact\Boss Impact_3		5396
 	598171912	Spear Cone Cast	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Spear Cone Cast_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Cone Cast		80673
@@ -145,19 +139,20 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	667649109	Indestructable Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Indestructable Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact_2		7653
 	683796896	Boss_Presentation	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Presentation_4B8CC0C5.wem		\Interactive Music Hierarchy\Default Work Unit\Boss_Presentation\Boss_Presentation		203200
 	743145374	Wheel_Open	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Wheel_Open_ECAC36E8.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Wheel_Open		3631
-	750327012	Boss_Rain	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Rain_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss_Rain		16766
 	755656711	Ambience_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Ambience_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Big\Ambience_1		740355
 	761651021	Enemy_Death	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy_Death_0F350AAC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Enemy_Death		4913
 	784204649	Menu_Open	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Menu_Open_35E30ACE.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Menu_Open		4391
+	785860472	Boss Beam	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss Beam_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Beam		111093
+	818329351	Ranged Projectile	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Ranged Projectile_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Ranged Projectile		92038
 	822169123	Player_Death	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Player_Death_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Player_Death		5156
 	835280033	Cone_Ability_Control	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Circle_Ability_Control_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Ability Feedback\Cone_Ability_Control		32670
+	885455871	Boss Meteor	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss Meteor_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Meteor		75372
 	898309102	Enemy Impact	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy Impact_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact		6470
 	932996397	Boss Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Boss Impact\Boss Impact_2		5466
 	962076540	Player Impact_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Player Impact_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Melee Player Impact\Player Impact_1		6126
-	963882025	Boss_Rain_Move	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Rain_Move_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss_Rain_Move		6080
 	974188488	Boss Impact	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss Impact_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Boss Impact\Boss Impact		5823
+	999833992	Ranged Attack	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Ranged Attack_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Ranged Attack		27817
 	1011084308	Main Menu Music	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Main Menu Music_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\Main Menu Music\Main Menu Music\Main Menu Music		1420710
 	1020289391	Ambience_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Ambience_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Big\Ambience_2		553937
-	1053373378	Boss_Beam_Hit_Enemy	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Boss_Beam_Hit_Enemy_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Beam Target\Boss_Beam_Hit_Enemy		7195
 	1062194609	Enemy Swing Rock	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Windows\SFX\Enemy Swing Rock_4C73367A.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy Melee\Enemy Rock Swing\Enemy Swing Rock		6241
 
