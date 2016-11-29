@@ -400,5 +400,12 @@ public class EventManager : MonoBehaviour
             OnMapGenerated();
     }
 
+    public delegate void ReSpawn();
+    public event ReSpawn OnRespawn;
+    public void Respawned()
+    {
+        if (OnRespawn != null)
+            OnRespawn();
+    }
 }
 
