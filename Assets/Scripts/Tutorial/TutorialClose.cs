@@ -5,11 +5,23 @@ using System.Collections;
 public class TutorialClose : MonoBehaviour {
     private bool clicked = false;
     private Vector3 positionscale;
-	void Start () {
+    private InputManager IM;
+    public int ID;
+
+    void Start () {
         positionscale = new Vector3(1f, 0.2f, 0);
+        IM = GameManager.input;
+        ID = IM.GetID();
+        GameManager.events.MapGenerated();
+        gameObject.SetActive(false);
     }
-	
-	void Update () {
+
+    private void OnEnable()
+    {
+        terminateTouch();
+    }
+
+    void Update () {
         if (clicked == true)
         {
             gameObject.transform.localScale -= Vector3.one * Time.deltaTime*0.8f;
@@ -25,7 +37,9 @@ public class TutorialClose : MonoBehaviour {
     }
     IEnumerator waitForAniStart()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+        allowTouch();
+        yield return new WaitForSeconds(1);
         clicked = false;
         gameObject.transform.localScale = Vector3.one;
         gameObject.transform.localPosition = Vector3.zero;
@@ -33,4 +47,16 @@ public class TutorialClose : MonoBehaviour {
         gameObject.SetActive(false);
 
     }
+
+    public void terminateTouch()
+    {
+        IM.TakeControl(ID);
+    }
+
+    public void allowTouch()
+    {
+        IM.ReleaseControl(ID);
+    }
+
+
 }
