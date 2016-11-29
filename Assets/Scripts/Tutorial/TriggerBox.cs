@@ -4,11 +4,12 @@ using System.Collections;
 
 public class TriggerBox : MonoBehaviour {
     public Sprite tutorialPic;
-    private Image mainCanvas;
+    public Image mainCanvas;
+    TutorialClose tut;
+
 
 	void Start () {
-        mainCanvas = GameObject.Find("Tutorial").GetComponent<Image>();
-        mainCanvas.gameObject.SetActive(false);
+
     }
     void OnTriggerEnter(Collider col)
     {      
@@ -17,8 +18,9 @@ public class TriggerBox : MonoBehaviour {
             Debug.Log("Hit player");
             mainCanvas.gameObject.SetActive(true);  
             mainCanvas.overrideSprite = tutorialPic;
-            gameObject.SetActive(false);    
+            gameObject.SetActive(false);
         }
     }
+
 
 }

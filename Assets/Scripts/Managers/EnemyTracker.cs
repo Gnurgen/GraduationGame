@@ -29,7 +29,7 @@ public class EnemyTracker : MonoBehaviour {
     void OnPickUp(GameObject go, int blob)
     {
         currentEnemiesAlive -= 1;
-        if(!guideSpawned && ((float)currentEnemiesAlive / (float)allEnemies) < (1 - percentageToKill))
+        if(!guideSpawned && ((float)currentEnemiesAlive / (float)allEnemies) <= (1 - percentageToKill))
         {
             Instantiate(guidingWhisp, GameManager.spear.transform.position, Quaternion.identity);
             guideSpawned = true;
