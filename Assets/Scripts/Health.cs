@@ -17,7 +17,6 @@ public class Health : MonoBehaviour, IHealth {
 
     void OnEnable()
     {
-        print("det blir kørt");
         health = maxHealth;
         Subscribe();
         rd = GetComponent<SpawnRagdoll>();

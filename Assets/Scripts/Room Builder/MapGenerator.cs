@@ -515,6 +515,8 @@ public class MapGenerator : MonoBehaviour {
         for (i = 0; i < mapGrid.GetLength(0); i++)
         {
 
+            Debug.Log(i + " " + j);
+
             if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
             {
 

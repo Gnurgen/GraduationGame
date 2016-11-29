@@ -111,12 +111,6 @@ public class RoomBuilder : MonoBehaviour {
         Health[] enemies = GetComponentsInChildren<Health>();
         enemyCount = enemies.Length;
 
-        for (int i = 0; i < tiles.Length; i++)
-        {
-            if (tiles[i].referenceName == "Default Tile")
-                tiles[i].gameObject.layer = 8;
-        }
-
 
         for(int i = 0; i < transform.childCount; i++)
         {
