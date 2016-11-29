@@ -27,12 +27,13 @@ public class BossHealthBar : MonoBehaviour {
         else
         {
             actor = GameObject.Find("Boss");
-            EM.OnPlayerAttackHit += updateVal;
+            EM.OnSpearDrawAbilityHit += updateVal;
+            EM.OnConeAbilityHit += updateVal;
             maxVal = currentVal = actor.GetComponent<Health>().health;
         }
     }
 
-    void updateVal(GameObject Id, GameObject tar, float val)
+    void updateVal(GameObject Id)
     {
         StartCoroutine(UpdateHP());
     }

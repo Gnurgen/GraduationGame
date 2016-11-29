@@ -96,7 +96,9 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnSpearDrawAbilityUsed;
     public event PlayerAction OnSpearDrawAbilityHit;
     public event PlayerAction OnSpearDrawAbilityEnd;
-
+    public delegate void SpearHitAction(GameObject spear, GameObject enemyHit);
+    public event SpearHitAction OnSpearDrawAbilityDragStart;
+    public event SpearHitAction OnSpearDrawAbilityDragEnd;
     public delegate void PlayerAttackHitAction(GameObject Id, GameObject tar, float val);
     public event PlayerAttackHitAction OnPlayerAttackHit;
 
@@ -175,6 +177,16 @@ public class EventManager : MonoBehaviour
     {
         if (OnSpearDrawAbilityHit != null)
             OnSpearDrawAbilityHit(Id);
+    }
+    public void SpearDrawAbilityDragStart(GameObject spear, GameObject enemyHit)
+    {
+        if (OnSpearDrawAbilityDragStart != null)
+            OnSpearDrawAbilityDragStart(spear, enemyHit);
+    }
+    public void SpearDrawAbilityDragEnd(GameObject spear, GameObject enemyHit)
+    {
+        if (OnSpearDrawAbilityDragEnd != null)
+            OnSpearDrawAbilityDragEnd(spear, enemyHit);
     }
     public void SpearDrawAbilityEnd(GameObject Id)
     {
