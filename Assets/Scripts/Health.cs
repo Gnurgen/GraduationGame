@@ -12,6 +12,7 @@ public class Health : MonoBehaviour, IHealth {
     HealthController ht;
     Vector3 cForceDir;
     private RoomBuilder parentRoom = null;
+    EnemyHealthBars hpBar;
 
     void Start() {
         GameManager.events.OnRespawn += removeRagdoll;
@@ -24,15 +25,8 @@ public class Health : MonoBehaviour, IHealth {
         if(ht==null)
             ht = new HealthController();
         ht.SetHealth(this);
-/*
-        if (this != GameManager.player)
-        {
-            parentRoom = GetComponentInParent<RoomBuilder>();
-            parentRoom.enemyCount--;
-            Debug.Log("Enemy died");
-        }*/
     }
-
+   
     private void Subscribe()
     {
         if (isPlayer(gameObject.tag))
@@ -47,7 +41,10 @@ public class Health : MonoBehaviour, IHealth {
     {
         return tag == playerTag;
     }
-
+    public void SetHealthBar(EnemyHealthBars ehp)
+    {
+        hpBar = ehp;
+    }
     public void setHealthVars(int resHealth)
     {
         healthPerRes = resHealth;
@@ -76,6 +73,8 @@ public class Health : MonoBehaviour, IHealth {
             ht.SetHealth(this);
         }
         ht.DecreaseHealth(vulnerable, health, dmg, forceDir.x, forceDir.y, forceDir.z, pushForce);
+        if(hpBar != null)
+            hpBar.updateHealthBar();
     }
 
     public void EqualHealth()

@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class constructorpls : MonoBehaviour {
-    GameManager hej;
+public class monsterspawner : MonoBehaviour {
+
 	// Use this for initialization
 	void Start () {
-        hej = new GameManager();
+	
 	}
 	
 	// Update is called once per frame

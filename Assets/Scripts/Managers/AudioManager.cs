@@ -15,9 +15,8 @@ public class AudioManager : MonoBehaviour {
     // ##########################################################                            ################################################
     // ######################################################################################################################################
 
-    void Subscribe()
+    void Start()
     {
-        
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyAggro += CheckState;
 
@@ -27,17 +26,19 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnEnemyDeath += EnemyDeathPlay;
         GameManager.events.OnEnemyDeath += CheckState;
 
+        GameManager.events.OnEnemyAttack += EnemyMeleePlay;
+        GameManager.events.OnEnemyRangedAttack += EnemyRangedPlay;
         GameManager.events.OnEnemyAttackHit += EnemyAttackHitPlaySub;
         GameManager.events.OnEnemyRangedMiss += EnemyRangedAttackMissPlaySub;
 
-        GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
+        //GameManager.events.OnPlayerAttack += PlayerSpearAttackPlay;
         GameManager.events.OnPlayerDashBegin += DashPlay;
         GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
         GameManager.events.OnPlayerDeath += PlayerDeathPlay;
         GameManager.events.OnPlayerDeath += EnemyChatterStop;
         //  GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
         //  GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
-        GameManager.events.OnConeAbilityStart += ConeAbilityInteractPlay; 
+        GameManager.events.OnConeAbilityStart += ConeAbilityInteractPlay;
         GameManager.events.OnConeAbilityUsed += ConeAbilityPlay;
         GameManager.events.OnConeAbilityHit += ConeAbilityHitPlay;
         GameManager.events.OnConeAbilityEnd += ConeAbilityStop;
@@ -52,12 +53,9 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnMenuOpen += MenuOpenPlaySub; // IS MISSING (de kommer)+ I HAVE TO CHANGE STATE HERE
         GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
         GameManager.events.OnResourcePickup += PickupPlaySub;
-
-        print("AudioManager Subscribed");
+        GameManager.events.OnResourceDrop += PickupMovePlay;
         
     }
-
-  
 
     private void CheckState(GameObject go)
     {
@@ -106,9 +104,9 @@ public class AudioManager : MonoBehaviour {
     
     public void EnemyAttackHitPlaySub(GameObject enemyID, float dmg)
     {
-        if (enemyID.tag == "Melee")
+        if (enemyID.GetComponent<MeleeAI>())
             EnemyMeleeHitPlayerPlay(GameManager.player);
-        else if (enemyID.tag == "Ranged")
+        else if (enemyID.GetComponent<RangedAI>())
             EnemyRangedTargetPlay(GameManager.player, "Player");
 
     }
@@ -241,12 +239,25 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Cone_Ability_Stop", GO);
     }
 
-    private void ConeAbilityHitPlay(GameObject Id)
+    private void ConeAbilityHitPlay(GameObject GO)
     {
-        //throw new NotImplementedException();
+
+        // TEMP AUDIO TEST start
+        if (GO.tag == "Boss" || GO.tag == "Enemy" || GO.tag == "Indestructable")
+        {
+            AkSoundEngine.SetSwitch("Target", GO.tag, GO);
+            AkSoundEngine.PostEvent("Spear_Target_Play", GO);
+            AkSoundEngine.RenderAudio();
+        }
+        else
+        {
+            Debug.LogError(GO.tag + "is wrong tag and event doesn't play audio");
+        }
+        //TEMP AUDIO TEST end
     }
     public void ConeAbilityPlay(GameObject GO)
     {
+        print("hej");
         //When finnished drawing the cone Ability and activates 
         AkSoundEngine.PostEvent("Cone_Ability_Play", GO);
         AkSoundEngine.RenderAudio();
@@ -357,7 +368,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Music_System_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void PickupMovePlay(GameObject GO)
+    public void PickupMovePlay(GameObject GO,int i)
     {
         AkSoundEngine.PostEvent("Pickup_Move_Play", GO);
         AkSoundEngine.RenderAudio();
