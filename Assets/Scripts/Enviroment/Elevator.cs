@@ -51,7 +51,6 @@ public class Elevator : MonoBehaviour
     }
     private void ActivateME()
     {
-        CC.enabled = true;
         StartCoroutine(ShineGold());
     }
     IEnumerator ShineGold()
@@ -64,11 +63,12 @@ public class Elevator : MonoBehaviour
             mat.color = col;
             yield return null;
         }
+        CC.enabled = true;
         yield return null;
     }
    
 
-    void OnTriggerStay(Collider col)
+    void OnTriggerEnter(Collider col)
     {
         if (col.tag == "Player")
         {
@@ -100,6 +100,7 @@ public class Elevator : MonoBehaviour
         fade.GetComponent<Fade>().fadeToBlack(2);
       
         yield return new WaitForSeconds(underLift);
+        AkSoundEngine.StopAll();
         LoadCorrectScene();
     }
 
