@@ -39,17 +39,17 @@
 				<Event Id="3386881389" Name="Draw_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1855658509" Name="Draw_Ability_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2972852827" Name="Draw_Ability_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="482819944" Name="Elevator_Play" ObjectPath="\Events\Default Work Unit\Elevator_Play"/>
+				<Event Id="482819944" Name="Elevator_Play" ObjectPath="\Events\Default Work Unit\Elevator_Play" MaxAttenuation="10.000000"/>
 				<Event Id="2818913498" Name="Elevator_Stop" ObjectPath="\Events\Default Work Unit\Elevator_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="2317625885" Name="Enemy_Aggro_Play" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Play" MaxAttenuation="15.000000"/>
 				<Event Id="208500619" Name="Enemy_Aggro_Stop" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="4192965245" Name="Enemy_Death_Play" ObjectPath="\Events\Default Work Unit\Enemy_Death_Play" MaxAttenuation="15.000000"/>
-				<Event Id="1233116581" Name="Enemy_Melee_Hit_Player_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Hit_Player_Play"/>
-				<Event Id="2339069971" Name="Enemy_Melee_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Play"/>
+				<Event Id="1233116581" Name="Enemy_Melee_Hit_Player_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Hit_Player_Play" MaxAttenuation="15.000000"/>
+				<Event Id="2339069971" Name="Enemy_Melee_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Play" MaxAttenuation="15.000000"/>
 				<Event Id="4072057392" Name="Enemy_Ranged_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Play" MaxAttenuation="15.000000"/>
 				<Event Id="3961649480" Name="Enemy_Ranged_Projectile_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Projectile_Play" MaxAttenuation="10.000000"/>
 				<Event Id="2044352442" Name="Enemy_Ranged_Projectile_Stop" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Projectile_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="914283814" Name="Enemy_Ranged_Target_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Target_Play"/>
+				<Event Id="914283814" Name="Enemy_Ranged_Target_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Target_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2813179063" Name="Environmental_Ambience_Play" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Play"/>
 				<Event Id="1543198181" Name="Environmental_Ambience_Stop" ObjectPath="\Events\Default Work Unit\Environmental_Ambience_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1206082786" Name="Menu_Close_Play" ObjectPath="\Events\Default Work Unit\Menu_Close_Play"/>
@@ -114,7 +114,7 @@
 				</File>
 				<File Id="127406643" Language="SFX">
 					<ShortName>Wisp Elevator.wav</ShortName>
-					<Path>SFX\Wisp Elevator_84E6080E.wem</Path>
+					<Path>SFX\Wisp Elevator_B64DBA74.wem</Path>
 				</File>
 				<File Id="163235136" Language="SFX">
 					<ShortName>Player Impact_2.wav</ShortName>
@@ -286,7 +286,7 @@
 				</File>
 				<File Id="885455871" Language="SFX">
 					<ShortName>Boss Meteor.wav</ShortName>
-					<Path>SFX\Boss Meteor_C47F2D1B.wem</Path>
+					<Path>SFX\Boss Meteor_2EDBF49B.wem</Path>
 				</File>
 				<File Id="898309102" Language="SFX">
 					<ShortName>Enemy Impact.wav</ShortName>
