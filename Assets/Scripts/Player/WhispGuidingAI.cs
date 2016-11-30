@@ -48,6 +48,7 @@ public class WhispGuidingAI : MonoBehaviour {
     IEnumerator Spawning()
     {
         effectControl.StopEffect();
+        GameManager.events.GuideWhispScatter(gameObject);
         seeker.StartPath(player.position, elevator.position, ReceivePath);
         waiting = true;
         while (waiting || path == null)
@@ -79,6 +80,7 @@ public class WhispGuidingAI : MonoBehaviour {
             yield return null;
         }
         scatter = endScatter;
+        GameManager.events.GuideWhispScatterStop(gameObject);
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
         StartCoroutine(Guiding());
         yield break;
@@ -86,6 +88,7 @@ public class WhispGuidingAI : MonoBehaviour {
 
     IEnumerator Guiding()
     {
+        GameManager.events.GuideWhispFollowPath(gameObject);
         while(index < path.vectorPath.Count && Vector3.Distance(transform.position, elevator.position) > activationDistance)
         {
             transform.position = guidingPoint;
@@ -97,15 +100,20 @@ public class WhispGuidingAI : MonoBehaviour {
 
     IEnumerator ActivatingElevator()
     {
-        while(numberOfActivators > 0)
+      
+        GameManager.events.GuideWhispScatter(elevator.gameObject);
+        while (numberOfActivators > 0)
         {
             GameObject a = Instantiate(activatorWhisp) as GameObject;
             a.GetComponent<WhispActivationAI>().Activate(new Vector3(elevator.position.x, 0, elevator.position.z), transform.position);
             numberOfActivators -= 1;
             yield return new WaitForSeconds(0.05f);
         }
+       
         effectControl.StopEffect();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(5f);
+        GameManager.events.GuideWhispScatterStop(elevator.gameObject);
+        GameManager.events.GuideWhispFollowPathStop(gameObject);
         GameManager.events.ElevatorActivated();
         Destroy(gameObject);
         yield break;

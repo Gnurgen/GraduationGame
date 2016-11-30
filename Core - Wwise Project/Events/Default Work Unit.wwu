@@ -194,8 +194,8 @@
 						</Action>
 						<Action Name="Play" ID="{0735ECCE-3E43-4FE6-8E36-671DD48F36F6}" ShortID="914336062" Type="Play" Scope="One" Global="false">
 							<PropertyList>
-								<Property Name="Delay" Type="Real64" Value="0.2"/>
-								<Property Name="FadeTime" Type="Real64" Value="0.3"/>
+								<Property Name="FadeCurve" Type="int16" Value="1"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.1"/>
 							</PropertyList>
 							<ElementList>
 								<Element ID="{2B051814-C0AC-4E8B-9013-424133FA7A44}" Global="false">

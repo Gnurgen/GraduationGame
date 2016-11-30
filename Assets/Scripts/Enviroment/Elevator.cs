@@ -51,7 +51,6 @@ public class Elevator : MonoBehaviour
     }
     private void ActivateME()
     {
-        CC.enabled = true;
         StartCoroutine(ShineGold());
     }
     IEnumerator ShineGold()
@@ -64,6 +63,7 @@ public class Elevator : MonoBehaviour
             mat.color = col;
             yield return null;
         }
+        CC.enabled = true;
         yield return null;
     }
    
@@ -76,13 +76,14 @@ public class Elevator : MonoBehaviour
             player.transform.parent = gameObject.transform;
             StartCoroutine(elevatorLif());
             StartCoroutine(waitForAniStart());
+            CC.enabled = false;
         }
     }
 
     IEnumerator elevatorLif()
     {
         yield return new WaitForSeconds(preLift);
-        
+        GameManager.events.ElevatorMoveStart();
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
         while (newPos < 20f)
         {
@@ -99,11 +100,13 @@ public class Elevator : MonoBehaviour
         fade.GetComponent<Fade>().fadeToBlack(2);
       
         yield return new WaitForSeconds(underLift);
+        AkSoundEngine.StopAll();
         LoadCorrectScene();
     }
 
     void LoadCorrectScene()
     {
+        GameManager.events.ElevatorMoveStop();
         GameManager.progress++;
         PlayerPrefs.SetInt("Progress", GameManager.progress);
         if (GameManager.progress <= 2)

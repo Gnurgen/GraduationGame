@@ -7,7 +7,7 @@
 					<PropertyList>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
-								<Value>-13</Value>
+								<Value>-15</Value>
 							</ValueList>
 						</Property>
 					</PropertyList>
@@ -24,7 +24,7 @@
 							<PropertyList>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-8</Value>
+										<Value>-11</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -59,7 +59,7 @@
 										<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 										<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 										<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="1"/>
-										<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="6">
+										<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="5">
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{2DB5D16F-C6FD-4220-B8C9-231F2B693047}">
@@ -75,9 +75,6 @@
 										<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="5"/>
 										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-5</Value>
-											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{24095828-7174-494C-816F-1BFE80BC4A63}">
@@ -1719,11 +1716,10 @@
 								</State>
 							</CustomState>
 							<CustomState>
-								<StateRef Name="In_Ability_Control" ID="{3C98993B-6B1B-4F53-9396-7F93DD6E85AB}"/>
-								<State Name="Custom State" ID="{3C92F975-7C1B-43C8-BB31-3408ED947A71}" ShortID="817012889">
+								<StateRef Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
+								<State Name="Custom State" ID="{8EA342D3-AD33-47BF-8A4A-48E78E36A9EB}" ShortID="1019953330">
 									<PropertyList>
-										<Property Name="Lowpass" Type="int16" Value="20"/>
-										<Property Name="Volume" Type="Real64" Value="-6"/>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
 									</PropertyList>
 								</State>
 							</CustomState>
@@ -1777,28 +1773,7 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<Sound Name="Boss_Beam_Hit_Wall" ID="{06B2F298-BE35-4332-9422-2D404E96F2A8}" ShortID="21273003" Type="SoundFX">
-											<PropertyList>
-												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<SourcePlugin Name="Wwise Silence" ID="{463683AB-125C-4BE2-A390-04BF4FB89C31}" ShortID="328513533" PluginName="Wwise Silence" CompanyID="0" PluginID="101">
-													<Language>SFX</Language>
-												</SourcePlugin>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Wwise Silence" ID="{463683AB-125C-4BE2-A390-04BF4FB89C31}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-										<Sound Name="Boss Beam" ID="{EDB7F8FC-5C76-42F2-9339-24100F8617E4}" ShortID="786721525" Type="SoundFX">
+										<Sound Name="Boss Beam Player" ID="{EDB7F8FC-5C76-42F2-9339-24100F8617E4}" ShortID="786721525" Type="SoundFX">
 											<PropertyList>
 												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 												<Property Name="OverrideEffect" Type="bool" Value="True"/>
@@ -1846,29 +1821,131 @@
 												<ActiveSource Name="Boss Beam" ID="{CD4FB548-2619-400C-92DF-7DC53DC6045C}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
+										<BlendContainer Name="Boss Beam Wall" ID="{AC9F03D2-C1DD-41C3-BAB4-D326411E44D7}" ShortID="199924834">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-2</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Elevator" ID="{D50A7049-8ACD-4F8F-8367-EBF22432BCAC}" ShortID="922147215" Type="SoundFX">
+													<PropertyList>
+														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+														<Property Name="OverridePositioning" Type="bool" Value="True"/>
+														<Property Name="PositioningType" Type="int16" Value="1"/>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-11</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Elevator" ID="{01916AB7-D167-4B71-8B7A-05552966FF58}" ShortID="819292655">
+															<Language>SFX</Language>
+															<AudioFile>Elevator.wav</AudioFile>
+															<ConvertedFileIDList>
+																<File ID="411008274"/>
+															</ConvertedFileIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Elevator" ID="{01916AB7-D167-4B71-8B7A-05552966FF58}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Boss Beam Player" ID="{FD9C709D-7D14-4E50-9AB9-4C262D129DFF}" ShortID="928521686" Type="SoundFX">
+													<PropertyList>
+														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+														<Property Name="OverrideEffect" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>1200</Value>
+															</ValueList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-13</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="Effect0">
+															<Custom>
+																<Effect Name="Wwise Guitar Distortion (Custom)" ID="{1B35DCA2-44DB-4CAE-A651-0DFCDDA6AE9E}" ShortID="120400906" PluginName="Wwise Guitar Distortion" CompanyID="0" PluginID="126" PluginType="3">
+																	<PropertyList>
+																		<Property Name="DistortionDrive" Type="Real32" Value="86"/>
+																		<Property Name="DistortionTone" Type="Real32" Value="91"/>
+																		<Property Name="DistortionType" Type="int32" Value="1"/>
+																		<Property Name="OutputLevel" Type="Real32" Value="-15.5"/>
+																	</PropertyList>
+																</Effect>
+															</Custom>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Beam" ID="{3BE3E754-EC5B-4B55-A188-1DFB145CA3EA}" ShortID="745320885">
+															<Language>SFX</Language>
+															<AudioFile>Boss Beam.wav</AudioFile>
+															<ConvertedFileIDList>
+																<File ID="785860472"/>
+															</ConvertedFileIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Beam" ID="{3BE3E754-EC5B-4B55-A188-1DFB145CA3EA}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</BlendContainer>
 									</ChildrenList>
 									<GroupingInfo>
 										<GroupRef Name="Target" ID="{952775E1-7940-4DF3-A60D-E2B59E9F4BD2}"/>
 										<DefaultSwitchRef Name="Indestructable" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
 										<GroupingBehaviorList>
 											<GroupingBehavior>
-												<ItemRef Name="Boss_Beam_Hit_Wall" ID="{06B2F298-BE35-4332-9422-2D404E96F2A8}"/>
+												<ItemRef Name="Boss Beam Wall" ID="{AC9F03D2-C1DD-41C3-BAB4-D326411E44D7}"/>
 											</GroupingBehavior>
 											<GroupingBehavior>
-												<ItemRef Name="Boss Beam" ID="{EDB7F8FC-5C76-42F2-9339-24100F8617E4}"/>
+												<ItemRef Name="Boss Beam Player" ID="{EDB7F8FC-5C76-42F2-9339-24100F8617E4}"/>
 											</GroupingBehavior>
 										</GroupingBehaviorList>
 										<GroupingList>
 											<Grouping>
 												<SwitchRef Name="Indestructable" ID="{5B69627E-FE87-4E4D-8A30-B161576F4A0F}"/>
 												<ItemList>
-													<ItemRef Name="Boss_Beam_Hit_Wall" ID="{06B2F298-BE35-4332-9422-2D404E96F2A8}"/>
+													<ItemRef Name="Boss Beam Wall" ID="{AC9F03D2-C1DD-41C3-BAB4-D326411E44D7}"/>
 												</ItemList>
 											</Grouping>
 											<Grouping>
 												<SwitchRef Name="Player" ID="{849A6AAA-D6AB-43EB-A655-41DB5696C6CC}"/>
 												<ItemList>
-													<ItemRef Name="Boss Beam" ID="{EDB7F8FC-5C76-42F2-9339-24100F8617E4}"/>
+													<ItemRef Name="Boss Beam Player" ID="{EDB7F8FC-5C76-42F2-9339-24100F8617E4}"/>
 												</ItemList>
 											</Grouping>
 										</GroupingList>
@@ -1910,6 +1987,11 @@
 										</Property>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
 										<Property Name="PositioningType" Type="int16" Value="1"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
@@ -1924,6 +2006,10 @@
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="Boss Meteor" ID="{A5A96DA8-84BF-453D-9FCD-BD0B5ACEB97D}" ShortID="885455871">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="1.95870535714286E-02"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.499469866071429"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Boss Meteor.wav</AudioFile>
 										</AudioFileSource>
@@ -1972,6 +2058,9 @@
 												<Property Name="PositioningType" Type="int16" Value="1"/>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 												</Reference>
@@ -2312,6 +2401,9 @@
 										<Property Name="PositioningType" Type="int16" Value="1"/>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 										</Reference>
@@ -2855,7 +2947,7 @@
 											<PropertyList>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>3</Value>
+														<Value>-3</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -3031,7 +3123,7 @@
 											<PropertyList>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-6</Value>
+														<Value>-10</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -3149,13 +3241,6 @@
 											</ActiveSourceList>
 										</Sound>
 										<Sound Name="Spear Cone Cast" ID="{83C4DE18-6740-40E7-A4B8-EEB095B84883}" ShortID="87011899" Type="SoundFX">
-											<PropertyList>
-												<Property Name="Volume" Type="Real64">
-													<ValueList>
-														<Value>8</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -3166,6 +3251,10 @@
 											</ReferenceList>
 											<ChildrenList>
 												<AudioFileSource Name="Spear Cone Cast" ID="{934B8539-96A3-4E83-8E6B-923A00CA7923}" ShortID="598171912">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.1021669921875"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.3746123046875"/>
+													</PropertyList>
 													<Language>SFX</Language>
 													<AudioFile>Spear Cone Cast.wav</AudioFile>
 												</AudioFileSource>
@@ -3175,13 +3264,6 @@
 											</ActiveSourceList>
 										</Sound>
 										<Sound Name="Spear Throw Cast" ID="{D25E3902-DEC1-4BB6-A019-BAAF332AD8A2}" ShortID="806469769" Type="SoundFX">
-											<PropertyList>
-												<Property Name="Volume" Type="Real64">
-													<ValueList>
-														<Value>8</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -3192,6 +3274,10 @@
 											</ReferenceList>
 											<ChildrenList>
 												<AudioFileSource Name="Spear Throw Cast" ID="{C3A0088C-46D6-45FC-85CF-551FCC0BAC71}" ShortID="61854502">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.1021669921875"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.3746123046875"/>
+													</PropertyList>
 													<Language>SFX</Language>
 													<AudioFile>Spear Throw Cast.wav</AudioFile>
 												</AudioFileSource>
@@ -3204,7 +3290,7 @@
 											<PropertyList>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-1</Value>
+														<Value>-5</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -3295,6 +3381,74 @@
 												</Sound>
 											</ChildrenList>
 										</BlendContainer>
+										<Sound Name="Cone_Ability_Control" ID="{66E91737-371D-4D9F-97CB-83A999DE7575}" ShortID="403831552" Type="SoundFX">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="PositioningType" Type="int16" Value="1"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-96</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Player Abilities" ID="{F319B123-0642-447F-8EDB-2F9282B87DD5}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Circle_Ability_Control" ID="{DBA9D1DD-9C7B-422C-ACF7-D4E0A775ADDC}" ShortID="835280033">
+													<Language>SFX</Language>
+													<AudioFile>Circle_Ability_Control.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Circle_Ability_Control" ID="{DBA9D1DD-9C7B-422C-ACF7-D4E0A775ADDC}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Draw_Ability_Control" ID="{4A4D4011-30FD-4937-8F8B-9F18C3C54BA0}" ShortID="708803824" Type="SoundFX">
+											<PropertyList>
+												<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+												<Property Name="PositioningType" Type="int16" Value="1"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-96</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Player Abilities" ID="{F319B123-0642-447F-8EDB-2F9282B87DD5}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+												</Reference>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Draw_Ability_Control" ID="{99A9114C-591A-4353-B737-676D15D293F8}" ShortID="209859539">
+													<Language>SFX</Language>
+													<AudioFile>Draw_Ability_Control.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Draw_Ability_Control" ID="{99A9114C-591A-4353-B737-676D15D293F8}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
 									</ChildrenList>
 								</ActorMixer>
 								<ActorMixer Name="Hits" ID="{02BF3C68-CBA3-4ED4-B7DF-DE615BAFEEED}" ShortID="698371222">
@@ -3647,6 +3801,31 @@
 									</ChildrenList>
 								</ActorMixer>
 							</ChildrenList>
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Game_State" ID="{EDAB1CD6-5EF8-4F5E-A996-EA864D5DA94D}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="In_Ability_Wheel" ID="{BD0C1C2D-7071-41C4-B29A-972EDB518CB7}"/>
+										<State Name="Custom State" ID="{34C415EA-56B8-4B97-9818-3B27ECE0E067}" ShortID="762456106">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64" Value="-96"/>
+											</PropertyList>
+										</State>
+									</CustomState>
+									<CustomState>
+										<StateRef Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
+										<State Name="Custom State" ID="{C4F6953B-375B-4037-8F5B-FC3FA63C4E65}" ShortID="79677499">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64" Value="-96"/>
+											</PropertyList>
+										</State>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
 						</ActorMixer>
 					</ChildrenList>
 					<StateInfo>
@@ -3660,17 +3839,15 @@
 								<StateRef Name="In_Ability_Wheel" ID="{BD0C1C2D-7071-41C4-B29A-972EDB518CB7}"/>
 								<State Name="Custom State" ID="{5A510355-2C3A-487E-A074-28E02EEDEE8C}" ShortID="794233282">
 									<PropertyList>
-										<Property Name="Lowpass" Type="int16" Value="20"/>
-										<Property Name="Pitch" Type="int32" Value="-500"/>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
 									</PropertyList>
 								</State>
 							</CustomState>
 							<CustomState>
-								<StateRef Name="In_Ability_Control" ID="{3C98993B-6B1B-4F53-9396-7F93DD6E85AB}"/>
-								<State Name="Custom State" ID="{4864A939-F994-4014-9EF5-38F38182F868}" ShortID="353929751">
+								<StateRef Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
+								<State Name="Custom State" ID="{EB730E67-CB69-4DC0-A419-AB01577EA12E}" ShortID="300495557">
 									<PropertyList>
-										<Property Name="Lowpass" Type="int16" Value="20"/>
-										<Property Name="Pitch" Type="int32" Value="-500"/>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
 									</PropertyList>
 								</State>
 							</CustomState>
@@ -3694,62 +3871,6 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<ActorMixer Name="Ability Feedback" ID="{00560A25-20E8-49C3-85C3-10FB80C7E42A}" ShortID="303795432">
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<Sound Name="Cone_Ability_Control" ID="{66E91737-371D-4D9F-97CB-83A999DE7575}" ShortID="403831552" Type="SoundFX">
-									<PropertyList>
-										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Circle_Ability_Control" ID="{DBA9D1DD-9C7B-422C-ACF7-D4E0A775ADDC}" ShortID="835280033">
-											<Language>SFX</Language>
-											<AudioFile>Circle_Ability_Control.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Circle_Ability_Control" ID="{DBA9D1DD-9C7B-422C-ACF7-D4E0A775ADDC}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="Draw_Ability_Control" ID="{4A4D4011-30FD-4937-8F8B-9F18C3C54BA0}" ShortID="708803824" Type="SoundFX">
-									<PropertyList>
-										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Draw_Ability_Control" ID="{99A9114C-591A-4353-B737-676D15D293F8}" ShortID="209859539">
-											<Language>SFX</Language>
-											<AudioFile>Draw_Ability_Control.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Draw_Ability_Control" ID="{99A9114C-591A-4353-B737-676D15D293F8}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-							</ChildrenList>
-						</ActorMixer>
 						<ActorMixer Name="Buttons" ID="{3DB9C95C-E881-45B0-8B4E-C9E1A2FFAF19}" ShortID="1018796443">
 							<ReferenceList>
 								<Reference Name="Conversion">
@@ -3964,10 +4085,15 @@
 						<Sound Name="Corpse Despawn" ID="{E0827BA8-6608-4D5F-BCCF-899B6564BC07}" ShortID="559292568" Type="SoundFX">
 							<PropertyList>
 								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>300</Value>
+									</ValueList>
+								</Property>
 								<Property Name="PositioningType" Type="int16" Value="1"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-22</Value>
+										<Value>-18</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -4004,6 +4130,9 @@
 								</Property>
 							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Boss Meteor" ID="{C9B10324-6C1E-4DC0-BF5C-DAB4CAB68B73}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 								</Reference>
@@ -4099,7 +4228,7 @@
 									<PropertyList>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-9</Value>
+												<Value>-24</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -4116,6 +4245,11 @@
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="Wisp Elevator" ID="{7F6FF77B-622F-47B2-A6DA-E28ECB148124}" ShortID="127406643">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.4087890625"/>
+												<Property Name="FadeInShape" Type="int16" Value="2"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.687604166666667"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Wisp Elevator.wav</AudioFile>
 										</AudioFileSource>
@@ -4185,6 +4319,23 @@
 									</ActiveSourceList>
 								</Sound>
 							</ChildrenList>
+							<StateInfo>
+								<StateGroupList>
+									<StateGroupInfo>
+										<StateGroupRef Name="Game_State" ID="{EDAB1CD6-5EF8-4F5E-A996-EA864D5DA94D}"/>
+									</StateGroupInfo>
+								</StateGroupList>
+								<CustomStateList>
+									<CustomState>
+										<StateRef Name="In_Battle" ID="{DBB5DC3C-9564-4B7F-9537-1FBA490F0703}"/>
+										<State Name="Custom State" ID="{357BFDAF-0C1B-4A14-9D9E-E0A4103C8B77}" ShortID="430255708">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64" Value="-5"/>
+											</PropertyList>
+										</State>
+									</CustomState>
+								</CustomStateList>
+							</StateInfo>
 						</ActorMixer>
 					</ChildrenList>
 					<StateInfo>
@@ -4198,19 +4349,7 @@
 								<StateRef Name="In_Ability_Wheel" ID="{BD0C1C2D-7071-41C4-B29A-972EDB518CB7}"/>
 								<State Name="Custom State" ID="{C662EFCC-6D05-4BAC-9525-E454AF613A4C}" ShortID="926452934">
 									<PropertyList>
-										<Property Name="Lowpass" Type="int16" Value="20"/>
-										<Property Name="Pitch" Type="int32" Value="-500"/>
-										<Property Name="Volume" Type="Real64" Value="-6"/>
-									</PropertyList>
-								</State>
-							</CustomState>
-							<CustomState>
-								<StateRef Name="In_Ability_Control" ID="{3C98993B-6B1B-4F53-9396-7F93DD6E85AB}"/>
-								<State Name="Custom State" ID="{FCB6B411-64E6-4C15-B496-FF21BC1BCDAF}" ShortID="585593660">
-									<PropertyList>
-										<Property Name="Lowpass" Type="int16" Value="20"/>
-										<Property Name="Pitch" Type="int32" Value="-500"/>
-										<Property Name="Volume" Type="Real64" Value="-6"/>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
 									</PropertyList>
 								</State>
 							</CustomState>

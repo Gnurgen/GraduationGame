@@ -328,6 +328,8 @@ public class EventManager : MonoBehaviour
     public delegate void MapAction();
     public event MapAction OnMapComplete;
     public event MapAction OnElevatorActivated;
+    public event MapAction OnElevatorMoveStart;
+    public event MapAction OnElevatorMoveStop;
 
     public delegate void ObjectDestroyAction(GameObject GO);
     public event ObjectDestroyAction OnObjDestroyed;
@@ -337,7 +339,47 @@ public class EventManager : MonoBehaviour
     public event ResourceAction OnResourcePickup;
 
     public delegate void WhispAction(GameObject GO);
-    public event WhispAction OnWhispSpawn;
+    public event WhispAction OnGuideWhispScatter;
+    public event WhispAction OnGuideWhispScatterStop;
+    public event WhispAction OnGuideWhispFollowPath;
+    public event WhispAction OnGuideWhispFollowPathStop;
+    public event WhispAction OnWhispEnterElevator;
+
+    public void ElevatorMoveStart()
+    {
+        if (OnElevatorMoveStart != null)
+            OnElevatorMoveStart();
+    }
+    public void ElevatorMoveStop()
+    {
+        if (OnElevatorMoveStop != null)
+            OnElevatorMoveStop();
+    }
+    public void GuideWhispScatter(GameObject GO)
+    {
+        if (OnGuideWhispScatter != null)
+            OnGuideWhispScatter(GO);
+    }
+    public void GuideWhispScatterStop(GameObject GO)
+    {
+        if (OnGuideWhispScatterStop != null)
+            OnGuideWhispScatterStop(GO);
+    }
+    public void GuideWhispFollowPath(GameObject GO)
+    {
+        if (OnGuideWhispFollowPath != null)
+            OnGuideWhispFollowPath(GO);
+    }
+    public void GuideWhispFollowPathStop(GameObject GO)
+    {
+        if (OnGuideWhispFollowPathStop != null)
+            OnGuideWhispFollowPathStop(GO);
+    }
+    public void WhispEnterElevator(GameObject GO)
+    {
+        if (OnWhispEnterElevator != null)
+            OnWhispEnterElevator(GO);
+    }
 
     public void RoomComplete(int i)
     {

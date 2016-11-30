@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour {
     public string Game_State = "Out_Of_Battle";
     public string Battle_State = "Out_Of_Battle";
     public int AggroedEnemies = 0;
-    
+
     // ######################################################################################################################################
     // ##########################################################                            ################################################
     // ##########################################################  Subscribe to EventManager ################################################
@@ -54,15 +54,69 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
         GameManager.events.OnResourcePickup += PickupPlaySub;
         GameManager.events.OnResourceDrop += PickupMovePlay;
+        
 
         GameManager.events.OnEnemyRagdollDespawn += RagdollDespawnPlay;
+        GameManager.events.OnWhispEnterElevator += WhispEnterElevatorPlay;
+        GameManager.events.OnGuideWhispScatter += WhispScatterPlay;
+        GameManager.events.OnGuideWhispScatterStop += WhispScatterStop;
+        GameManager.events.OnGuideWhispFollowPath += WhispLoopPlay;
+        GameManager.events.OnGuideWhispFollowPathStop += WhispLoopStop;
+        GameManager.events.OnElevatorMoveStart += ElevatorMovePlay;
+        GameManager.events.OnElevatorMoveStop += ElevatorMoveStop;
 
-        
+        GameManager.events.OnBossMeteorActivation += BossRainPlay;
+        GameManager.events.OnBossLaserActivation += BossBeamPlay;
+        GameManager.events.OnBossLaserDeactivation += BossBeamStop;
+    }
+
+    private void WhispLoopStop(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Wisp_Loop_Stop", GO);
+        AkSoundEngine.RenderAudio();
+    }
+
+    private void WhispScatterStop(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Wisp_Scatter_Stop", GO);
+        AkSoundEngine.RenderAudio();
+    }
+
+    private void ElevatorMoveStop()
+    {
+        AkSoundEngine.PostEvent("Elevator_Stop", gameObject);
+        AkSoundEngine.RenderAudio();
+    }
+
+    private void ElevatorMovePlay()
+    {
+        AkSoundEngine.PostEvent("Elevator_Play",gameObject);
+        AkSoundEngine.RenderAudio();
+    }
+
+    private void WhispLoopPlay(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Wisp_Loop_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+
+    private void WhispScatterPlay(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Wisp_Scatter_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+
+    private void WhispEnterElevatorPlay(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Wisp_Elevator_Play",GO);
+        AkSoundEngine.RenderAudio();
     }
 
     private void RagdollDespawnPlay(GameObject enemyID)
     {
-        //throw new NotImplementedException();
+        AkSoundEngine.PostEvent("Pickup_Play", enemyID);
+        AkSoundEngine.PostEvent("Corpse_Despawn_Play", enemyID);
+        AkSoundEngine.RenderAudio();
     }
 
     private void CheckState(GameObject go)
@@ -95,7 +149,6 @@ public class AudioManager : MonoBehaviour {
     private void PickupPlaySub(GameObject GO, int amount)
     {
         PickupMoveStop(GO);
-        PickupPlay(GO);
     }
 
     private void MenuClosePlaySub()
@@ -376,7 +429,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Music_System_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void PickupMovePlay(GameObject GO,int i)
+    public void PickupMovePlay(GameObject GO, int i)
     {
         AkSoundEngine.PostEvent("Pickup_Move_Play", GO);
         AkSoundEngine.RenderAudio();
