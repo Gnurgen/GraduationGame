@@ -4076,7 +4076,7 @@
 								<Property Name="PositioningType" Type="int16" Value="1"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-22</Value>
+										<Value>-18</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -4208,7 +4208,7 @@
 									<PropertyList>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-9</Value>
+												<Value>-24</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -4225,6 +4225,11 @@
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="Wisp Elevator" ID="{7F6FF77B-622F-47B2-A6DA-E28ECB148124}" ShortID="127406643">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.4087890625"/>
+												<Property Name="FadeInShape" Type="int16" Value="2"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.687604166666667"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Wisp Elevator.wav</AudioFile>
 										</AudioFileSource>
