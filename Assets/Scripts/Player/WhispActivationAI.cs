@@ -72,6 +72,7 @@ public class WhispActivationAI : MonoBehaviour {
 
     IEnumerator EnterCenter()
     {
+        GameManager.events.WhispEnterElevator(gameObject);
         center = new Vector3(center.x, 0, center.z);
         while (Vector3.Distance(transform.position, center) > 0.1)
         {
