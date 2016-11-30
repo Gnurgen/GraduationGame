@@ -239,10 +239,10 @@ public class MenuWheel : MonoBehaviour {
         tempTouchPos = touchPos - new Vector2(Screen.width / 2, Screen.height / 2);
     }
     void checkCooldown() {
-        float sCool = flyingSpear.Cooldown();
+        //float sCool = flyingSpear.Cooldown();
         //Debug.Log("Cooldown: " + sCool);
-        flyingCool.GetComponent<Image>().fillAmount = sCool;
+        //flyingCool.GetComponent<Image>().fillAmount = sCool;
        // Debug.Log(flyingCool.GetComponent<Image>().fillAmount);
-        coneCool.GetComponent<Image>().fillAmount = coneDraw.Cooldown();
+        //coneCool.GetComponent<Image>().fillAmount = coneDraw.Cooldown();
     }
 }
