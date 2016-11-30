@@ -25,6 +25,7 @@ namespace AK
         static const AkUniqueID CONE_ABILITY_CONTROL_PLAY = 1005055766U;
         static const AkUniqueID CONE_ABILITY_CONTROL_STOP = 1735593128U;
         static const AkUniqueID CONE_ABILITY_PLAY = 1610256012U;
+        static const AkUniqueID CORPSE_DESPAWN_PLAY = 2017253371U;
         static const AkUniqueID DASH_PLAY = 2174485018U;
         static const AkUniqueID DRAW_ABILITY_CONTROL_PLAY = 669353839U;
         static const AkUniqueID DRAW_ABILITY_CONTROL_STOP = 3386881389U;
@@ -56,6 +57,11 @@ namespace AK
         static const AkUniqueID SPEAR_TARGET_PLAY = 2770920781U;
         static const AkUniqueID WHEEL_CLOSE_PLAY = 3056915868U;
         static const AkUniqueID WHEEL_OPEN_PLAY = 2645717374U;
+        static const AkUniqueID WISP_ELEVATOR_PLAY = 461033142U;
+        static const AkUniqueID WISP_LOOP_PLAY = 209020650U;
+        static const AkUniqueID WISP_LOOP_STOP = 1654799124U;
+        static const AkUniqueID WISP_SCATTER_PLAY = 3241222100U;
+        static const AkUniqueID WISP_SCATTER_STOP = 608683694U;
     } // namespace EVENTS
 
     namespace STATES

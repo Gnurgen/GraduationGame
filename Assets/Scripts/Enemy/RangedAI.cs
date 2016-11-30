@@ -33,19 +33,23 @@ public class RangedAI : EnemyStats {
     private int aggros;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         // animation = GetComponent<Animation>();
         animator = GetComponent<Animator>();
         seeker = GetComponent<Seeker>();
         body = GetComponent<Rigidbody>();
         myDoll = GetComponent<SpawnRagdoll>();
-        StartCoroutine(Waiting(3));
         mySpeed = moveSpeed;
         currentAttackSpeed = 0;
         myDoll.myTag = "EnemyRangedRagdoll";
         taunts = 0;
         aggros = 0;
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(Waiting(3));
     }
 
     void FixedUpdate()
