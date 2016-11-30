@@ -82,7 +82,7 @@ public class Elevator : MonoBehaviour
     IEnumerator elevatorLif()
     {
         yield return new WaitForSeconds(preLift);
-        
+        GameManager.events.ElevatorMoveStart();
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
         while (newPos < 20f)
         {
