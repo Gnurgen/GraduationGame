@@ -5,17 +5,16 @@ using System.Collections.Generic;
 public class RoomBuilder : MonoBehaviour {
 
     public const int MAX_UNIT_SIZE = 2;
-    public const int MAX_LEVEL = 3;
+    public const int MAX_LEVEL = 2;
 
     private static RoomTile _defaultTile;
     private static RoomWall _defaultWall;
 
-    public string roomName = "New Room";
     public int mapIndex = 0;
     public RoomUnit[,] roomUnits = new RoomUnit[MAX_UNIT_SIZE, MAX_UNIT_SIZE];
-    public bool isBeaconRoom;
-    public bool isRotatable;
-    public int roomLevel;
+    public bool isBeaconRoom = false;
+    public bool isRotatable = true;
+    public int roomLevel = 1;
 
     private List<GameObject> objectList = new List<GameObject>();
     private Vector2 _roomSize = new Vector2(1, 1);
