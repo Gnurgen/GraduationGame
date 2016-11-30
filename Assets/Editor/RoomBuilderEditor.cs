@@ -101,25 +101,32 @@ public class RoomEditor : Editor {
     {
         RoomBuilder workbench = target as RoomBuilder;
 
+        /*
         Vector2 roomSize = workbench.roomSize;
         roomSize.x = EditorGUILayout.IntSlider("Room Size", (int)workbench.roomSize.x, 1, workbench.roomUnits.GetLength(0));
         roomSize.y = roomSize.x;
+        */
 
         workbench.roomLevel = EditorGUILayout.IntSlider("Room Level", workbench.roomLevel, 1, RoomBuilder.MAX_LEVEL);
 
+        /*
         GUILayout.Space(10);
         GUI.enabled = roomSize.x == 1 && roomSize.y == 1;
+        */
+
         bool isBeaconRoom = EditorGUILayout.Toggle("Start/End Room", workbench.isBeaconRoom);
         workbench.isBeaconRoom = GUI.enabled && isBeaconRoom;
 
         workbench.isRotatable = EditorGUILayout.Toggle("Is Rotatable", workbench.isRotatable);
         GUI.enabled = true;
 
+        /*
         if (workbench.roomSize != roomSize)
         {
             Undo.RecordObject(workbench, "Changed room size");
             workbench.roomSize = roomSize;
         }
+        */
     }
 
     private static void createBuildingBlocks(string tag)
