@@ -4,21 +4,32 @@ using System.Collections;
 public class ConeDraw : MonoBehaviour {
 
     [SerializeField]
-    private float cooldown, maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime;
-    [Range(1, 5)]
+    private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime;
+    [Range(1, 10)]
     [SerializeField]
-    private int pointsPerDegreeInFullCircle;
+    private int pointResolution = 1;
     private GameObject drawCone, dmgCone, drawConeObj, coneDmgObject;
     private InputManager im;
     private bool drawing = false, clockwise = true;
     private Vector3 start, end, cur, lookDir;
     private int coneResolution, ID, activeTris;
-    private float currentCooldown = 0, length;
+    private float length;
     private const float _2pi = Mathf.PI * 2;
     private bool dirSat = false;
     private bool doDraw = false;
     private int onlyHitLayermask;
-
+    private float _currentCooldown;
+    public float currentCooldown
+    {
+        get
+        {
+            return _currentCooldown;
+        }
+        set
+        {
+            _currentCooldown = value;
+        }
+    }
     //Collision checking
     Ray ray;
     RaycastHit hit;
@@ -27,7 +38,7 @@ public class ConeDraw : MonoBehaviour {
     void Start () {
         drawConeObj = Resources.Load<GameObject>("Prefabs/Cone/ConeMESH");
         coneDmgObject = Resources.Load<GameObject>("Prefabs/Cone/ConeAbility");
-        coneResolution = pointsPerDegreeInFullCircle * 360;
+        coneResolution = pointResolution * 90;
         im = GameManager.input;
         ID = im.GetID();
         onlyHitLayermask = 1 << LayerMask.NameToLayer("ConeBlocker");
@@ -35,11 +46,7 @@ public class ConeDraw : MonoBehaviour {
 	
     void Update()
     {
-        currentCooldown -= Time.deltaTime;
-    }
-    public float Cooldown()
-    {
-        return currentCooldown < 0 ? 0 : currentCooldown;
+        _currentCooldown -= Time.deltaTime;
     }
 
     public void UseAbility(Vector3 p)
@@ -47,6 +54,7 @@ public class ConeDraw : MonoBehaviour {
         clockwise = true;
         dirSat = false;
         start = p;
+        doDraw = false;
         drawCone = (GameObject)Instantiate(drawConeObj, transform.position, Quaternion.identity);
         lookDir = start - drawCone.transform.position;
         drawCone.transform.LookAt(drawCone.transform.position + lookDir);
@@ -71,18 +79,20 @@ public class ConeDraw : MonoBehaviour {
         im.ReleaseControl(ID);
         im.OnFirstTouchMoveUnsub(ID);
         im.OnFirstTouchEndUnsub(ID);
-        GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
         Destroy(drawCone);
         if (doDraw)//If abality was not cancelled
         {
+            GetComponent<PlayerControls>().EndAbility(true);
             GameManager.events.ConeAbilityUsed(GameManager.player);
-            currentCooldown = cooldown;
             dmgCone = (GameObject)Instantiate(coneDmgObject, drawCone.transform.position, drawCone.transform.rotation);
             dmgCone.GetComponent<ConeAbility>().setVars(coneSpeed, activeTris, drawCone.GetComponent<MeshFilter>().mesh, damage, pushForce, stunTime);
         }
         else
+        {
+            GetComponent<PlayerControls>().EndAbility(false);
             GameManager.events.ConeAbilityCancel(gameObject);
+        }
         yield break;
     }
 
@@ -125,12 +135,13 @@ public class ConeDraw : MonoBehaviour {
         if(doDraw)
         {
             drawCone.GetComponent<MeshFilter>().mesh.Clear();
-            activeTris =(int) (clockwise ? y * (coneResolution  / 360) : (coneResolution) - (y * (coneResolution / 360))); //Calculate amount of triangles to draw (create a cone from sphere)
+            activeTris =(int) (clockwise ? y * (coneResolution  / 360f) : (coneResolution) - (y * (coneResolution / 360f))); //Calculate amount of triangles to draw (create a cone from sphere)
             length = maxConeLength * (1 - (float)activeTris / coneResolution); //Reduce cone-length based on angle-width
             if (length < minConeLength)
                 length = minConeLength;
             Vector3[] vertices = new  Vector3[coneResolution + 2];
             Vector3[] normals = new Vector3[vertices.Length];
+            Vector2[] uvs = new Vector2[vertices.Length];
             int[] triangles = new int[activeTris*3];
             vertices[0] = Vector3.up*coneAltitude; //Assign center vertix
             normals[0] = Vector3.up;
@@ -147,6 +158,8 @@ public class ConeDraw : MonoBehaviour {
                     vertices[k] = curVert * hit.distance;
                 else
                     vertices[k] = curVert*length;
+                
+                uvs[k] = new Vector2(.5f+(vertices[k].x)/(2*length), .5f+(vertices[k].z)/(2*length));
                 if (k < activeTris) //Draw triangles only in fields encapsuled by the drawn angle
                 {
                     if (!clockwise)
@@ -167,9 +180,12 @@ public class ConeDraw : MonoBehaviour {
             coneLook.y = 0;
             transform.LookAt(transform.position  + Quaternion.Euler(drawCone.transform.rotation.eulerAngles) * coneLook);
             vertices[vertices.Length - 1] = vertices[1];
+            uvs[0] = Vector2.one*.5f;
+            uvs[vertices.Length - 1] = uvs[0];
             normals [vertices.Length-1] = Vector3.up;
             drawCone.GetComponent<MeshFilter>().mesh.vertices = vertices;
             drawCone.GetComponent<MeshFilter>().mesh.triangles = triangles;
+            drawCone.GetComponent<MeshFilter>().mesh.uv = uvs;
             drawCone.GetComponent<MeshFilter>().mesh.normals = normals;
         }
     }
@@ -182,7 +198,7 @@ public class ConeDraw : MonoBehaviour {
 
     IEnumerator DrawCone()
     {
-        while (drawing )
+        while (drawing)
         {
             yield return null;
         }
