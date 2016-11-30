@@ -68,7 +68,7 @@ public class Elevator : MonoBehaviour
     }
    
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerStay(Collider col)
     {
         if (col.tag == "Player")
         {
@@ -76,6 +76,7 @@ public class Elevator : MonoBehaviour
             player.transform.parent = gameObject.transform;
             StartCoroutine(elevatorLif());
             StartCoroutine(waitForAniStart());
+            CC.enabled = false;
         }
     }
 
@@ -104,6 +105,7 @@ public class Elevator : MonoBehaviour
 
     void LoadCorrectScene()
     {
+        GameManager.events.ElevatorMoveStop();
         GameManager.progress++;
         PlayerPrefs.SetInt("Progress", GameManager.progress);
         if (GameManager.progress <= 2)
