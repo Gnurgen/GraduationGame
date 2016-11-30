@@ -7,7 +7,7 @@
 					<PropertyList>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
-								<Value>-13</Value>
+								<Value>-15</Value>
 							</ValueList>
 						</Property>
 					</PropertyList>
@@ -75,9 +75,6 @@
 										<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="5"/>
 										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-2</Value>
-											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{24095828-7174-494C-816F-1BFE80BC4A63}">
@@ -1990,6 +1987,11 @@
 										</Property>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
 										<Property Name="PositioningType" Type="int16" Value="1"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>1</Value>
+											</ValueList>
+										</Property>
 									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Attenuation">
@@ -2004,6 +2006,10 @@
 									</ReferenceList>
 									<ChildrenList>
 										<AudioFileSource Name="Boss Meteor" ID="{A5A96DA8-84BF-453D-9FCD-BD0B5ACEB97D}" ShortID="885455871">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="1.95870535714286E-02"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.499469866071429"/>
+											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Boss Meteor.wav</AudioFile>
 										</AudioFileSource>
@@ -2052,6 +2058,9 @@
 												<Property Name="PositioningType" Type="int16" Value="1"/>
 											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+												</Reference>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 												</Reference>
@@ -2392,6 +2401,9 @@
 										<Property Name="PositioningType" Type="int16" Value="1"/>
 									</PropertyList>
 									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+										</Reference>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 										</Reference>
@@ -4073,6 +4085,11 @@
 						<Sound Name="Corpse Despawn" ID="{E0827BA8-6608-4D5F-BCCF-899B6564BC07}" ShortID="559292568" Type="SoundFX">
 							<PropertyList>
 								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>300</Value>
+									</ValueList>
+								</Property>
 								<Property Name="PositioningType" Type="int16" Value="1"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
@@ -4113,6 +4130,9 @@
 								</Property>
 							</PropertyList>
 							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Boss Meteor" ID="{C9B10324-6C1E-4DC0-BF5C-DAB4CAB68B73}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+								</Reference>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 								</Reference>
