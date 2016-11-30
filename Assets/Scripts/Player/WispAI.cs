@@ -27,6 +27,7 @@ public class WispAI : MonoBehaviour {
 	// Use this for initialization
 	void OnEnable ()
     {
+        GameManager.events.ResourceDrop(gameObject, 1);
         player = GameManager.player;
         scatter = startScatter;
         StartCoroutine(Spawn());
@@ -43,7 +44,7 @@ public class WispAI : MonoBehaviour {
         while (scatter > endScatter)
         {
             //transform.position = pos; // delete after testing
-            scatter -= scatterDecay;
+            scatter -= scatterDecay * Time.deltaTime;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
             yield return new WaitForFixedUpdate();
         }

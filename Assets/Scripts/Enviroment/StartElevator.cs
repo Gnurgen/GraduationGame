@@ -11,8 +11,8 @@ public class StartElevator : MonoBehaviour {
         player = GameManager.player;
         fade = GameObject.Find("Fade");
         fade.GetComponent<Fade>().fadeFromBlack(3);
-        EndPos = transform.position;
-        startPos = transform.position + Vector3.down * 2;
+        EndPos = new Vector3(transform.position.x, -3.45f, transform.position.z);
+        startPos = new Vector3 (transform.position.x, -5.45f, transform.position.z);
         transform.position = startPos;
         player.transform.localPosition = Vector3.zero + Vector3.up * 0.453073f; //the float is 0.5 - kumos height in the local position
     }

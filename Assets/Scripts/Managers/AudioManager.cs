@@ -54,6 +54,7 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
         GameManager.events.OnResourcePickup += PickupPlaySub;
         GameManager.events.OnResourceDrop += PickupMovePlay;
+        
 
         GameManager.events.OnEnemyRagdollDespawn += RagdollDespawnPlay;
         GameManager.events.OnWhispEnterElevator += WhispEnterElevatorPlay;
@@ -113,6 +114,7 @@ public class AudioManager : MonoBehaviour {
 
     private void RagdollDespawnPlay(GameObject enemyID)
     {
+        AkSoundEngine.PostEvent("Pickup_Play", enemyID);
         AkSoundEngine.PostEvent("Corpse_Despawn_Play", enemyID);
         AkSoundEngine.RenderAudio();
     }
@@ -147,7 +149,6 @@ public class AudioManager : MonoBehaviour {
     private void PickupPlaySub(GameObject GO, int amount)
     {
         PickupMoveStop(GO);
-        PickupPlay(GO);
     }
 
     private void MenuClosePlaySub()
@@ -428,7 +429,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.PostEvent("Music_System_Stop", GO);
         AkSoundEngine.RenderAudio();
     }
-    public void PickupMovePlay(GameObject GO,int i)
+    public void PickupMovePlay(GameObject GO, int i)
     {
         AkSoundEngine.PostEvent("Pickup_Move_Play", GO);
         AkSoundEngine.RenderAudio();

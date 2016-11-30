@@ -123,7 +123,7 @@ public class Health : MonoBehaviour, IHealth {
         else
         {
             GameManager.events.EnemyDeath(gameObject);
-            GameManager.events.ResourceDrop(gameObject, 1); // AMOUNT OF BLOBS DROPS
+            //GameManager.events.ResourceDrop(gameObject, 1); // AMOUNT OF BLOBS DROPS
         }
     }
     #endregion
