@@ -24,7 +24,7 @@
 							<PropertyList>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-8</Value>
+										<Value>-11</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -59,7 +59,7 @@
 										<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
 										<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 										<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="1"/>
-										<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="6">
+										<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="5">
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{2DB5D16F-C6FD-4220-B8C9-231F2B693047}">
@@ -76,7 +76,7 @@
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="5"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-5</Value>
+												<Value>-2</Value>
 											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
@@ -3239,6 +3239,10 @@
 											</ReferenceList>
 											<ChildrenList>
 												<AudioFileSource Name="Spear Cone Cast" ID="{934B8539-96A3-4E83-8E6B-923A00CA7923}" ShortID="598171912">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.1021669921875"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.3746123046875"/>
+													</PropertyList>
 													<Language>SFX</Language>
 													<AudioFile>Spear Cone Cast.wav</AudioFile>
 												</AudioFileSource>
@@ -3258,6 +3262,10 @@
 											</ReferenceList>
 											<ChildrenList>
 												<AudioFileSource Name="Spear Throw Cast" ID="{C3A0088C-46D6-45FC-85CF-551FCC0BAC71}" ShortID="61854502">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.1021669921875"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.3746123046875"/>
+													</PropertyList>
 													<Language>SFX</Language>
 													<AudioFile>Spear Throw Cast.wav</AudioFile>
 												</AudioFileSource>

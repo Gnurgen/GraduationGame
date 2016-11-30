@@ -86,7 +86,7 @@
 				</File>
 				<File Id="61854502" Language="SFX">
 					<ShortName>Spear Throw Cast.wav</ShortName>
-					<Path>SFX\Spear Throw Cast_C47F2D1B.wem</Path>
+					<Path>SFX\Spear Throw Cast_0BC571DB.wem</Path>
 				</File>
 				<File Id="73345813" Language="SFX">
 					<ShortName>Ambience_5.wav</ShortName>
@@ -230,7 +230,7 @@
 				</File>
 				<File Id="598171912" Language="SFX">
 					<ShortName>Spear Cone Cast.wav</ShortName>
-					<Path>SFX\Spear Cone Cast_C47F2D1B.wem</Path>
+					<Path>SFX\Spear Cone Cast_6AB1F005.wem</Path>
 				</File>
 				<File Id="598744978" Language="SFX">
 					<ShortName>Enemy Swing Rock_3.wav</ShortName>
