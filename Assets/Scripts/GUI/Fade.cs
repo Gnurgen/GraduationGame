@@ -52,4 +52,11 @@ public class Fade : MonoBehaviour {
         endColor = alpha;
         maxTime = duration;
     }
+
+    void winFade() {
+        fading = true;
+        startColor = alpha;
+        endColor = white;
+        maxTime = 3;
+    }
 }
