@@ -89,6 +89,7 @@ namespace AK
                 static const AkUniqueID IN_BATTLE = 210928257U;
                 static const AkUniqueID IN_ENDING_CUTSCENE = 3858937137U;
                 static const AkUniqueID IN_INTRO_CUTSCENE = 2874168282U;
+                static const AkUniqueID IN_LOADING_SCREEN = 3834966784U;
                 static const AkUniqueID IN_MAIN_MENU = 1415091186U;
                 static const AkUniqueID OUT_OF_BATTLE = 304575330U;
             } // namespace STATE

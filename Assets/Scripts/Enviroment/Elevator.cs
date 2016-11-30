@@ -8,6 +8,7 @@ public class Elevator : MonoBehaviour
 {
     public GameObject invisibleWalls;
     private GameObject fade;
+    
     CapsuleCollider CC;
     Material mat;
     private GameObject player;
@@ -16,13 +17,10 @@ public class Elevator : MonoBehaviour
     private InputManager IM;
     int ID;
     float speed = 1;
-    bool isMoving = false;
-
+    int tilesInvis = 0;
     void Start()
     {
-        transform.position = new Vector3(transform.position.x, -3.45f, transform.position.z);
-        CC = GetComponent<CapsuleCollider>();
-        CC.enabled = false;
+        transform.position = new Vector3(transform.position.x - 1.5f, -3.45f, transform.position.z - 1.5f);
         mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
         GameManager.events.OnElevatorActivated += ActivateME;
         fade = GameObject.Find("Fade");
@@ -32,7 +30,25 @@ public class Elevator : MonoBehaviour
         Color col = new Color(0.3f, 0.3f, 0.3f);
         mat.color = col;
     }
+   
+    private void putAHole()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, 0, transform.position.y), 30f);
+        for (int i = 0; i < hitColliders.Length; i++)
+        {
+            if (hitColliders[i].tag == "Tiles")
+            {
+                hitColliders[i].GetComponentInChildren<MeshRenderer>().enabled = false;
+                tilesInvis++;
+                if(tilesInvis == 9)
+                {
+                    CC = GetComponent<CapsuleCollider>();
+                    CC.enabled = false;
+                }
+            }
+        }
 
+    }
     private void ActivateME()
     {
         CC.enabled = true;
@@ -66,7 +82,7 @@ public class Elevator : MonoBehaviour
     IEnumerator elevatorLif()
     {
         yield return new WaitForSeconds(preLift);
-        
+        GameManager.events.ElevatorMoveStart();
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
         while (newPos < 20f)
         {

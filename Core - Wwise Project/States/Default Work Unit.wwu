@@ -24,6 +24,7 @@
 						<State Name="In_Intro_Cutscene" ID="{FF09B547-76FF-48B8-AFD8-C42D9E47136E}"/>
 						<State Name="In_Ending_Cutscene" ID="{FD711EA9-1883-459A-8A00-52C7B657A8EE}"/>
 						<State Name="After_Boss" ID="{FEDBABB8-02C3-4013-A4C0-173144D0D528}"/>
+						<State Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
 					</ChildrenList>
 				</StateGroup>
 			</ChildrenList>

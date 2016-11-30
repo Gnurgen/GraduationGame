@@ -25,6 +25,7 @@ public class StartElevator : MonoBehaviour {
         }
         else
         {
+            GameManager.events.ElevatorMoveStop();
             player.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
             player.transform.parent = null;
             enabled = false;

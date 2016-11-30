@@ -70,6 +70,7 @@ State	ID	Name	State Group			Notes
 	1362486867	After_Boss	Game_State			
 	1415091186	In_Main_Menu	Game_State			
 	2874168282	In_Intro_Cutscene	Game_State			
+	3834966784	In_Loading_Screen	Game_State			
 	3853226033	In_Ability_Control	Game_State			
 	3858937137	In_Ending_Cutscene	Game_State			
 	748895195	None	Environment			
@@ -77,26 +78,30 @@ State	ID	Name	State Group			Notes
 	4284352190	Large	Environment			
 
 Custom State	ID	Name	State Group	Owner		Notes
+	79677499	In_Loading_Screen	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player		
 	116475365	In_Ability_Wheel	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music		
-	353929751	In_Ability_Control	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat		
+	300495557	In_Loading_Screen	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat		
 	396397624	Out_Of_Battle	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Gongs		
+	416086302	In_Ability_Wheel	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System		
+	430255708	In_Battle	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\SFX\Spirit		
 	497729941	In_Ability_Control	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music		
-	585593660	In_Ability_Control	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\SFX		
+	707485395	In_Loading_Screen	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System		
+	762456106	In_Ability_Wheel	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player		
 	794233282	In_Ability_Wheel	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat		
-	817012889	In_Ability_Control	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Ambience		
 	926452934	In_Ability_Wheel	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\SFX		
 	1011008802	In_Ability_Wheel	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Ambience		
+	1019953330	In_Loading_Screen	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Ambience		
 
 Trigger	ID	Name			Wwise Object Path	Notes
 	2788114033	Boss_Stinger			\Default Work Unit\Boss_Stinger	
 
 Effect plug-ins	ID	Name	Type				Notes
 	60794791	Wwise Guitar Distortion (Custom)	Wwise Guitar Distortion			
+	120400906	Wwise Guitar Distortion (Custom)	Wwise Guitar Distortion			
 
 Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
 	7162753	Enemy Melee Whoosh	SoundSeed Air/SoundSeed Woosh		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy Melee\Enemy_Melee\Enemy Melee Whoosh	
 	286443241	Spear Whoosh	SoundSeed Air/SoundSeed Woosh		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear\Spear Whoosh	
-	328513533	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Beam Target\Boss_Beam_Hit_Wall\Wwise Silence	
 	492821427	Wwise Silence	Wwise Silence		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Ranged Target\Enemy_Ranged_Hit_Wall\Wwise Silence	
 	695947847	Dash Whoosh	SoundSeed Air/SoundSeed Woosh		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Dash\Dash Whoosh	
 	1043796269	SoundSeed Wind	SoundSeed Air/SoundSeed Wind		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw\Wind\SoundSeed Wind	
@@ -105,19 +110,19 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	46253538	Enemy Impact_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Enemy Impact_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact_1		5591
 	55832679	Button_Wheel_Hover	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Button_Wheel_Hover_2E403D0A.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Buttons\Button_Wheel_Hover		5416
 	58288704	Indestructable Impact_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Indestructable Impact_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact_1		7597
-	61854502	Spear Throw Cast	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Spear Throw Cast_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw Cast		80776
+	61854502	Spear Throw Cast	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Spear Throw Cast_58A929FC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw Cast		74690
 	73345813	Ambience_5	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Ambience_5_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_5		827302
 	77503931	Menu_Close	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Menu_Close_865244D9.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Menu_Close		5308
 	91948562	Ambience_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Ambience_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_3		578856
 	105078837	Enemy Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Enemy Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact_3		5862
 	108351414	Enemy Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Enemy Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact_2		6060
 	117927810	In Game Music - Gongs	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\In Game Music - Gongs_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Gongs		974943
-	127406643	Wisp Elevator	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Wisp Elevator_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Spirit\Wisp Elevator		35840
+	127406643	Wisp Elevator	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Wisp Elevator_84E6080E.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Spirit\Wisp Elevator		22230
 	163235136	Player Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Player Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Melee Player Impact\Player Impact_2		6317
 	168374737	Indestructable Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Indestructable Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact_3		7865
 	193622691	Button_Start_Game	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Button_Start_Game_5CAE6989.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Buttons\Button_Start_Game		5885
 	203288734	Spear Throw	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Spear Throw_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw\Spear Throw		105748
-	209859539	Draw_Ability_Control	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Draw_Ability_Control_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Ability Feedback\Draw_Ability_Control		30160
+	209859539	Draw_Ability_Control	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Draw_Ability_Control_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Draw_Ability_Control		30160
 	236484631	In Game Music - Main	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\In Game Music - Main_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Main		1325070
 	239801717	Ambience_4	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Ambience_4_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_4		617251
 	314800765	Button_Wheel_Select	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Button_Wheel_Select_785D9045.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Buttons\Button_Wheel_Select		7157
@@ -141,7 +146,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	582697754	Indestructable Impact	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Indestructable Impact_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact		7036
 	588111419	Boss Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Boss Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Boss Impact\Boss Impact_3		5396
 	590688327	Wisp Loop	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Wisp Loop_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Spirit\Wisp Loop		323705
-	598171912	Spear Cone Cast	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Spear Cone Cast_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Cone Cast		80673
+	598171912	Spear Cone Cast	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Spear Cone Cast_58A929FC.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Cone Cast		74506
 	598744978	Enemy Swing Rock_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Enemy Swing Rock_3_442DBB92.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy Melee\Enemy Rock Swing\Enemy Swing Rock_3		5774
 	628448248	Corpse Despawn	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Corpse Despawn_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Corpse Despawn		31138
 	667649109	Indestructable Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Indestructable Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Indestructable Impact\Indestructable Impact_2		7653
@@ -154,7 +159,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	792153528	Wisp Spawn Loop	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Wisp Spawn Loop_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Spirit\Wisp Spawn Loop		98867
 	818329351	Ranged Projectile	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Ranged Projectile_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Ranged Projectile		92038
 	822169123	Player_Death	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Player_Death_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Player_Death		5156
-	835280033	Cone_Ability_Control	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Circle_Ability_Control_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\System\Ability Feedback\Cone_Ability_Control		32670
+	835280033	Cone_Ability_Control	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Circle_Ability_Control_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Cone_Ability_Control		32670
 	885455871	Boss Meteor	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Boss Meteor_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Meteor		75372
 	898309102	Enemy Impact	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Enemy Impact_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact		6470
 	932996397	Boss Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\iOS\SFX\Boss Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Boss Impact\Boss Impact_2		5466
