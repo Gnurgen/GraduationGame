@@ -23,19 +23,19 @@
 			<IncludedEvents>
 				<Event Id="3074393677" Name="Boss_Beam_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Play" MaxAttenuation="5.000000"/>
 				<Event Id="4191587739" Name="Boss_Beam_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="1433984317" Name="Boss_Beam_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Play" MaxAttenuation="5.000000"/>
+				<Event Id="1433984317" Name="Boss_Beam_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Play"/>
 				<Event Id="3661299883" Name="Boss_Beam_Target_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="2907375116" Name="Boss_Rain_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Play" MaxAttenuation="10.000000"/>
 				<Event Id="3906322206" Name="Button_Menu_Play" ObjectPath="\Events\Default Work Unit\Button_Menu_Play"/>
 				<Event Id="789154922" Name="Button_Start_Game_Play" ObjectPath="\Events\Default Work Unit\Button_Start_Game_Play"/>
 				<Event Id="3837168167" Name="Button_Wheel_Hover_Play" ObjectPath="\Events\Default Work Unit\Button_Wheel_Hover_Play"/>
 				<Event Id="378387809" Name="Button_Wheel_Select_Play" ObjectPath="\Events\Default Work Unit\Button_Wheel_Select_Play"/>
-				<Event Id="1005055766" Name="Cone_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Play"/>
+				<Event Id="1005055766" Name="Cone_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Play" MaxAttenuation="15.000000"/>
 				<Event Id="1735593128" Name="Cone_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1610256012" Name="Cone_Ability_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2017253371" Name="Corpse_Despawn_Play" ObjectPath="\Events\Default Work Unit\Corpse_Despawn_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2174485018" Name="Dash_Play" ObjectPath="\Events\Default Work Unit\Dash_Play" MaxAttenuation="15.000000"/>
-				<Event Id="669353839" Name="Draw_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Play"/>
+				<Event Id="669353839" Name="Draw_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Play" MaxAttenuation="15.000000"/>
 				<Event Id="3386881389" Name="Draw_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1855658509" Name="Draw_Ability_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2972852827" Name="Draw_Ability_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Stop" MaxAttenuation="0.000000"/>
