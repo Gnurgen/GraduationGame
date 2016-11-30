@@ -17,7 +17,7 @@ public class PlayerControls : MonoBehaviour {
 
     // ----- Inspector -----
     [SerializeField]
-    private float moveSpeed = 4, minDashDistance = 3, maxDashDistance = 6, dashCooldown = 3;
+    private float moveSpeed = 4, minDashDistance = 3, maxDashDistance = 6, dashCooldown = 3, abilityCooldown = 1;
     [SerializeField]
     [Range(2, 5)]
     private int dashSpeedMultiplier = 3, alwaysWalk = 3;
@@ -68,7 +68,7 @@ public class PlayerControls : MonoBehaviour {
 
     void FixedUpdate()
     {
-        currentDashCooldown += currentDashCooldown < 0 ? 0 : -Time.fixedDeltaTime;
+        currentDashCooldown -= Time.fixedDeltaTime;
         body.velocity = Vector3.zero;
 
     }
@@ -133,12 +133,12 @@ public class PlayerControls : MonoBehaviour {
     {
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
-        while (state == State.Dashing && currentDashDistance < maxDashDistance && NotPassedPoint(transform.position, MoveToPoint) && Distance(transform.position, MoveToPoint)>alwaysWalk)
+        while (state == State.Dashing && currentDashDistance < maxDashDistance && NotPassedPoint(transform.position, MoveToPoint) && (transform.position - MoveToPoint).magnitude>alwaysWalk)
         {
             prevPos = transform.position;
             body.position += transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
-            currentDashDistance += Distance(prevPos, transform.position);
+            currentDashDistance += (prevPos - transform.position).magnitude;
         }
         em.PlayerDashEnd(gameObject);
         if (state == State.Ability)
@@ -168,15 +168,15 @@ public class PlayerControls : MonoBehaviour {
     {
         touchStart = im.GetWorldPoint(p);
         prevstate = state;
-        if ((touchStart - GameManager.player.transform.position).magnitude < abilityTouchOffset && ability1.Cooldown() <= 0)
+        if ((touchStart - transform.position).magnitude < abilityTouchOffset && ability1.currentCooldown <= 0)
             ab1 = true;
-        else if (ability2.Cooldown()<=0)
+        else if (ability2.currentCooldown <=0)
             ab2 = true;
     } 
     void Move(Vector2 p)
     {
         touchCur = im.GetWorldPoint(p);
-        if (Distance(touchCur, touchStart) >= abilityTouchMoveDistance)
+        if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance)
         {
             body.velocity = Vector3.zero;
             state = State.Ability;
@@ -185,7 +185,7 @@ public class PlayerControls : MonoBehaviour {
                 ability1.UseAbility(touchStart);
                 GameManager.events.SpearDrawAbilityStart(gameObject);
             }
-            else
+            else if(ab2)
             {
                 ability2.UseAbility(touchStart);
                 GameManager.events.ConeAbilityStart(gameObject);
@@ -198,8 +198,13 @@ public class PlayerControls : MonoBehaviour {
         ab1 = false; ab2 = false;
     }
 
-    public void EndAbility()
+    public void EndAbility(bool used)
     {
+        if (used)
+        {
+            ability1.currentCooldown = abilityCooldown;
+            ability2.currentCooldown = abilityCooldown;
+        }
         ab1 = false; ab2 = false;
         if (ResumeMovementAfterAbility)
             state = prevstate;
@@ -227,18 +232,11 @@ public class PlayerControls : MonoBehaviour {
             ClickFeedBack.transform.position = MoveToPoint;
             ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
             transform.LookAt(MoveToPoint);
-            if (Distance(transform.position, MoveToPoint) > minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing)
+            if ((transform.position-MoveToPoint).magnitude > minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing)
                 StartCoroutine(Dashing());
             else if (!isMoving)
                 StartCoroutine(Moving());
         }
-      
     }
-    private float Distance(Vector3 a, Vector3 b)
-    {
-        return (a - b).magnitude;
-    }
-
-   
 }
 
