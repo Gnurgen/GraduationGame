@@ -7,7 +7,7 @@ public class FlyingSpear : MonoBehaviour {
 
     public GameObject spear;
     [SerializeField]
-    private float baseDamage, flyingSpeed, cooldown = 5, drawLength, damage, pushForce, spearAltitude, turnRate, stunTime;
+    private float baseDamage, flyingSpeed, drawLength, damage, pushForce, spearAltitude, turnRate, stunTime;
     [SerializeField]
     [Range(1, 10)]
     private int dragForce = 1;
@@ -16,7 +16,18 @@ public class FlyingSpear : MonoBehaviour {
 
 
 
-    private float currentCooldown;
+    private float _currentCooldown;
+    public float currentCooldown
+    {
+        get
+        {
+            return _currentCooldown;
+        }
+        set
+        {
+            _currentCooldown = value;
+        }
+    }
     private InputManager IM;
     private EventManager EM;
     private CurveDraw LR;
@@ -39,14 +50,8 @@ public class FlyingSpear : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        currentCooldown -= Time.deltaTime;
+        _currentCooldown -= Time.deltaTime;
 	}
-
-    public float Cooldown()
-    {
-
-        return currentCooldown< 0 ? 0 : currentCooldown;
-    }
 
     public void UseAbility(Vector3 p)
     {
@@ -70,14 +75,13 @@ public class FlyingSpear : MonoBehaviour {
         IM.OnFirstTouchMoveUnsub(ID);
         IM.OnFirstTouchEndUnsub(ID);
        
-        GetComponent<PlayerControls>().EndAbility();
+        GetComponent<PlayerControls>().EndAbility(true);
         // Actually use the ability with the drawn points
 
         GameObject s = Instantiate(spear) as GameObject;
         GameManager.events.SpearDrawAbilityUsed(s);
         s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets);
         LR.CleanUp();
-        currentCooldown = cooldown;
     }
 
     IEnumerator DrawLine()
