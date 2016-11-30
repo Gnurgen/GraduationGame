@@ -336,6 +336,9 @@ public class EventManager : MonoBehaviour
     public event ResourceAction OnResourceDrop;
     public event ResourceAction OnResourcePickup;
 
+    public delegate void WhispAction(GameObject GO);
+    public event WhispAction OnWhispSpawn;
+
     public void RoomComplete(int i)
     {
         if (OnRoomComplete != null)

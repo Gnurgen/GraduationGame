@@ -54,7 +54,15 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnMenuClose += MenuClosePlaySub; // IS MISSING (de kommer) + I HAVE TO CHANGE STATE HERE
         GameManager.events.OnResourcePickup += PickupPlaySub;
         GameManager.events.OnResourceDrop += PickupMovePlay;
+
+        GameManager.events.OnEnemyRagdollDespawn += RagdollDespawnPlay;
+
         
+    }
+
+    private void RagdollDespawnPlay(GameObject enemyID)
+    {
+        //throw new NotImplementedException();
     }
 
     private void CheckState(GameObject go)
