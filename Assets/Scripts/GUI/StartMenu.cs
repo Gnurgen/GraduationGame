@@ -29,7 +29,18 @@ public class StartMenu : MonoBehaviour {
     public void newGame() {
         ResetProgress();
         Time.timeScale = 1;
-        SceneManager.LoadScene("CutScene"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+        StartCoroutine(playVideo());
+        //SceneManager.LoadScene("CutScene"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+    }
+
+    IEnumerator playVideo()
+    {
+        Handheld.PlayFullScreenMovie("Sequence 01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
+        Debug.Log("Now playing video file on android device (skipping video on unity play!)");
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        SceneManager.LoadScene("Tutorial"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+
     }
 
     public void loadGame()
