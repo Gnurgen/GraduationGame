@@ -100,21 +100,10 @@ public class Elevator : MonoBehaviour
       
         yield return new WaitForSeconds(underLift);
         AkSoundEngine.StopAll();
-        LoadCorrectScene();
+
+        GameManager.events.ElevatorMoveStop();
+        GameManager.events.LoadNextlevel();
     }
 
-    void LoadCorrectScene()
-    {
-        GameManager.events.ElevatorMoveStop();
-        GameManager.progress++;
-        PlayerPrefs.SetInt("Progress", GameManager.progress);
-        if (GameManager.progress <= 2)
-        {
-            SceneManager.LoadScene("Final");
-        }
-        else
-        {
-            SceneManager.LoadScene("BossLevel");
-        }
-    }
+
 }
