@@ -238,6 +238,7 @@ public class BossAI : MonoBehaviour {
         }
         print("YOU WON");
         GameManager.events.BossDeath(gameObject);
+        
         yield break;
     }
 

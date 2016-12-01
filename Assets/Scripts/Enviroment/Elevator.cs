@@ -28,9 +28,6 @@ public class Elevator : MonoBehaviour
         ID = IM.GetID();
         Color col = new Color(0.3f, 0.3f, 0.3f);
         mat.color = col;
-        CC = GetComponent<CapsuleCollider>();
-        CC.enabled = false;
-        invisibleWalls.SetActive(false);
     }
    
     private void putAHole()
@@ -44,6 +41,7 @@ public class Elevator : MonoBehaviour
                 tilesInvis++;
                 if(tilesInvis == 9)
                 {
+                    CC = GetComponent<CapsuleCollider>();
                     CC.enabled = false;
                 }
             }
@@ -88,8 +86,8 @@ public class Elevator : MonoBehaviour
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
         while (newPos < 20f)
         {
-            newPos = gameObject.transform.position.y + Time.deltaTime * speed;
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos, gameObject.transform.position.z);
+        newPos = gameObject.transform.position.y + Time.deltaTime * speed;
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos, gameObject.transform.position.z);
             yield return null;
         }
         yield return null;
@@ -101,7 +99,7 @@ public class Elevator : MonoBehaviour
         fade.GetComponent<Fade>().fadeToBlack(2);
       
         yield return new WaitForSeconds(underLift);
-      
+        AkSoundEngine.StopAll();
         LoadCorrectScene();
     }
 

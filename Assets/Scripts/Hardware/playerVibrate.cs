@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class playerVibrate : MonoBehaviour {
-    public long vibrationDuration = 100;
+    public long vibrateForMiliSeconds = 100;
     private InputManager IM;
     private EventManager EM;
     int ID;
@@ -12,23 +12,14 @@ public class playerVibrate : MonoBehaviour {
         ID = IM.GetID();
         EM = GameManager.events;
 
-        EM.OnEnemyAttackHit += AttackVibrate;
+        EM.OnEnemyAttackHit += AddStandardVibration;
         //EM.OnEnemyAttackHit += vibrateForSec;
 	}
 
 
-    void AttackVibrate(GameObject id, float dmg)
+    void AddStandardVibration(GameObject ID, float dmg)
     {
-
-        //Handheld.Vibrate();
-        try
-        {
-            Vibrator.Vibrate(vibrationDuration);
-        }
-        catch
-        {
-            Debug.Log("LOL! NO VIBRATE!");
-        }
+        Handheld.Vibrate();
     }
 
     /*void vibrateForSec(GameObject ID, float dmg)
@@ -38,5 +29,4 @@ public class playerVibrate : MonoBehaviour {
         Vibrator.Vibrate(vibrateForMiliSeconds);
 #endif
     }
-*/
-}
+*/}
