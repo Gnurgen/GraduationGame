@@ -428,6 +428,33 @@ public class EventManager : MonoBehaviour
     //#############################################################################             ####################################################################
     //##############################################################################################################################################################
 
+
+    public delegate void LoadingAction(float progress);
+    public event LoadingAction OnLoadingProgress;
+
+    public delegate void LoadingCompleteAction();
+    public event LoadingCompleteAction OnLoadComplete;
+    public event LoadingCompleteAction OnLoadNextLevel;
+
+    public void LoadNextlevel()
+    {
+        if (OnLoadNextLevel!= null)
+            OnLoadNextLevel();
+    }
+
+    public void LoadComplete()
+    {
+        if (OnLoadComplete != null)
+            OnLoadComplete();
+    }
+
+    public void LoadingProgress(float progress)
+    {
+        if (OnLoadingProgress != null)
+            OnLoadingProgress(progress);
+    }
+
+
     public delegate void CheckPointAction();
     public event CheckPointAction OnCheckPoint;
 
