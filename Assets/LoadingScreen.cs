@@ -19,12 +19,24 @@ public class LoadingScreen : MonoBehaviour {
         if(GameManager.events != null)
         {
             GameManager.events.OnLoadingProgress += Loading;
+            GameManager.events.OnLoadComplete += UnloadLoadingScene;
         }
 
     }
 
+
     private void Loading(float progress)
     {
+        
+        
         loadingProgress.fillAmount = progress;
+        if(progress <= 1)
+        {
+            GameManager.events.LoadComplete();
+        }
+    }
+    private void UnloadLoadingScene()
+    {
+        SceneManager.UnloadScene("LoadingScreen");
     }
 }
