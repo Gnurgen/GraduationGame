@@ -318,7 +318,6 @@ public class AudioManager : MonoBehaviour {
     }
     public void ConeAbilityPlay(GameObject GO)
     {
-        print("hej");
         //When finnished drawing the cone Ability and activates 
         AkSoundEngine.PostEvent("Cone_Ability_Play", GO);
         AkSoundEngine.RenderAudio();

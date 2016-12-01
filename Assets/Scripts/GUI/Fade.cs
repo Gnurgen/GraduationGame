@@ -4,9 +4,9 @@ using System.Collections;
 
 public class Fade : MonoBehaviour {
 
-    Image blackImg;
+    Image fadeImg;
 
-    public Color black, alpha, white;
+    public Color black, alpha, white, whitealpha;
     private Color startColor, endColor;
     private float currentTime, maxTime, scaling;
     private bool fading = false;
@@ -16,14 +16,16 @@ public class Fade : MonoBehaviour {
         {
             currentTime += Time.deltaTime;
             scaling = (maxTime - (maxTime - currentTime)) / maxTime;
-            blackImg.color = Color.Lerp(startColor, endColor, scaling);
+            fadeImg.color = Color.Lerp(startColor, endColor, scaling);
         }
         else if (fading == true && currentTime >= maxTime)
             fading = false;
 
     }
     void Start() {
-        blackImg = gameObject.GetComponent<Image>();
+        fadeImg = gameObject.GetComponent<Image>();
+        GameManager.events.OnBossDeath += winFade;
+
     }
     public void fadeToBlack(float duration) {
         fading = true;
@@ -51,5 +53,11 @@ public class Fade : MonoBehaviour {
         startColor = white;
         endColor = alpha;
         maxTime = duration;
+    }
+
+    void winFade(GameObject ID) {
+        gameObject.GetComponent<Image>().color = white;
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0, 0, true);
+        gameObject.GetComponent<Image>().CrossFadeAlpha(1, 3, true);
     }
 }

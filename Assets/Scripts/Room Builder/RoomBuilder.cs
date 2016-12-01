@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class RoomBuilder : MonoBehaviour {
 
     public const int MAX_UNIT_SIZE = 2;
-    public const int MAX_LEVEL = 3;
+    public const int MAX_LEVEL = 2;
 
     private static RoomTile _defaultTile;
     private static RoomWall _defaultWall;
