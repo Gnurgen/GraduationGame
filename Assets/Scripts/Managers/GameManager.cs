@@ -31,6 +31,7 @@ public class GameManager {
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
+        events.OnLoadNextLevel += LoadScene;
     }
 
     public static void GameOver(bool CheckPoint)
@@ -304,4 +305,20 @@ public class GameManager {
         int exp = 4 + playerLevel * (playerLevel - 1);
         return exp;
     }
+
+    public void LoadScene()
+    {
+        progress++;
+        PlayerPrefs.SetInt("Progress", progress);
+        SceneManager.LoadScene("LoadingScreen");
+        if (progress <= 2) // Number of levels before Boss level 
+        {
+            SceneManager.LoadSceneAsync("Final");
+        }
+        else
+        {
+            SceneManager.LoadSceneAsync("BossLevel");
+        }
+    }
+
 }
