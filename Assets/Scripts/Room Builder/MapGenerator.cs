@@ -334,7 +334,7 @@ public class MapGenerator : MonoBehaviour {
 
         GameManager.player.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -2.0f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
         Camera.main.transform.position = new Vector3(GameManager.player.transform.position.x - 7.5f, GameManager.player.transform.position.y + 11.1f, GameManager.player.transform.position.z - 7.5f);
-        GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -0.75f, - (goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+        GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -3.75f, - (goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
 
         mapGrid = new RoomGridEntry[gridSize, gridSize];
 
