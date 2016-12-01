@@ -15,6 +15,12 @@ public class FlyingSpear : MonoBehaviour {
     private int dragTargets;
     [SerializeField]
     private bool multipleHit;
+    [SerializeField]
+    private float damageIncrease;
+    [SerializeField]
+    private float scaleIncrease;
+    [SerializeField]
+    private float colliderIncrease;
 
 
 
@@ -82,7 +88,7 @@ public class FlyingSpear : MonoBehaviour {
 
         GameObject s = Instantiate(spear) as GameObject;
         GameManager.events.SpearDrawAbilityUsed(s);
-        s.GetComponent<SpearControl>().SetParameters(LR.GetPoints(), LR.GetEffects(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets, multipleHit);
+        s.GetComponent<SpearControl>().SetParameters(LR.GetPoints(), LR.GetEffects(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets, multipleHit, damageIncrease, scaleIncrease, colliderIncrease);
         LR.CleanUp();
     }
 
