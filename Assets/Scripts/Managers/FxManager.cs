@@ -49,6 +49,8 @@ public class FxManager : MonoBehaviour {
         // Insert ability effects here
         if(playerDeath != null)
             GameManager.events.OnPlayerDeath += PlayerDeathEffect;
+        if (flyingSpearHit != null)
+            GameManager.events.OnSpearDrawAbilityHit += SpearHitEffect;
 
         // Subscribe to boss events with effects
         if(bossActivation != null)
@@ -144,6 +146,11 @@ public class FxManager : MonoBehaviour {
         ef.transform.position = spearTip.position;
         ef.GetComponent<PKFxFX>().StartEffect();
         StartCoroutine(DestroyAfter(ef, 2));
+    }
+
+    void SpearHitEffect(GameObject id)
+    {
+        
     }
 
 
