@@ -31,7 +31,7 @@ public class GameManager {
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
-        events.OnLoadNextLevel += LoadScene;
+        events.OnLoadNextLevel += LoadNextLevel;
     }
 
     public static void GameOver(bool CheckPoint)
@@ -306,18 +306,25 @@ public class GameManager {
         return exp;
     }
 
-    public void LoadScene()
+    public static void LoadNextLevel()
     {
-        progress++;
-        PlayerPrefs.SetInt("Progress", progress);
+        progress = PlayerPrefs.GetInt("Progress");
+
+        SceneManager.UnloadScene(SceneManager.GetActiveScene());
+        
         SceneManager.LoadScene("LoadingScreen");
-        if (progress <= 2) // Number of levels before Boss level 
+        if(progress == 0)
         {
-            SceneManager.LoadSceneAsync("Final");
+            SceneManager.LoadSceneAsync("Tutorial", LoadSceneMode.Single);
+        }
+        else if (progress <= 2) // Number of levels before Boss level 
+        {
+            SceneManager.LoadSceneAsync("Final",LoadSceneMode.Additive);
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
         }
         else
         {
-            SceneManager.LoadSceneAsync("BossLevel");
+            SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Additive);
         }
     }
 

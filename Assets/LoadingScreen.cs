@@ -12,10 +12,11 @@ public class LoadingScreen : MonoBehaviour {
 	void Start () {
         loadingProgress = GameObject.Find("LoadProgress").GetComponent<Image>();
         loadingProgress.fillAmount = 0f;
-
-	}
+       
+    }
 	void Update()
     {
+        print("LOADING");
         if(GameManager.events != null)
         {
             GameManager.events.OnLoadingProgress += Loading;
@@ -27,16 +28,15 @@ public class LoadingScreen : MonoBehaviour {
 
     private void Loading(float progress)
     {
-        
-        
+        print(progress*100 + "%");
         loadingProgress.fillAmount = progress;
-        if(progress <= 1)
+        if(progress >= 1)
         {
             GameManager.events.LoadComplete();
         }
     }
     private void UnloadLoadingScene()
     {
-        SceneManager.UnloadScene("LoadingScreen");
+       SceneManager.UnloadScene("LoadingScreen");
     }
 }
