@@ -22,9 +22,11 @@ public class MapGenerator : MonoBehaviour {
     private RoomGridEntry[,] mapGrid;
     private RoomTile[] tiles;
     private GameObject go;
+    private GameObject startElevator;
+    private GameObject endElevator;
     private int[] mask;
     private int[] startRoom;
-    private int[] goalRoom;
+    private int[] endRoom;
     private int[] progressCoords;
     private int roomRollOdds;
     private int progress;
@@ -64,8 +66,10 @@ public class MapGenerator : MonoBehaviour {
         int[] hashIndex;
         List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
 
-        rooms = new List<GameObject>();
+        startElevator = Instantiate(Resources.Load("Elevator/StartElevator") as GameObject);
+        endElevator = Instantiate(Resources.Load("Elevator/EndElevator") as GameObject);
 
+        rooms = new List<GameObject>();
         roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
 
         for (i = 0; i < objectList.Count; i++)
@@ -121,87 +125,98 @@ public class MapGenerator : MonoBehaviour {
         progressCoords = new int[] {0, 0};
         completed = false;
 
-        switch (size)
+        if (startElevator != null)
         {
-            case MapSize.Large:
-                gridSize = 5;
-                if (shape == MapShape.Frame)
-                    mask = new int[]
+            if (GameManager.player.transform.parent == startElevator)
+                GameManager.player.transform.parent = startElevator.transform.parent;
+            Destroy(startElevator);
+        }
+        startElevator = Instantiate(Resources.Load("Elevator/StartElevator") as GameObject);
+
+        if (size == MapSize.Large){
+            gridSize = 5;
+            if (shape == MapShape.Frame)
+                mask = new int[]
+                {
+                    1, 1, 1, 1, 1,
+                    1, 1, 0, 1, 1,
+                    1, 0, 0, 0, 1,
+                    1, 1, 0, 1, 1,
+                    1, 1, 1, 1, 1
+                };
+        }
+        else
+        {
+            gridSize = 3;
+            if (shape == MapShape.Frame)
+                mask = new int[]
                     {
-                        1, 1, 1, 1, 1,
-                        1, 1, 0, 1, 1,
-                        1, 0, 0, 0, 1,
-                        1, 1, 0, 1, 1,
-                        1, 1, 1, 1, 1
+                        1, 1, 1,
+                        1, 0, 1,
+                        1, 1, 1
                     };
-                break;
-            default:
-                gridSize = 3;
-                if (shape == MapShape.Frame)
-                    mask = new int[]
-                        {
-                            1, 1, 1,
-                            1, 0, 1,
-                            1, 1, 1
-                        };
-                break;
         }
 
         center = Mathf.FloorToInt(gridSize / 2);
 
-        switch (shape)
+
+        if (shape == MapShape.Frame)
         {
-            case MapShape.Frame:
-                switch (Random.Range(0, 3))
-                {
-                    case 0:
-                        startRoom = new int[] { 0, center };
-                        goalRoom = new int[] { gridSize - 1, center };
-                        break;
-                    case 1:
-                        startRoom = new int[] { center, 0 };
-                        goalRoom = new int[] { center, gridSize - 1 };
-                        break;
-                    case 2:
-                        startRoom = new int[] { gridSize - 1, center };
-                        goalRoom = new int[] { 0, center };
-                        break;
-                    case 3:
-                    default:
-                        startRoom = new int[] { center, gridSize - 1 };
-                        goalRoom = new int[] { center, 0 };
-                        break;
-                }
-                break;
-            default:
-                switch (Random.Range(0, 3))
-                {
-                    case 0:
-                        startRoom = new int[] { 0, 0 };
-                        goalRoom = new int[] { gridSize - 1, gridSize - 1 };
-                        break;
-                    case 1:
-                        startRoom = new int[] { gridSize - 1, 0 };
-                        goalRoom = new int[] { 0, gridSize - 1 };
-                        break;
-                    case 2:
-                        startRoom = new int[] { gridSize - 1, gridSize - 1 };
-                        goalRoom = new int[] { 0, 0 };
-                        break;
-                    case 3:
-                    default:
-                        startRoom = new int[] { 0, gridSize - 1 };
-                        goalRoom = new int[] { gridSize - 1, 0 };
-                        break;
-                }
-                mask = new int[gridSize * gridSize];
-                populate(mask, 1);
-                break;
+            switch (Random.Range(0, 3))
+            {
+                case 0:
+                    startRoom = new int[] { 0, center };
+                    endRoom = new int[] { gridSize - 1, center };
+                    break;
+                case 1:
+                    startRoom = new int[] { center, 0 };
+                    endRoom = new int[] { center, gridSize - 1 };
+                    break;
+                case 2:
+                    startRoom = new int[] { gridSize - 1, center };
+                    endRoom = new int[] { 0, center };
+                    break;
+                case 3:
+                default:
+                    startRoom = new int[] { center, gridSize - 1 };
+                    endRoom = new int[] { center, 0 };
+                    break;
+            }
+        }
+        else
+        {
+            switch (Random.Range(0, 3))
+            {
+                case 0:
+                    startRoom = new int[] { 0, 0 };
+                    endRoom = new int[] { gridSize - 1, gridSize - 1 };
+                    break;
+                case 1:
+                    startRoom = new int[] { gridSize - 1, 0 };
+                    endRoom = new int[] { 0, gridSize - 1 };
+                    break;
+                case 2:
+                    startRoom = new int[] { gridSize - 1, gridSize - 1 };
+                    endRoom = new int[] { 0, 0 };
+                    break;
+                case 3:
+                default:
+                    startRoom = new int[] { 0, gridSize - 1 };
+                    endRoom = new int[] { gridSize - 1, 0 };
+                    break;
+            }
+            mask = new int[gridSize * gridSize];
+            populate(mask, 1);
         }
 
-        GameManager.player.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -2.0f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
+
+        startElevator.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -2.0f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
+        endElevator.transform.position = new Vector3((endRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -3.45f, -(endRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
+
+        GameManager.player.transform.position = startElevator.transform.position;
+        GameManager.player.transform.parent = startElevator.transform;
+
         Camera.main.transform.position = new Vector3(GameManager.player.transform.position.x - 7.5f, GameManager.player.transform.position.y + 11.1f, GameManager.player.transform.position.z - 7.5f);
-        GameObject.Find("Elevator").transform.position = new Vector3((goalRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, -0.75f, - (goalRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
 
         mapGrid = new RoomGridEntry[gridSize, gridSize];
 
@@ -216,24 +231,11 @@ public class MapGenerator : MonoBehaviour {
                 }
             }
         }
-
-        switch (layout)
-        {
-            case RoomLayout.Maze:
-                roomRollOdds = 10;
-                break;
-            default:
-                roomRollOdds = 3;
-                break;
-        }
+        roomRollOdds = layout == RoomLayout.Maze ? 10 : 3;
 
         for (j = 0; j < mapGrid.GetLength(1); j++)
-        {
             for (i = 0; i < mapGrid.GetLength(0); i++)
-            {
                 updateRoom(i, j);
-            }
-        }
 
         j = 0;
         i = 0;
@@ -262,7 +264,8 @@ public class MapGenerator : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         foreach (GameObject obj in enemies)
         {
-            obj.SetActive(true);
+            if (obj != null)
+                obj.SetActive(true);
         }
     }
 
@@ -276,7 +279,7 @@ public class MapGenerator : MonoBehaviour {
             if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
             {
 
-                offset = startRoom[0] == i && startRoom[1] == j || goalRoom[0] == i && goalRoom[1] == j ? 1 : 0;
+                offset = startRoom[0] == i && startRoom[1] == j || endRoom[0] == i && endRoom[1] == j ? 1 : 0;
                 do
                 {
                     doors = mapGrid[i, j].doors;
@@ -355,6 +358,7 @@ public class MapGenerator : MonoBehaviour {
                             "\n   Bottom: " + mapGrid[i, j].doors[1] +
                             "\n   Left: " + mapGrid[i, j].doors[2]
                         );
+                        progress++;
                     }
                 } while (offset-- > 0 && total == 0);
             }
@@ -368,27 +372,18 @@ public class MapGenerator : MonoBehaviour {
         }
         else
         {
-            List<GameObject> elevators = Resources.LoadAll("Elevator").Cast<GameObject>().ToList();
-            go = Instantiate(elevators[0]);
-            go.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, go.transform.position.y, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE);
-            GameManager.player.transform.parent = go.transform;
             completed = true;
 
             GameManager.events.MapGenerated();
             StartCoroutine(DelayedScan());
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
-            hideProgress();
+            displayProgress();
         }
     }
 
     private void displayProgress()
     {
 
-    }
-
-    private void hideProgress()
-    {
-        displayProgress();
     }
 
     private void clear()
