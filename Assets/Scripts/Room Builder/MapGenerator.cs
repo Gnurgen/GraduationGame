@@ -366,10 +366,7 @@ public class MapGenerator : MonoBehaviour {
 
 
         if (progress < totalProgress)
-        {
             j++;
-            displayProgress();
-        }
         else
         {
             completed = true;
@@ -377,8 +374,9 @@ public class MapGenerator : MonoBehaviour {
             GameManager.events.MapGenerated();
             StartCoroutine(DelayedScan());
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
-            displayProgress();
         }
+
+        GameManager.events.LoadingProgress(progress/totalProgress);
     }
 
     private void displayProgress()
