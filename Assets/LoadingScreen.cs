@@ -7,7 +7,10 @@ using System;
 public class LoadingScreen : MonoBehaviour {
 
     public Image loadingProgress;
-
+    bool loadComplete = false;
+    float currentProgress;
+    float mapProgress;
+    float totalprogress = 1f; // REMEMBER TO CHANGE THIS FOR EVERY PROGRESS SEND
 	// Use this for initialization
 	void Start () {
         loadingProgress = GameObject.Find("LoadProgress").GetComponent<Image>();
@@ -16,7 +19,6 @@ public class LoadingScreen : MonoBehaviour {
     }
 	void Update()
     {
-        print("LOADING");
         if(GameManager.events != null)
         {
             GameManager.events.OnLoadingProgress += Loading;
@@ -28,10 +30,18 @@ public class LoadingScreen : MonoBehaviour {
 
     private void Loading(float progress)
     {
-        print(progress*100 + "%");
-        loadingProgress.fillAmount = progress;
-        if(progress >= 1)
+
+        if (progress <= 1f) // Daniels MAPPROGRESS SAVED
+        mapProgress = progress;
+        
+        if (progress > 2) // EVERYTHING ELSE
+            currentProgress += .2f;
+
+        loadingProgress.fillAmount = (currentProgress+mapProgress) / totalprogress;
+        if(currentProgress+mapProgress >= totalprogress && !loadComplete)
         {
+            loadComplete = true;
+            print(currentProgress);
             GameManager.events.LoadComplete();
         }
     }

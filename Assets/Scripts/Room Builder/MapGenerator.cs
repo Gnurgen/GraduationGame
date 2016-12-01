@@ -390,10 +390,9 @@ public class MapGenerator : MonoBehaviour {
 
             GameManager.events.MapGenerated();
             StartCoroutine(DelayedScan());
-            //GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
+            GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
         }
-        print("progress: " + progress);
-        print("totalprogress: " + totalProgress);
+     
         GameManager.events.LoadingProgress((float)progress/ totalProgress);
     }
 

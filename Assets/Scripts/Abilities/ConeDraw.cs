@@ -63,13 +63,13 @@ public class ConeDraw : MonoBehaviour {
 	
     void Update()
     {
-        if (doDraw && drawCone != null)
-        {
-            rotVal += graphicsRotSpeed * Time.deltaTime;
-            if (rotVal >= 360)
-                rotVal = 0;
-            drawCone.GetComponent<MeshRenderer>().material.mainTexture = rotateTexture(target, rotVal);
-        }
+        //if (doDraw && drawCone != null)
+        //{
+        //    rotVal += graphicsRotSpeed * Time.deltaTime;
+        //    if (rotVal >= 360)
+        //        rotVal = 0;
+        //    drawCone.GetComponent<MeshRenderer>().material.mainTexture = rotateTexture(target, rotVal);
+        //}
         _currentCooldown -= Time.deltaTime;
     }
 

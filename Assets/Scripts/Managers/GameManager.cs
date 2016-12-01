@@ -324,7 +324,7 @@ public class GameManager {
         }
         else
         {
-            SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Single);
         }
     }
 
