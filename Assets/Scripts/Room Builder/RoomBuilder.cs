@@ -125,7 +125,6 @@ public class RoomBuilder : MonoBehaviour {
     void Update () {
 	}
 
-
     public void DecrementEnemyCount()
     {
         if (--enemyCount <= 0)

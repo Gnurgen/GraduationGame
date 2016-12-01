@@ -13,6 +13,8 @@ public class FlyingSpear : MonoBehaviour {
     private int dragForce = 1;
     [SerializeField]
     private int dragTargets;
+    [SerializeField]
+    private bool multipleHit;
 
 
 
@@ -30,7 +32,7 @@ public class FlyingSpear : MonoBehaviour {
     }
     private InputManager IM;
     private EventManager EM;
-    private CurveDraw LR;
+    private EffectCurveDraw LR;
     private float currentDrawLength;
     private List<Vector3> drawnPoints;
     private int ID;
@@ -44,7 +46,7 @@ public class FlyingSpear : MonoBehaviour {
         currentDrawLength = 0;
         IM = GameManager.input;
         EM = GameManager.events;
-        LR = GetComponent<CurveDraw>();
+        LR = GetComponent<EffectCurveDraw>();
         ID = IM.GetID();
 	}
 	
@@ -80,9 +82,11 @@ public class FlyingSpear : MonoBehaviour {
 
         GameObject s = Instantiate(spear) as GameObject;
         GameManager.events.SpearDrawAbilityUsed(s);
-        s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets);
+        s.GetComponent<SpearControl>().SetParameters(LR.GetPoints(), LR.GetEffects(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets, multipleHit);
         LR.CleanUp();
     }
+
+
 
     IEnumerator DrawLine()
     {
