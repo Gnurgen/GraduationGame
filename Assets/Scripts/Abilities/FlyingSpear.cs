@@ -16,11 +16,11 @@ public class FlyingSpear : MonoBehaviour {
     [SerializeField]
     private bool multipleHit;
     [SerializeField]
-    private float damageIncrease;
+    private float damageIncrease = 1;
     [SerializeField]
-    private float scaleIncrease;
+    private float scaleIncrease = 1;
     [SerializeField]
-    private float colliderIncrease;
+    private float colliderIncrease = 0.5f;
 
 
 
