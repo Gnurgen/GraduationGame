@@ -19,17 +19,15 @@ public class PlayerControls : MonoBehaviour {
     [SerializeField]
     private float moveSpeed = 4, minDashDistance = 3, maxDashDistance = 6, dashCooldown = 3, abilityCooldown = 1;
     [SerializeField]
-    [Range(2, 5)]
-    private int dashSpeedMultiplier = 3, alwaysWalk = 3;
+    [Range(1, 5)]
+    private int dashSpeedMultiplier = 2, alwaysWalk = 2;
     [SerializeField]
     private bool ControlDuringDash = false, AbilitiesDuringDash = false;
     [SerializeField]
     private float abilityTouchOffset, abilityTouchMoveDistance;
     private bool ResumeMovementAfterAbility = false;
-    public float MovePointCooldown = 1;
     public GameObject ClickFeedBack;
 
-    private float currentMovePointCooldown = 0;
     private Vector3 prevPos;
     private int id;
     private bool shouldMove;
@@ -45,6 +43,8 @@ public class PlayerControls : MonoBehaviour {
     ConeDraw ability2;
 
     private Rigidbody body;
+    RaycastHit hit;
+    int coneBlock = 1;
 
     // Use this for initialization
     void Start () {
@@ -58,19 +58,21 @@ public class PlayerControls : MonoBehaviour {
         im.OnFirstTouchEndSub(End, id);
         StartCoroutine(Idle());
         shouldMove = true;
-        currentMovePointCooldown = 0;
         currentDashDistance = 0;
         currentDashCooldown = 0;
         ability1 = GetComponent<FlyingSpear>();
         ability2 = GetComponent<ConeDraw>();
+        coneBlock = 1 << LayerMask.NameToLayer("ConeBlocker");
 	}
 	
 
     void FixedUpdate()
     {
-        currentDashCooldown -= Time.fixedDeltaTime;
         body.velocity = Vector3.zero;
-
+    }
+    void Update()
+    {
+        currentDashCooldown -= Time.deltaTime;
     }
 
     IEnumerator Idle()
@@ -135,6 +137,7 @@ public class PlayerControls : MonoBehaviour {
         em.PlayerDashBegin(gameObject);
         while (state == State.Dashing && currentDashDistance < maxDashDistance && NotPassedPoint(transform.position, MoveToPoint) && (transform.position - MoveToPoint).magnitude>alwaysWalk)
         {
+            currentDashCooldown = dashCooldown;
             prevPos = transform.position;
             body.position += transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
@@ -146,12 +149,11 @@ public class PlayerControls : MonoBehaviour {
             StartCoroutine(Ability());
             yield break;
         }
-        currentDashDistance = 0;
-        currentDashCooldown = dashCooldown;
-        if (NotPassedPoint(transform.position, MoveToPoint))
+        if (NotPassedPoint(transform.position, MoveToPoint) || state==State.Moving)
             StartCoroutine(Moving());
         else
             StartCoroutine(Idle());
+        currentDashDistance = 0;
         yield break;
     }
 
@@ -234,7 +236,7 @@ public class PlayerControls : MonoBehaviour {
             transform.LookAt(MoveToPoint);
             if ((transform.position-MoveToPoint).magnitude > minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing)
                 StartCoroutine(Dashing());
-            else if (!isMoving)
+            else if (!isMoving && state!=State.Dashing)
                 StartCoroutine(Moving());
         }
     }
