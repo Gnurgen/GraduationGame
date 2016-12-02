@@ -33,7 +33,7 @@ public class GameOverFade : MonoBehaviour {
                 if(GameManager.game.activeCheckpoint != null)
                 {
                     GameManager.events.Respawned();
-                    GameManager.player.transform.position = GameManager.game.activeCheckpoint.transform.position;
+                   
                     GameManager.player.GetComponent<Health>().health = GameManager.player.GetComponent<Health>().maxHealth;
                     GameManager.GameOver(true);
                 }

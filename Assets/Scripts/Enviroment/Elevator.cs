@@ -22,7 +22,6 @@ public class Elevator : MonoBehaviour
     {
         mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
         GameManager.events.OnElevatorActivated += ActivateME;
-        fade = GameObject.Find("Fade");
         player = GameManager.player;
         IM = GameManager.input;
         ID = IM.GetID();
@@ -69,14 +68,14 @@ public class Elevator : MonoBehaviour
         yield return new WaitForSeconds(preLift);
         GameManager.events.ElevatorMoveStart();
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
-        //fade.GetComponent<Fade>().fadeToBlack(2);
         float newPosStart = newPos;
-        while (newPos < newPosStart + speed * underLift)
+        while (newPos < newPosStart + speed * underLift) // while the elevator is raised "underLift" meters up
         {
             newPos = gameObject.transform.position.y + Time.deltaTime * speed;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos, gameObject.transform.position.z);
             yield return null;
         }
+        GameManager.events.FadeToBlack();
         GameManager.progress++;
         PlayerPrefs.SetInt("Progress", GameManager.progress);
         GameManager.events.ElevatorMoveStop();

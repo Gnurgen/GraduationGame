@@ -459,7 +459,8 @@ public class EventManager : MonoBehaviour
     public delegate void FadeAction();
     public event FadeAction OnFadeToBlack;
     public event FadeAction OnFadeToWhite;
-    public event FadeAction OnFadeToTransparent;
+    public event FadeAction OnFadeFromBlackToTransparent;
+    public event FadeAction OnFadeFromWhiteToTransparent;
     public event FadeAction OnFadedBlackScreen;
     public event FadeAction OnFadedWhiteScreen;
     public event FadeAction OnFadedTransparentScreen;
@@ -478,11 +479,18 @@ public class EventManager : MonoBehaviour
             OnFadeToWhite();
         }
     }
-    public void FadeToTransparent()
+    public void FadeFromBlackToTransparent()
     {
-        if (OnFadeToTransparent != null)
+        if (OnFadeFromBlackToTransparent != null)
         {
-            OnFadeToTransparent();
+            OnFadeFromBlackToTransparent();
+        }
+    }
+    public void FadeFromWhiteToTransparent()
+    {
+        if (OnFadeFromWhiteToTransparent != null)
+        {
+            OnFadeFromWhiteToTransparent();
         }
     }
     public void FadedBlackScreen()
