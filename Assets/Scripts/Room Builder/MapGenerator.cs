@@ -276,9 +276,6 @@ public class MapGenerator : MonoBehaviour {
         if (completed)
             return;
 
-
-        Debug.Log(i  + ", " + j);
-
         if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
         {
             containsElevator = startRoom[0] == i && startRoom[1] == j || endRoom[0] == i && endRoom[1] == j;
