@@ -110,7 +110,7 @@ public class WhispGuidingAI : MonoBehaviour {
         }
        
         effectControl.StopEffect();
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         GameManager.events.GuideWhispScatterStop(elevator.gameObject);
         GameManager.events.GuideWhispFollowPathStop(gameObject);
         GameManager.events.ElevatorActivated();

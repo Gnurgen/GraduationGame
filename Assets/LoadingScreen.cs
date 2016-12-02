@@ -24,6 +24,7 @@ public class LoadingScreen : MonoBehaviour {
         {
             SceneManager.LoadSceneAsync("Final", LoadSceneMode.Additive);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
+            SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("Final"));
         }
         else if (GameManager.progress > GameManager.numberOfLevels) // Boss Level
         {
@@ -63,15 +64,18 @@ public class LoadingScreen : MonoBehaviour {
     }
     private void UnloadLoadingScene()
     {
-       GameManager.input.ReleaseControl(gameObject.GetInstanceID());
-       SceneManager.UnloadScene("LoadingScreen");
+
+       
+        GameManager.input.ReleaseControl(gameObject.GetInstanceID());
+        GameManager.events.FadeFromBlackToTransparent();
+        SceneManager.UnloadScene("LoadingScreen");
     }
 
-    private IEnumerator tutLevel()
+    private IEnumerator tutLevel() //Tutorial level loading
     {
         AsyncOperation AO = SceneManager.LoadSceneAsync("Tutorial", LoadSceneMode.Additive);
-       
-        while(AO.isDone == false)
+        SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("Tutorial"));
+        while (AO.isDone == false)
         {
             float loading = Mathf.Clamp01(AO.progress / 0.9f);
             loadingProgress.fillAmount = loading;
@@ -84,9 +88,10 @@ public class LoadingScreen : MonoBehaviour {
         GameManager.events.LoadComplete();
         yield return null;
     }
-    private IEnumerator bossLevel()
+    private IEnumerator bossLevel() // Boss Level Loarding
     {
        AsyncOperation AO =  SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Additive);
+        SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("BossLevel"));
        SceneManager.SetActiveScene(SceneManager.GetSceneByName("BossLevel"));
 
         yield return null;

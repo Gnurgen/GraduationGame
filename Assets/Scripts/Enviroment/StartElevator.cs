@@ -19,7 +19,7 @@ public class StartElevator : MonoBehaviour {
 
     private void MoveUp()
     {
-        print("MOVBING UPBITCHES");
+      
         StartCoroutine(MoveElevatorUp());
     }
 

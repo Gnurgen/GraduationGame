@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class GameOverFade : MonoBehaviour {
-
+/*
     [SerializeField]
     float fadeTime;
     [SerializeField]
@@ -59,4 +59,5 @@ public class GameOverFade : MonoBehaviour {
         done = false;
         fadeOut = true;
     }
+    */
 }

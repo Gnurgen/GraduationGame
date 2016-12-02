@@ -99,8 +99,9 @@ public class AstarCalculator : MonoBehaviour {
     {
         MapGenerator mg = FindObjectOfType<MapGenerator>();
         GridGraph g = (GridGraph)p.graphs[0];
-        g.center = new Vector3(mg.mapSize.xMin + (mg.mapSize.width * 0.5f), -10, mg.mapSize.yMin + (mg.mapSize.height * 0.5f));
+        g.center = new Vector3(mg.mapSize.xMin + ((mg.mapSize.xMax - mg.mapSize.xMin) * 0.5f), -10, mg.mapSize.yMin - ((mg.mapSize.yMax - mg.mapSize.yMin) * 0.5f));
         g.width = (int)(mg.mapSize.width / nodeSize);
         g.depth = (int)(mg.mapSize.height / nodeSize);
+        g.UpdateSizeFromWidthDepth();
     }
 }
