@@ -20,9 +20,14 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
     bool takeControl = false;
     float currentT, t;
 
+    private InputManager IM;
+    private int ID;
 
     void Start()
     {
+        IM = GameManager.input;
+        ID = IM.GetID();
+
         GameManager.events.OnBossDeath += shakeCamera;
     }
 
@@ -38,8 +43,7 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
     void LateUpdate()
     {
         if (player != null &&  !takeControl)
-        {
-            Debug.Log("Updating");
+        {            
             transform.position = player.position - transform.forward * distance;
         }       
     }
@@ -47,15 +51,13 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
     {
         StartCoroutine(cameraShake(3));
     }
-    public void bossShakeCamera(float duration) {
-        StartCoroutine(cameraShake(duration));
-    }
 
-    IEnumerator cameraShake(float duration)
+    public IEnumerator cameraShake(float duration)
     {
         Vector3 oriPos = transform.position;
         while (currentT < duration)
         {
+            Debug.Log("control 1");
             takeControl = true;
             currentT += Time.deltaTime;
             shakingVec = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.4f, 0.4f), 0);
@@ -67,15 +69,12 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
         yield break;
     }
 
-    public void lookAtObj(Vector3 startPos, Vector3 endPos, float duration)
-    {
-        StartCoroutine(lookatWhatever(startPos, endPos, duration));
-    }
-
-    IEnumerator lookatWhatever(Vector3 startPos, Vector3 endPos, float duration)
+    public IEnumerator lookatWhatever(Vector3 startPos, Vector3 endPos, float duration)
     {
         while (currentT < duration)
         {
+            Debug.Log("control 2");
+            IM.TakeControl(ID);
             takeControl = true;
             currentT += Time.deltaTime;
             t = 1 - ((duration - currentT) / duration);            
@@ -85,7 +84,9 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
         currentT = 0;
         yield break;
     }
-    public void  releaseControl() {
+    public void releaseControl() {
+        Debug.Log("Release control");
+        IM.ReleaseControl(ID);
         takeControl = false;
     }
 }
