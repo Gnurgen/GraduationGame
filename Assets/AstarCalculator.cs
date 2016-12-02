@@ -4,26 +4,28 @@ using Pathfinding;
 
 public class AstarCalculator : MonoBehaviour {
 
-    public bool delayedScan;
-    public float scanDelay;
+    public float nodeSize;
 
-
-    // Use this for initialization
+    
     void Start()
     {
-
-        if(delayedScan)
-            StartCoroutine(DelayedScan(scanDelay));
+        GameManager.events.OnLoadComplete += ScanPick;
     }
 
-
-
-    IEnumerator DelayedScan(float delay)
+    void ScanPick()
     {
-        if(scanDelay > 0)
+        if(GameManager.progress == 0 || GameManager.progress > GameManager.numberOfLevels)
         {
-            yield return new WaitForSeconds(delay);
+            Scan();
         }
+        else
+        {
+            RecalculatingScan();
+        }
+    }
+
+    void Scan()
+    {
         GameObject[] triggers = GameObject.FindGameObjectsWithTag("TriggerBox");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
@@ -54,5 +56,50 @@ public class AstarCalculator : MonoBehaviour {
         {
             go.SetActive(true);
         }
+    }
+
+    void RecalculatingScan()
+    {
+        GameObject[] triggers = GameObject.FindGameObjectsWithTag("TriggerBox");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
+        foreach (GameObject go in triggers)
+        {
+            go.SetActive(false);
+        }
+        foreach (GameObject go in enemies)
+        {
+            go.SetActive(false);
+        }
+        foreach (GameObject go in checkpoints)
+        {
+            go.SetActive(false);
+        }
+        AstarPath p = FindObjectOfType<AstarPath>();
+        if (p != null)
+            RecalculateSize(p);
+            p.Scan();
+        foreach (GameObject go in triggers)
+        {
+            go.SetActive(true);
+        }
+        foreach (GameObject go in enemies)
+        {
+            go.SetActive(true);
+        }
+        foreach (GameObject go in checkpoints)
+        {
+            go.SetActive(true);
+        }
+    }
+
+    void RecalculateSize(AstarPath p)
+    {
+        MapGenerator mg = FindObjectOfType<MapGenerator>();
+        GridGraph g = (GridGraph)p.graphs[0];
+        g.center = new Vector3(mg.mapSize.xMin + ((mg.mapSize.xMax - mg.mapSize.xMin) * 0.5f), -10, mg.mapSize.yMin - ((mg.mapSize.yMax - mg.mapSize.yMin) * 0.5f));
+        g.width = (int)(mg.mapSize.width / nodeSize);
+        g.depth = (int)(mg.mapSize.height / nodeSize);
+        g.UpdateSizeFromWidthDepth();
     }
 }
