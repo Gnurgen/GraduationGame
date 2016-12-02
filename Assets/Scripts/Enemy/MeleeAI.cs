@@ -10,7 +10,7 @@ public class MeleeAI : EnemyStats {
 
     public GameObject Weapon;
 	public GameObject target;
-    public string state;
+    public bool reset = true;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
@@ -75,7 +75,6 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Waiting(float sec)
     {
-        state = "waiting";
         while(sec > 0)
         {
             sec -= Time.deltaTime;
@@ -88,7 +87,6 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Idle()
 	{
-        state = "idle";
         target = null;
         animator.SetBool("Run", false);
         for (;;)
@@ -122,7 +120,11 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Reset()
     {
-        state = "reset";
+        if (!reset)
+        {
+            StartCoroutine(Idle());
+            yield break;
+        }
         GameManager.events.EnemyAggroLost(gameObject);
         animator.SetBool("Run", true);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
@@ -180,7 +182,6 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Chasing()
 	{
-        state = "chasing";
         animator.SetBool("Run", true);
         for (;;)
         {
@@ -248,7 +249,6 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Attacking()
     {
-        state = "attacking";
         for (;;)
         {
             if (!onPause)

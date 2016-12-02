@@ -25,7 +25,8 @@ public class SpearController : MonoBehaviour {
             float dist = Vector3.Distance(transform.position, points[index]);
             while (Vector3.Distance(transform.position, points[index]) > 0 && NotPassedPoint(transform.position, points[index]))
             {
-                transform.position += transform.forward * speed * Time.deltaTime;
+                //transform.position += transform.forward * speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, points[index], speed * Time.deltaTime);
                 yield return null;
             }
             ++index;
@@ -48,6 +49,10 @@ public class SpearController : MonoBehaviour {
             }
         }
         GameManager.events.SpearDrawAbilityEnd(gameObject);
+        if (GetComponent<PKFxFX>() != null)
+        {
+            GetComponent<PKFxFX>().StopEffect();
+        }
         Destroy(gameObject);
         yield break;
     }
@@ -120,6 +125,10 @@ public class SpearController : MonoBehaviour {
         springForce = dragForce*100;
         turnRate = turn;
         stunTime = st;
+        if(GetComponent<PKFxFX>() != null)
+        {
+            GetComponent<PKFxFX>().StartEffect();
+        }
         StartCoroutine(fly());
 	}
     
