@@ -23,6 +23,7 @@ public class BossHealthBar : MonoBehaviour {
         if (GameObject.Find("Boss") == null)
         {
             gameObject.SetActive(false);
+            GameObject.Find("BossHealthBar_back").SetActive(false);
         }
         else
         {
