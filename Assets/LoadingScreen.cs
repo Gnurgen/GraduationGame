@@ -6,6 +6,7 @@ using System;
 
 public class LoadingScreen : MonoBehaviour {
 
+    String LoadToScene;
     public Image loadingProgress;
     bool loadComplete = false, subscribed = false, takeControl = false;
     float currentProgress;
@@ -18,17 +19,20 @@ public class LoadingScreen : MonoBehaviour {
 
         if (GameManager.progress == 0)
         {
+            LoadToScene = "Tutorial"; 
             StartCoroutine(tutLevel());
         }
         else if (GameManager.progress <= GameManager.numberOfLevels) // Number of levels before Boss level 
         {
+            LoadToScene = "Final";
             SceneManager.LoadSceneAsync("Final", LoadSceneMode.Additive);
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
-            SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("Final"));
+           
+            //SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("Final"));
         }
-        else if (GameManager.progress > GameManager.numberOfLevels) // Boss Level
+        else  // Boss Level
         {
-            StartCoroutine(bossLevel());
+            LoadToScene = "BossLevel";
+            StartCoroutine(tutLevel());
         }
     }
 
@@ -59,29 +63,30 @@ public class LoadingScreen : MonoBehaviour {
             if (currentProgress + mapProgress >= totalprogress && !loadComplete)
             {
                 loadComplete = true;
-                GameManager.events.LoadComplete();
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(LoadToScene));
+            GameManager.events.LoadComplete();
             }
     }
     private void UnloadLoadingScene()
     {
-
-       
         GameManager.input.ReleaseControl(gameObject.GetInstanceID());
         GameManager.events.FadeFromBlackToTransparent();
-        SceneManager.UnloadScene("LoadingScreen");
+        SceneManager.MergeScenes(SceneManager.GetSceneByName("LoadingScreen"), SceneManager.GetSceneByName(LoadToScene));
+        Destroy(GameObject.Find("LoadingCamera"));
+        Destroy(gameObject);
     }
 
     private IEnumerator tutLevel() //Tutorial level loading
     {
-        AsyncOperation AO = SceneManager.LoadSceneAsync("Tutorial", LoadSceneMode.Additive);
-        SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("Tutorial"));
+        AsyncOperation AO = SceneManager.LoadSceneAsync(LoadToScene, LoadSceneMode.Additive);
+        //SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("Tutorial"));
         while (AO.isDone == false)
         {
             float loading = Mathf.Clamp01(AO.progress / 0.9f);
             loadingProgress.fillAmount = loading;
             if(loading == 1)
             {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName("Tutorial"));
+                AO.allowSceneActivation = true;
             }
             yield return null;
         }
@@ -90,9 +95,9 @@ public class LoadingScreen : MonoBehaviour {
     }
     private IEnumerator bossLevel() // Boss Level Loarding
     {
-       AsyncOperation AO =  SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Additive);
-        SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("BossLevel"));
-       SceneManager.SetActiveScene(SceneManager.GetSceneByName("BossLevel"));
+       AsyncOperation AO =  SceneManager.LoadSceneAsync(LoadToScene, LoadSceneMode.Additive);
+        //SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("BossLevel"));
+       SceneManager.SetActiveScene(SceneManager.GetSceneByName(LoadToScene));
 
         yield return null;
     }

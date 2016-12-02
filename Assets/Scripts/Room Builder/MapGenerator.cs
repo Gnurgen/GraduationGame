@@ -64,8 +64,7 @@ public class MapGenerator : MonoBehaviour {
     }
 
     void Start() {
-        // HEY BRO WE CHANGE THE SCENE TO FINAL 
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
+     
         int i;
         int j;
         RoomBuilder room;

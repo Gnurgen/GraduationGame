@@ -439,7 +439,11 @@ public class EventManager : MonoBehaviour
     public void LoadNextlevel()
     {
         if (OnLoadNextLevel!= null)
+        {
+            print("LOADING NEXT LEVEL");
             OnLoadNextLevel();
+
+        }
     }
 
     public void LoadComplete()

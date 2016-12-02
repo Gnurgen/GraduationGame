@@ -72,6 +72,7 @@ public class Elevator : MonoBehaviour
         GameManager.events.FadeToBlack();
         while (newPos < newPosStart + speed * underLift) // while the elevator is raised "underLift" meters up
         {
+            print(newPos + " < " + (newPosStart + speed * underLift));
             newPos = gameObject.transform.position.y + Time.deltaTime * speed;
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos, gameObject.transform.position.z);
             yield return null;
@@ -80,7 +81,7 @@ public class Elevator : MonoBehaviour
         GameManager.progress++;
         PlayerPrefs.SetInt("Progress", GameManager.progress);
         GameManager.events.LoadNextlevel();
-
+        print("progress playerpfres: " + PlayerPrefs.GetInt("Progress"));
         yield return null;
     }
 }
