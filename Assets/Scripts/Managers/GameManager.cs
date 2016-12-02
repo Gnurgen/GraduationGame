@@ -19,7 +19,7 @@ public class GameManager {
     private TimeManager _timeManager;
     private GameObject _player;
     private GameObject _spear;
-    private PoolManager _poolManager;
+    private PoolManager _poolManager; 
     private GameObject _managers;
     private static GameObject _activeCheckPoint;
     private Menu _menu;
@@ -36,13 +36,17 @@ public class GameManager {
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
         events.OnLoadNextLevel += LoadNextLevel;
+        events.OnPlayerDeath += PlayerDeath;
+        _activeCheckPoint = null;
     }
 
-    public static void GameOver(bool CheckPoint)
+
+    public static void PlayerDeath(GameObject go)
     {
-        player.SetActive(true);
+        events.FadeToBlack();
+        //player.SetActive(true);
         //move player?? ++Setplayer active
-        if (!CheckPoint)
+        if (_activeCheckPoint == null)
         {
             _instance = null;
             events.LoadNextlevel();
@@ -50,6 +54,8 @@ public class GameManager {
         }
         else
         {
+            player.SetActive(true);
+            events.FadeFromBlackToTransparent();
             player.transform.position = _activeCheckPoint.transform.position;
         }
     }
@@ -324,7 +330,7 @@ public class GameManager {
     {
         progress = PlayerPrefs.GetInt("Progress");
 
-        SceneManager.LoadScene("LoadingScreen");
+        SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
         // LOADING SCREEN TAKES IT FROM HERE
 
 /*

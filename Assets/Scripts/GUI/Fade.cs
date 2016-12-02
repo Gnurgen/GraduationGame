@@ -19,7 +19,7 @@ public class Fade : MonoBehaviour {
         GameManager.events.OnFadeToBlack += fadeToBlack;
         GameManager.events.OnFadeToWhite += fadeToWhite;
         GameManager.events.OnFadeFromBlackToTransparent += fadeFromBlackToTransparent;
-        GameManager.events.OnFadeFromBlackToTransparent += fadeFromWhiteToTransparent;
+        GameManager.events.OnFadeFromWhiteToTransparent += fadeFromWhiteToTransparent;
     }
     private IEnumerator IEFade(int color) // 0 = black, 1 = White, 2 = Transparent
     {
