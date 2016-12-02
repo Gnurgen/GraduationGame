@@ -17,6 +17,9 @@ public class SpearControl : MonoBehaviour {
     private float globalScale;
     private SphereCollider collider;
     private bool multipleHit;
+    private float damageIncrease;
+    private float scaleIncrease;
+    private float colliderIncrease;
 
     private List<GameObject> enemiesHit;
 
@@ -27,7 +30,7 @@ public class SpearControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    
 	}
 
     IEnumerator Fly()
@@ -63,8 +66,9 @@ public class SpearControl : MonoBehaviour {
         {
             col.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
             GameManager.events.SpearDrawAbilityHit(col.gameObject);
-            damage += 1;
-            globalScale += 1;
+            damage += damageIncrease;
+            globalScale += scaleIncrease;
+            collider.radius += colliderIncrease;
             GameObject imp = Instantiate(impact) as GameObject;
             imp.transform.position = transform.position + (col.gameObject.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, col.gameObject.transform.position) * 0.25f);
             StartCoroutine(DelayedDelete(imp, 1));
@@ -84,9 +88,9 @@ public class SpearControl : MonoBehaviour {
                     enemiesHit.Add(col.gameObject);
                     GameManager.events.SpearDrawAbilityHit(col.gameObject);
                     col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position), pushForce);
-                    damage += 1;
-                    globalScale += 1;
-                    collider.radius += 0.5f;
+                    damage += damageIncrease;
+                    globalScale += scaleIncrease;
+                    collider.radius += colliderIncrease;
                     GameObject imp = Instantiate(impact) as GameObject;
                     imp.transform.position = transform.position + (col.gameObject.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, col.gameObject.transform.position) * 0.5f);
                     StartCoroutine(DelayedDelete(imp, 1));
@@ -114,7 +118,7 @@ public class SpearControl : MonoBehaviour {
         Destroy(obj);
     }
 
-    public void SetParameters(List<Vector3> ps, List<GameObject> es, float speed, float damage, float force, int dragForce, float altitude, float turn, float st, int dragAmount, bool multipleHit)
+    public void SetParameters(List<Vector3> ps, List<GameObject> es, float speed, float damage, float force, int dragForce, float altitude, float turn, float st, int dragAmount, bool multipleHit, float damageIncrease, float scaleIncrease, float colliderIncrease)
     {
         points = ps.ToArray();
         effects = es.ToArray();
@@ -122,6 +126,9 @@ public class SpearControl : MonoBehaviour {
         collider = GetComponent<SphereCollider>();
         collider.radius = 0.5f;
         this.multipleHit = multipleHit;
+        this.damageIncrease = damageIncrease;
+        this.scaleIncrease = scaleIncrease;
+        this.colliderIncrease = colliderIncrease;
         for (int i = 0; i < points.Length; i++)
         {
             points[i] = new Vector3(points[i].x, altitude, points[i].z);
