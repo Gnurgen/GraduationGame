@@ -101,9 +101,9 @@ public class SpearControl : MonoBehaviour {
             {
                 GameManager.events.SpearDrawAbilityHit(col.gameObject);
                 col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position), pushForce);
-                damage += 1;
-                globalScale += 1;
-                collider.radius += 0.5f;
+                damage += damageIncrease;
+                globalScale += scaleIncrease;
+                collider.radius += colliderIncrease;
                 GameObject imp = Instantiate(impact) as GameObject;
                 imp.transform.position = transform.position + (col.gameObject.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, col.gameObject.transform.position) * 0.5f);
                 StartCoroutine(DelayedDelete(imp, 1));
