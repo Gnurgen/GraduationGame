@@ -6,7 +6,7 @@ using System;
 
 public class LoadingScreen : MonoBehaviour {
 
-    String LoadToScene;
+    string LoadToScene;
     public Image loadingProgress;
     bool loadComplete = false, subscribed = false, takeControl = false;
     float currentProgress;
