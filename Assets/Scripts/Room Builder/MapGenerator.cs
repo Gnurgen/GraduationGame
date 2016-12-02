@@ -44,6 +44,7 @@ public class MapGenerator : MonoBehaviour {
     private bool[] doors;
     private bool completed;
     private bool containsElevator;
+    private Rect mapSize;
 
     public enum MapSize
     {
@@ -66,8 +67,8 @@ public class MapGenerator : MonoBehaviour {
     void Start() {
         int i;
         int j;
-        RoomBuilder room;
         int[] hashIndex;
+        RoomBuilder room;
         List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
 
         endElevator = Instantiate(Resources.Load("Elevator/EndElevator") as GameObject);
@@ -161,8 +162,8 @@ public class MapGenerator : MonoBehaviour {
                     };
         }
 
+        mapSize = new Rect(0, 0, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize);
         center = Mathf.FloorToInt(gridSize / 2);
-
 
         if (shape == MapShape.Frame)
         {
@@ -274,9 +275,6 @@ public class MapGenerator : MonoBehaviour {
     void Update() {
         if (completed)
             return;
-
-
-        Debug.Log(i  + ", " + j);
 
         if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
         {
