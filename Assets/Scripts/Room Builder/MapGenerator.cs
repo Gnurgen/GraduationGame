@@ -16,6 +16,8 @@ public class MapGenerator : MonoBehaviour {
 
     [HideInInspector]
     public int mapLevel;
+    [HideInInspector]
+    public Rect mapSize;
 
     private List<GameObject>[] list = new List<GameObject>[4];
     private List<GameObject> rooms;
@@ -44,7 +46,6 @@ public class MapGenerator : MonoBehaviour {
     private bool[] doors;
     private bool completed;
     private bool containsElevator;
-    private Rect mapSize;
 
     public enum MapSize
     {
