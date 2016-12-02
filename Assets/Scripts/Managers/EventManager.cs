@@ -7,8 +7,7 @@ public class EventManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (FindObjectOfType<GameOverFade>() == null)
-            Instantiate(Resources.Load<GameObject>("Prefabs/GameOverFade"));
+        
     }
 
     // Update is called once per frame
@@ -145,7 +144,6 @@ public class EventManager : MonoBehaviour
     }
     public void ConeAbilityUsed(GameObject Id)
     {
-        print("hey!");
         if (OnConeAbilityUsed != null)
             OnConeAbilityUsed(Id);
     }
@@ -428,6 +426,100 @@ public class EventManager : MonoBehaviour
     //#############################################################################    GAME     ####################################################################
     //#############################################################################             ####################################################################
     //##############################################################################################################################################################
+
+
+    public delegate void LoadingAction(float progress);
+    public event LoadingAction OnLoadingProgress;
+
+    public delegate void LoadingCompleteAction();
+    public event LoadingCompleteAction OnLoadComplete;
+    public event LoadingCompleteAction OnLoadNextLevel;
+
+
+    public void LoadNextlevel()
+    {
+        if (OnLoadNextLevel!= null)
+            OnLoadNextLevel();
+    }
+
+    public void LoadComplete()
+    {
+        if (OnLoadComplete != null)
+            OnLoadComplete();
+    }
+
+    public void LoadingProgress(float progress)
+    {
+        if (OnLoadingProgress != null)
+            OnLoadingProgress(progress);
+    }
+
+
+    public delegate void FadeAction();
+    public event FadeAction OnFadeToBlack;
+    public event FadeAction OnFadeToWhite;
+    public event FadeAction OnFadeFromBlackToTransparent;
+    public event FadeAction OnFadeFromWhiteToTransparent;
+    public event FadeAction OnFadedBlackScreen;
+    public event FadeAction OnFadedWhiteScreen;
+    public event FadeAction OnFadedTransparentScreen;
+
+    public void FadeToBlack()
+    {
+        if (OnFadeToBlack != null)
+        {
+            print("fade to black");
+            OnFadeToBlack();
+        }
+    }
+    public void FadeToWhite()
+    {
+        if (OnFadeToWhite != null)
+        {
+            print("fade to white");
+            OnFadeToWhite();
+        }
+    }
+    public void FadeFromBlackToTransparent()
+    {
+        if (OnFadeFromBlackToTransparent != null)
+        {
+            print("fade from black to transparent");
+            OnFadeFromBlackToTransparent();
+        }
+    }
+    public void FadeFromWhiteToTransparent()
+    {
+        if (OnFadeFromWhiteToTransparent != null)
+        {
+            print("fade from white to transparent");
+            OnFadeFromWhiteToTransparent();
+        }
+    }
+    public void FadedBlackScreen()
+    {
+        if (OnFadedBlackScreen != null)
+        {
+            print("faded black");
+            OnFadedBlackScreen();
+        }
+    }
+    public void FadedWhiteScreen()
+    {
+        if (OnFadedWhiteScreen != null)
+        {
+            print("faded white");
+            OnFadedWhiteScreen();
+        }
+    }
+    public void FadedTransparentScreen()
+    {
+        if (OnFadedTransparentScreen != null)
+        {
+            print("faded transparent");
+            OnFadedTransparentScreen();
+        }
+    }
 
     public delegate void CheckPointAction();
     public event CheckPointAction OnCheckPoint;

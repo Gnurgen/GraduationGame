@@ -51,6 +51,7 @@ public class WhispGuidingAI : MonoBehaviour {
         GameManager.events.GuideWhispScatter(gameObject);
         seeker.StartPath(player.position, elevator.position, ReceivePath);
         waiting = true;
+        yield return new WaitForSeconds(1f);
         while (waiting || path == null)
         {
             if (!waiting)
@@ -71,10 +72,9 @@ public class WhispGuidingAI : MonoBehaviour {
             scatter += scatterRate * Time.deltaTime;
             yield return null;
         }
-        transform.position = guidingPoint;
-        while(scatter > endScatter)
+        StartCoroutine(Guiding());
+        while (scatter > endScatter)
         {
-            transform.position = guidingPoint;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
             scatter -= scatterRate * Time.deltaTime;
             yield return null;
@@ -82,7 +82,6 @@ public class WhispGuidingAI : MonoBehaviour {
         scatter = endScatter;
         GameManager.events.GuideWhispScatterStop(gameObject);
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
-        StartCoroutine(Guiding());
         yield break;
     }
 
@@ -111,7 +110,7 @@ public class WhispGuidingAI : MonoBehaviour {
         }
        
         effectControl.StopEffect();
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         GameManager.events.GuideWhispScatterStop(elevator.gameObject);
         GameManager.events.GuideWhispFollowPathStop(gameObject);
         GameManager.events.ElevatorActivated();
@@ -134,9 +133,14 @@ public class WhispGuidingAI : MonoBehaviour {
         {
             Vector3 dir = (path.vectorPath[index] - player.position).normalized;
             guidingPoint = player.position + new Vector3(dir.x * guidingRange, 1, dir.z * guidingRange);
-            if(Vector3.Distance(transform.position, path.vectorPath[index]) < pointSkipRange)
+            float dist = (Vector3.Distance(transform.position, path.vectorPath[index]));
+            for (int i = index; i < path.vectorPath.Count; i++)
             {
-                index++;
+                if(Vector3.Distance(transform.position, path.vectorPath[i]) < dist)
+                {
+                    index = i;
+                    dist = Vector3.Distance(transform.position, path.vectorPath[i]);
+                }
             }
             yield return null;
         }

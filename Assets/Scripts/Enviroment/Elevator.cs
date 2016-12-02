@@ -20,35 +20,19 @@ public class Elevator : MonoBehaviour
     int tilesInvis = 0;
     void Start()
     {
-        transform.position = new Vector3(transform.position.x - 1.5f, -3.45f, transform.position.z - 1.5f);
         mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
         GameManager.events.OnElevatorActivated += ActivateME;
-        fade = GameObject.Find("Fade");
         player = GameManager.player;
         IM = GameManager.input;
         ID = IM.GetID();
         Color col = new Color(0.3f, 0.3f, 0.3f);
         mat.color = col;
+        CC = GetComponent<CapsuleCollider>();
+        CC.enabled = false;
     }
    
-    private void putAHole()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, 0, transform.position.y), 30f);
-        for (int i = 0; i < hitColliders.Length; i++)
-        {
-            if (hitColliders[i].tag == "Tiles")
-            {
-                hitColliders[i].GetComponentInChildren<MeshRenderer>().enabled = false;
-                tilesInvis++;
-                if(tilesInvis == 9)
-                {
-                    CC = GetComponent<CapsuleCollider>();
-                    CC.enabled = false;
-                }
-            }
-        }
 
-    }
+    
     private void ActivateME()
     {
         StartCoroutine(ShineGold());
@@ -58,7 +42,7 @@ public class Elevator : MonoBehaviour
         float step = .3f;
         while (step < 1)
         {
-            step += 0.3f * Time.deltaTime;
+            step += 0.5f * Time.deltaTime;
             Color col = new Color(step, step, step);
             mat.color = col;
             yield return null;
@@ -74,48 +58,29 @@ public class Elevator : MonoBehaviour
         {
             invisibleWalls.SetActive(true);
             player.transform.parent = gameObject.transform;
-            StartCoroutine(elevatorLif());
-            StartCoroutine(waitForAniStart());
-            CC.enabled = false;
+            StartCoroutine(elevatorLift());
+            CC.enabled = false; 
         }
     }
 
-    IEnumerator elevatorLif()
+    IEnumerator elevatorLift()
     {
         yield return new WaitForSeconds(preLift);
         GameManager.events.ElevatorMoveStart();
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
-        while (newPos < 20f)
+        float newPosStart = newPos;
+        GameManager.events.FadeToBlack();
+        while (newPos < newPosStart + speed * underLift) // while the elevator is raised "underLift" meters up
         {
-        newPos = gameObject.transform.position.y + Time.deltaTime * speed;
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos, gameObject.transform.position.z);
+            newPos = gameObject.transform.position.y + Time.deltaTime * speed;
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, newPos, gameObject.transform.position.z);
             yield return null;
         }
-        yield return null;
-    }
-
-    IEnumerator waitForAniStart()
-    {
-        yield return new WaitForSeconds(preLift);
-        fade.GetComponent<Fade>().fadeToBlack(2);
-      
-        yield return new WaitForSeconds(underLift);
-        AkSoundEngine.StopAll();
-        LoadCorrectScene();
-    }
-
-    void LoadCorrectScene()
-    {
-        GameManager.events.ElevatorMoveStop();
+        
         GameManager.progress++;
         PlayerPrefs.SetInt("Progress", GameManager.progress);
-        if (GameManager.progress <= 2)
-        {
-            SceneManager.LoadScene("Final");
-        }
-        else
-        {
-            SceneManager.LoadScene("BossLevel");
-        }
+        GameManager.events.LoadNextlevel();
+
+        yield return null;
     }
 }

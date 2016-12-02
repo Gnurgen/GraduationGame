@@ -4,21 +4,43 @@ using System.Collections;
 public class ConeDraw : MonoBehaviour {
 
     [SerializeField]
-    private float cooldown, maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime;
-    [Range(1, 5)]
+    private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime, graphicsRotSpeed;
+    [Range(1, 10)]
     [SerializeField]
-    private int pointsPerDegreeInFullCircle;
+    private int pointResolution = 1;
     private GameObject drawCone, dmgCone, drawConeObj, coneDmgObject;
     private InputManager im;
     private bool drawing = false, clockwise = true;
     private Vector3 start, end, cur, lookDir;
+    private Vector2[] uvs;
+    private Vector3[] vertices, normals;
+    private int[] triangles;
     private int coneResolution, ID, activeTris;
-    private float currentCooldown = 0, length;
+    private float length;
     private const float _2pi = Mathf.PI * 2;
     private bool dirSat = false;
     private bool doDraw = false;
     private int onlyHitLayermask;
+    private float _currentCooldown, rotTimer = 0;
 
+    //ROTATE UV MAP
+    private Texture2D target;
+    private Texture2D rotImage;
+    private float texW, texH, texCOS, texSIN, rotVal;
+    private int wTex, hTex;
+
+
+    public float currentCooldown
+    {
+        get
+        {
+            return _currentCooldown;
+        }
+        set
+        {
+            _currentCooldown = value;
+        }
+    }
     //Collision checking
     Ray ray;
     RaycastHit hit;
@@ -27,26 +49,74 @@ public class ConeDraw : MonoBehaviour {
     void Start () {
         drawConeObj = Resources.Load<GameObject>("Prefabs/Cone/ConeMESH");
         coneDmgObject = Resources.Load<GameObject>("Prefabs/Cone/ConeAbility");
-        coneResolution = pointsPerDegreeInFullCircle * 360;
+        coneResolution = pointResolution * 90;
         im = GameManager.input;
         ID = im.GetID();
         onlyHitLayermask = 1 << LayerMask.NameToLayer("ConeBlocker");
+        target = Resources.Load<Texture2D>("Prefabs/Cone/ConeDrawPart");
+        texH = target.height / 2f;
+        texW = target.width / 2f;
+        wTex = target.width;
+        hTex = target.height;
+        rotImage = new Texture2D(wTex, hTex);
     }
 	
     void Update()
     {
-        currentCooldown -= Time.deltaTime;
-    }
-    public float Cooldown()
-    {
-        return currentCooldown < 0 ? 0 : currentCooldown;
+        //if (doDraw && drawCone != null)
+        //{
+        //    rotVal += graphicsRotSpeed * Time.deltaTime;
+        //    if (rotVal >= 360)
+        //        rotVal = 0;
+        //    drawCone.GetComponent<MeshRenderer>().material.mainTexture = rotateTexture(target, rotVal);
+        //}
+        _currentCooldown -= Time.deltaTime;
     }
 
+    Texture2D rotateTexture(Texture2D tex, float angle)
+    {
+
+        float x2, y2;
+        angle = angle / 180f * Mathf.PI;
+        texCOS = Mathf.Cos(angle);
+        texSIN = Mathf.Sin(angle);
+        float texWS = texW * texSIN;
+        float texWC = texW * texCOS;
+        float texHC = texH * texCOS;
+        float texHS = texH * texSIN;
+        float x1 = (-texWC + texHS) + texW;
+        float y1 = (-texWS + -texHC) + texH;
+        float dx_x = texCOS;
+        float dx_y = texSIN;
+        float dy_x = -texSIN;
+        float dy_y = texCOS;
+        for (int x = 0; x < tex.width; x++)
+        {
+            x2 = x1;
+            y2 = y1;
+            for (int y = 0; y < tex.height; y++)
+            {         
+                x2 += dx_x;
+                y2 += dx_y;
+                rotImage.SetPixel(x, y, tex.GetPixel((int)x2, (int)y2));
+            }
+
+            x1 += dy_x;
+            y1 += dy_y;
+
+        }
+        rotImage.Apply();
+        return rotImage;
+    }
+
+   
     public void UseAbility(Vector3 p)
     {
         clockwise = true;
         dirSat = false;
         start = p;
+        doDraw = false;
+        rotVal = 0;
         drawCone = (GameObject)Instantiate(drawConeObj, transform.position, Quaternion.identity);
         lookDir = start - drawCone.transform.position;
         drawCone.transform.LookAt(drawCone.transform.position + lookDir);
@@ -71,18 +141,20 @@ public class ConeDraw : MonoBehaviour {
         im.ReleaseControl(ID);
         im.OnFirstTouchMoveUnsub(ID);
         im.OnFirstTouchEndUnsub(ID);
-        GetComponent<PlayerControls>().EndAbility();
         // Actually use the ability with the drawn points
         Destroy(drawCone);
         if (doDraw)//If abality was not cancelled
         {
+            GetComponent<PlayerControls>().EndAbility(true);
             GameManager.events.ConeAbilityUsed(GameManager.player);
-            currentCooldown = cooldown;
             dmgCone = (GameObject)Instantiate(coneDmgObject, drawCone.transform.position, drawCone.transform.rotation);
             dmgCone.GetComponent<ConeAbility>().setVars(coneSpeed, activeTris, drawCone.GetComponent<MeshFilter>().mesh, damage, pushForce, stunTime);
         }
         else
+        {
+            GetComponent<PlayerControls>().EndAbility(false);
             GameManager.events.ConeAbilityCancel(gameObject);
+        }
         yield break;
     }
 
@@ -125,13 +197,14 @@ public class ConeDraw : MonoBehaviour {
         if(doDraw)
         {
             drawCone.GetComponent<MeshFilter>().mesh.Clear();
-            activeTris =(int) (clockwise ? y * (coneResolution  / 360) : (coneResolution) - (y * (coneResolution / 360))); //Calculate amount of triangles to draw (create a cone from sphere)
+            activeTris =(int) (clockwise ? y * (coneResolution  / 360f) : (coneResolution) - (y * (coneResolution / 360f))); //Calculate amount of triangles to draw (create a cone from sphere)
             length = maxConeLength * (1 - (float)activeTris / coneResolution); //Reduce cone-length based on angle-width
             if (length < minConeLength)
                 length = minConeLength;
-            Vector3[] vertices = new  Vector3[coneResolution + 2];
-            Vector3[] normals = new Vector3[vertices.Length];
-            int[] triangles = new int[activeTris*3];
+            vertices = new  Vector3[coneResolution + 2];
+            normals = new Vector3[vertices.Length];
+            uvs = new Vector2[vertices.Length];
+            triangles = new int[activeTris*3];
             vertices[0] = Vector3.up*coneAltitude; //Assign center vertix
             normals[0] = Vector3.up;
             triangles[0] = 0;
@@ -147,6 +220,8 @@ public class ConeDraw : MonoBehaviour {
                     vertices[k] = curVert * hit.distance;
                 else
                     vertices[k] = curVert*length;
+                uvs[k] = new Vector2(.5f + (vertices[k].x) / (2 * maxConeLength), .5f + (vertices[k].z) / (2 * maxConeLength)); //Unscaled texture, rotateUV map;
+                //uvs[k] = new Vector2(.5f+(vertices[k].x)/(2*length), .5f+(vertices[k].z)/(2*length)); //Scaled texture
                 if (k < activeTris) //Draw triangles only in fields encapsuled by the drawn angle
                 {
                     if (!clockwise)
@@ -167,9 +242,12 @@ public class ConeDraw : MonoBehaviour {
             coneLook.y = 0;
             transform.LookAt(transform.position  + Quaternion.Euler(drawCone.transform.rotation.eulerAngles) * coneLook);
             vertices[vertices.Length - 1] = vertices[1];
+            uvs[0] = Vector2.one*.5f;
+            uvs[vertices.Length - 1] = uvs[0];
             normals [vertices.Length-1] = Vector3.up;
             drawCone.GetComponent<MeshFilter>().mesh.vertices = vertices;
             drawCone.GetComponent<MeshFilter>().mesh.triangles = triangles;
+            drawCone.GetComponent<MeshFilter>().mesh.uv = uvs;
             drawCone.GetComponent<MeshFilter>().mesh.normals = normals;
         }
     }
@@ -182,7 +260,7 @@ public class ConeDraw : MonoBehaviour {
 
     IEnumerator DrawCone()
     {
-        while (drawing )
+        while (drawing)
         {
             yield return null;
         }

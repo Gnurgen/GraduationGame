@@ -5,14 +5,15 @@ using System.Collections.Generic;
 public class BossLaser : MonoBehaviour {
 
     public PKFxFX[] lasers;
+    public GameObject[] laserSound = new GameObject[4];
     private Ray[] rays = new Ray[4];
     private RaycastHit[] hits = new RaycastHit[4];
-
     Vector3[] LRPos = new Vector3[2];
     public float RotationSpeed = 5;
     public float secondsOfLaser = 10;
     public float laserDmgPerSecond;
     private float shooting;
+    private float distToPlayerSound;
     private bool rotating;
     private bool[] activeLasers = new bool[4] {false, false, false, false};
     [SerializeField]
@@ -33,6 +34,7 @@ public class BossLaser : MonoBehaviour {
     void Update()
     {
         shooting -= Time.deltaTime;
+        distToPlayerSound = Vector3.Distance(transform.position, GameManager.player.transform.position);
     }
 
     public void DeActivate()
@@ -72,10 +74,13 @@ public class BossLaser : MonoBehaviour {
 
     IEnumerator ShootLaser(int index)
     {
-        GameManager.events.BossLaserActivation(gameObject);
+        GameManager.events.BossLaserActivation(laserSound[index]);
         activeLasers[index] = true;
         Quaternion startPos = transform.rotation;
-        rays[index].origin = transform.up; 
+        rays[index].origin = transform.up;
+        laserSound[index].SetActive(true);
+        laserSound[index].transform.rotation = startPos;
+        laserSound[index].transform.position = transform.up;
         lasers[index].StartEffect();
         while (shooting > 0)
         {
@@ -84,18 +89,23 @@ public class BossLaser : MonoBehaviour {
             {
                 case 0:
                     rays[index].direction = transform.forward * 100 ;
+                    laserSound[index].transform.position = transform.forward * distToPlayerSound;
                     break;
                 case 1:
                     rays[index].direction = -transform.forward * 100;
+                    laserSound[index].transform.position = -transform.forward * distToPlayerSound;
                     break;
                 case 2:
                     rays[index].direction = -transform.right * 100;
+                    laserSound[index].transform.position = -transform.right * distToPlayerSound;
                     break;
                 case 3:
                     rays[index].direction = transform.right * 100;
+                    laserSound[index].transform.position = transform.right * distToPlayerSound;
                     break;
                 default:
                     rays[index].direction = transform.forward * 100;
+                    laserSound[index].transform.position = transform.forward * distToPlayerSound;
                     break;
             }
             Physics.Raycast(rays[index], out hits[index]);
@@ -103,7 +113,10 @@ public class BossLaser : MonoBehaviour {
             //LR.SetPosition(1, transform.GetChild(0).position);
             lasers[index].SetAttribute(new PKFxManager.Attribute("Target", hits[index].point));
             lasers[index].transform.position = hits[index].point;
-            
+            if(hits[index].distance <= distToPlayerSound)
+            {
+                laserSound[index].transform.position = hits[index].point;
+            }
             if (hits != null && hits[index].collider.tag == "Player")
             {
                 GameManager.events.EnemyAttackHit(gameObject, laserDmgPerSecond);
@@ -111,7 +124,8 @@ public class BossLaser : MonoBehaviour {
             }
             yield return null;
         }
-        GameManager.events.BossLaserDeactivation(gameObject);
+        GameManager.events.BossLaserDeactivation(laserSound[index]);
+        laserSound[index].SetActive(false);
         lasers[index].StopEffect();
         activeLasers[index] = false;
     }

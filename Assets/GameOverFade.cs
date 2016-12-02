@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class GameOverFade : MonoBehaviour {
-
+/*
     [SerializeField]
     float fadeTime;
     [SerializeField]
@@ -33,7 +33,7 @@ public class GameOverFade : MonoBehaviour {
                 if(GameManager.game.activeCheckpoint != null)
                 {
                     GameManager.events.Respawned();
-                    GameManager.player.transform.position = GameManager.game.activeCheckpoint.transform.position;
+                   
                     GameManager.player.GetComponent<Health>().health = GameManager.player.GetComponent<Health>().maxHealth;
                     GameManager.GameOver(true);
                 }
@@ -59,4 +59,5 @@ public class GameOverFade : MonoBehaviour {
         done = false;
         fadeOut = true;
     }
+    */
 }

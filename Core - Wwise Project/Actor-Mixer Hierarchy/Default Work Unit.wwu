@@ -3241,6 +3241,13 @@
 											</ActiveSourceList>
 										</Sound>
 										<Sound Name="Spear Cone Cast" ID="{83C4DE18-6740-40E7-A4B8-EEB095B84883}" ShortID="87011899" Type="SoundFX">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -3264,6 +3271,13 @@
 											</ActiveSourceList>
 										</Sound>
 										<Sound Name="Spear Throw Cast" ID="{D25E3902-DEC1-4BB6-A019-BAAF332AD8A2}" ShortID="806469769" Type="SoundFX">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>

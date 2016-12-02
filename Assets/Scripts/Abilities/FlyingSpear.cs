@@ -7,19 +7,38 @@ public class FlyingSpear : MonoBehaviour {
 
     public GameObject spear;
     [SerializeField]
-    private float baseDamage, flyingSpeed, cooldown = 5, drawLength, damage, pushForce, spearAltitude, turnRate, stunTime;
+    private float baseDamage, flyingSpeed, drawLength, damage, pushForce, spearAltitude, turnRate, stunTime;
     [SerializeField]
     [Range(1, 10)]
     private int dragForce = 1;
     [SerializeField]
     private int dragTargets;
+    [SerializeField]
+    private bool multipleHit;
+    [SerializeField]
+    private float damageIncrease = 1;
+    [SerializeField]
+    private float scaleIncrease = 1;
+    [SerializeField]
+    private float colliderIncrease = 0.5f;
 
 
 
-    private float currentCooldown;
+    private float _currentCooldown;
+    public float currentCooldown
+    {
+        get
+        {
+            return _currentCooldown;
+        }
+        set
+        {
+            _currentCooldown = value;
+        }
+    }
     private InputManager IM;
     private EventManager EM;
-    private CurveDraw LR;
+    private EffectCurveDraw LR;
     private float currentDrawLength;
     private List<Vector3> drawnPoints;
     private int ID;
@@ -33,20 +52,14 @@ public class FlyingSpear : MonoBehaviour {
         currentDrawLength = 0;
         IM = GameManager.input;
         EM = GameManager.events;
-        LR = GetComponent<CurveDraw>();
+        LR = GetComponent<EffectCurveDraw>();
         ID = IM.GetID();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        currentCooldown -= Time.deltaTime;
+        _currentCooldown -= Time.deltaTime;
 	}
-
-    public float Cooldown()
-    {
-
-        return currentCooldown< 0 ? 0 : currentCooldown;
-    }
 
     public void UseAbility(Vector3 p)
     {
@@ -70,15 +83,16 @@ public class FlyingSpear : MonoBehaviour {
         IM.OnFirstTouchMoveUnsub(ID);
         IM.OnFirstTouchEndUnsub(ID);
        
-        GetComponent<PlayerControls>().EndAbility();
+        GetComponent<PlayerControls>().EndAbility(true);
         // Actually use the ability with the drawn points
 
         GameObject s = Instantiate(spear) as GameObject;
         GameManager.events.SpearDrawAbilityUsed(s);
-        s.GetComponent<SpearController>().SetParameters(LR.GetPoints(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets);
+        s.GetComponent<SpearControl>().SetParameters(LR.GetPoints(), LR.GetEffects(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets, multipleHit, damageIncrease, scaleIncrease, colliderIncrease);
         LR.CleanUp();
-        currentCooldown = cooldown;
     }
+
+
 
     IEnumerator DrawLine()
     {

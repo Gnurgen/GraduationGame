@@ -29,21 +29,24 @@ public class StartMenu : MonoBehaviour {
     public void newGame() {
         ResetProgress();
         Time.timeScale = 1;
-        SceneManager.LoadScene("CutScene"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+        StartCoroutine(playVideo());
+     
+    }
+
+    IEnumerator playVideo()
+    {
+        Handheld.PlayFullScreenMovie("Sequence 01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
+        Debug.Log("Now playing video file on android device (skipping video on unity play!)");
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        GameManager.LoadNextLevel();
+
     }
 
     public void loadGame()
     {
-        GameManager.progress = PlayerPrefs.GetInt("Progress");
         Time.timeScale = 1;
-        if (GameManager.progress <= 2)
-        {
-            SceneManager.LoadScene("Final");
-        }
-        else
-        {
-            SceneManager.LoadScene("BossLevel");
-        }
+        GameManager.LoadNextLevel();
     }
 
     public void selectMenu(int menu) {
@@ -60,12 +63,14 @@ public class StartMenu : MonoBehaviour {
             Debug.Log("dansk");
             language.GetComponent<Image>().overrideSprite = eN;
             isDK = false;
+            GameManager.game.language = GameManager.Language.Danish;
         }
         else if (isDK == false)
         {
             Debug.Log("engelsk");
             language.GetComponent<Image>().overrideSprite = dK;
             isDK = true;
+            GameManager.game.language = GameManager.Language.English;
         }
     }
 
