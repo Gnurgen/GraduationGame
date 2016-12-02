@@ -8,7 +8,7 @@ public class SpiritRock : MonoBehaviour {
     private GameObject room;
   
     void Start() {
-        GameManager.events.OnMapGenerated += getAllSpiritStones;
+        GameManager.events.OnLoadComplete += getAllSpiritStones;
         room = gameObject.transform.parent.gameObject;
         getAllSpiritStones();
     }

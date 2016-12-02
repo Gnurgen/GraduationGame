@@ -4,39 +4,17 @@ using System.Collections;
 
 public class SpiritLvlBar : MonoBehaviour
 {
-    private float currentVal, maxVal;
-    private GameObject actor;
     private float scale;
-
-    //Input manager and Event manager
-    private InputManager IM;
-    private EventManager EM;
-    int ID;
-
-    void Start()
+    private void Start()
     {
-        IM = GameManager.input;
-        ID = IM.GetID();
-        EM = GameManager.events;
-
-        maxVal = 1;//Amoutn of spirits needed
+        gameObject.GetComponent<Image>().fillAmount = 0;
     }
 
-    void updateVal()
-    {
-        StartCoroutine(UpdateLvl());
+    public void updateBar(int max, int current, float percent) {
+        scale = 1-((float)current/((float)max*percent));
+        Debug.Log("scale: "+scale + "scale: " + max+ "current: " + current);
+        gameObject.GetComponent<Image>().fillAmount = scale;
     }
 
-
-
-    IEnumerator UpdateLvl()
-    {
-        yield return new WaitForEndOfFrame();
-        currentVal = 1;//Current Spirit level
-        scale = 1 - ((maxVal - currentVal) / maxVal);
-        if (currentVal <= maxVal)
-        {
-            gameObject.GetComponent<Image>().fillAmount = scale;
-        }
-    }
+    
 }

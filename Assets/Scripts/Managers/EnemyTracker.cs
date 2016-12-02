@@ -29,6 +29,7 @@ public class EnemyTracker : MonoBehaviour {
     void OnPickUp(GameObject go, int blob)
     {
         currentEnemiesAlive -= 1;
+        GameObject.Find("SpiritBar").GetComponent<SpiritLvlBar>().updateBar(allEnemies, currentEnemiesAlive, percentageToKill);
         if(!guideSpawned && ((float)currentEnemiesAlive / (float)allEnemies) <= (1 - percentageToKill))
         {
             Instantiate(guidingWhisp, GameManager.spear.transform.position, Quaternion.identity);

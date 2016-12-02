@@ -26,8 +26,7 @@ public class PlayerControls : MonoBehaviour {
     [SerializeField]
     private float abilityTouchOffset, abilityTouchMoveDistance;
     private bool ResumeMovementAfterAbility = false;
-    [SerializeField]
-    private GameObject ClickFeedBack;
+    public GameObject ClickFeedBack;
 
     private Vector3 prevPos;
     private int id;
@@ -49,6 +48,7 @@ public class PlayerControls : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //ClickFeedBack = Instantiate(ClickFeedBack);
         im = GameManager.input;
         em = GameManager.events;
         body = GetComponent<Rigidbody>();
@@ -79,9 +79,10 @@ public class PlayerControls : MonoBehaviour {
     IEnumerator Idle()
     {
         isMoving = false;
-        if (ClickFeedBack == null)
+        if(ClickFeedBack != null)
+            ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
+        else
             ClickFeedBack = Instantiate(ClickFeedBack);
-        ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
         state = State.Idle;
         em.PlayerIdle(gameObject);
         while(state == State.Idle)

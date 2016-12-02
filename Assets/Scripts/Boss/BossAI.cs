@@ -117,7 +117,7 @@ public class BossAI : MonoBehaviour {
     {
         if (col.tag == "Player")
         {
-            Activate();
+         //   Activate();
             Destroy(GetComponent<SphereCollider>());
         }
     }
