@@ -6,7 +6,6 @@ using Pathfinding;
 
 public class MapGenerator : MonoBehaviour {
 
-    private static List<GameObject>[,,,,] roomsByDoors;
     private static int[,] neighbours;
 
     public MapSize size = MapSize.Default;
@@ -17,6 +16,7 @@ public class MapGenerator : MonoBehaviour {
     [HideInInspector]
     public int mapLevel;
 
+    private List<GameObject>[,,,,] roomsByDoors;
     private List<GameObject>[] list = new List<GameObject>[4];
     private List<GameObject> rooms;
     private RoomGridEntry[,] mapGrid;
@@ -65,38 +65,8 @@ public class MapGenerator : MonoBehaviour {
     }
 
     void Start() {
-        int i;
-        int j;
-        int[] hashIndex;
-        RoomBuilder room;
-        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
-
-        endElevator = Instantiate(Resources.Load("Elevator/EndElevator") as GameObject);
-
         rooms = new List<GameObject>();
-        roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
-
-        for (i = 0; i < objectList.Count; i++)
-        {
-            room = objectList[i].GetComponent<RoomBuilder>();
-
-            if (room != null)
-            {
-                hashIndex = room.GetHashIndex();
-                if (hashIndex[0] == 0)
-                {
-                    for (j = 0; j < 4; j++)
-                    {
-                        if (!room.isBeaconRoom && (j == 0  || j == 1 && (room.isRotatable || rotateAnyRoom)) || room.isBeaconRoom && (j == 2 || j == 3 && (room.isRotatable || rotateAnyRoom)))
-                        {
-                            if (roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
-                                roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
-                            roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
-                        }
-                    }
-                }
-            }
-        }
+        endElevator = Instantiate(Resources.Load("Elevator/EndElevator") as GameObject);
 
         if (neighbours == null)
         {
@@ -122,12 +92,39 @@ public class MapGenerator : MonoBehaviour {
     {
         int gridSize;
         int center;
+        int[] hashIndex;
+        RoomBuilder room;
 
         clear();
         progress = 0;
         totalProgress = 0;
         progressCoords = new int[] {0, 0};
         completed = false;
+        roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
+
+        List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
+
+        for (i = 0; i < objectList.Count; i++)
+        {
+            room = objectList[i].GetComponent<RoomBuilder>();
+
+            if (room != null)
+            {
+                hashIndex = room.GetHashIndex();
+                if (hashIndex[0] == 0)
+                {
+                    for (j = 0; j < 4; j++)
+                    {
+                        if (!room.isBeaconRoom && (j == 0  || j == 1 && (room.isRotatable || rotateAnyRoom)) || room.isBeaconRoom && (j == 2 || j == 3 && (room.isRotatable || rotateAnyRoom)))
+                        {
+                            if (roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] == null)
+                                roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]] = new List<GameObject>();
+                            roomsByDoors[j, hashIndex[1], hashIndex[2], hashIndex[3], hashIndex[4]].Add(room.gameObject);
+                        }
+                    }
+                }
+            }
+        }
 
         if (startElevator != null)
         {
