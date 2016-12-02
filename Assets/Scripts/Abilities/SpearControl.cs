@@ -81,6 +81,14 @@ public class SpearControl : MonoBehaviour {
         }
         if (col.tag == "Enemy")
         {
+            if (!enemiesHit.Contains(col.gameObject))
+            {
+                enemiesHit.Add(col.gameObject);
+                
+            }
+                
+
+
             if (!multipleHit)
             {
                 if (!enemiesHit.Contains(col.gameObject))
@@ -91,6 +99,7 @@ public class SpearControl : MonoBehaviour {
                     damage += damageIncrease;
                     globalScale += scaleIncrease;
                     collider.radius += colliderIncrease;
+
                     GameObject imp = Instantiate(impact) as GameObject;
                     imp.transform.position = transform.position + (col.gameObject.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, col.gameObject.transform.position) * 0.5f);
                     StartCoroutine(DelayedDelete(imp, 1));
