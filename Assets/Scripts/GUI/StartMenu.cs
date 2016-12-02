@@ -30,7 +30,7 @@ public class StartMenu : MonoBehaviour {
         ResetProgress();
         Time.timeScale = 1;
         StartCoroutine(playVideo());
-        //SceneManager.LoadScene("CutScene"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+     
     }
 
     IEnumerator playVideo()
@@ -39,22 +39,14 @@ public class StartMenu : MonoBehaviour {
         Debug.Log("Now playing video file on android device (skipping video on unity play!)");
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
-        SceneManager.LoadScene("Tutorial"); // NEEDS TO BE CORRECT SCENE!!!!!!!!!!!!!
+        GameManager.LoadNextLevel();
 
     }
 
     public void loadGame()
     {
-        GameManager.progress = PlayerPrefs.GetInt("Progress");
         Time.timeScale = 1;
-        if (GameManager.progress <= 2)
-        {
-            SceneManager.LoadScene("Final");
-        }
-        else
-        {
-            SceneManager.LoadScene("BossLevel");
-        }
+        GameManager.LoadNextLevel();
     }
 
     public void selectMenu(int menu) {

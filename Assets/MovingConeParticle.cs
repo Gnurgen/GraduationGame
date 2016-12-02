@@ -10,7 +10,7 @@ public class MovingConeParticle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        poolManager = FindObjectOfType<PoolManager>();
+        poolManager = GameManager.pool;
 	}
 	
 	// Update is called once per frame

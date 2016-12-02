@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class StartElevator : MonoBehaviour {
     private GameObject fade;
@@ -12,24 +13,31 @@ public class StartElevator : MonoBehaviour {
         fade = GameObject.Find("Fade");
         fade.GetComponent<Fade>().fadeFromBlack(3);
         EndPos = new Vector3(transform.position.x, -3.45f, transform.position.z);
-        startPos = new Vector3 (transform.position.x, -5.45f, transform.position.z);
+        startPos = new Vector3 (transform.position.x, -6.45f, transform.position.z);
         transform.position = startPos;
+        GameManager.events.OnLoadComplete += MoveUp;
         player.transform.localPosition = Vector3.zero + Vector3.up * 0.453073f; //the float is 0.5 - kumos height in the local position
     }
 
-    void Update () {
-        if (step <= 1)
+    private void MoveUp()
+    {
+        print("MOVBING UPBITCHES");
+        StartCoroutine(MoveElevatorUp());
+    }
+
+    IEnumerator MoveElevatorUp() {
+        GameManager.events.ElevatorMoveStart();
+
+        while (step <= 1)
         {
             step += speed * Time.deltaTime;
             transform.position = Vector3.Lerp(startPos, EndPos, step);
+            yield return null;
         }
-        else
-        {
-            GameManager.events.ElevatorMoveStop();
-            player.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
-            player.transform.parent = null;
-            enabled = false;
-        }
+        GameManager.events.ElevatorMoveStop();
+        player.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
+        player.transform.parent = null;
+        enabled = false;
 	}
     
     

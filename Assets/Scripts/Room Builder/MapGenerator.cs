@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Pathfinding;
-
+using UnityEngine.SceneManagement;
 public class MapGenerator : MonoBehaviour {
 
     private static List<GameObject>[,,,,] roomsByDoors;
@@ -65,6 +65,8 @@ public class MapGenerator : MonoBehaviour {
     }
 
     void Start() {
+        // HEY BRO WE CHANGE THE SCENE TO FINAL 
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
         int i;
         int j;
         int[] hashIndex;
@@ -387,8 +389,8 @@ public class MapGenerator : MonoBehaviour {
             StartCoroutine(DelayedScan());
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
         }
-
-        GameManager.events.LoadingProgress(progress/totalProgress);
+     
+        GameManager.events.LoadingProgress((float)progress/ totalProgress);
     }
 
     private void displayProgress()

@@ -25,7 +25,10 @@ public class Fade : MonoBehaviour {
     void Start() {
         fadeImg = gameObject.GetComponent<Image>();
         GameManager.events.OnBossDeath += winFade;
-
+        GameManager.events.OnFadeToBlack += fadeToBlack;
+        GameManager.events.OnFadeToWhite += fadeToWhite;
+        GameManager.events.OnFadeToTransparent += fadeToTransparent;
+        
     }
     public void fadeToBlack(float duration) {
         fading = true;
