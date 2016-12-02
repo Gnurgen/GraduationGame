@@ -15,6 +15,8 @@ public class MapGenerator : MonoBehaviour {
 
     [HideInInspector]
     public int mapLevel;
+    [HideInInspector]
+    public Rect mapSize;
 
     private List<GameObject>[,,,,] roomsByDoors;
     private List<GameObject>[] list = new List<GameObject>[4];
@@ -44,7 +46,6 @@ public class MapGenerator : MonoBehaviour {
     private bool[] doors;
     private bool completed;
     private bool containsElevator;
-    private Rect mapSize;
 
     public enum MapSize
     {
@@ -159,7 +160,7 @@ public class MapGenerator : MonoBehaviour {
                     };
         }
 
-        mapSize = new Rect(0, 0, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize);
+        mapSize = new Rect(0, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize);
         center = Mathf.FloorToInt(gridSize / 2);
 
         if (shape == MapShape.Frame)
@@ -252,23 +253,6 @@ public class MapGenerator : MonoBehaviour {
         return doors;
     }
 
-    IEnumerator DelayedScan()
-    {
-        yield return new WaitForSeconds(2f);
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject obj in enemies)
-        {
-            obj.SetActive(false);
-        }
-        AstarPath p = FindObjectOfType<AstarPath>();
-        AstarPath.active.Scan();
-        foreach (GameObject obj in enemies)
-        {
-            if (obj != null)
-                obj.SetActive(true);
-        }
-    }
-
     void Update() {
         if (completed)
             return;
@@ -353,7 +337,7 @@ public class MapGenerator : MonoBehaviour {
                         go.transform.position = new Vector3(go.transform.position.x + (rotateMod < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0), 0, go.transform.position.z + (rotateMod > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
 
                         for (l = 0; l < tiles.Length; l++)
-                            tiles[l].transform.Rotate(Vector3.up * 90 * rotateMod);
+                            tiles[j].transform.rotation = Quaternion.Inverse(go.transform.rotation);
                     }
 
                     go.GetComponent<RoomBuilder>().HideWalls(i + 1 < mapGrid.GetLength(0) && mapGrid[i + 1, j] != null, j + 1 < mapGrid.GetLength(1) && mapGrid[i, j + 1] != null);
@@ -381,7 +365,6 @@ public class MapGenerator : MonoBehaviour {
             completed = true;
 
             GameManager.events.MapGenerated();
-            StartCoroutine(DelayedScan());
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
         }
 
