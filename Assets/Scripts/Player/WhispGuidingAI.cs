@@ -51,6 +51,7 @@ public class WhispGuidingAI : MonoBehaviour {
         GameManager.events.GuideWhispScatter(gameObject);
         seeker.StartPath(player.position, elevator.position, ReceivePath);
         waiting = true;
+        yield return new WaitForSeconds(1f);
         while (waiting || path == null)
         {
             if (!waiting)
@@ -71,10 +72,9 @@ public class WhispGuidingAI : MonoBehaviour {
             scatter += scatterRate * Time.deltaTime;
             yield return null;
         }
-        transform.position = guidingPoint;
-        while(scatter > endScatter)
+        StartCoroutine(Guiding());
+        while (scatter > endScatter)
         {
-            transform.position = guidingPoint;
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
             scatter -= scatterRate * Time.deltaTime;
             yield return null;
@@ -82,7 +82,6 @@ public class WhispGuidingAI : MonoBehaviour {
         scatter = endScatter;
         GameManager.events.GuideWhispScatterStop(gameObject);
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
-        StartCoroutine(Guiding());
         yield break;
     }
 

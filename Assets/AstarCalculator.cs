@@ -4,26 +4,21 @@ using Pathfinding;
 
 public class AstarCalculator : MonoBehaviour {
 
-    public bool delayedScan;
-    public float scanDelay;
+    public bool calculateGridSize;
+    //------------------------
+    public float nodeSize;
 
 
     // Use this for initialization
     void Start()
     {
 
-        if(delayedScan)
-            StartCoroutine(DelayedScan(scanDelay));
+        //GameManager.events.OnLoadComplete += Scan;
+        
     }
 
-
-
-    IEnumerator DelayedScan(float delay)
+    void Scan()
     {
-        if(scanDelay > 0)
-        {
-            yield return new WaitForSeconds(delay);
-        }
         GameObject[] triggers = GameObject.FindGameObjectsWithTag("TriggerBox");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
@@ -55,4 +50,8 @@ public class AstarCalculator : MonoBehaviour {
             go.SetActive(true);
         }
     }
+
+
+
+
 }
