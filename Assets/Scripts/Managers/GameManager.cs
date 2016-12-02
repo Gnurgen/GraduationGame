@@ -7,6 +7,10 @@ public class GameManager {
     private const int GAME_SCENE = 1;
     private const string GAMEOVER_SCENE = "GameOver";
 
+    // Number of levels with procedural map generation. Used for Loadingscreen 
+    private static int _numberOfLevels = 2;
+    
+     
     private static GameManager _instance;
 
     private AudioManager _audioManager;
@@ -17,7 +21,7 @@ public class GameManager {
     private GameObject _spear;
     private PoolManager _poolManager;
     private GameObject _managers;
-    private GameObject _activeCheckPoint;
+    private static GameObject _activeCheckPoint;
     private Menu _menu;
     private static int _score, _experience, _playerLevel, _progress;
 
@@ -41,13 +45,12 @@ public class GameManager {
         if (!CheckPoint)
         {
             _instance = null;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            events.LoadNextlevel();
             
         }
         else
         {
-            //player.transform.position
+            player.transform.position = _activeCheckPoint.transform.position;
         }
     }
 
@@ -99,6 +102,17 @@ public class GameManager {
         set
         {
             _progress = value;
+        }
+    }
+    public static int numberOfLevels
+    {
+        get
+        {
+            return _numberOfLevels;
+        }
+        set
+        {
+            _numberOfLevels = value;
         }
     }
 
@@ -310,22 +324,25 @@ public class GameManager {
     {
         progress = PlayerPrefs.GetInt("Progress");
 
-        SceneManager.UnloadScene(SceneManager.GetActiveScene());
-        
         SceneManager.LoadScene("LoadingScreen");
-        if(progress == 0)
+        // LOADING SCREEN TAKES IT FROM HERE
+
+/*
+        if (progress == 0)
         {
-            SceneManager.LoadSceneAsync("Tutorial", LoadSceneMode.Single);
+            AsyncOperation tut = SceneManager.LoadSceneAsync("Tutorial", LoadSceneMode.Additive);
+            
         }
-        else if (progress <= 2) // Number of levels before Boss level 
+        else if (progress <= numberOfLevels) // Number of levels before Boss level 
         {
             SceneManager.LoadSceneAsync("Final",LoadSceneMode.Additive);
             SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
         }
         else
         {
-            SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Additive);
         }
+        */
     }
 
 }

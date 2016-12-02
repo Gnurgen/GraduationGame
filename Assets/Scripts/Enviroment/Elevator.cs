@@ -69,7 +69,7 @@ public class Elevator : MonoBehaviour
         yield return new WaitForSeconds(preLift);
         GameManager.events.ElevatorMoveStart();
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
-        fade.GetComponent<Fade>().fadeToBlack(2);
+        //fade.GetComponent<Fade>().fadeToBlack(2);
         float newPosStart = newPos;
         while (newPos < newPosStart + speed * underLift)
         {

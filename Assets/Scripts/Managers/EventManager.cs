@@ -436,6 +436,7 @@ public class EventManager : MonoBehaviour
     public event LoadingCompleteAction OnLoadComplete;
     public event LoadingCompleteAction OnLoadNextLevel;
 
+
     public void LoadNextlevel()
     {
         if (OnLoadNextLevel!= null)
@@ -454,6 +455,57 @@ public class EventManager : MonoBehaviour
             OnLoadingProgress(progress);
     }
 
+
+    public delegate void FadeAction();
+    public event FadeAction OnFadeToBlack;
+    public event FadeAction OnFadeToWhite;
+    public event FadeAction OnFadeToTransparent;
+    public event FadeAction OnFadedBlackScreen;
+    public event FadeAction OnFadedWhiteScreen;
+    public event FadeAction OnFadedTransparentScreen;
+
+    public void FadeToBlack()
+    {
+        if (OnFadeToBlack != null)
+        {
+            OnFadeToBlack();
+        }
+    }
+    public void FadeToWhite()
+    {
+        if (OnFadeToWhite != null)
+        {
+            OnFadeToWhite();
+        }
+    }
+    public void FadeToTransparent()
+    {
+        if (OnFadeToTransparent != null)
+        {
+            OnFadeToTransparent();
+        }
+    }
+    public void FadedBlackScreen()
+    {
+        if (OnFadedBlackScreen != null)
+        {
+            OnFadedBlackScreen();
+        }
+    }
+    public void FadedWhiteScreen()
+    {
+        if (OnFadedWhiteScreen != null)
+        {
+            OnFadedWhiteScreen();
+        }
+    }
+    public void FadedTransparentScreen()
+    {
+        if (OnFadedTransparentScreen != null)
+        {
+            OnFadedTransparentScreen();
+        }
+    }
 
     public delegate void CheckPointAction();
     public event CheckPointAction OnCheckPoint;
