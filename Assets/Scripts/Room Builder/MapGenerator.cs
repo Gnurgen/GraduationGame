@@ -15,6 +15,8 @@ public class MapGenerator : MonoBehaviour {
 
     [HideInInspector]
     public int mapLevel;
+    [HideInInspector]
+    public Rect mapSize;
 
     private List<GameObject>[,,,,] roomsByDoors;
     private List<GameObject>[] list = new List<GameObject>[4];
@@ -44,7 +46,6 @@ public class MapGenerator : MonoBehaviour {
     private bool[] doors;
     private bool completed;
     private bool containsElevator;
-    private Rect mapSize;
 
     public enum MapSize
     {
@@ -159,7 +160,7 @@ public class MapGenerator : MonoBehaviour {
                     };
         }
 
-        mapSize = new Rect(0, 0, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize);
+        mapSize = new Rect(0, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize, RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE * gridSize);
         center = Mathf.FloorToInt(gridSize / 2);
 
         if (shape == MapShape.Frame)
@@ -250,23 +251,6 @@ public class MapGenerator : MonoBehaviour {
         doors[2] = doors[1];
         doors[1] = temp;
         return doors;
-    }
-
-    IEnumerator DelayedScan()
-    {
-        yield return new WaitForSeconds(2f);
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(GameObject obj in enemies)
-        {
-            obj.SetActive(false);
-        }
-        AstarPath p = FindObjectOfType<AstarPath>();
-        AstarPath.active.Scan();
-        foreach (GameObject obj in enemies)
-        {
-            if (obj != null)
-                obj.SetActive(true);
-        }
     }
 
     void Update() {
@@ -381,7 +365,6 @@ public class MapGenerator : MonoBehaviour {
             completed = true;
 
             GameManager.events.MapGenerated();
-            StartCoroutine(DelayedScan());
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
         }
 
