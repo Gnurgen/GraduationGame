@@ -277,7 +277,7 @@ public class MapGenerator : MonoBehaviour {
         if (completed)
             return;
 
-        if (mapGrid[i, j] != null && mapGrid[i, j].segment < 0)
+        if (mapGrid[i, j] != null)
         {
             containsElevator = startRoom[0] == i && startRoom[1] == j || endRoom[0] == i && endRoom[1] == j;
             offset = containsElevator ? 1 : 0;
@@ -392,11 +392,6 @@ public class MapGenerator : MonoBehaviour {
         GameManager.events.LoadingProgress(progress/totalProgress);
     }
 
-    private void displayProgress()
-    {
-
-    }
-
     private void clear()
     {
         for(int i = 0; i < rooms.Count; i++)
@@ -413,66 +408,49 @@ public class MapGenerator : MonoBehaviour {
         if (entry == null || entry.isSet)
             return;
 
-        if (entry.segment < 0)
+        if (entry.doors == null)
         {
-            if (entry.doors == null)
+            List<int> doorList = new List<int>();
+            for (l = 0; l < neighbours.GetLength(0); l++)
             {
-                List<int> doorList = new List<int>();
-                for (l = 0; l < neighbours.GetLength(0); l++)
-                {
-                    neighbour = getNeighbour(i, j, l);
+                neighbour = getNeighbour(i, j, l);
 
-                    if (neighbour != null)
+                if (neighbour != null)
+                {
+                    doorList.Add(l);
+                    if (entry.doors == null && neighbour.isSet)
                     {
-                        doorList.Add(l);
-                        if (entry.doors == null && neighbour.isSet)
-                        {
-                            entry.doors = new bool[4];
-                            entry.doors[l] = true;
-                        }
+                        entry.doors = new bool[4];
+                        entry.doors[l] = true;
                     }
                 }
-                if (entry.doors == null)
-                {
-                    entry.doors = new bool[4];
-                    entry.doors[doorList[Random.Range(0, doorList.Count)]] = true;
-                }
             }
-
-            entry.isSet = true;
-
-            for (l = 0; l < entry.doors.Length; l++)
+            if (entry.doors == null)
             {
-                neighbour = getNeighbour(i, j, l);
-                if (neighbour != null && (entry.doors[l] || Random.Range(0, roomRollOdds) < 1))
-                {
-                    entry.doors[l] = true;
-
-                    if (neighbour.doors == null)
-                        neighbour.doors = new bool[4];
-                    neighbour.doors[(l + 2) % 4] = true;
-
-
-                    if (!neighbour.isSet)
-                        updateRoom(i + neighbours[l, 0], j + neighbours[l, 1]);
-                }
+                entry.doors = new bool[4];
+                entry.doors[doorList[Random.Range(0, doorList.Count)]] = true;
             }
         }
-        else
+
+        entry.isSet = true;
+
+        for (l = 0; l < entry.doors.Length; l++)
         {
-            for (l = 0; l < entry.doors.Length; l++)
+            neighbour = getNeighbour(i, j, l);
+            if (neighbour != null && (entry.doors[l] || Random.Range(0, roomRollOdds) < 1))
             {
-                neighbour = getNeighbour(i, j, l);
-                if (neighbour != null && entry.doors[l])
-                {
-                    if (neighbour.doors == null)
-                        neighbour.doors = new bool[4];
-                    neighbour.doors[(l + 2) % 4] = true;
-                    if (!neighbour.isSet)
-                        updateRoom(i + neighbours[l, 0], j + neighbours[l, 1]);
-                }
+                entry.doors[l] = true;
+
+                if (neighbour.doors == null)
+                    neighbour.doors = new bool[4];
+                neighbour.doors[(l + 2) % 4] = true;
+
+
+                if (!neighbour.isSet)
+                    updateRoom(i + neighbours[l, 0], j + neighbours[l, 1]);
             }
         }
+
     }
 
     private RoomGridEntry getNeighbour(int i, int j, int l)
@@ -481,8 +459,7 @@ public class MapGenerator : MonoBehaviour {
         int indexY = j + neighbours[l, 1];
         if (indexX >= 0 && indexX < mapGrid.GetLength(0) &&
             indexY >= 0 && indexY < mapGrid.GetLength(1) &&
-            mapGrid[indexX, indexY] != null &&
-            mapGrid[indexX, indexY].segment < 0
+            mapGrid[indexX, indexY] != null
         )
             return mapGrid[indexX, indexY];
         return null;
