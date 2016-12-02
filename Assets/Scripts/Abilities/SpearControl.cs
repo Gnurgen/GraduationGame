@@ -27,9 +27,9 @@ public class SpearControl : MonoBehaviour {
     private float globalScale;
     private SphereCollider collider;
     private int currentUpgrades;
-    public float xColorDelta;
-    public float yColorDelta;
-    public float zColorDelta;
+    private float xColorDelta;
+    private float yColorDelta;
+    private float zColorDelta;
     private List<GameObject> enemiesHit;
 
     IEnumerator Fly()
