@@ -134,9 +134,14 @@ public class WhispGuidingAI : MonoBehaviour {
         {
             Vector3 dir = (path.vectorPath[index] - player.position).normalized;
             guidingPoint = player.position + new Vector3(dir.x * guidingRange, 1, dir.z * guidingRange);
-            if(Vector3.Distance(transform.position, path.vectorPath[index]) < pointSkipRange)
+            float dist = (Vector3.Distance(transform.position, path.vectorPath[index]));
+            for (int i = index; i < path.vectorPath.Count; i++)
             {
-                index++;
+                if(Vector3.Distance(transform.position, path.vectorPath[i]) < dist)
+                {
+                    index = i;
+                    dist = Vector3.Distance(transform.position, path.vectorPath[i]);
+                }
             }
             yield return null;
         }

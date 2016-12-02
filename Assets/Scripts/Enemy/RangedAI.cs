@@ -9,6 +9,7 @@ public class RangedAI : EnemyStats {
 
     public GameObject projectile;
     public GameObject target;
+    public bool reset = true;
     public float tooClose = 3;
     public float tooCloseSpeed = 2;
     public float projectileSpeed = 5;
@@ -127,6 +128,11 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Reset()
     {
+        if (!reset)
+        {
+            StartCoroutine(Idle());
+            yield break;
+        }
         animator.SetBool("Backwards", false);
         animator.SetBool("Run", false);
        
