@@ -26,7 +26,6 @@ public class AstarCalculator : MonoBehaviour {
 
     void Scan()
     {
-        print("normal scan");
         GameObject[] triggers = GameObject.FindGameObjectsWithTag("TriggerBox");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
@@ -61,7 +60,6 @@ public class AstarCalculator : MonoBehaviour {
 
     void RecalculatingScan()
     {
-        print("Recalculating scan");
         GameObject[] triggers = GameObject.FindGameObjectsWithTag("TriggerBox");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("CheckPoint");
