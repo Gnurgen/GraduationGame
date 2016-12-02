@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class SpearControl : MonoBehaviour {
 
     public GameObject impact;
+    public int maxUpgrades;
     private int springForce;
     private float damage;
     private float speed;
@@ -20,6 +21,7 @@ public class SpearControl : MonoBehaviour {
     private float damageIncrease;
     private float scaleIncrease;
     private float colliderIncrease;
+    private int currentUpgrades;
 
     private List<GameObject> enemiesHit;
 
@@ -62,6 +64,25 @@ public class SpearControl : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        if(col.tag == "Enemy")
+        {
+            if (!enemiesHit.Contains(col.gameObject))
+            {
+                enemiesHit.Add(col.gameObject);
+
+                currentUpgrades += 1;
+            }
+            HitTarget(col.gameObject);
+        }
+        else if(col.tag == "Boss")
+        {
+            HitTarget(col.gameObject);
+            Destroy(gameObject);
+        }
+
+
+
+
         if (col.tag == "Boss")
         {
             col.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
@@ -81,6 +102,13 @@ public class SpearControl : MonoBehaviour {
         }
         if (col.tag == "Enemy")
         {
+            if (!enemiesHit.Contains(col.gameObject))
+            {
+                enemiesHit.Add(col.gameObject);
+            }
+                
+
+
             if (!multipleHit)
             {
                 if (!enemiesHit.Contains(col.gameObject))
@@ -91,6 +119,7 @@ public class SpearControl : MonoBehaviour {
                     damage += damageIncrease;
                     globalScale += scaleIncrease;
                     collider.radius += colliderIncrease;
+
                     GameObject imp = Instantiate(impact) as GameObject;
                     imp.transform.position = transform.position + (col.gameObject.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, col.gameObject.transform.position) * 0.5f);
                     StartCoroutine(DelayedDelete(imp, 1));
@@ -109,6 +138,16 @@ public class SpearControl : MonoBehaviour {
                 StartCoroutine(DelayedDelete(imp, 1));
                 effectControl.SetAttribute(new PKFxManager.Attribute("GlobalScale", globalScale));
             }
+        }
+    }
+
+    private void HitTarget(GameObject target)
+    {
+        target.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
+        GameManager.events.SpearDrawAbilityHit(target);
+        if(currentUpgrades >= maxUpgrades)
+        {
+            // Max damage and effect
         }
     }
 
@@ -146,6 +185,7 @@ public class SpearControl : MonoBehaviour {
             globalScale = 1;
             effectControl.SetAttribute(new PKFxManager.Attribute("GlobalScale", globalScale));
         }
+        currentUpgrades = 0;
         StartCoroutine(Fly());
     }
 }
