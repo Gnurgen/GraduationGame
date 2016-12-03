@@ -15,13 +15,13 @@ public class PoolManager : MonoBehaviour {
 	
     void Subscribe()
     {
-        GameManager.events.OnPoolObject += PoolObj;
+        //GameManager.events.OnPoolObject += PoolObj;
        // GameManager.events.OnEnemyDeath += GenerateRagdoll;
         //GameManager.events.OnEnemyDeath += PoolObj;
         //GameManager.events.OnResourceDrop += GenerateBlob;
     }
 
-    public void PoolObj(GameObject obj)
+    public GameObject PoolObj(GameObject obj)
     {
         if (obj.GetComponent<AutoPool>() != null)
         {
@@ -40,6 +40,7 @@ public class PoolManager : MonoBehaviour {
             pool.Add(obj.tag, ListResult);
         }
         obj.SetActive(false);
+        return obj;
     }
 
     private void GenerateBlob(GameObject GO, int amount)

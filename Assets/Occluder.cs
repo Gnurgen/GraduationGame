@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Occluder : MonoBehaviour {
 
@@ -7,6 +7,9 @@ public class Occluder : MonoBehaviour {
     MeshFilter meshFilter;
     public bool hasDoor;
     public Mesh wallOcc, wallShow, wallDoorOcc, wallDoorShow;
+
+    public bool hasHid = false;
+
     void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
@@ -37,6 +40,7 @@ public class Occluder : MonoBehaviour {
             {
                 meshFilter.mesh = wallDoorShow;
             }
+            hasHid = false;
         }
         else if(!enable)
         {
@@ -48,7 +52,22 @@ public class Occluder : MonoBehaviour {
             {
                 meshFilter.mesh = wallDoorOcc;
             }
+            hasHid = true;
         }
 
     }
+
+    void OnTriggerStay(Collider col)
+    {
+        if (col.transform.parent.parent.tag == "Indestructable" && hasHid == true)
+        {
+            col.GetComponentInChildren<MeshRenderer>().enabled = false;
+        }
+
+        if(col.transform.parent.parent.tag == "Indestructable" && hasHid == false)
+        {
+            col.GetComponentInChildren<MeshRenderer>().enabled = true;
+        }
+    }
+
 }

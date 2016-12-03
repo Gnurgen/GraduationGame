@@ -6,18 +6,19 @@ public class AutoPool : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     { 
-        Invoke("PoolMe",1f);
-        
+        StartCoroutine(PoolMe());
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-    void PoolMe()
+    IEnumerator PoolMe()
     {
-        pm = FindObjectOfType<PoolManager>();
+        yield return new WaitForSeconds(1f);
+        pm = GameManager.pool;
         pm.PoolObj(gameObject);
         Destroy(this);
+        yield return null;
     }
 }

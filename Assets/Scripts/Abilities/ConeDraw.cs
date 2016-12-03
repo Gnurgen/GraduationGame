@@ -1,33 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ConeDraw : MonoBehaviour {
 
     [SerializeField]
-    private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime, graphicsRotSpeed;
+    private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime, rampUp, maxDamageInrease;
     [Range(1, 10)]
     [SerializeField]
     private int pointResolution = 1;
-    private GameObject drawCone, dmgCone, drawConeObj, coneDmgObject;
     private InputManager im;
     private bool drawing = false, clockwise = true;
     private Vector3 start, end, cur, lookDir;
-    private Vector2[] uvs;
-    private Vector3[] vertices, normals;
-    private int[] triangles;
     private int coneResolution, ID, activeTris;
     private float length;
     private const float _2pi = Mathf.PI * 2;
     private bool dirSat = false;
     private bool doDraw = false;
     private int onlyHitLayermask;
-    private float _currentCooldown, rotTimer = 0;
+    private float _currentCooldown, rotTimer = 0, normRamp, baseDamage;
+
+
+    //NEW CONE
+    private Quaternion myRot, cRot, Rot;
+    public List<GameObject> conePart;
+    private int drawnParts = 0, totDrawn = 0;
+    private GameObject coneParticlePref;
+    List<float> particleLength;
+    List<Vector3> particleDirection;
+    Vector3 fireValue;
+    float fireScale;
 
     //ROTATE UV MAP
-    private Texture2D target;
-    private Texture2D rotImage;
-    private float texW, texH, texCOS, texSIN, rotVal;
-    private int wTex, hTex;
+    //private Texture2D target;
+    //private Texture2D rotImage;
+    //private float texW, texH, texCOS, texSIN, rotVal;
+    //private int wTex, hTex;
 
 
     public float currentCooldown
@@ -47,33 +55,55 @@ public class ConeDraw : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        drawConeObj = Resources.Load<GameObject>("Prefabs/Cone/ConeMESH");
-        coneDmgObject = Resources.Load<GameObject>("Prefabs/Cone/ConeAbility");
+        baseDamage = damage;
+        coneParticlePref = Resources.Load<GameObject>("Pool/p_ConeParticle");
         coneResolution = pointResolution * 90;
         im = GameManager.input;
         ID = im.GetID();
         onlyHitLayermask = 1 << LayerMask.NameToLayer("ConeBlocker");
-        target = Resources.Load<Texture2D>("Prefabs/Cone/ConeDrawPart");
-        texH = target.height / 2f;
-        texW = target.width / 2f;
-        wTex = target.width;
-        hTex = target.height;
-        rotImage = new Texture2D(wTex, hTex);
+        conePart = new List<GameObject>();
+        particleLength = new List<float>();
+        particleDirection = new List<Vector3>();
+        for (int x = 0; x<coneResolution; ++x)
+        {
+            conePart.Add(GameManager.pool.PoolObj(Instantiate(coneParticlePref)));
+            particleLength.Add(0f);
+            particleDirection.Add(Vector3.zero);
+        }
     }
 	
     void Update()
     {
-        if (doDraw && drawCone != null)
+        if (doDraw)
         {
-            rotVal += graphicsRotSpeed * Time.deltaTime;
-            if (rotVal >= 360)
-                rotVal = 0;
-            drawCone.GetComponent<MeshRenderer>().material.mainTexture = rotateTexture(target, rotVal);
+            normRamp = normRamp < 1f ? normRamp + Time.deltaTime / rampUp : 1;
+            for(int x = 0; x<activeTris+1; ++x)
+            {
+                if (normRamp == 1)
+                {
+                    fireValue = new Vector3(normRamp, 0, 0);
+                    fireScale = 6;
+                    conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = fireValue;
+                    conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = 4;
+                    conePart[x].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = particleLength[x] / 6f;
+                    conePart[x].GetComponent<PKFxFX>().GetAttribute("Count").ValueFloat = 15;
+                }
+                else
+                {
+                    fireScale = 3 + normRamp * 2f;
+                    fireValue = new Vector3(normRamp, 0, 1f-normRamp);
+                    conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = new Vector3(normRamp, normRamp, 1f);
+                    conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = 2f + normRamp/2f;
+                    conePart[x].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = particleLength[x] / (3f + normRamp);
+                    conePart[x].GetComponent<PKFxFX>().GetAttribute("Count").ValueFloat = 10;
+                }
+            }
+            damage = baseDamage + maxDamageInrease * normRamp;
         }
         _currentCooldown -= Time.deltaTime;
     }
 
-    Texture2D rotateTexture(Texture2D tex, float angle)
+ /*   Texture2D rotateTexture(Texture2D tex, float angle)
     {
 
         float x2, y2;
@@ -107,7 +137,7 @@ public class ConeDraw : MonoBehaviour {
         }
         rotImage.Apply();
         return rotImage;
-    }
+    } */
 
    
     public void UseAbility(Vector3 p)
@@ -116,19 +146,15 @@ public class ConeDraw : MonoBehaviour {
         dirSat = false;
         start = p;
         doDraw = false;
-        rotVal = 0;
-        drawCone = (GameObject)Instantiate(drawConeObj, transform.position, Quaternion.identity);
-        lookDir = start - drawCone.transform.position;
-        drawCone.transform.LookAt(drawCone.transform.position + lookDir);
-        drawCone.transform.Rotate(Vector3.up * -90);
-        if (drawCone.GetComponent<MeshFilter>() == null)
-            drawCone.AddComponent<MeshFilter>();
-        if (drawCone.GetComponent<MeshRenderer>() == null)
-            drawCone.AddComponent<MeshRenderer>();
-        drawCone.GetComponent<MeshFilter>().mesh = new Mesh();
-        drawCone.GetComponent<MeshFilter>().mesh.name = ""+drawCone.GetInstanceID();
+        drawnParts = 0;
+        totDrawn = 0;
+        
+        //rotVal = 0;
+        lookDir = start - transform.transform.position;
+        myRot.SetLookRotation(lookDir);
+        cRot.eulerAngles = myRot.eulerAngles + Vector3.up * (180f - cancelAngle);
+        Rot.eulerAngles = myRot.eulerAngles + Vector3.up * -90f;
         StartCoroutine(Ability());
-
     }
 
     IEnumerator Ability()
@@ -142,18 +168,54 @@ public class ConeDraw : MonoBehaviour {
         im.OnFirstTouchMoveUnsub(ID);
         im.OnFirstTouchEndUnsub(ID);
         // Actually use the ability with the drawn points
-        Destroy(drawCone);
+        damage = baseDamage;
+        for (int x = 0; x < conePart.Count; ++x)
+        {
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = new Vector3(0, 0, 1);
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = 2f;
+            conePart[x].GetComponent<PKFxFX>().StopEffect();
+            GameManager.pool.PoolObj(conePart[x]);
+        }
+        normRamp = 0;
+        drawnParts = 0;
+        totDrawn = 0;
         if (doDraw)//If abality was not cancelled
         {
             GetComponent<PlayerControls>().EndAbility(true);
             GameManager.events.ConeAbilityUsed(GameManager.player);
-            dmgCone = (GameObject)Instantiate(coneDmgObject, drawCone.transform.position, drawCone.transform.rotation);
-            dmgCone.GetComponent<ConeAbility>().setVars(coneSpeed, activeTris, drawCone.GetComponent<MeshFilter>().mesh, damage, pushForce, stunTime);
+            StartCoroutine(particleProjectile());
         }
         else
         {
             GetComponent<PlayerControls>().EndAbility(false);
             GameManager.events.ConeAbilityCancel(gameObject);
+        }
+        yield break;
+    }
+
+    IEnumerator particleProjectile()
+    {
+        doDraw = false;
+        yield return new WaitForSeconds(0.2f);
+        for(int x = 0; x<activeTris+1; ++x)
+        {
+            conePart[x].transform.position = transform.position;
+            conePart[x].transform.LookAt(particleDirection[x]);
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = fireValue;
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = fireScale;
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = particleLength[x]/(3f+fireScale);
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("Count").ValueFloat = 20;
+            conePart[x].SetActive(true);
+            conePart[x].GetComponent<PKFxFX>().StartEffect();
+        }
+        yield return new WaitForSeconds(particleLength[0] / (3f + fireScale));
+        for (int x = 0; x < activeTris + 1; ++x)
+        {
+            conePart[x].GetComponent<PKFxFX>().StopEffect();
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = new Vector3(0, 0, 1);
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = 2f;
+            conePart[x].GetComponent<PKFxFX>().GetAttribute("Count").ValueFloat = 10;
+            GameManager.pool.PoolObj(conePart[x]);
         }
         yield break;
     }
@@ -181,14 +243,20 @@ public class ConeDraw : MonoBehaviour {
     void GetMove(Vector2 p)
     {
         cur = im.GetWorldPoint(p);
-        float y =(int) Quaternion.FromToRotation((cur - drawCone.transform.position), (start - drawCone.transform.position)).eulerAngles.y;
+        float y =(int) Quaternion.FromToRotation((cur - transform.position), (start - transform.position)).eulerAngles.y;
         doDraw = coneDrawAnalysis(y);
 
         if (!doDraw)
         {
-            drawCone.GetComponent<MeshFilter>().mesh.Clear();
-            drawCone.GetComponent<MeshFilter>().mesh.vertices = new Vector3[1];
-            drawCone.GetComponent<MeshFilter>().mesh.triangles = new int[3];
+            damage = baseDamage;
+            for (int x = 0; x < conePart.Count; ++x)
+            {
+                conePart[x].GetComponent<PKFxFX>().StopEffect();
+                GameManager.pool.PoolObj(conePart[x]);
+            }
+            drawnParts = 0;
+            totDrawn = 0;
+            activeTris = 0;
         }
         else if (y > maxConeWidth && clockwise || y<360-maxConeWidth && !clockwise)
         {
@@ -196,59 +264,66 @@ public class ConeDraw : MonoBehaviour {
         }
         if(doDraw)
         {
-            drawCone.GetComponent<MeshFilter>().mesh.Clear();
-            activeTris =(int) (clockwise ? y * (coneResolution  / 360f) : (coneResolution) - (y * (coneResolution / 360f))); //Calculate amount of triangles to draw (create a cone from sphere)
-            length = maxConeLength * (1 - (float)activeTris / coneResolution); //Reduce cone-length based on angle-width
+            activeTris = (int)(clockwise ? y * (coneResolution / 360f) : (coneResolution) - (y * (coneResolution / 360f)));
+            length = maxConeLength * (1 - (float)activeTris / coneResolution);
             if (length < minConeLength)
                 length = minConeLength;
-            vertices = new  Vector3[coneResolution + 2];
-            normals = new Vector3[vertices.Length];
-            uvs = new Vector2[vertices.Length];
-            triangles = new int[activeTris*3];
-            vertices[0] = Vector3.up*coneAltitude; //Assign center vertix
-            normals[0] = Vector3.up;
-            triangles[0] = 0;
-            triangles[1] = clockwise ?  1 : vertices.Length - 2;
-            triangles[2] = clockwise ? 2 : vertices.Length - 1;
-            for (int k = 1; k<coneResolution+1; ++k) //Generate verticies for full circle
+            int k, lim, inc, count = 0;
+            if (clockwise)
             {
-                float phi = k * _2pi/(coneResolution-1);
-                Vector3 curVert = new Vector3(Mathf.Cos(phi), coneAltitude / length, -Mathf.Sin(phi));
-                normals[k] = Vector3.up;
-                ray = new Ray(drawCone.transform.position, Quaternion.Euler(drawCone.transform.rotation.eulerAngles)*curVert);
-                if(Physics.Raycast(ray, out hit, length, onlyHitLayermask))
-                    vertices[k] = curVert * hit.distance;
-                else
-                    vertices[k] = curVert*length;
-                uvs[k] = new Vector2(.5f + (vertices[k].x) / (2 * maxConeLength), .5f + (vertices[k].z) / (2 * maxConeLength)); //Unscaled texture, rotateUV map;
-                //uvs[k] = new Vector2(.5f+(vertices[k].x)/(2*length), .5f+(vertices[k].z)/(2*length)); //Scaled texture
-                if (k < activeTris) //Draw triangles only in fields encapsuled by the drawn angle
-                {
-                    if (!clockwise)
-                    {
-                        triangles[k * 3] = k ;
-                        triangles[k * 3 + 1] = k + 1;
-                        triangles[k * 3 + 2] = 0;
-                    }
-                    else
-                    {
-                        triangles[k * 3]  = vertices.Length - (k + 1);
-                        triangles[k * 3 + 1] = vertices.Length - k;
-                        triangles[k * 3 + 2] = 0;
-                    }
-                }
+                k = 0;
+                lim = activeTris+1;
+                inc = 1;
+                myRot = cRot;
             }
-            Vector3 coneLook = vertices[triangles[(triangles.Length / 3 / 2 - 1) * 3]];
-            coneLook.y = 0;
-            transform.LookAt(transform.position  + Quaternion.Euler(drawCone.transform.rotation.eulerAngles) * coneLook);
-            vertices[vertices.Length - 1] = vertices[1];
-            uvs[0] = Vector2.one*.5f;
-            uvs[vertices.Length - 1] = uvs[0];
-            normals [vertices.Length-1] = Vector3.up;
-            drawCone.GetComponent<MeshFilter>().mesh.vertices = vertices;
-            drawCone.GetComponent<MeshFilter>().mesh.triangles = triangles;
-            drawCone.GetComponent<MeshFilter>().mesh.uv = uvs;
-            drawCone.GetComponent<MeshFilter>().mesh.normals = normals;
+            else
+            {
+                k = activeTris;
+                lim = -1;
+                inc = -1;
+                myRot = Rot;
+            }
+            for (int l = k; l!=lim; l+=inc)
+            {
+                conePart[count].SetActive(true);
+                float phi = clockwise ? coneResolution - l * _2pi / coneResolution : l * _2pi / coneResolution;
+                Vector3 curPart = myRot * new Vector3(Mathf.Cos(phi), 0, -Mathf.Sin(phi));
+                ray = new Ray(transform.position, curPart);
+                if (Physics.Raycast(ray, out hit, length, onlyHitLayermask))
+                {
+                    Vector3 point = curPart * hit.distance;
+                    point.y = 0.5f;
+                    conePart[count].transform.position = transform.position + point;
+                    conePart[count].transform.LookAt(transform.position);
+                    particleLength[count] = hit.distance;
+                    conePart[count].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = hit.distance;
+                    conePart[count].GetComponent<PKFxFX>().StartEffect();
+                }
+                else
+                {
+                    Vector3 point = curPart * length;
+                    point.y = 0.5f;
+                    conePart[count].transform.position = transform.position + point;
+                    conePart[count].transform.LookAt(transform.position);
+                    particleLength[count] = length;
+                    conePart[count].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = length;
+                    conePart[count].GetComponent<PKFxFX>().StartEffect();
+                }
+                particleDirection[count] = transform.position + (curPart * particleLength[count] - transform.position);
+                count++;
+            }
+            if (totDrawn < activeTris)
+                totDrawn = activeTris;
+            if(drawnParts>activeTris)
+            {
+                for(int x = conePart.Count-1; x!=activeTris-1; --x)
+                {
+                    conePart[x].GetComponent<PKFxFX>().StopEffect();
+                    GameManager.pool.PoolObj(conePart[x]);
+                }
+                totDrawn = activeTris;
+            }
+            drawnParts = activeTris;
         }
     }
 
