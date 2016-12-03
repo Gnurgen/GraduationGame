@@ -63,12 +63,14 @@ public class StartMenu : MonoBehaviour {
             Debug.Log("dansk");
             language.GetComponent<Image>().overrideSprite = eN;
             isDK = false;
+            GameManager.game.language = GameManager.Language.Danish;
         }
         else if (isDK == false)
         {
             Debug.Log("engelsk");
             language.GetComponent<Image>().overrideSprite = dK;
             isDK = true;
+            GameManager.game.language = GameManager.Language.English;
         }
     }
 
