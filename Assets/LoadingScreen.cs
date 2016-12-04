@@ -10,6 +10,7 @@ public class LoadingScreen : MonoBehaviour {
     public Image loadingProgress;
     bool loadComplete = false, subscribed = false, takeControl = false;
     float currentProgress;
+    public bool MapGenerated = false;
     float mapProgress;
     float totalprogress = 1f; // REMEMBER TO CHANGE THIS FOR EVERY PROGRESS SEND
 	// Use this for initialization
@@ -44,6 +45,7 @@ public class LoadingScreen : MonoBehaviour {
         {
             GameManager.events.OnLoadingProgress += Loading;
             GameManager.events.OnLoadComplete += UnloadLoadingScene;
+            GameManager.events.OnMapGenerated += ExtraSecurity;
             subscribed = true;
         }
         if(GameManager.input != null && !takeControl)
@@ -53,6 +55,10 @@ public class LoadingScreen : MonoBehaviour {
         }
     }
 
+    private void ExtraSecurity()
+    {
+        MapGenerated = true;
+    }
 
     private void Loading(float loadingprogress) // FOR FINAL SCENE
     {
@@ -60,7 +66,7 @@ public class LoadingScreen : MonoBehaviour {
                 mapProgress = loadingprogress;
 
                 loadingProgress.fillAmount = (currentProgress + mapProgress) / totalprogress;
-            if (currentProgress + mapProgress >= totalprogress && !loadComplete)
+            if (currentProgress + mapProgress >= totalprogress && !loadComplete && MapGenerated)
             {
                 loadComplete = true;
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(LoadToScene));
@@ -93,13 +99,4 @@ public class LoadingScreen : MonoBehaviour {
         GameManager.events.LoadComplete();
         yield return null;
     }
-    private IEnumerator bossLevel() // Boss Level Loarding
-    {
-       AsyncOperation AO =  SceneManager.LoadSceneAsync(LoadToScene, LoadSceneMode.Additive);
-        //SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("BossLevel"));
-       SceneManager.SetActiveScene(SceneManager.GetSceneByName(LoadToScene));
-
-        yield return null;
-    }
-
 }

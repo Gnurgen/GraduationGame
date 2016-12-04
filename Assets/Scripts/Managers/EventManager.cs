@@ -449,7 +449,10 @@ public class EventManager : MonoBehaviour
     public void LoadComplete()
     {
         if (OnLoadComplete != null)
+        {
+            print("LOAD COMPLETE");
             OnLoadComplete();
+        }
     }
 
     public void LoadingProgress(float progress)
