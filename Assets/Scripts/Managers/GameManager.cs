@@ -7,6 +7,10 @@ public class GameManager {
     private const int GAME_SCENE = 1;
     private const string GAMEOVER_SCENE = "GameOver";
 
+    // Number of levels with procedural map generation. Used for Loadingscreen 
+    private static int _numberOfLevels = 2;
+    
+     
     private static GameManager _instance;
 
     private AudioManager _audioManager;
@@ -15,9 +19,9 @@ public class GameManager {
     private TimeManager _timeManager;
     private GameObject _player;
     private GameObject _spear;
-    private PoolManager _poolManager;
+    private PoolManager _poolManager; 
     private GameObject _managers;
-    private GameObject _activeCheckPoint;
+    private static GameObject _activeCheckPoint;
     private Menu _menu;
     private static int _score, _experience, _playerLevel, _progress;
 
@@ -31,23 +35,28 @@ public class GameManager {
         events.OnLevelUp += PlayerLevelUp;
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
-        events.OnLoadNextLevel += LoadScene;
+        events.OnLoadNextLevel += LoadNextLevel;
+        events.OnPlayerDeath += PlayerDeath;
+        _activeCheckPoint = null;
     }
 
-    public static void GameOver(bool CheckPoint)
+
+    public static void PlayerDeath(GameObject go)
     {
-        player.SetActive(true);
+        events.FadeToBlack();
+        //player.SetActive(true);
         //move player?? ++Setplayer active
-        if (!CheckPoint)
+        if (_activeCheckPoint == null)
         {
             _instance = null;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            events.LoadNextlevel();
             
         }
         else
         {
-            //player.transform.position
+            player.SetActive(true);
+            events.FadeFromBlackToTransparent();
+            player.transform.position = _activeCheckPoint.transform.position;
         }
     }
 
@@ -99,6 +108,17 @@ public class GameManager {
         set
         {
             _progress = value;
+        }
+    }
+    public static int numberOfLevels
+    {
+        get
+        {
+            return _numberOfLevels;
+        }
+        set
+        {
+            _numberOfLevels = value;
         }
     }
 
@@ -177,6 +197,8 @@ public class GameManager {
     {
         get
         {
+            if (_instance == null)
+                new GameManager();
             return game.eventManager;
         }
     }
@@ -306,19 +328,29 @@ public class GameManager {
         return exp;
     }
 
-    public void LoadScene()
+    public static void LoadNextLevel()
     {
-        progress++;
-        PlayerPrefs.SetInt("Progress", progress);
-        SceneManager.LoadScene("LoadingScreen");
-        if (progress <= 2) // Number of levels before Boss level 
+        progress = PlayerPrefs.GetInt("Progress");
+        _instance = null;
+        SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
+        // LOADING SCREEN TAKES IT FROM HERE
+
+/*
+        if (progress == 0)
         {
-            SceneManager.LoadSceneAsync("Final");
+            AsyncOperation tut = SceneManager.LoadSceneAsync("Tutorial", LoadSceneMode.Additive);
+            
+        }
+        else if (progress <= numberOfLevels) // Number of levels before Boss level 
+        {
+            SceneManager.LoadSceneAsync("Final",LoadSceneMode.Additive);
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
         }
         else
         {
-            SceneManager.LoadSceneAsync("BossLevel");
+            SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Additive);
         }
+        */
     }
 
 }

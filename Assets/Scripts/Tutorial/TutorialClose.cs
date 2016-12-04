@@ -6,7 +6,7 @@ public class TutorialClose : MonoBehaviour {
     private bool clicked = false;
     private Vector3 positionscale;
     private InputManager IM;
-    public int ID;
+    private int ID;
 
     void Start () {
         positionscale = new Vector3(1f, 0.2f, 0);
