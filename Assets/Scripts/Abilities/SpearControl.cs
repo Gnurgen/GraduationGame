@@ -34,6 +34,7 @@ public class SpearControl : MonoBehaviour {
 
     IEnumerator Fly()
     {
+       
         while(index < points.Length)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[index], speed * Time.deltaTime);
@@ -53,6 +54,7 @@ public class SpearControl : MonoBehaviour {
         {
             go.GetComponent<PKFxFX>().StopEffect();
         }
+        GameManager.events.SpearDrawAbilityEnd(gameObject);
         effectControl.StopEffect();
         Destroy(gameObject);
 

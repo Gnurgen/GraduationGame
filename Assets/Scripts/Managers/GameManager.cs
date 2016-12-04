@@ -197,6 +197,8 @@ public class GameManager {
     {
         get
         {
+            if (_instance == null)
+                new GameManager();
             return game.eventManager;
         }
     }
@@ -329,7 +331,7 @@ public class GameManager {
     public static void LoadNextLevel()
     {
         progress = PlayerPrefs.GetInt("Progress");
-
+        _instance = null;
         SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
         // LOADING SCREEN TAKES IT FROM HERE
 

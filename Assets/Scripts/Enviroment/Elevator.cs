@@ -80,7 +80,7 @@ public class Elevator : MonoBehaviour
         GameManager.progress++;
         PlayerPrefs.SetInt("Progress", GameManager.progress);
         GameManager.events.LoadNextlevel();
-
+        print("progress playerpfres: " + PlayerPrefs.GetInt("Progress"));
         yield return null;
     }
 }

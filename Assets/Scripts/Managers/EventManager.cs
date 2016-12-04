@@ -451,13 +451,20 @@ public class EventManager : MonoBehaviour
     public void LoadNextlevel()
     {
         if (OnLoadNextLevel!= null)
+        {
+            print("LOADING NEXT LEVEL");
             OnLoadNextLevel();
+
+        }
     }
 
     public void LoadComplete()
     {
         if (OnLoadComplete != null)
+        {
+            print("LOAD COMPLETE");
             OnLoadComplete();
+        }
     }
 
     public void LoadingProgress(float progress)
@@ -480,7 +487,6 @@ public class EventManager : MonoBehaviour
     {
         if (OnFadeToBlack != null)
         {
-            print("fade to black");
             OnFadeToBlack();
         }
     }
@@ -488,7 +494,6 @@ public class EventManager : MonoBehaviour
     {
         if (OnFadeToWhite != null)
         {
-            print("fade to white");
             OnFadeToWhite();
         }
     }
@@ -496,7 +501,6 @@ public class EventManager : MonoBehaviour
     {
         if (OnFadeFromBlackToTransparent != null)
         {
-            print("fade from black to transparent");
             OnFadeFromBlackToTransparent();
         }
     }
@@ -504,7 +508,6 @@ public class EventManager : MonoBehaviour
     {
         if (OnFadeFromWhiteToTransparent != null)
         {
-            print("fade from white to transparent");
             OnFadeFromWhiteToTransparent();
         }
     }
@@ -512,7 +515,6 @@ public class EventManager : MonoBehaviour
     {
         if (OnFadedBlackScreen != null)
         {
-            print("faded black");
             OnFadedBlackScreen();
         }
     }
@@ -520,7 +522,6 @@ public class EventManager : MonoBehaviour
     {
         if (OnFadedWhiteScreen != null)
         {
-            print("faded white");
             OnFadedWhiteScreen();
         }
     }
@@ -528,7 +529,6 @@ public class EventManager : MonoBehaviour
     {
         if (OnFadedTransparentScreen != null)
         {
-            print("faded transparent");
             OnFadedTransparentScreen();
         }
     }
