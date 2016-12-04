@@ -22,7 +22,6 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyAggro += CheckState;
 
-        GameManager.events.OnEnemyAggroLost += EnemyChatterStop;
         GameManager.events.OnEnemyAggroLost += CheckState;
 
         GameManager.events.OnEnemyDeath += EnemyDeathPlay;
@@ -37,7 +36,7 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnPlayerDashBegin += DashPlay;
         GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
         GameManager.events.OnPlayerDeath += PlayerDeathPlay;
-        GameManager.events.OnPlayerDeath += EnemyChatterStop;
+       
         //  GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
         //  GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
         GameManager.events.OnConeAbilityStart += ConeAbilityInteractPlay;
@@ -350,13 +349,6 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.RenderAudio();
     }
 
-    public void EnemyChatterStop(GameObject GO)
-    {
-        //Enemies random growls stops 
-        AggroedEnemies--;
-        AkSoundEngine.PostEvent("Enemy_Aggro_Stop", GO);
-        AkSoundEngine.RenderAudio();
-    }
     public void EnemyMeleeHitPlayerPlay(GameObject GO)
     {
         //When Enemies hit the player

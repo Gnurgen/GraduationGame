@@ -41,9 +41,24 @@ public class MusicState : MonoBehaviour {
         if (Scene == "Splash")
         {
             AkSoundEngine.SetState("Environment", "Small");
-            AkSoundEngine.SetState("Game_State", "None");
+            AkSoundEngine.SetState("Game_State", "In_Splash");
             AkSoundEngine.PostEvent("Environmental_Ambience_Play", gameObject);
             AkSoundEngine.PostEvent("Music_System_Play", gameObject);
+            AkSoundEngine.RenderAudio();
         }
     }
+
+    public void MenuButton()
+    {
+        AkSoundEngine.PostEvent("Button_Menu_Play", gameObject);
+        AkSoundEngine.RenderAudio();
+    }
+    public void MenuStartGameButton()
+    {
+        AkSoundEngine.PostEvent("Button_Start_Game_Play", gameObject);
+        AkSoundEngine.RenderAudio();
+    }
+
+
+
 }
