@@ -5,7 +5,8 @@ using System.Collections.Generic;
 public class ConeDraw : MonoBehaviour {
 
     [SerializeField]
-    private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime, rampUp, maxDamageInrease;
+    private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime, rampUp, maxDamageInrease, 
+        maxParticleDrawSize = 4f, maxParticleFireSize = 6f;
     [Range(1, 10)]
     [SerializeField]
     private int pointResolution = 1;
@@ -26,17 +27,13 @@ public class ConeDraw : MonoBehaviour {
     public List<GameObject> conePart;
     private int drawnParts = 0, totDrawn = 0;
     private GameObject coneParticlePref;
-    List<float> particleLength;
-    List<Vector3> particleDirection;
-    Vector3 fireValue;
-    float fireScale;
-
-    //ROTATE UV MAP
-    //private Texture2D target;
-    //private Texture2D rotImage;
-    //private float texW, texH, texCOS, texSIN, rotVal;
-    //private int wTex, hTex;
-
+    private List<float> particleLength;
+    private List<Vector3> particleDirection;
+    private Vector3 particleFireColor, baseParticleColor = Vector3.forward, baseParticleDirection = Vector3.forward, particleFireDirection = -Vector3.forward*.5f;
+    private float particleFireScale;
+    private const string color = "CustomColor", scale = "GlobalScale", duration = "Duration", count = "Count", direction = "Direction", power = "Power";
+    private const float baseParticleCount = 10f, baseParticleScale = 2f, baseParticleDuration = 4f, particleFireDuration = .2f, particleFireCount = 20f, baseParticleSpeed = 5f, maxParticleCount = 25f,
+        fireParticlePower = 1f, baseParticlePower = .5f;
 
     public float currentCooldown
     {
@@ -77,25 +74,21 @@ public class ConeDraw : MonoBehaviour {
         if (doDraw)
         {
             normRamp = normRamp < 1f ? normRamp + Time.deltaTime / rampUp : 1;
-            for(int x = 0; x<activeTris+1; ++x)
+            float rampedScale = 2f + normRamp / 2f;
+            Vector3 curColor = new Vector3(normRamp, normRamp, 1f);
+            for (int x = 0; x<activeTris+1; ++x)
             {
                 if (normRamp == 1)
                 {
-                    fireValue = new Vector3(normRamp, 0, 0);
-                    fireScale = 6;
-                    conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = fireValue;
-                    conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = 4;
-                    conePart[x].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = particleLength[x] / 6f;
-                    conePart[x].GetComponent<PKFxFX>().GetAttribute("Count").ValueFloat = 15;
+                    particleFireColor = new Vector3(normRamp, 0, 0);
+                    particleFireScale = maxParticleFireSize;
+                    setParticleValue(maxParticleDrawSize, maxParticleCount, particleLength[x] / baseParticleSpeed/(maxParticleDrawSize- baseParticleScale)-0.2f, particleFireColor, conePart[x]);
                 }
                 else
                 {
-                    fireScale = 3 + normRamp * 2f;
-                    fireValue = new Vector3(normRamp, 0, 1f-normRamp);
-                    conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = new Vector3(normRamp, normRamp, 1f);
-                    conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = 2f + normRamp/2f;
-                    conePart[x].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = particleLength[x] / (3f + normRamp);
-                    conePart[x].GetComponent<PKFxFX>().GetAttribute("Count").ValueFloat = 10;
+                    particleFireScale = maxParticleFireSize/2f + normRamp * 2f;
+                    particleFireColor = new Vector3(normRamp, 0, 1f-normRamp);
+                    setParticleValue(rampedScale, baseParticleCount, particleLength[x] / baseParticleSpeed-0.2f, curColor, conePart[x]);
                 }
             }
             damage = baseDamage + maxDamageInrease * normRamp;
@@ -103,41 +96,36 @@ public class ConeDraw : MonoBehaviour {
         _currentCooldown -= Time.deltaTime;
     }
 
- /*   Texture2D rotateTexture(Texture2D tex, float angle)
+    private void setParticleValue(float s, float c, float dur, Vector3 col, GameObject obj)
     {
-
-        float x2, y2;
-        angle = angle / 180f * Mathf.PI;
-        texCOS = Mathf.Cos(angle);
-        texSIN = Mathf.Sin(angle);
-        float texWS = texW * texSIN;
-        float texWC = texW * texCOS;
-        float texHC = texH * texCOS;
-        float texHS = texH * texSIN;
-        float x1 = (-texWC + texHS) + texW;
-        float y1 = (-texWS + -texHC) + texH;
-        float dx_x = texCOS;
-        float dx_y = texSIN;
-        float dy_x = -texSIN;
-        float dy_y = texCOS;
-        for (int x = 0; x < tex.width; x++)
-        {
-            x2 = x1;
-            y2 = y1;
-            for (int y = 0; y < tex.height; y++)
-            {         
-                x2 += dx_x;
-                y2 += dx_y;
-                rotImage.SetPixel(x, y, tex.GetPixel((int)x2, (int)y2));
-            }
-
-            x1 += dy_x;
-            y1 += dy_y;
-
-        }
-        rotImage.Apply();
-        return rotImage;
-    } */
+        PKFxFX fx = obj.GetComponent<PKFxFX>();
+        fx.GetAttribute(color).ValueFloat3 = col;
+        fx.GetAttribute(scale).ValueFloat = s;
+        fx.GetAttribute(duration).ValueFloat = dur;
+        fx.GetAttribute(count).ValueFloat = c;
+    }
+    private void resetParticleValue(GameObject obj)
+    {
+        PKFxFX fx = obj.GetComponent<PKFxFX>();
+        fx.GetAttribute(color).ValueFloat3 = baseParticleColor;
+        fx.GetAttribute(scale).ValueFloat = baseParticleScale;
+        fx.GetAttribute(duration).ValueFloat = baseParticleDuration;
+        fx.GetAttribute(count).ValueFloat = baseParticleCount;
+        fx.GetAttribute(direction).ValueFloat3 = baseParticleDirection;
+        fx.GetAttribute(power).ValueFloat = baseParticlePower;
+        fx.StopEffect();
+        GameManager.pool.PoolObj(obj);
+    }
+    private void setParticleFireValue(GameObject obj)
+    {
+        PKFxFX fx = obj.GetComponent<PKFxFX>();
+        fx.GetAttribute(color).ValueFloat3 = particleFireColor;
+        fx.GetAttribute(scale).ValueFloat = 1;
+        fx.GetAttribute(duration).ValueFloat = particleFireDuration;
+        fx.GetAttribute(count).ValueFloat = particleFireCount;
+        fx.GetAttribute(direction).ValueFloat3 = particleFireDirection;
+        fx.GetAttribute(power).ValueFloat = fireParticlePower;
+    }
 
    
     public void UseAbility(Vector3 p)
@@ -149,7 +137,6 @@ public class ConeDraw : MonoBehaviour {
         drawnParts = 0;
         totDrawn = 0;
         
-        //rotVal = 0;
         lookDir = start - transform.transform.position;
         myRot.SetLookRotation(lookDir);
         cRot.eulerAngles = myRot.eulerAngles + Vector3.up * (180f - cancelAngle);
@@ -169,13 +156,7 @@ public class ConeDraw : MonoBehaviour {
         im.OnFirstTouchEndUnsub(ID);
         // Actually use the ability with the drawn points
         damage = baseDamage;
-        for (int x = 0; x < conePart.Count; ++x)
-        {
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = new Vector3(0, 0, 1);
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = 2f;
-            conePart[x].GetComponent<PKFxFX>().StopEffect();
-            GameManager.pool.PoolObj(conePart[x]);
-        }
+        
         normRamp = 0;
         drawnParts = 0;
         totDrawn = 0;
@@ -183,12 +164,37 @@ public class ConeDraw : MonoBehaviour {
         {
             GetComponent<PlayerControls>().EndAbility(true);
             GameManager.events.ConeAbilityUsed(GameManager.player);
+            for (int x = 0; x < activeTris + 1; ++x)
+            {
+                conePart[x].transform.position = transform.position;
+                conePart[x].transform.LookAt(particleDirection[x]);
+                setParticleFireValue(conePart[x]);
+            }
+            int particles = activeTris + 1;
+            int done = 0;
+            while (particles > done+1)
+            {
+                for(int x = 0; x<particles; ++x)
+                {
+                    if((conePart[x].transform.position-transform.position).magnitude>particleDirection[x].magnitude)
+                    {
+                        resetParticleValue(conePart[x]);
+                        done++;
+                        continue;
+                    }
+                }
+            }
             StartCoroutine(particleProjectile());
+            yield break;
         }
         else
         {
             GetComponent<PlayerControls>().EndAbility(false);
             GameManager.events.ConeAbilityCancel(gameObject);
+        }
+        for (int x = 0; x < conePart.Count; ++x)
+        {
+            resetParticleValue(conePart[x]);
         }
         yield break;
     }
@@ -196,26 +202,17 @@ public class ConeDraw : MonoBehaviour {
     IEnumerator particleProjectile()
     {
         doDraw = false;
-        yield return new WaitForSeconds(0.2f);
         for(int x = 0; x<activeTris+1; ++x)
         {
             conePart[x].transform.position = transform.position;
             conePart[x].transform.LookAt(particleDirection[x]);
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = fireValue;
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = fireScale;
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = particleLength[x]/(3f+fireScale);
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("Count").ValueFloat = 20;
-            conePart[x].SetActive(true);
-            conePart[x].GetComponent<PKFxFX>().StartEffect();
+            setParticleFireValue(conePart[x]);
         }
-        yield return new WaitForSeconds(particleLength[0] / (3f + fireScale));
-        for (int x = 0; x < activeTris + 1; ++x)
+        yield break;
+        yield return new WaitForSeconds(particleLength[0] / (3f + particleFireScale));
+        for (int x = 0; x < conePart.Count; ++x)
         {
-            conePart[x].GetComponent<PKFxFX>().StopEffect();
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("CustomColor").ValueFloat3 = new Vector3(0, 0, 1);
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("GlobalScale").ValueFloat = 2f;
-            conePart[x].GetComponent<PKFxFX>().GetAttribute("Count").ValueFloat = 10;
-            GameManager.pool.PoolObj(conePart[x]);
+            resetParticleValue(conePart[x]);
         }
         yield break;
     }
@@ -296,7 +293,6 @@ public class ConeDraw : MonoBehaviour {
                     conePart[count].transform.position = transform.position + point;
                     conePart[count].transform.LookAt(transform.position);
                     particleLength[count] = hit.distance;
-                    conePart[count].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = hit.distance;
                     conePart[count].GetComponent<PKFxFX>().StartEffect();
                 }
                 else
@@ -306,10 +302,9 @@ public class ConeDraw : MonoBehaviour {
                     conePart[count].transform.position = transform.position + point;
                     conePart[count].transform.LookAt(transform.position);
                     particleLength[count] = length;
-                    conePart[count].GetComponent<PKFxFX>().GetAttribute("Duration").ValueFloat = length;
                     conePart[count].GetComponent<PKFxFX>().StartEffect();
                 }
-                particleDirection[count] = transform.position + (curPart * particleLength[count] - transform.position);
+                particleDirection[count] = conePart[count].transform.position - transform.position;
                 count++;
             }
             if (totDrawn < activeTris)
