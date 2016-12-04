@@ -54,6 +54,7 @@ public class SpearControl : MonoBehaviour {
         {
             go.GetComponent<PKFxFX>().StopEffect();
         }
+        GameManager.events.SpearDrawAbilityEnd(gameObject);
         effectControl.StopEffect();
         Destroy(gameObject);
 
