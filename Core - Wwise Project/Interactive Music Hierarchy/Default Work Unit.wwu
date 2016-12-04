@@ -8,7 +8,7 @@
 						<Property Name="Tempo" Type="Real64" Value="94"/>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
-								<Value>-11</Value>
+								<Value>-10</Value>
 							</ValueList>
 						</Property>
 					</PropertyList>
@@ -1446,7 +1446,6 @@
 								<Property Name="DontPlayAgainTime" Type="Real64" Value="600"/>
 							</PropertyList>
 							<TriggerRef Name="Boss_Stinger" ID="{E643E9BC-DF76-4F99-A887-C412CD9C2C98}" WorkUnitID="{08BFB213-E87D-4AFE-A086-5DBAB6B90BD5}"/>
-							<SegmentRef Name="Boss_Presentation" ID="{68552597-B7B5-4D08-999E-7835DF47198C}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
 						</MusicStinger>
 					</StingerList>
 					<ArgumentList>
@@ -1503,70 +1502,6 @@
 						</Entry>
 					</EntryList>
 				</MusicSwitchContainer>
-				<MusicSegment Name="Boss_Presentation" ID="{68552597-B7B5-4D08-999E-7835DF47198C}" ShortID="707912675">
-					<PropertyList>
-						<Property Name="Tempo" Type="Real64" Value="94"/>
-						<Property Name="Volume" Type="Real64">
-							<ValueList>
-								<Value>-96</Value>
-							</ValueList>
-						</Property>
-					</PropertyList>
-					<ReferenceList>
-						<Reference Name="Conversion">
-							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-						</Reference>
-						<Reference Name="OutputBus">
-							<ObjectRef Name="Music" ID="{955DDBE7-C44B-4BCD-8BA9-847D9E52C1F8}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-						</Reference>
-					</ReferenceList>
-					<ChildrenList>
-						<MusicTrack Name="Boss_Presentation" ID="{8A3A82CC-6103-47B0-87E2-876765AA8316}" ShortID="966836366">
-							<ReferenceList>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="Boss_Presentation" ID="{6DA3EF94-300C-43EE-AE2C-3A4AD6EEE977}" ShortID="683796896">
-									<Language>SFX</Language>
-									<AudioFile>Boss_Presentation.wav</AudioFile>
-								</AudioFileSource>
-							</ChildrenList>
-							<TransitionList>
-								<MusicTransition Name="Root" ID="{EA01C09D-AE08-48D4-A0E1-A89174302376}">
-									<PropertyList>
-										<Property Name="IsFolder" Type="bool" Value="True"/>
-									</PropertyList>
-									<TransitionInfo/>
-								</MusicTransition>
-							</TransitionList>
-							<SequenceList>
-								<MusicTrackSequence Name="" ID="{8ECD1743-E901-42E4-BF8B-3BFFB4D75856}">
-									<ClipList>
-										<MusicClip Name="Boss_Presentation" ID="{9783B600-8A53-4F71-BC57-818EA7274562}">
-											<PropertyList>
-												<Property Name="EndTrimOffset" Type="Real64" Value="1151.56462585034"/>
-												<Property Name="FadeInMode" Type="int16" Value="0"/>
-												<Property Name="FadeOutMode" Type="int16" Value="0"/>
-											</PropertyList>
-											<AudioSourceRef Name="Boss_Presentation" ID="{6DA3EF94-300C-43EE-AE2C-3A4AD6EEE977}"/>
-										</MusicClip>
-									</ClipList>
-								</MusicTrackSequence>
-							</SequenceList>
-						</MusicTrack>
-					</ChildrenList>
-					<CueList>
-						<MusicCue Name="Entry Cue" ID="{BD711638-8166-4FE5-B8CC-72A95A764988}"/>
-						<MusicCue Name="Exit Cue" ID="{90FA40D1-9C01-4F62-BD20-E53AFEAE2346}">
-							<PropertyList>
-								<Property Name="CueType" Type="int16" Value="1"/>
-								<Property Name="TimeMs" Type="Real64" Value="1151.56462585034"/>
-							</PropertyList>
-						</MusicCue>
-					</CueList>
-				</MusicSegment>
 			</ChildrenList>
 		</WorkUnit>
 	</InteractiveMusic>

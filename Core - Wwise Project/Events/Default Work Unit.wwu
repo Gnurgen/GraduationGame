@@ -86,7 +86,7 @@
 						<Action Name="Play" ID="{3036522B-D8C4-4508-8718-51536CF5A6C0}" ShortID="730905270" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{6B1ED707-6BB5-4E6D-B179-6F7F13CC5984}" Global="false">
-									<ObjectRef Name="Boss Meteor" ID="{D6D01031-C42B-4A90-8663-1D070EB1DDF9}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Boss Meteor Ability" ID="{0FD091CA-E86D-481F-8C69-1B29707AAA9C}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -141,21 +141,7 @@
 						<Action Name="Play" ID="{B3948546-4487-4A16-AB3E-AEE89C39B681}" ShortID="993981190" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{1D8D8FB1-E555-4AC5-8369-CF49DFD83EF2}" Global="false">
-									<ObjectRef Name="Enemy Aggro" ID="{6A480B0E-89AB-4674-A385-E0F60865D0D3}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
-								</Element>
-							</ElementList>
-						</Action>
-					</ChildrenList>
-				</Event>
-				<Event Name="Enemy_Aggro_Stop" ID="{DB47A304-20FC-4D1E-A2CA-BE73D81CA6B7}">
-					<ChildrenList>
-						<Action Name="Stop" ID="{B5B2A34A-8A1A-4EC0-9876-F82E4AA2F176}" ShortID="252064674" Type="Stop" Scope="One" Global="false">
-							<PropertyList>
-								<Property Name="FadeTime" Type="Real64" Value="1"/>
-							</PropertyList>
-							<ElementList>
-								<Element ID="{13FA12C6-D0BF-496A-9E39-AD15202441A0}" Global="false">
-									<ObjectRef Name="Enemy Aggro" ID="{6A480B0E-89AB-4674-A385-E0F60865D0D3}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Enemy Aggro" ID="{A4875225-4B6B-4F7D-BD21-A4D4C28BEC92}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -166,7 +152,7 @@
 						<Action Name="Play" ID="{7FBB6453-E749-40FF-BA8C-6ABB56FA7C83}" ShortID="1069463429" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{921F38C2-E54B-454D-A200-CDEB764F797A}" Global="false">
-									<ObjectRef Name="Spear Cone Cast" ID="{83C4DE18-6740-40E7-A4B8-EEB095B84883}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Cone Ability" ID="{25482F61-440C-4DBA-BD35-4C63E3155BB8}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -188,7 +174,7 @@
 						<Action Name="Play" ID="{014AE664-9B12-40BB-AB33-AB41F2559E96}" ShortID="119964086" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{A86F4E08-C163-4C60-8BD8-DB43BE2808D0}" Global="false">
-									<ObjectRef Name="Spear Throw Cast" ID="{D25E3902-DEC1-4BB6-A019-BAAF332AD8A2}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Throw Ability" ID="{68E106A2-1973-454E-9427-CDC47A6DBD2A}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -239,6 +225,13 @@
 								</Element>
 							</ElementList>
 						</Action>
+						<Action Name="Play" ID="{84623A49-F0EB-474F-8A45-69BE8E102012}" ShortID="1017597177" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{7A8B897B-7131-4008-8142-3C1B09721078}" Global="false">
+									<ObjectRef Name="Pain Switch" ID="{A761EF3B-F5DF-4876-A24C-8BD4E74DEB8C}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
 					</ChildrenList>
 				</Event>
 				<Event Name="Player_Death_Play" ID="{A19950F9-F84D-4500-9249-A71A8298942C}">
@@ -279,7 +272,7 @@
 						<Action Name="Play" ID="{1E910E8F-20C9-42E0-AF35-B7A166CEA8AD}" ShortID="839041554" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{D76DE9EE-03E3-46A6-8895-76D91BCFE40B}" Global="false">
-									<ObjectRef Name="Cone_Ability_Control" ID="{66E91737-371D-4D9F-97CB-83A999DE7575}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Cone Charge" ID="{BDB7B2F6-ECFB-46AC-9F29-BE528F3A6B35}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -289,11 +282,11 @@
 					<ChildrenList>
 						<Action Name="Stop" ID="{D8AC535D-FC4A-4C88-87E5-A3A8002D7BA1}" ShortID="262124265" Type="Stop" Scope="One" Global="false">
 							<PropertyList>
-								<Property Name="FadeTime" Type="Real64" Value="0.3"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.2"/>
 							</PropertyList>
 							<ElementList>
 								<Element ID="{C9974CA5-0AE5-4181-8A28-1695C2E1CE11}" Global="false">
-									<ObjectRef Name="Cone_Ability_Control" ID="{66E91737-371D-4D9F-97CB-83A999DE7575}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Cone Charge" ID="{BDB7B2F6-ECFB-46AC-9F29-BE528F3A6B35}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -302,9 +295,12 @@
 				<Event Name="Draw_Ability_Control_Play" ID="{B69E6988-92CF-45F2-8CCA-9C23C28014E5}">
 					<ChildrenList>
 						<Action Name="Play" ID="{E9D3BBCA-B38B-40BF-B70D-3DE9F719A2A3}" ShortID="485988728" Type="Play" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.4"/>
+							</PropertyList>
 							<ElementList>
 								<Element ID="{07191BE8-1B1A-461F-AF92-888105539088}" Global="false">
-									<ObjectRef Name="Draw_Ability_Control" ID="{4A4D4011-30FD-4937-8F8B-9F18C3C54BA0}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Throw Charge" ID="{99490B2E-134F-46B5-B252-302D0F264586}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -314,11 +310,11 @@
 					<ChildrenList>
 						<Action Name="Stop" ID="{D624EC14-9969-4ABF-AE20-BD8B8588AADF}" ShortID="699528700" Type="Stop" Scope="One" Global="false">
 							<PropertyList>
-								<Property Name="FadeTime" Type="Real64" Value="0.3"/>
+								<Property Name="FadeTime" Type="Real64" Value="0.2"/>
 							</PropertyList>
 							<ElementList>
 								<Element ID="{5EE033B1-28A2-445E-B9E3-F422D791108F}" Global="false">
-									<ObjectRef Name="Draw_Ability_Control" ID="{4A4D4011-30FD-4937-8F8B-9F18C3C54BA0}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Throw Charge" ID="{99490B2E-134F-46B5-B252-302D0F264586}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -329,7 +325,7 @@
 						<Action Name="Play" ID="{43A830F7-682E-4581-9875-D640D9A58D32}" ShortID="845316388" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{99766597-9B8E-4D11-90B7-721DCD13D017}" Global="false">
-									<ObjectRef Name="Button_Menu" ID="{6A00FD44-0F39-4276-82C7-50842E3DE30B}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Normal Button" ID="{0058DBEC-77B3-4EDE-80C6-0EE630699794}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -340,7 +336,7 @@
 						<Action Name="Play" ID="{4C67E3BD-FFCA-462D-A754-AF137F6A80E1}" ShortID="166045292" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{81B9AFD9-F788-499D-8C35-3304D6F2FE6F}" Global="false">
-									<ObjectRef Name="Button_Start_Game" ID="{18355BF3-7B68-4573-AC56-4073F631C309}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Start Game Button" ID="{65BFEE9F-FCB7-4822-86CE-933D8B428C5E}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -351,7 +347,7 @@
 						<Action Name="Play" ID="{3FC619D4-6957-43A0-ADE6-49B9BFF83FFB}" ShortID="10797310" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{B248255F-0DD0-4767-8263-E21D1202D6C8}" Global="false">
-									<ObjectRef Name="Enemy_Death" ID="{EC2C0244-CAAE-4F38-9EA0-A3E57A268DC0}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Enemy Death" ID="{9709E6CA-E6FC-4146-99C7-B2BC106EDF2B}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -384,7 +380,7 @@
 						<Action Name="Play" ID="{11CF89A8-970A-45BD-AA81-2EC0FF5103C7}" ShortID="985595406" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{0CECF45D-031E-4BB2-97DC-61205BD980EC}" Global="false">
-									<ObjectRef Name="Menu_Close" ID="{1E606772-CFE5-488B-8806-F9639344DA00}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Start Game Button" ID="{65BFEE9F-FCB7-4822-86CE-933D8B428C5E}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -395,7 +391,7 @@
 						<Action Name="Play" ID="{7ECC44E2-F441-472E-8BE4-96D92838306A}" ShortID="640241631" Type="Play" Scope="One" Global="false">
 							<ElementList>
 								<Element ID="{3D9DC56A-4230-4201-A976-F356020490C3}" Global="false">
-									<ObjectRef Name="Menu_Open" ID="{E6F243E4-8073-42B0-86B8-4A926879115C}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+									<ObjectRef Name="Normal Button" ID="{0058DBEC-77B3-4EDE-80C6-0EE630699794}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>
@@ -590,6 +586,61 @@
 							<ElementList>
 								<Element ID="{9CFE7240-7DD7-442C-9B05-4D4959793177}" Global="false">
 									<ObjectRef Name="Corpse Despawn" ID="{E0827BA8-6608-4D5F-BCCF-899B6564BC07}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Boss_Moving_Play" ID="{7FF781E7-BB34-45F2-8D09-DD3351A20629}">
+					<ChildrenList>
+						<Action Name="Play" ID="{0F58F2D8-F123-4E31-86D8-641358E84158}" ShortID="420111509" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{9E0A3978-068E-4DF6-A29B-7EDBC19D9945}" Global="false">
+									<ObjectRef Name="Boss Moving" ID="{1E2D30C0-1339-484E-9C0C-0B25503DE89B}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Boss_Presentation_Play" ID="{61E54836-4D28-402D-802D-5512D8F36181}">
+					<ChildrenList>
+						<Action Name="Play" ID="{B78C9178-EE2E-4C95-9D19-F22F288D0E01}" ShortID="1021563092" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{85F9681E-15F6-4C3C-8B8A-47D057AAF6D3}" Global="false">
+									<ObjectRef Name="Thunder_1" ID="{144A140D-819C-4B6B-A613-0BF5C6E85D66}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Boss_Death_Play" ID="{2E972207-79D0-4A27-9F8E-277AAC3A1ADF}">
+					<ChildrenList>
+						<Action Name="Play" ID="{39EF5663-11F0-4456-BBD1-F27BFA665355}" ShortID="176426477" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{26FD281D-A737-4EB9-BCD1-BF0D49E6BFD3}" Global="false">
+									<ObjectRef Name="Boss Death" ID="{1360105B-922F-42DD-940C-55AF362C0C14}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Boss_Phase_Change_Play" ID="{2FAD8D0D-3D1F-47A0-8ADA-AEAA30362052}">
+					<ChildrenList>
+						<Action Name="Play" ID="{5C1F5EC7-86E1-4622-B3DD-7A157F567342}" ShortID="1036284944" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{ABA82E2D-3DC0-4609-B129-6D9CB8A722FD}" Global="false">
+									<ObjectRef Name="Boss Voice" ID="{68846349-6AB6-47EB-AC01-4C7DB34D4C05}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Boss_Moving_Stop" ID="{0F0C318B-C04C-404B-8866-43D677357B20}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{BC4EFDBE-0744-4F21-9838-CBE57BA1C14C}" ShortID="830884246" Type="Stop" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{8D048B6F-D527-454D-B864-9F36294C7E67}" Global="false">
+									<ObjectRef Name="Boss Moving" ID="{1E2D30C0-1339-484E-9C0C-0B25503DE89B}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
 								</Element>
 							</ElementList>
 						</Action>

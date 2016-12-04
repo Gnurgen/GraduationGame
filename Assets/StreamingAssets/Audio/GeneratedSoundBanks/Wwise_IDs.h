@@ -17,6 +17,11 @@ namespace AK
         static const AkUniqueID BOSS_BEAM_STOP = 4191587739U;
         static const AkUniqueID BOSS_BEAM_TARGET_PLAY = 1433984317U;
         static const AkUniqueID BOSS_BEAM_TARGET_STOP = 3661299883U;
+        static const AkUniqueID BOSS_DEATH_PLAY = 2779408422U;
+        static const AkUniqueID BOSS_MOVING_PLAY = 2275894560U;
+        static const AkUniqueID BOSS_MOVING_STOP = 619153570U;
+        static const AkUniqueID BOSS_PHASE_CHANGE_PLAY = 4185455702U;
+        static const AkUniqueID BOSS_PRESENTATION_PLAY = 1049093090U;
         static const AkUniqueID BOSS_RAIN_PLAY = 2907375116U;
         static const AkUniqueID BUTTON_MENU_PLAY = 3906322206U;
         static const AkUniqueID BUTTON_START_GAME_PLAY = 789154922U;
@@ -34,7 +39,6 @@ namespace AK
         static const AkUniqueID ELEVATOR_PLAY = 482819944U;
         static const AkUniqueID ELEVATOR_STOP = 2818913498U;
         static const AkUniqueID ENEMY_AGGRO_PLAY = 2317625885U;
-        static const AkUniqueID ENEMY_AGGRO_STOP = 208500619U;
         static const AkUniqueID ENEMY_DEATH_PLAY = 4192965245U;
         static const AkUniqueID ENEMY_MELEE_HIT_PLAYER_PLAY = 1233116581U;
         static const AkUniqueID ENEMY_MELEE_PLAY = 2339069971U;
@@ -91,6 +95,7 @@ namespace AK
                 static const AkUniqueID IN_INTRO_CUTSCENE = 2874168282U;
                 static const AkUniqueID IN_LOADING_SCREEN = 3834966784U;
                 static const AkUniqueID IN_MAIN_MENU = 1415091186U;
+                static const AkUniqueID IN_SPLASH = 3959165662U;
                 static const AkUniqueID OUT_OF_BATTLE = 304575330U;
             } // namespace STATE
         } // namespace GAME_STATE
