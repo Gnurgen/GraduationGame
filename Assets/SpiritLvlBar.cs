@@ -11,8 +11,10 @@ public class SpiritLvlBar : MonoBehaviour
     }
 
     public void updateBar(int max, int current, float percent) {
-        scale = 1-((float)current/((float)max*percent));
-        Debug.Log("scale: "+scale + "scale: " + max+ "current: " + current);
+        if(percent != 0)
+            scale = (1 - (float)current / max) / percent;
+        if (scale > 1)
+            scale = 1;
         gameObject.GetComponent<Image>().fillAmount = scale;
     }
 

@@ -24,8 +24,6 @@ public class StartElevator : MonoBehaviour {
     }
 
     IEnumerator MoveElevatorUp() {
-        GameManager.events.ElevatorMoveStart();
-
         while (step <= 1)
         {
             step += speed * Time.deltaTime;
