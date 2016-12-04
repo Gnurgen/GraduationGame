@@ -7,7 +7,7 @@
 					<PropertyList>
 						<Property Name="Volume" Type="Real64">
 							<ValueList>
-								<Value>-15</Value>
+								<Value>-14</Value>
 							</ValueList>
 						</Property>
 					</PropertyList>
@@ -1716,6 +1716,38 @@
 								</State>
 							</CustomState>
 							<CustomState>
+								<StateRef Name="In_Main_Menu" ID="{30AAF2FF-C440-41EE-863A-7B205A9F269D}"/>
+								<State Name="Custom State" ID="{1EFB851F-D94E-4ED2-9BCE-A1C951A38F51}" ShortID="486532874">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Splash" ID="{1AAFDD8E-EC8E-43FB-9EE1-624DB9F91356}"/>
+								<State Name="Custom State" ID="{1607C445-8CE6-4FB0-867E-AE9567E99BED}" ShortID="456052985">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Ending_Cutscene" ID="{FD711EA9-1883-459A-8A00-52C7B657A8EE}"/>
+								<State Name="Custom State" ID="{D28D8CC1-E1D3-4386-8A06-2E84B2490F68}" ShortID="126473943">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Intro_Cutscene" ID="{FF09B547-76FF-48B8-AFD8-C42D9E47136E}"/>
+								<State Name="Custom State" ID="{0A412165-8B62-4A7E-9199-EE2C6A444631}" ShortID="931578292">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
 								<StateRef Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
 								<State Name="Custom State" ID="{8EA342D3-AD33-47BF-8A4A-48E78E36A9EB}" ShortID="1019953330">
 									<PropertyList>
@@ -1978,11 +2010,11 @@
 										<ActiveSource Name="Boss Beam" ID="{34493C86-9906-4B4D-B8D4-B0FE8BDB7E22}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
-								<Sound Name="Boss Meteor" ID="{D6D01031-C42B-4A90-8663-1D070EB1DDF9}" ShortID="796870178" Type="SoundFX">
+								<Sound Name="Boss Meteor Ability" ID="{0FD091CA-E86D-481F-8C69-1B29707AAA9C}" ShortID="366279976" Type="SoundFX">
 									<PropertyList>
 										<Property Name="InitialDelay" Type="Real64">
 											<ValueList>
-												<Value>2.25</Value>
+												<Value>2.3</Value>
 											</ValueList>
 										</Property>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
@@ -2005,19 +2037,330 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<AudioFileSource Name="Boss Meteor" ID="{A5A96DA8-84BF-453D-9FCD-BD0B5ACEB97D}" ShortID="885455871">
+										<AudioFileSource Name="Boss Meteor Ability" ID="{1FA4C1EF-AB7D-420E-B20F-EF2FE52515DB}" ShortID="481168500">
 											<PropertyList>
-												<Property Name="FadeInDuration" Type="Real64" Value="1.95870535714286E-02"/>
-												<Property Name="TrimBegin" Type="Real64" Value="0.499469866071429"/>
+												<Property Name="FadeInDuration" Type="Real64" Value="5.16428571428572E-02"/>
+												<Property Name="FadeOutDuration" Type="Real64" Value="0.040166666666666"/>
+												<Property Name="TrimBegin" Type="Real64" Value="0.499214285714285"/>
 											</PropertyList>
 											<Language>SFX</Language>
-											<AudioFile>Boss Meteor.wav</AudioFile>
+											<AudioFile>Boss Meteor Ability.wav</AudioFile>
 										</AudioFileSource>
 									</ChildrenList>
 									<ActiveSourceList>
-										<ActiveSource Name="Boss Meteor" ID="{A5A96DA8-84BF-453D-9FCD-BD0B5ACEB97D}" Platform="Linked"/>
+										<ActiveSource Name="Boss Meteor Ability" ID="{1FA4C1EF-AB7D-420E-B20F-EF2FE52515DB}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<RandomSequenceContainer Name="Thunder" ID="{A309F495-8BE7-46B1-B2DC-8FCA93D5472A}" ShortID="961690478">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{457C6FA2-2E9F-4B4D-A87B-73C82C5D017F}">
+														<PropertyList>
+															<Property Name="Enabled" Type="bool" Value="True"/>
+															<Property Name="Min" Type="Real64" Value="-200"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Thunder" ID="{E76E6C18-9BF4-4E87-A2D5-5DB9AB0DC84D}" ShortID="463806652" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Thunder" ID="{3A80EFF4-8742-43FE-8C23-8012CCDA64BE}" ShortID="786506712">
+													<Language>SFX</Language>
+													<AudioFile>Thunder.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Thunder" ID="{3A80EFF4-8742-43FE-8C23-8012CCDA64BE}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Thunder_1" ID="{144A140D-819C-4B6B-A613-0BF5C6E85D66}" ShortID="181719073" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Thunder_1" ID="{254B4A40-41A7-4E15-9DC0-4B85A15DC868}" ShortID="1060079075">
+													<Language>SFX</Language>
+													<AudioFile>Thunder_1.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Thunder_1" ID="{254B4A40-41A7-4E15-9DC0-4B85A15DC868}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Thunder_2" ID="{D8683CDD-5E68-4B0D-B848-4D7F717FA333}" ShortID="629550446" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Thunder_2" ID="{021D066A-2B88-4454-96FF-44EA56E15B3A}" ShortID="737650736">
+													<Language>SFX</Language>
+													<AudioFile>Thunder_2.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Thunder_2" ID="{021D066A-2B88-4454-96FF-44EA56E15B3A}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Thunder_3" ID="{5CF779DD-E750-4FB5-A542-5E954A386A21}" ShortID="608132006" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Thunder_3" ID="{5A5E8A39-8BFA-472F-BC63-CB86AFE45649}" ShortID="402631603">
+													<Language>SFX</Language>
+													<AudioFile>Thunder_3.wav</AudioFile>
+													<ConvertedFileIDList>
+														<File ID="351907461"/>
+													</ConvertedFileIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Thunder_3" ID="{5A5E8A39-8BFA-472F-BC63-CB86AFE45649}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+								<Sound Name="Boss Moving" ID="{1E2D30C0-1339-484E-9C0C-0B25503DE89B}" ShortID="498132092" Type="SoundFX">
+									<PropertyList>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="OverrideEffect" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>-1000</Value>
+											</ValueList>
+										</Property>
+										<Property Name="PositioningType" Type="int16" Value="1"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-10</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<ObjectRef Name="Boss Beam" ID="{905A3E4C-0942-413B-B449-2F257A1B632A}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="Effect0" PluginName="Wwise Parametric EQ" CompanyID="0" PluginID="105" PluginType="3">
+											<ObjectRef Name="Dual_Filters_Narrow_Bandwidth" ID="{A24607C6-04E1-4D41-B513-28C0914D138D}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Elevator" ID="{AF37F1BB-8EB9-4190-B57D-7D8A4DD1BD06}" ShortID="519749730">
+											<Language>SFX</Language>
+											<AudioFile>Elevator.wav</AudioFile>
+											<ConvertedFileIDList>
+												<File ID="411008274"/>
+											</ConvertedFileIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Elevator" ID="{AF37F1BB-8EB9-4190-B57D-7D8A4DD1BD06}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<BlendContainer Name="Boss Death" ID="{1360105B-922F-42DD-940C-55AF362C0C14}" ShortID="811993966">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Thunder_3" ID="{8740E7CF-1877-4DD8-BE76-55AB80B43EE0}" ShortID="944672949" Type="SoundFX">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Thunder_3" ID="{BE5300D1-5AEE-49A3-BB8F-4B6C56418B8D}" ShortID="351907461">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="9.26326497395834E-02"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Thunder_3.wav</AudioFile>
+													<ConvertedFileIDList>
+														<File ID="402631603"/>
+													</ConvertedFileIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Thunder_3" ID="{BE5300D1-5AEE-49A3-BB8F-4B6C56418B8D}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_5" ID="{7AAB7CA5-3CB8-40FC-8224-EF5E625E5B61}" ShortID="918321380" Type="SoundFX">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="1"/>
+												<Property Name="InitialDelay" Type="Real64">
+													<ValueList>
+														<Value>0.5</Value>
+													</ValueList>
+												</Property>
+												<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
+												<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="OverLimitBehavior" Type="int16" Value="1"/>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>4</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_5" ID="{A847972B-A68C-4BDB-9DFB-08A00ED4F3D6}" ShortID="858827689">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.271071428571429"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_5.wav</AudioFile>
+													<ConvertedFileIDList>
+														<File ID="924366606"/>
+													</ConvertedFileIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_5" ID="{A847972B-A68C-4BDB-9DFB-08A00ED4F3D6}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_4" ID="{E0B85BE3-AC1B-46A6-BC87-AC2CEE863F51}" ShortID="596483039" Type="SoundFX">
+											<PropertyList>
+												<Property Name="InitialDelay" Type="Real64">
+													<ValueList>
+														<Value>2.1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>2</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_4" ID="{DBF883D9-4444-4024-B3A2-7EA2656E1EFA}" ShortID="590419896">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="0.239339285714286"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_4.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_4" ID="{DBF883D9-4444-4024-B3A2-7EA2656E1EFA}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</BlendContainer>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Enemy" ID="{57CFCFA8-FBFD-4B42-9448-F2DBA1222280}" ShortID="477791347">
@@ -2750,88 +3093,6 @@
 										</RandomSequenceContainer>
 									</ChildrenList>
 								</ActorMixer>
-								<RandomSequenceContainer Name="Enemy Aggro" ID="{6A480B0E-89AB-4674-A385-E0F60865D0D3}" ShortID="1073733787">
-									<PropertyList>
-										<Property Name="OverridePositioning" Type="bool" Value="True"/>
-										<Property Name="PlayMechanismLoop" Type="bool" Value="True"/>
-										<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
-										<Property Name="PlayMechanismSpecialTransitionsType" Type="int16" Value="1"/>
-										<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
-										<Property Name="PositioningType" Type="int16" Value="1"/>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-96</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Attenuation">
-											<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
-										</Reference>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<Sound Name="Enemy_Chatter" ID="{93191969-3044-4368-9DDD-54073A8AB4D6}" ShortID="45137380" Type="SoundFX">
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Enemy_Chatter" ID="{6091C1FC-D5D3-4F0A-841E-2216CAED9A34}" ShortID="349841009">
-													<Language>SFX</Language>
-													<AudioFile>Enemy_Chatter.wav</AudioFile>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Enemy_Chatter" ID="{6091C1FC-D5D3-4F0A-841E-2216CAED9A34}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-									</ChildrenList>
-								</RandomSequenceContainer>
-								<Sound Name="Enemy_Death" ID="{EC2C0244-CAAE-4F38-9EA0-A3E57A268DC0}" ShortID="320224881" Type="SoundFX">
-									<PropertyList>
-										<Property Name="OverridePositioning" Type="bool" Value="True"/>
-										<Property Name="PositioningType" Type="int16" Value="1"/>
-										<Property Name="Volume" Type="Real64">
-											<ValueList>
-												<Value>-96</Value>
-											</ValueList>
-										</Property>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="Attenuation">
-											<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
-										</Reference>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Enemy_Death" ID="{1A079D2F-5021-41D9-BE5B-6A0D39C1428C}" ShortID="761651021">
-											<PropertyList>
-												<Property Name="FadeInDuration" Type="Real64" Value="1.45535714285714E-02"/>
-												<Property Name="TrimBegin" Type="Real64" Value="0.170094866071428"/>
-											</PropertyList>
-											<Language>SFX</Language>
-											<AudioFile>Enemy_Death.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Enemy_Death" ID="{1A079D2F-5021-41D9-BE5B-6A0D39C1428C}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Player" ID="{1959CC9B-3C3C-47B1-BFB3-A2E87050B0DE}" ShortID="776205002">
@@ -2947,7 +3208,7 @@
 											<PropertyList>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-3</Value>
+														<Value>-6</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -3240,71 +3501,11 @@
 												<ActiveSource Name="Spear Whoosh" ID="{72AD7F40-9BA8-453E-9AF5-81470BF794E6}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
-										<Sound Name="Spear Cone Cast" ID="{83C4DE18-6740-40E7-A4B8-EEB095B84883}" ShortID="87011899" Type="SoundFX">
-											<PropertyList>
-												<Property Name="Volume" Type="Real64">
-													<ValueList>
-														<Value>-6</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Spear Cone Cast" ID="{934B8539-96A3-4E83-8E6B-923A00CA7923}" ShortID="598171912">
-													<PropertyList>
-														<Property Name="FadeInDuration" Type="Real64" Value="0.1021669921875"/>
-														<Property Name="TrimBegin" Type="Real64" Value="0.3746123046875"/>
-													</PropertyList>
-													<Language>SFX</Language>
-													<AudioFile>Spear Cone Cast.wav</AudioFile>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Spear Cone Cast" ID="{934B8539-96A3-4E83-8E6B-923A00CA7923}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
-										<Sound Name="Spear Throw Cast" ID="{D25E3902-DEC1-4BB6-A019-BAAF332AD8A2}" ShortID="806469769" Type="SoundFX">
-											<PropertyList>
-												<Property Name="Volume" Type="Real64">
-													<ValueList>
-														<Value>-6</Value>
-													</ValueList>
-												</Property>
-											</PropertyList>
-											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-												</Reference>
-												<Reference Name="OutputBus">
-													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-												</Reference>
-											</ReferenceList>
-											<ChildrenList>
-												<AudioFileSource Name="Spear Throw Cast" ID="{C3A0088C-46D6-45FC-85CF-551FCC0BAC71}" ShortID="61854502">
-													<PropertyList>
-														<Property Name="FadeInDuration" Type="Real64" Value="0.1021669921875"/>
-														<Property Name="TrimBegin" Type="Real64" Value="0.3746123046875"/>
-													</PropertyList>
-													<Language>SFX</Language>
-													<AudioFile>Spear Throw Cast.wav</AudioFile>
-												</AudioFileSource>
-											</ChildrenList>
-											<ActiveSourceList>
-												<ActiveSource Name="Spear Throw Cast" ID="{C3A0088C-46D6-45FC-85CF-551FCC0BAC71}" Platform="Linked"/>
-											</ActiveSourceList>
-										</Sound>
 										<BlendContainer Name="Spear Throw" ID="{2F55B14B-374A-4CF6-B939-81401ED9D4F1}" ShortID="934620583">
 											<PropertyList>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-5</Value>
+														<Value>-9</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -3349,7 +3550,7 @@
 														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 														<Property Name="Volume" Type="Real64">
 															<ValueList>
-																<Value>-30</Value>
+																<Value>-35</Value>
 															</ValueList>
 														</Property>
 													</PropertyList>
@@ -3463,6 +3664,307 @@
 												<ActiveSource Name="Draw_Ability_Control" ID="{99A9114C-591A-4353-B737-676D15D293F8}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
+										<Sound Name="Cone Ability" ID="{25482F61-440C-4DBA-BD35-4C63E3155BB8}" ShortID="44148977" Type="SoundFX">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Cone Ability" ID="{A5E3B6C4-9F8C-4A33-987B-E773A6181CB3}" ShortID="549665878">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="7.31428571428571E-02"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.388571428571428"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Cone Ability.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Cone Ability" ID="{A5E3B6C4-9F8C-4A33-987B-E773A6181CB3}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Throw Ability" ID="{68E106A2-1973-454E-9427-CDC47A6DBD2A}" ShortID="310199461" Type="SoundFX">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Throw Ability" ID="{14C1F6A3-BB40-4AD7-83B4-D2AB0E2CAA8C}" ShortID="773813844">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="7.33333333333333E-02"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.389583333333333"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Throw Ability.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Throw Ability" ID="{14C1F6A3-BB40-4AD7-83B4-D2AB0E2CAA8C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<BlendContainer Name="Throw Charge" ID="{99490B2E-134F-46B5-B252-302D0F264586}" ShortID="135096855">
+											<PropertyList>
+												<Property Name="Lowpass" Type="int16">
+													<ValueList>
+														<Value>35</Value>
+													</ValueList>
+												</Property>
+												<Property Name="OverrideEffect" Type="bool" Value="True"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-9</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="Effect0" PluginName="Wwise Compressor" CompanyID="0" PluginID="108" PluginType="3">
+													<ObjectRef Name="Attack_Remover" ID="{174E7B9A-A16F-4CA7-86D0-530212B5A6AA}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Throw Charge" ID="{8D9189CA-BCC5-4A12-B914-66CECA67BAA2}" ShortID="454952799" Type="SoundFX">
+													<PropertyList>
+														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+														<Property Name="OverridePositioning" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>1200</Value>
+															</ValueList>
+														</Property>
+														<Property Name="PositioningType" Type="int16" Value="1"/>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-15</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Wisp" ID="{9379710B-A6EE-4514-9BF0-D819DBE3785D}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Wisp Loop" ID="{D413A441-19F6-4098-81AE-4C0261ADDF62}" ShortID="716502880">
+															<Language>SFX</Language>
+															<AudioFile>Wisp Loop.wav</AudioFile>
+															<ConvertedFileIDList>
+																<File ID="590688327"/>
+															</ConvertedFileIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Wisp Loop" ID="{D413A441-19F6-4098-81AE-4C0261ADDF62}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Throw Charge_01" ID="{F5ABE7F4-D406-4E4F-91BF-31660D23166E}" ShortID="236629429" Type="SoundFX">
+													<PropertyList>
+														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+														<Property Name="OverridePositioning" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>-1200</Value>
+															</ValueList>
+														</Property>
+														<Property Name="PositioningType" Type="int16" Value="1"/>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-16</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Wisp" ID="{9379710B-A6EE-4514-9BF0-D819DBE3785D}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Wisp Loop" ID="{2CD0A3C4-2327-455E-BF7C-7FFC35BCC827}" ShortID="860597270">
+															<Language>SFX</Language>
+															<AudioFile>Wisp Loop.wav</AudioFile>
+															<ConvertedFileIDList>
+																<File ID="590688327"/>
+															</ConvertedFileIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Wisp Loop" ID="{2CD0A3C4-2327-455E-BF7C-7FFC35BCC827}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Cone Max Charge Loop" ID="{94F27341-2D2A-4600-AD3D-B01122B3AB46}" ShortID="312788317" Type="SoundFX">
+													<PropertyList>
+														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+														<Property Name="Pitch" Type="int32">
+															<ValueList>
+																<Value>1529</Value>
+															</ValueList>
+														</Property>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-10</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Cone Max Charge Loop" ID="{D8B9653A-BD71-4FFC-AD0A-6134453092F8}" ShortID="345341651">
+															<Language>SFX</Language>
+															<AudioFile>Cone Max Charge Loop.wav</AudioFile>
+															<ConvertedFileIDList>
+																<File ID="755640934"/>
+															</ConvertedFileIDList>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Cone Max Charge Loop" ID="{D8B9653A-BD71-4FFC-AD0A-6134453092F8}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</BlendContainer>
+										<RandomSequenceContainer Name="Cone Charge" ID="{BDB7B2F6-ECFB-46AC-9F29-BE528F3A6B35}" ShortID="872482224">
+											<PropertyList>
+												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
+												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+												<Property Name="RandomOrSequence" Type="int16" Value="0"/>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Cone Charge" ID="{7FE93698-63BF-4956-9A1E-D58B75600439}" ShortID="763425374" Type="SoundFX">
+													<PropertyList>
+														<Property Name="PositioningType" Type="int16" Value="1"/>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-15</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Player Abilities" ID="{F319B123-0642-447F-8EDB-2F9282B87DD5}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Cone Charge" ID="{2FF0D1B2-468C-4A0A-B819-E4C21FD431D1}" ShortID="353579754">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="0.40725"/>
+																<Property Name="TrimBegin" Type="Real64" Value="3.34203571428571"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>Cone Charge.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Cone Charge" ID="{2FF0D1B2-468C-4A0A-B819-E4C21FD431D1}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Cone Max Charge Loop" ID="{1DA0A152-5FE4-4867-AB10-224FF65E0AB6}" ShortID="721944488" Type="SoundFX">
+													<PropertyList>
+														<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+														<Property Name="PositioningType" Type="int16" Value="1"/>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-15</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
+													<ReferenceList>
+														<Reference Name="Attenuation">
+															<ObjectRef Name="Player Abilities" ID="{F319B123-0642-447F-8EDB-2F9282B87DD5}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+														</Reference>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Cone Max Charge Loop" ID="{722BB940-D498-4858-A269-23E5502098D0}" ShortID="755640934">
+															<Language>SFX</Language>
+															<AudioFile>Cone Max Charge Loop.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Cone Max Charge Loop" ID="{722BB940-D498-4858-A269-23E5502098D0}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+											<Playlist>
+												<ItemRef Name="Cone Charge" ID="{7FE93698-63BF-4956-9A1E-D58B75600439}"/>
+												<ItemRef Name="Cone Max Charge Loop" ID="{1DA0A152-5FE4-4867-AB10-224FF65E0AB6}"/>
+											</Playlist>
+										</RandomSequenceContainer>
 									</ChildrenList>
 								</ActorMixer>
 								<ActorMixer Name="Hits" ID="{02BF3C68-CBA3-4ED4-B7DF-DE615BAFEEED}" ShortID="698371222">
@@ -3841,6 +4343,1098 @@
 								</CustomStateList>
 							</StateInfo>
 						</ActorMixer>
+						<ActorMixer Name="Voices" ID="{9C2CB1DD-EAAA-44E2-ADDB-104D5642BD91}" ShortID="521968459">
+							<PropertyList>
+								<Property Name="BelowThresholdBehavior" Type="int16" Value="1"/>
+								<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
+								<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
+								<Property Name="MaxSoundPerInstance" Type="int16">
+									<ValueList>
+										<Value>1</Value>
+									</ValueList>
+								</Property>
+								<Property Name="OverLimitBehavior" Type="int16" Value="1"/>
+								<Property Name="OverrideMaxSoundInstance" Type="bool" Value="True"/>
+								<Property Name="OverrideVirtualVoice" Type="bool" Value="True"/>
+								<Property Name="Pitch" Type="int32">
+									<ModifierList>
+										<ModifierInfo>
+											<Modifier Name="" ID="{D498469F-00F7-413F-88A7-CB9EC7F0EFE7}">
+												<PropertyList>
+													<Property Name="Enabled" Type="bool" Value="True"/>
+													<Property Name="Max" Type="Real64" Value="150"/>
+													<Property Name="Min" Type="Real64" Value="-150"/>
+												</PropertyList>
+											</Modifier>
+										</ModifierInfo>
+									</ModifierList>
+								</Property>
+								<Property Name="UseMaxSoundPerInstance" Type="bool">
+									<ValueList>
+										<Value>True</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-11</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+								</Reference>
+								<Reference Name="UserAuxSend0">
+									<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<RandomSequenceContainer Name="Enemy Aggro" ID="{A4875225-4B6B-4F7D-BD21-A4D4C28BEC92}" ShortID="742178559">
+									<PropertyList>
+										<Property Name="Pitch" Type="int32">
+											<ModifierList>
+												<ModifierInfo>
+													<Modifier Name="" ID="{48194B84-05EF-43AA-A1BD-1D5E82F4D178}">
+														<PropertyList>
+															<Property Name="Max" Type="Real64" Value="150"/>
+															<Property Name="Min" Type="Real64" Value="-150"/>
+														</PropertyList>
+													</Modifier>
+												</ModifierInfo>
+											</ModifierList>
+										</Property>
+										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-1</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Enemy Aggro" ID="{8693760C-FF53-481A-94B9-E4A34ED8FFC4}" ShortID="180595861" Type="SoundFX">
+											<PropertyList>
+												<Property Name="Pitch" Type="int32">
+													<ModifierList>
+														<ModifierInfo>
+															<Modifier Name="" ID="{4AA9DCEC-FA36-4B17-8547-692604E7BEF3}"/>
+														</ModifierInfo>
+													</ModifierList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Aggro" ID="{EE75FA84-977E-4918-B05C-C20116408C33}" ShortID="195241671">
+													<Language>SFX</Language>
+													<AudioFile>Enemy Aggro.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Aggro" ID="{EE75FA84-977E-4918-B05C-C20116408C33}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Aggro_1" ID="{EFD71A61-FBD1-42FB-A481-C9B4349CE98A}" ShortID="892862208" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Aggro_1" ID="{7CFE4C15-C3E9-4C70-972F-40BE327CDDE4}" ShortID="27411979">
+													<Language>SFX</Language>
+													<AudioFile>Enemy Aggro_1.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Aggro_1" ID="{7CFE4C15-C3E9-4C70-972F-40BE327CDDE4}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Aggro_2" ID="{7CE3B844-7AC3-427C-89B6-23BBCBB96FC4}" ShortID="568249707" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Aggro_2" ID="{E34B4925-8A36-4B62-93F9-FBA3258E2B22}" ShortID="164694367">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="4.36607142857143E-03"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Enemy Aggro_2.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Aggro_2" ID="{E34B4925-8A36-4B62-93F9-FBA3258E2B22}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Aggro_3" ID="{A95F8374-1E27-4CBB-B516-586C3B8A7A74}" ShortID="330878356" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Aggro_3" ID="{E60E08B9-8453-4793-835D-9DCDC048974B}" ShortID="661626982">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="3.77053571428571E-02"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Enemy Aggro_3.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Aggro_3" ID="{E60E08B9-8453-4793-835D-9DCDC048974B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Aggro_4" ID="{23B6D1BB-89C1-4103-A522-94DC57206665}" ShortID="183326273" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Aggro_4" ID="{9A7363C4-AD6C-4653-B38E-0D539B01DFCF}" ShortID="777751117">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="4.49404761904762E-03"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Enemy Aggro_4.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Aggro_4" ID="{9A7363C4-AD6C-4653-B38E-0D539B01DFCF}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="Enemy Death" ID="{9709E6CA-E6FC-4146-99C7-B2BC106EDF2B}" ShortID="858957050">
+									<PropertyList>
+										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-2</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Enemy Death" ID="{9A65C4B8-38E6-4ECD-B5F7-F694BB2B17B3}" ShortID="450791396" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Death" ID="{2184A028-EC49-4A0E-8ED4-6162ED375E11}" ShortID="292452142">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="4.85714285714285E-03"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Enemy Death.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Death" ID="{2184A028-EC49-4A0E-8ED4-6162ED375E11}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Death_1" ID="{DF288D15-8E42-4350-8B9B-574C886FB4EF}" ShortID="593631028" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Death_1" ID="{20B6942C-FEE3-496A-BE5E-D3AA749EC1C3}" ShortID="633893142">
+													<Language>SFX</Language>
+													<AudioFile>Enemy Death_1.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Death_1" ID="{20B6942C-FEE3-496A-BE5E-D3AA749EC1C3}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Death_2" ID="{F99E57D1-537B-4B3D-927C-D3FFC0CD768E}" ShortID="1007558172" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Death_2" ID="{A936544E-360B-4323-8DCD-846B6F3CD98C}" ShortID="392929624">
+													<Language>SFX</Language>
+													<AudioFile>Enemy Death_2.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Death_2" ID="{A936544E-360B-4323-8DCD-846B6F3CD98C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Death_3" ID="{E4CE23DF-E966-4736-B441-3DBA1B7A31EF}" ShortID="674103109" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Death_3" ID="{A2DEC68D-5B95-4F48-88A6-C7C43DE942C3}" ShortID="922002007">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="5.44642857142857E-03"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Enemy Death_3.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Death_3" ID="{A2DEC68D-5B95-4F48-88A6-C7C43DE942C3}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Death_4" ID="{E5E2E68E-47A6-46D0-97FF-9A607FBAEAAF}" ShortID="627590124" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Death_4" ID="{0D3A02B2-7978-46DD-BA4B-6D1C335910D2}" ShortID="266930967">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="3.88095238095239E-03"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Enemy Death_4.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Death_4" ID="{0D3A02B2-7978-46DD-BA4B-6D1C335910D2}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Death_5" ID="{D4198F04-2E4E-464F-A578-1C5A8695302D}" ShortID="842427470" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Death_5" ID="{E787ABF1-5744-45B4-AD62-9E5507C21BBC}" ShortID="1032698106">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="5.58928571428571E-03"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Enemy Death_5.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Death_5" ID="{E787ABF1-5744-45B4-AD62-9E5507C21BBC}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Enemy Death_6" ID="{7E415DEA-AB45-4DBB-98E0-6C4DA764F57A}" ShortID="916632470" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Enemy Death_6" ID="{3DEEACDF-3D53-41D0-AB25-2D78AB017408}" ShortID="1070000756">
+													<PropertyList>
+														<Property Name="FadeInDuration" Type="Real64" Value="3.65476190476191E-03"/>
+													</PropertyList>
+													<Language>SFX</Language>
+													<AudioFile>Enemy Death_6.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Enemy Death_6" ID="{3DEEACDF-3D53-41D0-AB25-2D78AB017408}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+								<RandomSequenceContainer Name="Boss Voice" ID="{68846349-6AB6-47EB-AC01-4C7DB34D4C05}" ShortID="683768320">
+									<PropertyList>
+										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>6</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<Sound Name="Boss Voice" ID="{9E5F7522-F981-4961-B9F9-C75ADDF844A6}" ShortID="124274049" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice" ID="{81FF065E-EB5C-486C-96F7-7CEDC3F8C210}" ShortID="489746504">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice" ID="{81FF065E-EB5C-486C-96F7-7CEDC3F8C210}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_1" ID="{488D5D30-25AB-4E27-86EC-EFFC8CF37BF7}" ShortID="79613472" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_1" ID="{FA1FE95B-0472-4C25-B98C-4ACC4B9F37AE}" ShortID="742862926">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_1.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_1" ID="{FA1FE95B-0472-4C25-B98C-4ACC4B9F37AE}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_2" ID="{DAC98A68-67EE-4787-A23B-FCF10488EE83}" ShortID="310929611" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_2" ID="{C60DAFC7-7B06-42F9-B22F-496581BBC749}" ShortID="128627066">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_2.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_2" ID="{C60DAFC7-7B06-42F9-B22F-496581BBC749}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_3" ID="{337C34A5-1E7C-49DF-829D-47299CAA021F}" ShortID="329692267" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_3" ID="{0453E5E5-88C4-4F7B-BB35-1D2A324BA4BF}" ShortID="293405709">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_3.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_3" ID="{0453E5E5-88C4-4F7B-BB35-1D2A324BA4BF}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_4" ID="{8342BD5B-59F7-4E72-B4F1-DA5DE691CA7D}" ShortID="489291515" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_4" ID="{018E5CBB-2C7B-4821-A697-D3488F94909C}" ShortID="217260536">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_4.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_4" ID="{018E5CBB-2C7B-4821-A697-D3488F94909C}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_6" ID="{631E3688-EF1D-4D80-AA25-1627198C0C92}" ShortID="683566050" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_6" ID="{42BCF234-B9FD-49ED-8EFE-028FAC17B2F5}" ShortID="674176128">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_6.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_6" ID="{42BCF234-B9FD-49ED-8EFE-028FAC17B2F5}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_7" ID="{5B05E844-0E16-4859-9DFE-887226CC3EA4}" ShortID="320818594" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_7" ID="{DDA40BB5-7E6B-4BF6-8072-FD7F64ACCF3B}" ShortID="552069994">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_7.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_7" ID="{DDA40BB5-7E6B-4BF6-8072-FD7F64ACCF3B}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_8" ID="{09567C06-7DCA-4F16-B921-023661886B32}" ShortID="468433907" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_8" ID="{2E8CD0F6-DF43-479A-ADC8-CD4D31D03492}" ShortID="739918818">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_8.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_8" ID="{2E8CD0F6-DF43-479A-ADC8-CD4D31D03492}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_9" ID="{84B8B715-1A4A-45D4-8EAD-E5CAF1AD3A6B}" ShortID="237955443" Type="SoundFX">
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_9" ID="{D929F2B0-49C3-45BD-9871-F6DF6B1DDF1F}" ShortID="734602546">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_9.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_9" ID="{D929F2B0-49C3-45BD-9871-F6DF6B1DDF1F}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+										<Sound Name="Boss Voice_5" ID="{0E4E4B0C-1F97-4691-9819-2BA3B76A10ED}" ShortID="597447481" Type="SoundFX">
+											<PropertyList>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>4</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="Boss Voice_5" ID="{BED7FAF9-F049-4926-83CA-F6B46635BF9E}" ShortID="924366606">
+													<Language>SFX</Language>
+													<AudioFile>Boss Voice_5.wav</AudioFile>
+													<ConvertedFileIDList>
+														<File ID="858827689"/>
+													</ConvertedFileIDList>
+												</AudioFileSource>
+											</ChildrenList>
+											<ActiveSourceList>
+												<ActiveSource Name="Boss Voice_5" ID="{BED7FAF9-F049-4926-83CA-F6B46635BF9E}" Platform="Linked"/>
+											</ActiveSourceList>
+										</Sound>
+									</ChildrenList>
+								</RandomSequenceContainer>
+								<SwitchContainer Name="Pain Switch" ID="{A761EF3B-F5DF-4876-A24C-8BD4E74DEB8C}" ShortID="582016247">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<RandomSequenceContainer Name="Boss Pain" ID="{39195DC9-990A-40DA-A931-35796C9DD413}" ShortID="909988271">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="1"/>
+												<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
+												<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="OverLimitBehavior" Type="int16" Value="1"/>
+												<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Boss Pain" ID="{3F5302CC-730D-4F2B-9342-A6C046D40E81}" ShortID="873622007" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Pain" ID="{78EB6E4B-1535-40F3-A2CF-16DD485AE106}" ShortID="451392523">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="3.20833333333333E-02"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>Boss Pain.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Pain" ID="{78EB6E4B-1535-40F3-A2CF-16DD485AE106}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Boss Pain_1" ID="{010E26F2-33AC-41F7-8D61-03AD8625AD34}" ShortID="293662149" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Pain_1" ID="{74063587-038B-4B6E-96CA-549FE00D2B62}" ShortID="309512199">
+															<Language>SFX</Language>
+															<AudioFile>Boss Pain_1.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Pain_1" ID="{74063587-038B-4B6E-96CA-549FE00D2B62}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Boss Pain_2" ID="{FA4E649E-081C-44AD-9881-3165858FDC3E}" ShortID="389304863" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Pain_2" ID="{A0AA2E71-7C5C-4B9E-984F-C6C601E80478}" ShortID="1006177109">
+															<Language>SFX</Language>
+															<AudioFile>Boss Pain_2.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Pain_2" ID="{A0AA2E71-7C5C-4B9E-984F-C6C601E80478}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Boss Pain_3" ID="{F14CC8B2-BFE1-4C9E-A9FD-20787DE89204}" ShortID="750967405" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Pain_3" ID="{453E1E58-FC32-420A-92F4-C455752DDA37}" ShortID="259374390">
+															<Language>SFX</Language>
+															<AudioFile>Boss Pain_3.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Pain_3" ID="{453E1E58-FC32-420A-92F4-C455752DDA37}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Boss Pain_4" ID="{8EEFC515-2C57-41AC-B7AD-9A0C0AF63F96}" ShortID="1041038164" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Pain_4" ID="{30799F0D-D60D-4969-A6A5-795226ADB4DB}" ShortID="772512">
+															<Language>SFX</Language>
+															<AudioFile>Boss Pain_4.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Pain_4" ID="{30799F0D-D60D-4969-A6A5-795226ADB4DB}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Boss Pain_5" ID="{0C5496EE-E65B-450C-88C9-B5CECE606C68}" ShortID="64404596" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Pain_5" ID="{08E54818-06E7-4429-B214-1133B6467144}" ShortID="1061720448">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="1.76428571428572E-02"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>Boss Pain_5.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Pain_5" ID="{08E54818-06E7-4429-B214-1133B6467144}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Boss Pain_6" ID="{16793604-3316-4B56-890C-54EC1280E5E0}" ShortID="660502371" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Pain_6" ID="{F5F181C5-962C-4667-BBE3-3EE9B440B814}" ShortID="961047036">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="2.29166666666667E-02"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>Boss Pain_6.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Pain_6" ID="{F5F181C5-962C-4667-BBE3-3EE9B440B814}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Boss Pain_7" ID="{1E0FDA5C-4325-437E-B24A-79D80286BC4B}" ShortID="623065457" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Boss Pain_7" ID="{D35803A8-B8CC-4CD4-8823-63DE3AC26328}" ShortID="989674225">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="9.15476190476192E-03"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>Boss Pain_7.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Boss Pain_7" ID="{D35803A8-B8CC-4CD4-8823-63DE3AC26328}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</RandomSequenceContainer>
+										<RandomSequenceContainer Name="Enemy Pain" ID="{1963631F-5CF2-4E61-B38E-418C2C70BD55}" ShortID="556752485">
+											<PropertyList>
+												<Property Name="BelowThresholdBehavior" Type="int16" Value="1"/>
+												<Property Name="IsGlobalLimit" Type="int16" Value="1"/>
+												<Property Name="MaxReachedBehavior" Type="int16" Value="1"/>
+												<Property Name="MaxSoundPerInstance" Type="int16">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
+												<Property Name="OverLimitBehavior" Type="int16" Value="1"/>
+												<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
+												<Property Name="UseMaxSoundPerInstance" Type="bool">
+													<ValueList>
+														<Value>True</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
+											<ReferenceList>
+												<Reference Name="Conversion">
+													<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+												</Reference>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Sound Name="Enemy Pain" ID="{9A2C994B-ADB9-46F1-A68F-89AE2A632AAC}" ShortID="774455242" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Enemy Pain" ID="{33043B6F-A9FE-45CC-B9D8-F584FCD194DD}" ShortID="34954691">
+															<Language>SFX</Language>
+															<AudioFile>Enemy Pain.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Enemy Pain" ID="{33043B6F-A9FE-45CC-B9D8-F584FCD194DD}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Enemy Pain_1" ID="{DE79FD81-4FC3-4B90-BD76-88EB0E956E1D}" ShortID="59297295" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Enemy Pain_1" ID="{06AC131C-C5D3-4E99-B1B7-B3625471546B}" ShortID="77066144">
+															<Language>SFX</Language>
+															<AudioFile>Enemy Pain_1.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Enemy Pain_1" ID="{06AC131C-C5D3-4E99-B1B7-B3625471546B}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Enemy Pain_2" ID="{5A0D4D94-E14D-4A80-9385-D2FF50180B4C}" ShortID="732443924" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Enemy Pain_2" ID="{05952051-DD81-420B-9225-CB27C40888DC}" ShortID="1017841641">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="9.58333333333332E-04"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>Enemy Pain_2.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Enemy Pain_2" ID="{05952051-DD81-420B-9225-CB27C40888DC}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Enemy Pain_3" ID="{CB3840D8-2355-4ABA-AC20-73ADE80258C8}" ShortID="323955846" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Enemy Pain_3" ID="{B74C2EB3-933D-43E3-AFBC-B09BF6E1D4B6}" ShortID="43422530">
+															<Language>SFX</Language>
+															<AudioFile>Enemy Pain_3.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Enemy Pain_3" ID="{B74C2EB3-933D-43E3-AFBC-B09BF6E1D4B6}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Enemy Pain_4" ID="{1BD61CE5-84D9-4B1A-A173-9B4E7BAFD066}" ShortID="586794895" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Enemy Pain_4" ID="{2C13C8E4-5083-4CC6-94A1-88B96B6B9CCD}" ShortID="945887079">
+															<Language>SFX</Language>
+															<AudioFile>Enemy Pain_4.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Enemy Pain_4" ID="{2C13C8E4-5083-4CC6-94A1-88B96B6B9CCD}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+												<Sound Name="Enemy Pain_5" ID="{67761533-0F6B-43ED-8F24-B0F231CC6845}" ShortID="644643830" Type="SoundFX">
+													<ReferenceList>
+														<Reference Name="Conversion">
+															<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+														</Reference>
+														<Reference Name="OutputBus">
+															<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+														<Reference Name="UserAuxSend0">
+															<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+														</Reference>
+													</ReferenceList>
+													<ChildrenList>
+														<AudioFileSource Name="Enemy Pain_5" ID="{A52F6754-F44E-4D24-9EDC-897EEA30F3FC}" ShortID="691930395">
+															<PropertyList>
+																<Property Name="FadeInDuration" Type="Real64" Value="2.32142857142857E-03"/>
+															</PropertyList>
+															<Language>SFX</Language>
+															<AudioFile>Enemy Pain_5.wav</AudioFile>
+														</AudioFileSource>
+													</ChildrenList>
+													<ActiveSourceList>
+														<ActiveSource Name="Enemy Pain_5" ID="{A52F6754-F44E-4D24-9EDC-897EEA30F3FC}" Platform="Linked"/>
+													</ActiveSourceList>
+												</Sound>
+											</ChildrenList>
+										</RandomSequenceContainer>
+									</ChildrenList>
+									<GroupingInfo>
+										<GroupRef Name="Target" ID="{952775E1-7940-4DF3-A60D-E2B59E9F4BD2}"/>
+										<DefaultSwitchRef Name="Enemy" ID="{842207BB-ED27-4E84-871D-D599324E1442}"/>
+										<GroupingBehaviorList>
+											<GroupingBehavior>
+												<ItemRef Name="Enemy Pain" ID="{1963631F-5CF2-4E61-B38E-418C2C70BD55}"/>
+											</GroupingBehavior>
+											<GroupingBehavior>
+												<ItemRef Name="Boss Pain" ID="{39195DC9-990A-40DA-A931-35796C9DD413}"/>
+											</GroupingBehavior>
+										</GroupingBehaviorList>
+										<GroupingList>
+											<Grouping>
+												<SwitchRef Name="Boss" ID="{3AE04429-4DB2-45CF-A26F-4D9228C4039F}"/>
+												<ItemList>
+													<ItemRef Name="Boss Pain" ID="{39195DC9-990A-40DA-A931-35796C9DD413}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Enemy" ID="{842207BB-ED27-4E84-871D-D599324E1442}"/>
+												<ItemList>
+													<ItemRef Name="Enemy Pain" ID="{1963631F-5CF2-4E61-B38E-418C2C70BD55}"/>
+												</ItemList>
+											</Grouping>
+										</GroupingList>
+									</GroupingInfo>
+								</SwitchContainer>
+							</ChildrenList>
+						</ActorMixer>
 					</ChildrenList>
 					<StateInfo>
 						<StateGroupList>
@@ -3869,13 +5463,6 @@
 					</StateInfo>
 				</ActorMixer>
 				<ActorMixer Name="System" ID="{94EBE409-252D-439F-8395-31F933A0A4AA}" ShortID="930673327">
-					<PropertyList>
-						<Property Name="Volume" Type="Real64">
-							<ValueList>
-								<Value>-96</Value>
-							</ValueList>
-						</Property>
-					</PropertyList>
 					<ReferenceList>
 						<Reference Name="Conversion">
 							<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -3895,53 +5482,14 @@
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
-								<Sound Name="Button_Menu" ID="{6A00FD44-0F39-4276-82C7-50842E3DE30B}" ShortID="100039232" Type="SoundFX">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Button_Menu" ID="{870847E3-537B-48EB-84B2-759C492BD0F0}" ShortID="335394518">
-											<PropertyList>
-												<Property Name="FadeInDuration" Type="Real64" Value="1.49665178571428E-02"/>
-												<Property Name="TrimBegin" Type="Real64" Value="0.216183035714286"/>
-											</PropertyList>
-											<Language>SFX</Language>
-											<AudioFile>Button_Menu.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Button_Menu" ID="{870847E3-537B-48EB-84B2-759C492BD0F0}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
-								<Sound Name="Button_Start_Game" ID="{18355BF3-7B68-4573-AC56-4073F631C309}" ShortID="506462579" Type="SoundFX">
-									<ReferenceList>
-										<Reference Name="Conversion">
-											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-										</Reference>
-										<Reference Name="OutputBus">
-											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-										</Reference>
-									</ReferenceList>
-									<ChildrenList>
-										<AudioFileSource Name="Button_Start_Game" ID="{B2ED9A6F-FBC2-42E7-BADA-C0D9CD4B8DA8}" ShortID="193622691">
-											<PropertyList>
-												<Property Name="FadeInDuration" Type="Real64" Value="0.0175"/>
-												<Property Name="TrimBegin" Type="Real64" Value="0.21546875"/>
-											</PropertyList>
-											<Language>SFX</Language>
-											<AudioFile>Button_Start_Game.wav</AudioFile>
-										</AudioFileSource>
-									</ChildrenList>
-									<ActiveSourceList>
-										<ActiveSource Name="Button_Start_Game" ID="{B2ED9A6F-FBC2-42E7-BADA-C0D9CD4B8DA8}" Platform="Linked"/>
-									</ActiveSourceList>
-								</Sound>
 								<Sound Name="Button_Wheel_Hover" ID="{53A6C1C5-F902-4E50-B680-A088B2CE3CFB}" ShortID="1027403685" Type="SoundFX">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-96</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -3965,6 +5513,13 @@
 									</ActiveSourceList>
 								</Sound>
 								<Sound Name="Button_Wheel_Select" ID="{F357AF57-E34A-4D35-8FDD-D392340036AA}" ShortID="250867007" Type="SoundFX">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-96</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
 									<ReferenceList>
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -3987,55 +5542,72 @@
 										<ActiveSource Name="Button_Wheel_Select" ID="{D581F505-A645-48AE-B93C-BC79BBF7A58E}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="Normal Button" ID="{0058DBEC-77B3-4EDE-80C6-0EE630699794}" ShortID="345454723" Type="SoundFX">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-15</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Normal Button" ID="{FB113CBB-1622-4DF1-A31A-B9D655567CEA}" ShortID="830085422">
+											<Language>SFX</Language>
+											<AudioFile>Normal Button.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Normal Button" ID="{FB113CBB-1622-4DF1-A31A-B9D655567CEA}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Start Game Button" ID="{65BFEE9F-FCB7-4822-86CE-933D8B428C5E}" ShortID="666483691" Type="SoundFX">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-3</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Start Game Button" ID="{CF390F59-DFD4-4070-BC2B-9E07F34CA349}" ShortID="180845942">
+											<PropertyList>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.136709077380952"/>
+												<Property Name="FadeInShape" Type="int16" Value="0"/>
+											</PropertyList>
+											<Language>SFX</Language>
+											<AudioFile>Start Game Button.wav</AudioFile>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Start Game Button" ID="{CF390F59-DFD4-4070-BC2B-9E07F34CA349}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 						</ActorMixer>
-						<Sound Name="Menu_Close" ID="{1E606772-CFE5-488B-8806-F9639344DA00}" ShortID="603386623" Type="SoundFX">
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="Menu_Close" ID="{F6CB067C-1B00-40CC-92FF-7C25AFD7F1A7}" ShortID="77503931">
-									<PropertyList>
-										<Property Name="FadeInDuration" Type="Real64" Value="1.60323660714286E-02"/>
-										<Property Name="TrimBegin" Type="Real64" Value="0.159380580357143"/>
-									</PropertyList>
-									<Language>SFX</Language>
-									<AudioFile>Menu_Close.wav</AudioFile>
-								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="Menu_Close" ID="{F6CB067C-1B00-40CC-92FF-7C25AFD7F1A7}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
-						<Sound Name="Menu_Open" ID="{E6F243E4-8073-42B0-86B8-4A926879115C}" ShortID="665939633" Type="SoundFX">
-							<ReferenceList>
-								<Reference Name="Conversion">
-									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-								</Reference>
-								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
-								</Reference>
-							</ReferenceList>
-							<ChildrenList>
-								<AudioFileSource Name="Menu_Open" ID="{4BCB79E5-0B91-41F5-A5DD-5879E8D14A1D}" ShortID="784204649">
-									<PropertyList>
-										<Property Name="FadeInDuration" Type="Real64" Value="9.77678571428572E-03"/>
-										<Property Name="TrimBegin" Type="Real64" Value="0.158872767857143"/>
-									</PropertyList>
-									<Language>SFX</Language>
-									<AudioFile>Menu_Open.wav</AudioFile>
-								</AudioFileSource>
-							</ChildrenList>
-							<ActiveSourceList>
-								<ActiveSource Name="Menu_Open" ID="{4BCB79E5-0B91-41F5-A5DD-5879E8D14A1D}" Platform="Linked"/>
-							</ActiveSourceList>
-						</Sound>
 						<Sound Name="Wheel_Close" ID="{F1A7AE63-CE19-40EF-837D-A12E1B347389}" ShortID="713179494" Type="SoundFX">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-96</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -4059,6 +5631,13 @@
 							</ActiveSourceList>
 						</Sound>
 						<Sound Name="Wheel_Open" ID="{8071A830-1A94-4973-B6ED-D662AED0870C}" ShortID="186956251" Type="SoundFX">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-96</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -4136,7 +5715,11 @@
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
 								<Property Name="OverridePositioning" Type="bool" Value="True"/>
-								<Property Name="PositioningType" Type="int16" Value="1"/>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-450</Value>
+									</ValueList>
+								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
 										<Value>-4</Value>
@@ -4165,6 +5748,13 @@
 							</ActiveSourceList>
 						</Sound>
 						<ActorMixer Name="Spirit" ID="{B705E89C-7363-48FA-B253-7FEBE3D9091F}" ShortID="372723583">
+							<PropertyList>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-5</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -4279,7 +5869,7 @@
 										<Property Name="PositioningType" Type="int16" Value="1"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-7</Value>
+												<Value>-10</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -4344,7 +5934,7 @@
 										<StateRef Name="In_Battle" ID="{DBB5DC3C-9564-4B7F-9537-1FBA490F0703}"/>
 										<State Name="Custom State" ID="{357BFDAF-0C1B-4A14-9D9E-E0A4103C8B77}" ShortID="430255708">
 											<PropertyList>
-												<Property Name="Volume" Type="Real64" Value="-5"/>
+												<Property Name="Volume" Type="Real64" Value="-12"/>
 											</PropertyList>
 										</State>
 									</CustomState>
@@ -4362,6 +5952,46 @@
 							<CustomState>
 								<StateRef Name="In_Ability_Wheel" ID="{BD0C1C2D-7071-41C4-B29A-972EDB518CB7}"/>
 								<State Name="Custom State" ID="{C662EFCC-6D05-4BAC-9525-E454AF613A4C}" ShortID="926452934">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Main_Menu" ID="{30AAF2FF-C440-41EE-863A-7B205A9F269D}"/>
+								<State Name="Custom State" ID="{73648CF3-E5AB-41FC-9ED3-9E6D55DBE4F2}" ShortID="488844328">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Splash" ID="{1AAFDD8E-EC8E-43FB-9EE1-624DB9F91356}"/>
+								<State Name="Custom State" ID="{1A0BDFA2-9A11-401C-90A0-2C9D490EC830}" ShortID="53224168">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Ending_Cutscene" ID="{FD711EA9-1883-459A-8A00-52C7B657A8EE}"/>
+								<State Name="Custom State" ID="{68E76B0C-4D07-49B0-8F12-CBA1CDC7F8C7}" ShortID="207231446">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Intro_Cutscene" ID="{FF09B547-76FF-48B8-AFD8-C42D9E47136E}"/>
+								<State Name="Custom State" ID="{67E8DD71-954F-4DCC-99B4-BF0C94308CB6}" ShortID="404139458">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
+								<State Name="Custom State" ID="{214F5762-A87E-405C-A646-EDBBC15E087A}" ShortID="29233574">
 									<PropertyList>
 										<Property Name="Volume" Type="Real64" Value="-96"/>
 									</PropertyList>

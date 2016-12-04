@@ -4,20 +4,29 @@
 		<Banks>
 			<Language ID="0">
 <<<<<<< HEAD
+				<File Name="Init" Hash="4259010573" Timestamp="131253431401644625"/>
+				<File Name="Main" Hash="2099893468" Timestamp="131253431401514618"/>
+=======
+<<<<<<< HEAD
 				<File Name="Init" Hash="1481583907" Timestamp="131253374391570055"/>
 				<File Name="Main" Hash="233119034" Timestamp="131253374391460049"/>
 =======
 				<File Name="Init" Hash="1481583907" Timestamp="131253370094544279"/>
 				<File Name="Main" Hash="233119034" Timestamp="131253370094224261"/>
 >>>>>>> master
+>>>>>>> master
 			</Language>
 		</Banks>
 		<XMLInfo>
 			<Language ID="-1">
 <<<<<<< HEAD
+				<File Name="" Hash="1274040083" Timestamp="131253431401694628"/>
+=======
+<<<<<<< HEAD
 				<File Name="" Hash="4178949341" Timestamp="131253374391620058"/>
 =======
 				<File Name="" Hash="4178949341" Timestamp="131253370094594282"/>
+>>>>>>> master
 >>>>>>> master
 			</Language>
 		</XMLInfo>
@@ -26,20 +35,29 @@
 		<Banks>
 			<Language ID="0">
 <<<<<<< HEAD
+				<File Name="Init" Hash="86879893" Timestamp="131253431377603250"/>
+				<File Name="Main" Hash="2099893468" Timestamp="131253431377473242"/>
+=======
+<<<<<<< HEAD
 				<File Name="Init" Hash="3910032051" Timestamp="131253374379969392"/>
 				<File Name="Main" Hash="233119034" Timestamp="131253374379849385"/>
 =======
 				<File Name="Init" Hash="3910032051" Timestamp="131253370054501989"/>
 				<File Name="Main" Hash="233119034" Timestamp="131253370054381982"/>
 >>>>>>> master
+>>>>>>> master
 			</Language>
 		</Banks>
 		<XMLInfo>
 			<Language ID="-1">
 <<<<<<< HEAD
+				<File Name="" Hash="3257826781" Timestamp="131253431377653253"/>
+=======
+<<<<<<< HEAD
 				<File Name="" Hash="3055237027" Timestamp="131253374380019395"/>
 =======
 				<File Name="" Hash="3055237027" Timestamp="131253370054551992"/>
+>>>>>>> master
 >>>>>>> master
 			</Language>
 		</XMLInfo>
@@ -48,20 +66,29 @@
 		<Banks>
 			<Language ID="0">
 <<<<<<< HEAD
+				<File Name="Init" Hash="1707919835" Timestamp="131253431393984187"/>
+				<File Name="Main" Hash="2099893468" Timestamp="131253431393854179"/>
+=======
+<<<<<<< HEAD
 				<File Name="Init" Hash="3699134177" Timestamp="131253374387919846"/>
 				<File Name="Main" Hash="233119034" Timestamp="131253374387809840"/>
 =======
 				<File Name="Init" Hash="3699134177" Timestamp="131253370080803493"/>
 				<File Name="Main" Hash="233119034" Timestamp="131253370080683487"/>
 >>>>>>> master
+>>>>>>> master
 			</Language>
 		</Banks>
 		<XMLInfo>
 			<Language ID="-1">
 <<<<<<< HEAD
+				<File Name="" Hash="489200505" Timestamp="131253431394034190"/>
+=======
+<<<<<<< HEAD
 				<File Name="" Hash="2639086367" Timestamp="131253374387969849"/>
 =======
 				<File Name="" Hash="2639086367" Timestamp="131253370080843496"/>
+>>>>>>> master
 >>>>>>> master
 			</Language>
 		</XMLInfo>
@@ -70,20 +97,29 @@
 		<Banks>
 			<Language ID="0">
 <<<<<<< HEAD
+				<File Name="Init" Hash="1499244167" Timestamp="131253431385713714"/>
+				<File Name="Main" Hash="2099893468" Timestamp="131253431385593707"/>
+=======
+<<<<<<< HEAD
 				<File Name="Init" Hash="2961740689" Timestamp="131253374384389645"/>
 				<File Name="Main" Hash="233119034" Timestamp="131253374384279638"/>
 =======
 				<File Name="Init" Hash="2961740689" Timestamp="131253370067352724"/>
 				<File Name="Main" Hash="233119034" Timestamp="131253370067222717"/>
 >>>>>>> master
+>>>>>>> master
 			</Language>
 		</Banks>
 		<XMLInfo>
 			<Language ID="-1">
 <<<<<<< HEAD
+				<File Name="" Hash="2749523911" Timestamp="131253431385763717"/>
+=======
+<<<<<<< HEAD
 				<File Name="" Hash="461012881" Timestamp="131253374384439647"/>
 =======
 				<File Name="" Hash="461012881" Timestamp="131253370067402727"/>
+>>>>>>> master
 >>>>>>> master
 			</Language>
 		</XMLInfo>

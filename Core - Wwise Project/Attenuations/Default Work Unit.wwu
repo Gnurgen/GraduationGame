@@ -522,7 +522,7 @@
 				</Attenuation>
 				<Attenuation Name="Orb" ID="{C6D3A3AD-8B08-461A-A9AE-35E6E98D4288}" ShortID="773098702">
 					<PropertyList>
-						<Property Name="RadiusMax" Type="Real64" Value="8"/>
+						<Property Name="RadiusMax" Type="Real64" Value="5"/>
 					</PropertyList>
 					<CurveUsageInfoList>
 						<VolumeDryUsage>
@@ -539,7 +539,7 @@
 											<SegmentShape>Log3</SegmentShape>
 										</Point>
 										<Point>
-											<XPos>8</XPos>
+											<XPos>5</XPos>
 											<YPos>-200</YPos>
 											<Flags>37</Flags>
 										</Point>
@@ -567,7 +567,7 @@
 											<SegmentShape>Exp2</SegmentShape>
 										</Point>
 										<Point>
-											<XPos>8</XPos>
+											<XPos>5</XPos>
 											<YPos>20</YPos>
 											<Flags>37</Flags>
 										</Point>
@@ -592,7 +592,7 @@
 											<SegmentShape>Log3</SegmentShape>
 										</Point>
 										<Point>
-											<XPos>8</XPos>
+											<XPos>5</XPos>
 											<YPos>0</YPos>
 											<Flags>37</Flags>
 										</Point>

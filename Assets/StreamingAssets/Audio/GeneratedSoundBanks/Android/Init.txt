@@ -13,6 +13,7 @@ State	ID	Name	State Group			Notes
 	3834966784	In_Loading_Screen	Game_State			
 	3853226033	In_Ability_Control	Game_State			
 	3858937137	In_Ending_Cutscene	Game_State			
+	3959165662	In_Splash	Game_State			
 	748895195	None	Environment			
 	1846755610	Small	Environment			
 	4284352190	Large	Environment			
