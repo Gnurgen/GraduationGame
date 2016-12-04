@@ -88,6 +88,7 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnPlayerIdle;
     public event PlayerAction OnConeAbilityStart;
     public event PlayerAction OnConeAbilityUsed;
+    public event PlayerAction OnConeAbilityCharged;
     public event PlayerAction OnConeAbilityHit;
     public event PlayerAction OnConeAbilityEnd;
     public event PlayerAction OnConeAbilityCancel;
@@ -139,26 +140,37 @@ public class EventManager : MonoBehaviour
     }
     public void ConeAbilityStart(GameObject Id)
     {
+        print("ConeAbility START");
         if (OnConeAbilityStart != null)
             OnConeAbilityStart(Id);
     }
     public void ConeAbilityUsed(GameObject Id)
     {
+        print("ConeAbility USED");
         if (OnConeAbilityUsed != null)
             OnConeAbilityUsed(Id);
     }
+    public void ConeAbilityCharged(GameObject Id)
+    {
+        print("ConeAbility CHARGED");
+        if (OnConeAbilityCharged != null)
+            OnConeAbilityCharged(Id);
+    }
     public void ConeAbilityHit(GameObject Id)
     {
+        print("ConeAbility HIT");
         if (OnConeAbilityHit != null)
             OnConeAbilityHit(Id);
     }
     public void ConeAbilityEnd(GameObject Id)
     {
+        print("ConeAbility END");
         if (OnConeAbilityEnd != null)
             OnConeAbilityEnd(Id);
     }
     public void ConeAbilityCancel(GameObject Id)
     {
+        print("ConeAbility CANCEL");
         if (OnConeAbilityCancel != null)
             OnConeAbilityCancel(Id);
     }

@@ -34,7 +34,6 @@ public class SpearControl : MonoBehaviour {
 
     IEnumerator Fly()
     {
-        print(points.Length);
         while(index < points.Length)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[index], speed * Time.deltaTime);
