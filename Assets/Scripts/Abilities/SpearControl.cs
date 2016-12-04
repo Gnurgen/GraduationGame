@@ -3,9 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SpearControl : MonoBehaviour {
-
-    public GameObject impact;
+    
     public int maxUpgrades;
+    [SerializeField]
+    private float damageIncrease = 1;
+    [SerializeField]
+    private float scaleIncrease = 1;
+    [SerializeField]
+    private float colliderIncrease = 0.5f;
+    [SerializeField]
+    private Vector3 startColor = new Vector3(1, 0.5f, 0.1f);
+    [SerializeField]
+    private Vector3 endColor = new Vector3(1, 0.1f, 0.1f);
     private int springForce;
     private float damage;
     private float speed;
@@ -17,27 +26,15 @@ public class SpearControl : MonoBehaviour {
     private PKFxFX effectControl;
     private float globalScale;
     private SphereCollider collider;
-    private bool multipleHit;
-    private float damageIncrease;
-    private float scaleIncrease;
-    private float colliderIncrease;
     private int currentUpgrades;
-
+    private float xColorDelta;
+    private float yColorDelta;
+    private float zColorDelta;
     private List<GameObject> enemiesHit;
-
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
 
     IEnumerator Fly()
     {
-        print(points.Length);
+       
         while(index < points.Length)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[index], speed * Time.deltaTime);
@@ -57,6 +54,7 @@ public class SpearControl : MonoBehaviour {
         {
             go.GetComponent<PKFxFX>().StopEffect();
         }
+        GameManager.events.SpearDrawAbilityEnd(gameObject);
         effectControl.StopEffect();
         Destroy(gameObject);
 
@@ -69,8 +67,19 @@ public class SpearControl : MonoBehaviour {
             if (!enemiesHit.Contains(col.gameObject))
             {
                 enemiesHit.Add(col.gameObject);
-
+                damage += damageIncrease;
+                globalScale += scaleIncrease;
+                collider.radius += colliderIncrease;
                 currentUpgrades += 1;
+                effectControl.SetAttribute(new PKFxManager.Attribute("GlobalScale", globalScale));
+                if(currentUpgrades < maxUpgrades)
+                {
+                    effectControl.SetAttribute(new PKFxManager.Attribute("CustomColor", new Vector3(startColor.x + xColorDelta * currentUpgrades, startColor.y + yColorDelta * currentUpgrades, startColor.z + zColorDelta * currentUpgrades)));
+                }
+                else
+                {
+                    effectControl.SetAttribute(new PKFxManager.Attribute("CustomColor",endColor));
+                }
             }
             HitTarget(col.gameObject);
         }
@@ -78,66 +87,6 @@ public class SpearControl : MonoBehaviour {
         {
             HitTarget(col.gameObject);
             Destroy(gameObject);
-        }
-
-
-
-
-        if (col.tag == "Boss")
-        {
-            col.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
-            GameManager.events.SpearDrawAbilityHit(col.gameObject);
-            damage += damageIncrease;
-            globalScale += scaleIncrease;
-            collider.radius += colliderIncrease;
-            GameObject imp = Instantiate(impact) as GameObject;
-            imp.transform.position = transform.position + (col.gameObject.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, col.gameObject.transform.position) * 0.25f);
-            StartCoroutine(DelayedDelete(imp, 1));
-            effectControl.SetAttribute(new PKFxManager.Attribute("GlobalScale", globalScale));
-            foreach (GameObject go in effects)
-            {
-                go.GetComponent<PKFxFX>().StopEffect();
-            }
-            Destroy(gameObject);
-        }
-        if (col.tag == "Enemy")
-        {
-            if (!enemiesHit.Contains(col.gameObject))
-            {
-                enemiesHit.Add(col.gameObject);
-            }
-                
-
-
-            if (!multipleHit)
-            {
-                if (!enemiesHit.Contains(col.gameObject))
-                {
-                    enemiesHit.Add(col.gameObject);
-                    GameManager.events.SpearDrawAbilityHit(col.gameObject);
-                    col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position), pushForce);
-                    damage += damageIncrease;
-                    globalScale += scaleIncrease;
-                    collider.radius += colliderIncrease;
-
-                    GameObject imp = Instantiate(impact) as GameObject;
-                    imp.transform.position = transform.position + (col.gameObject.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, col.gameObject.transform.position) * 0.5f);
-                    StartCoroutine(DelayedDelete(imp, 1));
-                    effectControl.SetAttribute(new PKFxManager.Attribute("GlobalScale", globalScale));
-                }
-            }
-            else
-            {
-                GameManager.events.SpearDrawAbilityHit(col.gameObject);
-                col.GetComponent<Health>().decreaseHealth(damage, (col.transform.position - transform.position), pushForce);
-                damage += damageIncrease;
-                globalScale += scaleIncrease;
-                collider.radius += colliderIncrease;
-                GameObject imp = Instantiate(impact) as GameObject;
-                imp.transform.position = transform.position + (col.gameObject.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, col.gameObject.transform.position) * 0.5f);
-                StartCoroutine(DelayedDelete(imp, 1));
-                effectControl.SetAttribute(new PKFxManager.Attribute("GlobalScale", globalScale));
-            }
         }
     }
 
@@ -148,26 +97,38 @@ public class SpearControl : MonoBehaviour {
         if(currentUpgrades >= maxUpgrades)
         {
             // Max damage and effect
+            GameObject imp = GameManager.pool.GenerateObject("p_FlyingSpearBigImpact");
+            imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.5f);
+            StartCoroutine(DelayedPool(imp, 1));
+        }
+        else
+        {
+            GameObject imp = GameManager.pool.GenerateObject("p_FlyingSpearImpact");
+            if(target.tag == "Boss")
+            {
+                imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.7f);
+            }
+            else
+            {
+                imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.5f);
+            }
+            StartCoroutine(DelayedPool(imp, 1));
         }
     }
 
-    IEnumerator DelayedDelete(GameObject obj, float delay)
+    IEnumerator DelayedPool(GameObject obj, float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(obj);
+        GameManager.pool.PoolObj(obj);
     }
 
-    public void SetParameters(List<Vector3> ps, List<GameObject> es, float speed, float damage, float force, int dragForce, float altitude, float turn, float st, int dragAmount, bool multipleHit, float damageIncrease, float scaleIncrease, float colliderIncrease)
+    public void SetParameters(List<Vector3> ps, List<GameObject> es, float speed, float damage, float force, int dragForce, float altitude, float turn, float st, int dragAmount)
     {
         points = ps.ToArray();
         effects = es.ToArray();
         enemiesHit = new List<GameObject>();
         collider = GetComponent<SphereCollider>();
         collider.radius = 0.5f;
-        this.multipleHit = multipleHit;
-        this.damageIncrease = damageIncrease;
-        this.scaleIncrease = scaleIncrease;
-        this.colliderIncrease = colliderIncrease;
         for (int i = 0; i < points.Length; i++)
         {
             points[i] = new Vector3(points[i].x, altitude, points[i].z);
@@ -184,8 +145,12 @@ public class SpearControl : MonoBehaviour {
             effectControl.StartEffect();
             globalScale = 1;
             effectControl.SetAttribute(new PKFxManager.Attribute("GlobalScale", globalScale));
+            effectControl.SetAttribute(new PKFxManager.Attribute("CustomColor", startColor));
         }
         currentUpgrades = 0;
+        xColorDelta = (endColor.x - startColor.x) / (float)maxUpgrades;
+        yColorDelta = (endColor.y - startColor.y) / (float)maxUpgrades;
+        zColorDelta = (endColor.z - startColor.z) / (float)maxUpgrades;
         StartCoroutine(Fly());
     }
 }

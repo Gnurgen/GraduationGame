@@ -14,9 +14,11 @@ public class AudioManager : MonoBehaviour {
     // ##########################################################  Subscribe to EventManager ################################################
     // ##########################################################                            ################################################
     // ######################################################################################################################################
-
+    GameObject GSB;
     void Start()
     {
+        GSB = GameObject.Find("GlobalSoundBank");
+
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyAggro += CheckState;
 
@@ -84,13 +86,13 @@ public class AudioManager : MonoBehaviour {
 
     private void ElevatorMoveStop()
     {
-        AkSoundEngine.PostEvent("Elevator_Stop", gameObject);
+        AkSoundEngine.PostEvent("Elevator_Stop", GSB);
         AkSoundEngine.RenderAudio();
     }
 
     private void ElevatorMovePlay()
     {
-        AkSoundEngine.PostEvent("Elevator_Play",gameObject);
+        AkSoundEngine.PostEvent("Elevator_Play",GSB);
         AkSoundEngine.RenderAudio();
     }
 
