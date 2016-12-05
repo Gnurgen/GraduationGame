@@ -337,7 +337,7 @@ public class MapGenerator : MonoBehaviour {
                         go.transform.position = new Vector3(go.transform.position.x + (rotateMod < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0), 0, go.transform.position.z + (rotateMod > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
 
                         for (l = 0; l < tiles.Length; l++)
-                            tiles[j].transform.rotation = Quaternion.Inverse(go.transform.rotation);
+                            go.transform.Rotate(Vector3.up * 90 * rotateMod);
                     }
 
                     go.GetComponent<RoomBuilder>().HideWalls(i + 1 < mapGrid.GetLength(0) && mapGrid[i + 1, j] != null, j + 1 < mapGrid.GetLength(1) && mapGrid[i, j + 1] != null);
