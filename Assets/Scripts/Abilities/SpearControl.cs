@@ -91,7 +91,7 @@ public class SpearControl : MonoBehaviour {
 
     private void HitTarget(GameObject target)
     {
-        target.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
+        target.GetComponent<Health>().decreaseHealth(damage, target.transform.position-transform.position, pushForce);
         GameManager.events.SpearDrawAbilityHit(target);
         if(currentUpgrades >= maxUpgrades)
         {
