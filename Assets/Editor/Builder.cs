@@ -40,14 +40,16 @@ public class Builder : MonoBehaviour {
 			for(int i = 0; i < buildScenes.Length; i++){
 				buildScenes[i] = "Assets/Scenes/Building/" + buildScenes[i];
 			}
-			FileUtil.DeleteFileOrDirectory ("C:/Users/dadiu/AppData/LocalUnity/Editor/Editor.log");
+			FileUtil.DeleteFileOrDirectory ("C:/Users/dadiu/AppData/Local/Unity/Editor/Editor.log");
+            FileUtil.DeleteFileOrDirectory("C:/GraduationGameTests/test_results.xml");
 
-			Directory.CreateDirectory (basePath + "/" + buildFolder);
+            Directory.CreateDirectory (basePath + "/" + buildFolder);
 
 			BuildPipeline.BuildPlayer (buildScenes, basePath + "/" + buildFolder + "/" + "build.apk" , BuildTarget.Android, BuildOptions.None);
 
 			FileUtil.CopyFileOrDirectory ("C:/Users/dadiu/AppData/Local/Unity/Editor/Editor.log", basePath + "/" + buildFolder + "/log.txt");
-		} catch(UnityException e){
+            FileUtil.CopyFileOrDirectory("C:/GraduationGameTests/test_results.xml", basePath + "/" + buildFolder + "/test_results.xml");
+        } catch(UnityException e){
 			StreamWriter fil = new StreamWriter(basePath + "/" + buildFolder + "/unity_errors.txt",true);
 			fil.Write (e.Message);
 			fil.Close ();
