@@ -7,9 +7,9 @@ public class ConeDraw : MonoBehaviour {
     [SerializeField]
     private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime, rampUp, maxDamageInrease, 
         maxParticleDrawSize = 4f, maxParticleFireSize = 6f;
-    [Range(1, 10)]
-    [SerializeField]
-    private int pointResolution = 1;
+    //[Range(1, 10)]
+    //[SerializeField]
+    //private int pointResolution = 1;
     private InputManager im;
     private bool drawing = false, clockwise = true;
     private Vector3 start, end, cur, lookDir;
@@ -24,7 +24,7 @@ public class ConeDraw : MonoBehaviour {
 
     //NEW CONE
     private Quaternion myRot, cRot, Rot;
-    public List<GameObject> conePart, coneHit, coneHitBig;
+    private List<GameObject> conePart;
     private int drawnParts = 0, totDrawn = 0;
     private GameObject coneParticlePref, coneHitParticlePref, coneHitParticlePrefBig;
     private List<float> particleLength;
@@ -59,7 +59,7 @@ public class ConeDraw : MonoBehaviour {
         coneParticlePref = Resources.Load<GameObject>("Pool/p_ConeParticle");
         coneHitParticlePref = Resources.Load<GameObject>("Pool/p_FlyingSpearImpact");
         coneHitParticlePrefBig = Resources.Load<GameObject>("Pool/p_FlyingSpearBigImpact");
-        coneResolution = pointResolution * 90;
+        coneResolution = 90;
         im = GameManager.input;
         ID = im.GetID();
         onlyHitLayermask = 1 << LayerMask.NameToLayer("ConeBlocker");
@@ -80,7 +80,7 @@ public class ConeDraw : MonoBehaviour {
 	
     void Update()
     {
-        if (doDraw && !abilityCharged)
+        if (doDraw)
         {
             normRamp = normRamp < 1f ? normRamp + Time.deltaTime / rampUp : 1;
             float rampedScale = 2f + normRamp / 2f;
@@ -92,7 +92,8 @@ public class ConeDraw : MonoBehaviour {
                     particleFireColor = new Vector3(normRamp, 0, 0);
                     particleFireScale = maxParticleFireSize;
                     setParticleValue(maxParticleDrawSize, maxParticleCount, particleLength[x] / baseParticleSpeed/(maxParticleDrawSize- baseParticleScale)-0.2f, particleFireColor, conePart[x]);
-                    GameManager.events.ConeAbilityCharged(gameObject);
+                    if(!abilityCharged)
+                        GameManager.events.ConeAbilityCharged(gameObject);
                     damage = baseDamage + maxDamageInrease * normRamp;
                     abilityCharged = true;
                 }
@@ -191,8 +192,8 @@ public class ConeDraw : MonoBehaviour {
             }
             for (int x = 0; x<activeTris+1; ++x)
             {
-                ray = new Ray(transform.position, (transform.position+Vector3.up*.5f) + particleDirection[x]);
-                eHit = Physics.SphereCastAll(ray, 1f, particleDirection[x].magnitude, 1<<layerEnemy);
+                ray = new Ray(transform.position + (Vector3.up * .5f), particleDirection[x]);
+                eHit = Physics.RaycastAll(ray, particleDirection[x].magnitude, 1<<layerEnemy);
                 for(int k = 0; k<eHit.Length; ++k)
                 {
                     eHit[k].transform.gameObject.layer = layerEnemyhit;
@@ -241,7 +242,6 @@ public class ConeDraw : MonoBehaviour {
     }
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
     {
-        print(delayTime);
         yield return new WaitForSeconds(delayTime);
         if (go != null)
         {
@@ -374,7 +374,9 @@ public class ConeDraw : MonoBehaviour {
             }
             drawnParts = activeTris;
         }
-        transform.LookAt(transform.position + particleDirection[particleDirection.Count / 2]);
+        Vector3 lookAt = transform.position + particleDirection[(activeTris + 1) / 2];
+        lookAt.y = 0;
+        transform.LookAt(lookAt);
     }
 
     void GetEnd(Vector2 p)
