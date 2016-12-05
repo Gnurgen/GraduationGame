@@ -47,7 +47,8 @@ public class Builder : MonoBehaviour {
 			BuildPipeline.BuildPlayer (buildScenes, basePath + "/" + buildFolder + "/" + "build.apk" , BuildTarget.Android, BuildOptions.None);
 
 			FileUtil.CopyFileOrDirectory ("C:/Users/dadiu/AppData/Local/Unity/Editor/Editor.log", basePath + "/" + buildFolder + "/log.txt");
-		} catch(UnityException e){
+            FileUtil.CopyFileOrDirectory("C:/GraduationGameTests/test_results.xml", basePath + "/" + buildFolder + "/test_results.xml");
+        } catch(UnityException e){
 			StreamWriter fil = new StreamWriter(basePath + "/" + buildFolder + "/unity_errors.txt",true);
 			fil.Write (e.Message);
 			fil.Close ();
