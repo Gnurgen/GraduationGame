@@ -53,4 +53,9 @@ public class saveLoad : MonoBehaviour {
         yield return new WaitForSeconds(duration);
         IM.ReleaseControl(ID);
     }
+
+    public void openTutorial() {
+        GameObject.Find("Tutorial").SetActive(true);
+        GameObject.Find("OptionsMenu").SetActive(false);
+    }
 }
