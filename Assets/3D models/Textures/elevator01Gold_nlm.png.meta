@@ -37,7 +37,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
+  allowsAlphaSplitting: 1
   spriteMode: 0
   spriteExtrude: 1
   spriteMeshType: 1
@@ -51,9 +51,9 @@ TextureImporter:
   buildTargetSettings:
   - buildTarget: Android
     maxTextureSize: 512
-    textureFormat: 34
-    compressionQuality: 50
-    allowsAlphaSplitting: 0
+    textureFormat: -1
+    compressionQuality: 100
+    allowsAlphaSplitting: 1
   spriteSheet:
     serializedVersion: 2
     sprites: []
