@@ -34,7 +34,6 @@ public class PlayerControls : MonoBehaviour {
     private float currentDashDistance;
     private Vector3 MoveToPoint;
     private float currentDashCooldown;
-    private bool isMoving = false;
 
     // --- Abilities ---
     private Vector3 touchStart, touchEnd, touchCur;
@@ -78,7 +77,7 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Idle()
     {
-        isMoving = false;
+        print("SÅ ER JEG IDLE");
         if(ClickFeedBack != null)
             ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
         else
@@ -100,7 +99,6 @@ public class PlayerControls : MonoBehaviour {
     IEnumerator Moving()
     {
         state = State.Moving;
-        isMoving = true;
         em.PlayerMove(gameObject);
         while (state == State.Moving && Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized) > 0)
         {
@@ -139,7 +137,8 @@ public class PlayerControls : MonoBehaviour {
     {
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
-        while (state == State.Dashing && currentDashDistance < maxDashDistance && NotPassedPoint(transform.position, MoveToPoint) && (transform.position - MoveToPoint).magnitude>alwaysWalk)
+        
+        while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk)
         {
             currentDashCooldown = dashCooldown;
             prevPos = transform.position;
@@ -147,28 +146,20 @@ public class PlayerControls : MonoBehaviour {
             yield return new WaitForFixedUpdate();
             currentDashDistance += (prevPos - transform.position).magnitude;
         }
+        currentDashCooldown = dashCooldown;
+        currentDashDistance = 0;
         em.PlayerDashEnd(gameObject);
         if (state == State.Ability)
         {
             StartCoroutine(Ability());
             yield break;
         }
-        if (NotPassedPoint(transform.position, MoveToPoint) || state==State.Moving)
+        if ((transform.position - MoveToPoint).magnitude > .1f)
             StartCoroutine(Moving());
         else
             StartCoroutine(Idle());
-        currentDashDistance = 0;
         yield break;
     }
-
-
-    private bool NotPassedPoint(Vector3 pos, Vector3 tar)
-    {
-        if ((pos - tar).magnitude < minDashDistance)
-            return Vector3.Dot(transform.forward, (tar - pos).normalized) > 0f;
-        else return true;
-    }
-
 
     void Begin(Vector2 p)
     {
@@ -184,6 +175,7 @@ public class PlayerControls : MonoBehaviour {
         touchCur = im.GetWorldPoint(p);
         if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance)
         {
+            
             body.velocity = Vector3.zero;
             state = State.Ability;
             if(ab1)
@@ -238,9 +230,9 @@ public class PlayerControls : MonoBehaviour {
             ClickFeedBack.transform.position = MoveToPoint;
             ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
             transform.LookAt(MoveToPoint);
-            if ((transform.position-MoveToPoint).magnitude > minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing)
+            if ((transform.position-MoveToPoint).magnitude >= minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing)
                 StartCoroutine(Dashing());
-            else if (!isMoving && state!=State.Dashing)
+            else if (state!=State.Moving && state!=State.Dashing)
                 StartCoroutine(Moving());
         }
     }
