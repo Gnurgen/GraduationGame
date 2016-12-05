@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class SpiritRock : MonoBehaviour {
+
+    /* DET ER SLUT NU! 
     public GameObject blueFlame;
     public GameObject[] spiritRocks;
     private bool isLit = false;
@@ -48,5 +50,5 @@ public class SpiritRock : MonoBehaviour {
         spiritRocks = GameObject.FindGameObjectsWithTag("CheckPoint");
     }
 
-        
+        */
 }
