@@ -16,11 +16,13 @@ public class LoadingScreen : MonoBehaviour {
 
     // animation variables
     public Text LoadingText;
+    public Text InfoText;
     public Image ImgAni;
     public Sprite[] ShuffleAnimation = new Sprite[8];
     private int saFrame = 0; 
 	// Use this for initialization
 	void Start () {
+        StartCoroutine(OVERLOAD());
         loadingProgress = GameObject.Find("LoadProgress").GetComponent<Image>();
         loadingProgress.fillAmount = 0f;
         LoadingText.text = "L O A D I N G . . .";
@@ -35,6 +37,7 @@ public class LoadingScreen : MonoBehaviour {
             saFrame = 0;
             ImgAni.enabled = true;
             ImgAni.sprite = ShuffleAnimation[saFrame];
+            InfoText.text = "S H U F F L I N G    C H A M B E R S";
             LoadToScene = "Final";
             SceneManager.LoadSceneAsync("Final", LoadSceneMode.Additive);
            
@@ -48,7 +51,19 @@ public class LoadingScreen : MonoBehaviour {
         }
     }
 
-    
+    private IEnumerator OVERLOAD()
+    {
+        LoadingText.text = "L O A D I N G . . .";
+        while(LoadingText.text.Length < 100)
+        {
+            if(LoadingText.text.Length % 2 == 1)
+                LoadingText.text.Insert(LoadingText.text.Length, ".");
+            else
+                LoadingText.text.Insert(LoadingText.text.Length, " ");
+            yield return null;
+        }
+
+    }
 
     void Update()
     {
@@ -96,7 +111,9 @@ public class LoadingScreen : MonoBehaviour {
     private IEnumerator waitingForInput(bool animation)
     {
         print("ani: " + animation);
+
         LoadingText.text = "T O U C H   T O   C O N T I N U E";
+        InfoText.text = "C H A M B E R S   S H U F F L E D";
         while (Input.touchCount < 1 && !Input.GetKeyDown(KeyCode.Space))
         {
             if (animation)
@@ -123,7 +140,6 @@ public class LoadingScreen : MonoBehaviour {
     private IEnumerator tutLevel() //Tutorial level loading
     {
         AsyncOperation AO = SceneManager.LoadSceneAsync(LoadToScene, LoadSceneMode.Additive);
-        //SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("Tutorial"));
         while (AO.isDone == false)
         {
             float loading = Mathf.Clamp01(AO.progress / 0.9f);

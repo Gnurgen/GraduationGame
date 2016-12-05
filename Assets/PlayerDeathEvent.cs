@@ -42,28 +42,13 @@ public class PlayerDeathEvent : MonoBehaviour {
         GameManager.events.FadeToBlack();
         fov = 20;
         yield return new WaitUntil(() => fadeblack == true);
-        if(GameManager.game.activeCheckpoint == null)
+        GameObject[] en = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = 0; i < en.Length; i++)
         {
-            
-            FindObjectOfType<Camera>().fieldOfView = fov;
-            GameManager.time.SetTimeScaleInstant(1f);
-            GameManager.events.LoadNextlevel();
-            yield break;
+            en[i].SetActive(false);
         }
-        else
-        {
-            FindObjectOfType<Camera>().fieldOfView = fov;
-            GameManager.time.SetTimeScaleInstant(1f);
-            GameManager.player.transform.position = GameManager.game.activeCheckpoint.transform.position + Vector3.forward;
-            GameManager.player.SetActive(true);
-        }
-        GameManager.events.FadeFromBlackToTransparent();
+        FindObjectOfType<Camera>().fieldOfView = fov;
+        GameManager.time.SetTimeScaleInstant(1f);
+        GameManager.events.LoadNextlevel();
     }
-
-
-
-    // Update is called once per frame
-    void Update () {
-	
-	}
 }
