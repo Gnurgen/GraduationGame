@@ -40,7 +40,7 @@ public class Builder : MonoBehaviour {
 			for(int i = 0; i < buildScenes.Length; i++){
 				buildScenes[i] = "Assets/Scenes/Building/" + buildScenes[i];
 			}
-			FileUtil.DeleteFileOrDirectory ("C:/Users/dadiu/AppData/LocalUnity/Editor/Editor.log");
+			FileUtil.DeleteFileOrDirectory ("C:/Users/dadiu/AppData/Local/Unity/Editor/Editor.log");
 
 			Directory.CreateDirectory (basePath + "/" + buildFolder);
 
