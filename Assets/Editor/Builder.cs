@@ -41,8 +41,9 @@ public class Builder : MonoBehaviour {
 				buildScenes[i] = "Assets/Scenes/Building/" + buildScenes[i];
 			}
 			FileUtil.DeleteFileOrDirectory ("C:/Users/dadiu/AppData/Local/Unity/Editor/Editor.log");
+            FileUtil.DeleteFileOrDirectory("C:/GraduationGameTests/test_results.xml");
 
-			Directory.CreateDirectory (basePath + "/" + buildFolder);
+            Directory.CreateDirectory (basePath + "/" + buildFolder);
 
 			BuildPipeline.BuildPlayer (buildScenes, basePath + "/" + buildFolder + "/" + "build.apk" , BuildTarget.Android, BuildOptions.None);
 
