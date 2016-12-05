@@ -82,4 +82,10 @@ public class TimeManager : MonoBehaviour {
         prevTimeScale = Time.timeScale;
         _doTimeChange = true;
     }
+    public void SetTimeScaleInstant(float t)
+    {
+        if (t < 0f)
+            t = 0f;
+        t = Time.timeScale;
+    }
 }

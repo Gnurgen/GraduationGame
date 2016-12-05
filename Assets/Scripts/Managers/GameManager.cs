@@ -36,29 +36,11 @@ public class GameManager {
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
         events.OnLoadNextLevel += LoadNextLevel;
-        events.OnPlayerDeath += PlayerDeath;
         _activeCheckPoint = null;
     }
 
 
-    public static void PlayerDeath(GameObject go)
-    {
-        events.FadeToBlack();
-        //player.SetActive(true);
-        //move player?? ++Setplayer active
-        if (_activeCheckPoint == null)
-        {
-            _instance = null;
-            events.LoadNextlevel();
-            
-        }
-        else
-        {
-            player.SetActive(true);
-            events.FadeFromBlackToTransparent();
-            player.transform.position = _activeCheckPoint.transform.position;
-        }
-    }
+    
 
     public static int score
     {
