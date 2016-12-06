@@ -276,7 +276,7 @@ public class MeleeAI : EnemyStats {
                         GameManager.events.EnemyAttack(gameObject);
                         currentAttackSpeed = attackSpeed;
                         animator.SetTrigger("Attack");
-                        yield return new WaitForFixedUpdate();
+                        yield return new WaitForEndOfFrame();
                         animator.SetBool("Run", false);
                         Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
                         while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))
