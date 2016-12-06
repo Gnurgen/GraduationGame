@@ -84,6 +84,11 @@ public class SpearControl : MonoBehaviour {
         }
         else if(col.tag == "Boss")
         {
+            GameManager.events.SpearDrawAbilityEnd(gameObject);
+            foreach (GameObject go in effects)
+            {
+                go.GetComponent<PKFxFX>().StopEffect();
+            }
             HitTarget(col.gameObject);
             Destroy(gameObject);
         }
