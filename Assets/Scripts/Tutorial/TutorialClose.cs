@@ -19,8 +19,11 @@ public class TutorialClose : MonoBehaviour {
 
     private void OnEnable()
     {
-        if(IM != null)
+        if (IM != null)
+        {
             terminateTouch();
+            GameManager.time.SetTimeScale(0f);
+        }
     }
 
     public void movingAnimation()
