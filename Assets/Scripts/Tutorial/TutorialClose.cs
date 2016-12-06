@@ -4,9 +4,9 @@ using System.Collections;
 
 public class TutorialClose : MonoBehaviour {
     private Vector3 positionscale;
-    public InputManager IM;
-    public int ID;
-    float speed = 10f;
+    InputManager IM;
+    int ID;
+    float speed = 20f;
     float newPosX, newPosY;
 
     void Start () {
@@ -38,12 +38,11 @@ public class TutorialClose : MonoBehaviour {
         while (gameObject.transform.localPosition.x < 650) {
             newPosX = gameObject.transform.localPosition.x + speed*1.5f;
             newPosY = gameObject.transform.localPosition.y + speed;
-            gameObject.transform.localScale -= Vector3.one * 0.02f;
+            gameObject.transform.localScale -= Vector3.one * 0.04f;
             gameObject.transform.localPosition = new Vector3(newPosX, newPosY, gameObject.transform.localPosition.z);
             yield return null;
         }
-       // allowTouch();
-        Debug.Log("Hi");
+        allowTouch();
         gameObject.transform.localScale = Vector3.one;
         gameObject.transform.localPosition = Vector3.zero;
         gameObject.GetComponent<Image>().CrossFadeAlpha(1, 0, false);

@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: b30264261e493df4bad20c010f6c7af1
-timeCreated: 1480930940
-licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
@@ -29,20 +27,15 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-<<<<<<< HEAD:Assets/Graphics/Sprites/Tutorial/Rock.png.meta
     filterMode: -1
     aniso: 16
-=======
-    filterMode: 1
-    aniso: 1
->>>>>>> master:Assets/Graphics/Sprites/Tutorial/TutorialSpiritbar.png.meta
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 1
+  allowsAlphaSplitting: 0
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
@@ -53,12 +46,7 @@ TextureImporter:
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings:
-  - buildTarget: Android
-    maxTextureSize: 1024
-    textureFormat: -1
-    compressionQuality: 50
-    allowsAlphaSplitting: 1
+  buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
     sprites: []

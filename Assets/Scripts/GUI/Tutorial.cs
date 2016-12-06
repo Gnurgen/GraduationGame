@@ -27,7 +27,6 @@ public class Tutorial : MonoBehaviour {
 
     public void nextFrame() {
         currentFrame++;
-        Debug.Log(currentFrame);
         tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(currentFrame);
         gameObject.GetComponent<Image>().overrideSprite = tutorials[currentFrame];        
         if (currentFrame != 0)
@@ -40,7 +39,6 @@ public class Tutorial : MonoBehaviour {
     {
         currentFrame--;
         tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(currentFrame);
-        Debug.Log(currentFrame);
         gameObject.GetComponent<Image>().overrideSprite = tutorials[currentFrame];
         if (currentFrame != tutorials.Length)
             next.SetActive(true);
