@@ -57,7 +57,7 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
         Vector3 oriPos = transform.position;
         while (currentT < duration)
         {
-            Debug.Log("control 1");
+           
             takeControl = true;
             currentT += Time.deltaTime;
             shakingVec = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.4f, 0.4f), 0);
@@ -73,7 +73,7 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
     {
         while (currentT < duration)
         {
-            Debug.Log("control 2");
+
             IM.TakeControl(ID);
             takeControl = true;
             currentT += Time.deltaTime;
@@ -85,7 +85,7 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
         yield break;
     }
     public void releaseControl() {
-        Debug.Log("Release control");
+       
         IM.ReleaseControl(ID);
         takeControl = false;
     }
