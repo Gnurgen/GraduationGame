@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System;
 
 public class GameManager {
     private const int START_SCENE = 0;
@@ -36,11 +37,12 @@ public class GameManager {
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
         events.OnLoadNextLevel += LoadNextLevel;
-       
+
+      
+
     }
+ 
 
-
-    
 
     public static int score
     {
@@ -135,7 +137,7 @@ public class GameManager {
         get
         {
             if (_audioManager == null)
-                _audioManager = Object.FindObjectOfType(typeof(AudioManager)) as AudioManager;
+                _audioManager = UnityEngine.Object.FindObjectOfType(typeof(AudioManager)) as AudioManager;
             return _audioManager;
         }
     }
@@ -153,7 +155,7 @@ public class GameManager {
         get
         {
             if(_timeManager == null)
-                _timeManager = Object.FindObjectOfType(typeof(TimeManager)) as TimeManager;
+                _timeManager = UnityEngine.Object.FindObjectOfType(typeof(TimeManager)) as TimeManager;
             return _timeManager;
         }
     }
@@ -170,7 +172,7 @@ public class GameManager {
         get
         {
             if (_eventManager == null)
-                _eventManager = Object.FindObjectOfType(typeof(EventManager)) as EventManager;
+                _eventManager = UnityEngine.Object.FindObjectOfType(typeof(EventManager)) as EventManager;
             return _eventManager;
         }
     }
@@ -190,7 +192,7 @@ public class GameManager {
         get
         {
 			if (_inputManager == null)
-                _inputManager = Object.FindObjectOfType(typeof(InputManager)) as InputManager;
+                _inputManager = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
             return _inputManager;
         }
     }
@@ -207,7 +209,7 @@ public class GameManager {
         get
         {
             if (_poolManager == null)
-                _poolManager = Object.FindObjectOfType(typeof(PoolManager)) as PoolManager;
+                _poolManager = UnityEngine.Object.FindObjectOfType(typeof(PoolManager)) as PoolManager;
             return _poolManager;
         }
     }
@@ -259,7 +261,7 @@ public class GameManager {
         get
         {
             if (_menu == null)
-                _menu = Object.FindObjectOfType(typeof(Menu)) as Menu;
+                _menu = UnityEngine.Object.FindObjectOfType(typeof(Menu)) as Menu;
             return _menu;
         }
     }
@@ -301,27 +303,28 @@ public class GameManager {
         return exp;
     }
 
-    public static void LoadNextLevel()
+    public static void LoadNextLevel() //DEADGAME
     {
         progress = PlayerPrefs.GetInt("Progress");
         _instance = null;
         SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
         // LOADING SCREEN TAKES IT FROM HERE
+        /*
 
-/*
         if (progress == 0)
         {
-            AsyncOperation tut = SceneManager.LoadSceneAsync("Tutorial", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Tutorial");
             
         }
         else if (progress <= numberOfLevels) // Number of levels before Boss level 
         {
-            SceneManager.LoadSceneAsync("Final",LoadSceneMode.Additive);
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
+            SceneManager.LoadScene("Final");
+          
+            //SceneManager.SetActiveScene(SceneManager.GetSceneByName("Final"));
         }
         else
         {
-            SceneManager.LoadSceneAsync("BossLevel", LoadSceneMode.Additive);
+            SceneManager.LoadScene("BossLevel");
         }
         */
     }
