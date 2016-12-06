@@ -25,6 +25,8 @@ public class PlayerControls : MonoBehaviour {
     private bool ControlDuringDash = false, AbilitiesDuringDash = false;
     [SerializeField]
     private float abilityTouchOffset, abilityTouchMoveDistance;
+    [SerializeField]
+    private AnimationCurve adsr;
     private bool ResumeMovementAfterAbility = false;
     public GameObject ClickFeedBack;
 
@@ -145,7 +147,8 @@ public class PlayerControls : MonoBehaviour {
     {
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
-        while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk)
+        while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk && 
+            Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized) > 0)
         {
             currentDashCooldown = dashCooldown;
             prevPos = transform.position;

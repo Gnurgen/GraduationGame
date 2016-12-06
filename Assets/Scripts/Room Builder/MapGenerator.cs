@@ -30,7 +30,6 @@ public class MapGenerator : MonoBehaviour {
     private int[] mask;
     private int[] startRoom;
     private int[] endRoom;
-    private int[] progressCoords;
     private int roomRollOdds;
     private int progress;
     private int totalProgress;
@@ -96,10 +95,13 @@ public class MapGenerator : MonoBehaviour {
         int[] hashIndex;
         RoomBuilder room;
 
-        clear();
+        for (i = 0; i < rooms.Count; i++)
+            if (rooms[i] != null)
+                DestroyImmediate(rooms[i]);
+        rooms.Clear();
+
         progress = 0;
         totalProgress = 0;
-        progressCoords = new int[] {0, 0};
         completed = false;
         roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
 
@@ -363,6 +365,7 @@ public class MapGenerator : MonoBehaviour {
         if (progress == totalProgress)
         {
             completed = true;
+            clear();
 
             GameManager.events.MapGenerated();
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
@@ -373,10 +376,12 @@ public class MapGenerator : MonoBehaviour {
 
     private void clear()
     {
-        for(int i = 0; i < rooms.Count; i++)
-            if (rooms[i] != null)
-                DestroyImmediate(rooms[i]);
-        rooms.Clear();
+        list = new List<GameObject>[4];
+        roomsByDoors = null;
+        mapGrid = null;
+        tiles = null;
+        mask = null;
+        Resources.UnloadUnusedAssets();
     }
 
     private void updateRoom(int i, int j){
