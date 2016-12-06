@@ -11,11 +11,11 @@ public class PathWhispAI : MonoBehaviour {
     private int index;
     private PKFxFX effectControl;
 
-    public void Activate(Vector3[] path)
+    public void Activate(Vector3[] path, Vector3 start)
     {
         this.path = path;
-        index = 0;
-        transform.position = RealVector(path[index]);
+        index = 2;
+        transform.position = start;
         effectControl = GetComponent<PKFxFX>();
         effectControl.StartEffect();
 
