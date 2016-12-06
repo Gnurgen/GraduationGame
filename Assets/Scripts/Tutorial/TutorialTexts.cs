@@ -14,7 +14,7 @@ public class TutorialTexts : MonoBehaviour {
       
     }
     public string getTextSnipped(int i) {
-        return textList[GameManager.game.language == GameManager.Language.Danish ? 1 : 0, i];
+        return textList[GameManager.game.language == GameManager.Language.Danish ? 1 : 0, i];        
     }
 
   

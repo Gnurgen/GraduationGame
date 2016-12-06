@@ -30,17 +30,20 @@ public class GameManager {
         Debug.Log("GameManager constructed");
         _instance = this;
         _managers = GameObject.Find("Managers");
-        _managers.SendMessage("Subscribe");
+        if (_managers != null)
+        {
+            _managers.SendMessage("Subscribe");
+            events.OnLevelUp += PlayerLevelUp;
+            events.OnMenuOpen += showMenu;
+            events.OnMenuClose += hideMenu;
+            events.OnLoadNextLevel += LoadNextLevel;
+        }
         //menu.gameObject.SetActive(false);
-        events.OnLevelUp += PlayerLevelUp;
-        events.OnMenuOpen += showMenu;
-        events.OnMenuClose += hideMenu;
-        events.OnLoadNextLevel += LoadNextLevel;
-       
+
     }
 
 
-    
+
 
     public static int score
     {
