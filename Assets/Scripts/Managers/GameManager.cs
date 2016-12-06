@@ -21,7 +21,7 @@ public class GameManager {
     private GameObject _spear;
     private PoolManager _poolManager; 
     private GameObject _managers;
-    private static GameObject _activeCheckPoint;
+  
     private Menu _menu;
     private static int _score, _experience, _playerLevel, _progress;
 
@@ -36,7 +36,7 @@ public class GameManager {
         events.OnMenuOpen += showMenu;
         events.OnMenuClose += hideMenu;
         events.OnLoadNextLevel += LoadNextLevel;
-        _activeCheckPoint = null;
+       
     }
 
 
@@ -253,16 +253,7 @@ public class GameManager {
             return game.Spear;
         }
     }
-    public GameObject activeCheckpoint
-    {
-        get
-        {
-            return _activeCheckPoint;
-        }
-        set {
-            _activeCheckPoint = value;
-        }
-    }
+   
     private Menu menu
     {
         get

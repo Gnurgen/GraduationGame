@@ -79,7 +79,7 @@ public class FlyingSpear : MonoBehaviour {
         // Actually use the ability with the drawn points
 
         GameObject s = Instantiate(spear) as GameObject;
-        GameManager.events.SpearDrawAbilityUsed(gameObject);
+        GameManager.events.SpearDrawAbilityUsed(s);
         s.GetComponent<SpearControl>().SetParameters(LR.GetPoints(), LR.GetEffects(), flyingSpeed, damage, pushForce,dragForce, spearAltitude, turnRate, stunTime, dragTargets);
         LR.CleanUp();
     }

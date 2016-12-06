@@ -44,19 +44,26 @@ public class SpearControl : MonoBehaviour {
                 index += 1;
                 if(index > 4)
                 {
-                    effects[index - 5].GetComponent<PKFxFX>().StopEffect();
+                    //effects[index - 5].GetComponent<PKFxFX>().StopEffect();
+                    effects[index - 5].transform.position = new Vector3(0, -100000, 0);
                 }
             }
             yield return null;
         }
-        foreach(GameObject go in effects)
-        {
-            go.GetComponent<PKFxFX>().StopEffect();
-        }
+        StopEffects();
         GameManager.events.SpearDrawAbilityEnd(gameObject);
         effectControl.StopEffect();
         Destroy(gameObject);
 
+    }
+
+    void StopEffects()
+    {
+        foreach (GameObject go in effects)
+        {
+            //go.GetComponent<PKFxFX>().StopEffect();
+            go.transform.position = new Vector3(0, -100000, 0);
+        }
     }
 
     void OnTriggerEnter(Collider col)
@@ -84,6 +91,8 @@ public class SpearControl : MonoBehaviour {
         }
         else if(col.tag == "Boss")
         {
+            GameManager.events.SpearDrawAbilityEnd(gameObject);
+            StopEffects();
             HitTarget(col.gameObject);
             Destroy(gameObject);
         }
@@ -91,7 +100,7 @@ public class SpearControl : MonoBehaviour {
 
     private void HitTarget(GameObject target)
     {
-        target.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
+        target.GetComponent<Health>().decreaseHealth(damage, target.transform.position-transform.position, pushForce);
         GameManager.events.SpearDrawAbilityHit(target);
         if(currentUpgrades >= maxUpgrades)
         {

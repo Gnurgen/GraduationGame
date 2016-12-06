@@ -25,6 +25,8 @@ public class PlayerControls : MonoBehaviour {
     private bool ControlDuringDash = false, AbilitiesDuringDash = false;
     [SerializeField]
     private float abilityTouchOffset, abilityTouchMoveDistance;
+    [SerializeField]
+    private AnimationCurve adsr;
     private bool ResumeMovementAfterAbility = false;
     public GameObject ClickFeedBack;
 
@@ -42,8 +44,9 @@ public class PlayerControls : MonoBehaviour {
     ConeDraw ability2;
 
     private Rigidbody body;
-    RaycastHit hit;
+    RaycastHit[] hit;
     int coneBlock = 1;
+    private bool hitWall = false;
 
     // Use this for initialization
     void Start () {
@@ -62,12 +65,17 @@ public class PlayerControls : MonoBehaviour {
         currentDashCooldown = 0;
         ability1 = GetComponent<FlyingSpear>();
         ability2 = GetComponent<ConeDraw>();
-        coneBlock = 1 << LayerMask.NameToLayer("ConeBlocker");
+        coneBlock = LayerMask.NameToLayer("ConeBlocker");
 	}
 	
 
     void FixedUpdate()
     {
+        if (state == State.Dashing || state == State.Moving)
+        {
+            if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, .3f, 1 << coneBlock))
+                StartCoroutine(Idle());
+        }
         body.velocity = Vector3.zero;
     }
     void Update()
@@ -77,7 +85,6 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Idle()
     {
-        print("SÅ ER JEG IDLE");
         if(ClickFeedBack != null)
             ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
         else
@@ -100,7 +107,7 @@ public class PlayerControls : MonoBehaviour {
     {
         state = State.Moving;
         em.PlayerMove(gameObject);
-        while (state == State.Moving && Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized) > 0)
+        while (state == State.Moving && Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized)>0)
         {
             body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate(); 
@@ -110,7 +117,10 @@ public class PlayerControls : MonoBehaviour {
             StartCoroutine(Ability());
             yield break;
         }
-        StartCoroutine(Idle());
+        else if (state == State.Moving)
+        {
+            StartCoroutine(Idle());
+        }
         yield break;
     }
 
@@ -137,8 +147,8 @@ public class PlayerControls : MonoBehaviour {
     {
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
-        
-        while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk)
+        while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk && 
+            Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized) > 0)
         {
             currentDashCooldown = dashCooldown;
             prevPos = transform.position;
@@ -154,10 +164,14 @@ public class PlayerControls : MonoBehaviour {
             StartCoroutine(Ability());
             yield break;
         }
-        if ((transform.position - MoveToPoint).magnitude > .1f)
+        if ((transform.position - MoveToPoint).magnitude > .2f && state!=State.Idle)
+        {
             StartCoroutine(Moving());
+        }
         else
+        {
             StartCoroutine(Idle());
+        }
         yield break;
     }
 
@@ -205,9 +219,14 @@ public class PlayerControls : MonoBehaviour {
         }
         ab1 = false; ab2 = false;
         if (ResumeMovementAfterAbility)
+        {
             state = prevstate;
+        }
         else
+        {
+            
             state = State.Idle;
+        }
     }
 
     void disableMovement()
@@ -230,10 +249,14 @@ public class PlayerControls : MonoBehaviour {
             ClickFeedBack.transform.position = MoveToPoint;
             ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
             transform.LookAt(MoveToPoint);
-            if ((transform.position-MoveToPoint).magnitude >= minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing)
+            if ((transform.position-MoveToPoint).magnitude >= minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing && currentDashDistance == 0)
+            {
                 StartCoroutine(Dashing());
-            else if (state!=State.Moving && state!=State.Dashing)
+            }
+            else if (state!=State.Moving && state != State.Dashing)
+            {
                 StartCoroutine(Moving());
+            }
         }
     }
 }

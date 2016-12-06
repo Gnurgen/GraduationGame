@@ -463,6 +463,7 @@ public class EventManager : MonoBehaviour
 
     public void LoadingProgress(float progress)
     {
+        print(progress * 100f + " %");
         if (OnLoadingProgress != null)
             OnLoadingProgress(progress);
     }

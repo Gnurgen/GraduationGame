@@ -30,7 +30,6 @@ public class MapGenerator : MonoBehaviour {
     private int[] mask;
     private int[] startRoom;
     private int[] endRoom;
-    private int[] progressCoords;
     private int roomRollOdds;
     private int progress;
     private int totalProgress;
@@ -96,10 +95,13 @@ public class MapGenerator : MonoBehaviour {
         int[] hashIndex;
         RoomBuilder room;
 
-        clear();
+        for (i = 0; i < rooms.Count; i++)
+            if (rooms[i] != null)
+                DestroyImmediate(rooms[i]);
+        rooms.Clear();
+
         progress = 0;
         totalProgress = 0;
-        progressCoords = new int[] {0, 0};
         completed = false;
         roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
 
@@ -212,8 +214,8 @@ public class MapGenerator : MonoBehaviour {
             populate(mask, 1);
         }
 
-        startElevator.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -2.0f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
-        endElevator.transform.position = new Vector3((endRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -3.45f, -(endRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
+        startElevator.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -2.2f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
+        endElevator.transform.position = new Vector3((endRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -3.25f, -(endRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
 
         GameManager.player.transform.position = startElevator.transform.position;
         GameManager.player.transform.parent = startElevator.transform;
@@ -363,20 +365,23 @@ public class MapGenerator : MonoBehaviour {
         if (progress == totalProgress)
         {
             completed = true;
+            clear();
 
             GameManager.events.MapGenerated();
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
         }
 
-        GameManager.events.LoadingProgress(progress/totalProgress);
+        GameManager.events.LoadingProgress((float)progress/totalProgress);
     }
 
     private void clear()
     {
-        for(int i = 0; i < rooms.Count; i++)
-            if (rooms[i] != null)
-                DestroyImmediate(rooms[i]);
-        rooms.Clear();
+        list = new List<GameObject>[4];
+        roomsByDoors = null;
+        mapGrid = null;
+        tiles = null;
+        mask = null;
+        Resources.UnloadUnusedAssets();
     }
 
     private void updateRoom(int i, int j){
