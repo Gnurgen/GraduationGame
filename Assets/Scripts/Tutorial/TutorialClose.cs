@@ -3,60 +3,69 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class TutorialClose : MonoBehaviour {
-    private bool clicked = false;
     private Vector3 positionscale;
-    private InputManager IM;
-    private int ID;
+    InputManager IM;
+    int ID;
+    float speed = 20f;
+    float newPosX, newPosY;
 
     void Start () {
         positionscale = new Vector3(1f, 0.2f, 0);
+        GameManager.events.MapGenerated();
         IM = GameManager.input;
         ID = IM.GetID();
-        GameManager.events.MapGenerated();
         gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        if(IM != null)
-            terminateTouch();
-    }
-
-    void Update () {
-        if (clicked == true)
+        if (IM != null)
         {
-            gameObject.transform.localScale -= Vector3.one * Time.deltaTime*0.8f;
-            gameObject.transform.position += positionscale * Time.deltaTime;
-            gameObject.GetComponent<Image>().CrossFadeAlpha(0, 2, false);
-            StartCoroutine(waitForAniStart());
+            terminateTouch();
+            GameManager.time.SetTimeScale(0f);
         }
-
     }
+
     public void movingAnimation()
     {
-        clicked = true;
+        StartCoroutine(waitForAniStart());
     }
     IEnumerator waitForAniStart()
     {
-        yield return new WaitForSeconds(1);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        gameObject.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
+        
+        while (gameObject.transform.localPosition.x < 650) {
+            newPosX = gameObject.transform.localPosition.x + speed*1.5f;
+            newPosY = gameObject.transform.localPosition.y + speed;
+            gameObject.transform.localScale -= Vector3.one * 0.04f;
+            gameObject.transform.localPosition = new Vector3(newPosX, newPosY, gameObject.transform.localPosition.z);
+            yield return null;
+        }
         allowTouch();
-        yield return new WaitForSeconds(1);
-        clicked = false;
         gameObject.transform.localScale = Vector3.one;
         gameObject.transform.localPosition = Vector3.zero;
         gameObject.GetComponent<Image>().CrossFadeAlpha(1, 0, false);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
         gameObject.SetActive(false);
+        yield return null;
 
     }
 
-    public void terminateTouch()
-    {
+    public void terminateTouch() {
         IM.TakeControl(ID);
     }
 
     public void allowTouch()
     {
         IM.ReleaseControl(ID);
+        GameManager.time.SetTimeScale(1f);
     }
 
 
