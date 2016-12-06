@@ -20,7 +20,7 @@ public class EnemyTracker : MonoBehaviour {
 	void Start () {
         GameManager.events.OnResourcePickup += OnPickUp;
         GameManager.events.OnMapGenerated += GetTotalEnemies;
-        guideSpawned = false;
+        guideSpawned = GameManager.progress > GameManager.numberOfLevels;
 	}
 	
 
