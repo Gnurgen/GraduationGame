@@ -5,45 +5,48 @@ using System.Collections;
 
 
 public class Tutorial : MonoBehaviour {
-    public GameObject[] tutorials;
-    public GameObject prev, next;
+    public Sprite[] tutorials;
+    public GameObject prev, next, exit;
     private int currentFrame = 0;
+    private GameObject tutText;
 
     void Start() {
-        for (int i = 0; i < tutorials.Length; i++)
-            if (i != 0)
-                tutorials[i].SetActive(false);
+        tutText = GameObject.Find("TutorialText");
+        gameObject.GetComponent<Image>().overrideSprite = tutorials[0];
+        tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(0);
         prev.SetActive(false);
+        exit.SetActive(false);
 
     }
+
     public void resetFrame(){
         currentFrame = 0;
-        tutorials[0].SetActive(true);
-        for (int i = 0; i < tutorials.Length; i++)
-            if (i != 0)
-                tutorials[i].SetActive(false);
+        gameObject.GetComponent<Image>().overrideSprite = tutorials[0];
+        tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(0);
         prev.SetActive(false);
         next.SetActive(true);
+        exit.SetActive(false);
     }
 
 
     public void nextFrame() {
         currentFrame++;
-        Debug.Log(currentFrame);
-        tutorials[currentFrame-1].SetActive(false);
-        tutorials[currentFrame].SetActive(true);
+        tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(currentFrame);
+        gameObject.GetComponent<Image>().overrideSprite = tutorials[currentFrame];        
         if (currentFrame != 0)
             prev.SetActive(true);
-        if (currentFrame == tutorials.Length-1)
+        if (currentFrame == tutorials.Length - 1)
+        {
             next.SetActive(false);
+            exit.SetActive(true);
+        }
     }
 
     public void prevFrame()
     {
         currentFrame--;
-        Debug.Log(currentFrame);
-        tutorials[currentFrame+1].SetActive(false);
-        tutorials[currentFrame].SetActive(true);
+        tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(currentFrame);
+        gameObject.GetComponent<Image>().overrideSprite = tutorials[currentFrame];
         if (currentFrame != tutorials.Length)
             next.SetActive(true);
         if(currentFrame == 0)

@@ -22,7 +22,7 @@ public class SpearController : MonoBehaviour {
         while (index < points.Length)
         {
             transform.LookAt(points[index]);
-            float dist = Vector3.Distance(transform.position, points[index]);
+            //float dist = Vector3.Distance(transform.position, points[index]);
             while (Vector3.Distance(transform.position, points[index]) > 0 && NotPassedPoint(transform.position, points[index]))
             {
                 //transform.position += transform.forward * speed * Time.deltaTime;

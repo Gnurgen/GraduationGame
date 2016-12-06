@@ -25,7 +25,7 @@ public class SpearControl : MonoBehaviour {
     private float pushForce;
     private PKFxFX effectControl;
     private float globalScale;
-    private SphereCollider collider;
+    private new SphereCollider collider;
     private int currentUpgrades;
     private float xColorDelta;
     private float yColorDelta;
