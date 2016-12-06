@@ -147,7 +147,8 @@ public class PlayerControls : MonoBehaviour {
     {
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
-        while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk)
+        while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk && 
+            Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized) > 0)
         {
             currentDashCooldown = dashCooldown;
             prevPos = transform.position;
