@@ -21,9 +21,11 @@ public class BigWhispAI : MonoBehaviour {
     private PKFxFX effectControl;
     private float scatter;
     private bool waiting;
+    private PoolManager pm;
 
 	void Start()
     {
+        pm = GameManager.pool;
         player = GameManager.player.transform;
         startPosition = new Vector3(player.position.x, 1, player.position.z);
         elevatorPosition = GameObject.FindWithTag("Elevator").transform.position;
@@ -71,9 +73,9 @@ public class BigWhispAI : MonoBehaviour {
         }
         while(Vector3.Distance(player.position, elevatorPosition) > elevatorDistance)
         {
-            GameObject wisp = Instantiate(pathWhisp) as GameObject;
+            GameObject wisp = pm.GenerateObject("p_PathWhisp");
             Vector3 start = Random.insideUnitSphere * 1.5f;
-            wisp.GetComponent<PathWhispAI>().Activate(path, transform.position);
+            wisp.GetComponent<PathWhispAI>().Activate(path, transform.position + new Vector3(start.x, 1, start.z));
             yield return new WaitForSeconds(spawnFrequency);
         }
         for(int i = 0; i < activatorWhisps; i++)
