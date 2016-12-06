@@ -132,6 +132,8 @@ public class LoadingScreen : MonoBehaviour {
         GameManager.input.ReleaseControl(IMID);
         GameManager.events.FadeFromBlackToTransparent();
         SceneManager.MergeScenes(SceneManager.GetSceneByName("LoadingScreen"), SceneManager.GetSceneByName(LoadToScene));
+        yield return new WaitForEndOfFrame();
+        Resources.UnloadUnusedAssets();
         Destroy(GameObject.Find("LoadingCamera"));
         Destroy(gameObject);
         yield break;
