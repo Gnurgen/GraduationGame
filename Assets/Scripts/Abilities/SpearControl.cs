@@ -25,7 +25,7 @@ public class SpearControl : MonoBehaviour {
     private float pushForce;
     private PKFxFX effectControl;
     private float globalScale;
-    private SphereCollider collider;
+    private new SphereCollider collider;
     private int currentUpgrades;
     private float xColorDelta;
     private float yColorDelta;
@@ -44,19 +44,26 @@ public class SpearControl : MonoBehaviour {
                 index += 1;
                 if(index > 4)
                 {
-                    effects[index - 5].GetComponent<PKFxFX>().StopEffect();
+                    //effects[index - 5].GetComponent<PKFxFX>().StopEffect();
+                    effects[index - 5].transform.position = new Vector3(0, -100000, 0);
                 }
             }
             yield return null;
         }
-        foreach(GameObject go in effects)
-        {
-            go.GetComponent<PKFxFX>().StopEffect();
-        }
+        StopEffects();
         GameManager.events.SpearDrawAbilityEnd(gameObject);
         effectControl.StopEffect();
         Destroy(gameObject);
 
+    }
+
+    void StopEffects()
+    {
+        foreach (GameObject go in effects)
+        {
+            //go.GetComponent<PKFxFX>().StopEffect();
+            go.transform.position = new Vector3(0, -100000, 0);
+        }
     }
 
     void OnTriggerEnter(Collider col)
@@ -85,10 +92,7 @@ public class SpearControl : MonoBehaviour {
         else if(col.tag == "Boss")
         {
             GameManager.events.SpearDrawAbilityEnd(gameObject);
-            foreach (GameObject go in effects)
-            {
-                go.GetComponent<PKFxFX>().StopEffect();
-            }
+            StopEffects();
             HitTarget(col.gameObject);
             Destroy(gameObject);
         }

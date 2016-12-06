@@ -17,7 +17,7 @@ public class PathWhispAI : MonoBehaviour {
         index = 2;
         transform.position = start;
         effectControl = GetComponent<PKFxFX>();
-        effectControl.StartEffect();
+        //effectControl.StartEffect();
 
         StartCoroutine(Spawn());
     }
@@ -45,8 +45,10 @@ public class PathWhispAI : MonoBehaviour {
             }
             yield return null;
         }
-        effectControl.StopEffect();
-        Destroy(gameObject);
+        //effectControl.StopEffect();
+        transform.position = new Vector3(0, -100000, 0);
+        //Destroy(gameObject);
+        GameManager.pool.PoolObj(gameObject);
     }
 
     Vector3 RealVector(Vector3 v)
