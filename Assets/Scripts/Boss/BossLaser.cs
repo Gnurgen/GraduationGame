@@ -29,6 +29,7 @@ public class BossLaser : MonoBehaviour {
             lasers[i].StopEffect();
         }
         rotating = false;
+
 	}
 
     void Update()
@@ -88,27 +89,27 @@ public class BossLaser : MonoBehaviour {
             switch (index)
             {
                 case 0:
-                    rays[index].direction = transform.forward * 100 ;
+                    rays[index].direction = transform.forward * 10000 ;
                     laserSound[index].transform.position = transform.forward * distToPlayerSound;
                     break;
                 case 1:
-                    rays[index].direction = -transform.forward * 100;
+                    rays[index].direction = -transform.forward * 10000;
                     laserSound[index].transform.position = -transform.forward * distToPlayerSound;
                     break;
                 case 2:
-                    rays[index].direction = -transform.right * 100;
+                    rays[index].direction = -transform.right * 10000;
                     laserSound[index].transform.position = -transform.right * distToPlayerSound;
                     break;
                 case 3:
-                    rays[index].direction = transform.right * 100;
+                    rays[index].direction = transform.right * 10000;
                     laserSound[index].transform.position = transform.right * distToPlayerSound;
                     break;
                 default:
-                    rays[index].direction = transform.forward * 100;
+                    rays[index].direction = transform.forward * 10000;
                     laserSound[index].transform.position = transform.forward * distToPlayerSound;
                     break;
             }
-            Physics.Raycast(rays[index], out hits[index]);
+            Physics.Raycast(rays[index], out hits[index], Mathf.Infinity);
             //transform.GetChild(0).position = hit.point + Vector3.up; // vector up to account for low raycast
             //LR.SetPosition(1, transform.GetChild(0).position);
             lasers[index].SetAttribute(new PKFxManager.Attribute("Target", hits[index].point));

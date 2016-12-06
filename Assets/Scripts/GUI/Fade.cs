@@ -20,7 +20,7 @@ public class Fade : MonoBehaviour {
         GameManager.events.OnFadeToWhite += fadeToWhite;
         GameManager.events.OnFadeFromBlackToTransparent += fadeFromBlackToTransparent;
         GameManager.events.OnFadeFromWhiteToTransparent += fadeFromWhiteToTransparent;
-        GameManager.events.OnEnemyDeath += FlashWhite;
+        GameManager.events.OnPlayerDeath += FlashWhite;
     }
     private IEnumerator IEFade(int color) // 0 = black, 1 = White, 2 = Transparent
     {
@@ -50,7 +50,7 @@ public class Fade : MonoBehaviour {
     public void FlashWhite(GameObject go)
     {
         Color col = Color.white;
-        col.a = 0.2f;
+        col.a = 0.4f;
         fadeImg.color = col;
         StartCoroutine(FlashFrame(col));
     }
