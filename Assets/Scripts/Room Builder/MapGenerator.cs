@@ -104,7 +104,7 @@ public class MapGenerator : MonoBehaviour {
         totalProgress = 0;
         completed = false;
         roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
-
+        Debug.Log("DET ER NOK LIGE HER DET LAGGER FOR 5 MINUTTER PÅ TABLET");
         List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
 
         for (i = 0; i < objectList.Count; i++)
