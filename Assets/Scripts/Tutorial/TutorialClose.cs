@@ -62,6 +62,7 @@ public class TutorialClose : MonoBehaviour {
     public void allowTouch()
     {
         IM.ReleaseControl(ID);
+        GameManager.time.SetTimeScale(1f);
     }
 
 

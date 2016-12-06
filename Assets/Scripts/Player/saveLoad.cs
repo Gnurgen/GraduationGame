@@ -55,6 +55,7 @@ public class saveLoad : MonoBehaviour {
 
     public void openTutorial() {
         IM.ReleaseControl(ID);
+        tutorial.GetComponent<Tutorial>().resetFrame();
         tutorial.SetActive(true);
         menu.SetActive(false);
     }

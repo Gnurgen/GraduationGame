@@ -17,9 +17,11 @@ public class Tutorial : MonoBehaviour {
         prev.SetActive(false);
 
     }
+
     public void resetFrame(){
         currentFrame = 0;
-        gameObject.GetComponent<Image>().overrideSprite = tutorials[0];
+       gameObject.GetComponent<Image>().overrideSprite = tutorials[0];
+        tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(0);
         prev.SetActive(false);
         next.SetActive(true);
     }

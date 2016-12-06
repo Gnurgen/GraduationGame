@@ -5,8 +5,6 @@ using System.Collections;
 public class TutorialDoor : MonoBehaviour {
     float speed = 1;
     private float newPos;
-    public Sprite tutorialPic;
-    public Image mainCanvas;
     private InputManager IM;
     int ID;
 
@@ -32,10 +30,7 @@ public class TutorialDoor : MonoBehaviour {
         }
         else {
             IM.ReleaseControl(ID);
-            mainCanvas.gameObject.SetActive(true);
-            mainCanvas.overrideSprite = tutorialPic;            
-            GameObject.Find("TutorialText").GetComponent<Text>().text = GameObject.Find("Door").GetComponent<TutorialTexts>().getTextSnipped(0);
-            gameObject.SetActive(false);
+           
         }
     }
 
