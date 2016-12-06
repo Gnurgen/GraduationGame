@@ -29,15 +29,20 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
+<<<<<<< HEAD:Assets/Graphics/Sprites/Tutorial/Cone.png.meta
     filterMode: -1
     aniso: 16
+=======
+    filterMode: 1
+    aniso: 1
+>>>>>>> master:Assets/Graphics/Sprites/Tutorial/TutorialMove.png.meta
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
+  allowsAlphaSplitting: 1
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
@@ -48,7 +53,12 @@ TextureImporter:
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  buildTargetSettings:
+  - buildTarget: Android
+    maxTextureSize: 1024
+    textureFormat: -1
+    compressionQuality: 50
+    allowsAlphaSplitting: 1
   spriteSheet:
     serializedVersion: 2
     sprites: []

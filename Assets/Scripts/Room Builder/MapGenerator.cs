@@ -212,8 +212,8 @@ public class MapGenerator : MonoBehaviour {
             populate(mask, 1);
         }
 
-        startElevator.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -2.0f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
-        endElevator.transform.position = new Vector3((endRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -3.45f, -(endRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
+        startElevator.transform.position = new Vector3((startRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -2.2f, -(startRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
+        endElevator.transform.position = new Vector3((endRoom[0] + 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f, -3.25f, -(endRoom[1] - 0.5f) * RoomUnit.TILE_RATIO * RoomTile.TILE_SCALE - 1.5f);
 
         GameManager.player.transform.position = startElevator.transform.position;
         GameManager.player.transform.parent = startElevator.transform;
@@ -337,7 +337,7 @@ public class MapGenerator : MonoBehaviour {
                         go.transform.position = new Vector3(go.transform.position.x + (rotateMod < 3 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0), 0, go.transform.position.z + (rotateMod > 1 ? RoomTile.TILE_SCALE * (RoomUnit.TILE_RATIO - 1) : 0));
 
                         for (l = 0; l < tiles.Length; l++)
-                            tiles[j].transform.rotation = Quaternion.Inverse(go.transform.rotation);
+                            tiles[l].transform.Rotate(Vector3.up * 90 * rotateMod);
                     }
 
                     go.GetComponent<RoomBuilder>().HideWalls(i + 1 < mapGrid.GetLength(0) && mapGrid[i + 1, j] != null, j + 1 < mapGrid.GetLength(1) && mapGrid[i, j + 1] != null);
@@ -368,7 +368,7 @@ public class MapGenerator : MonoBehaviour {
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
         }
 
-        GameManager.events.LoadingProgress(progress/totalProgress);
+        GameManager.events.LoadingProgress((float)progress/totalProgress);
     }
 
     private void clear()
