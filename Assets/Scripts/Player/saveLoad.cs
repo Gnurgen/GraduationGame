@@ -53,4 +53,14 @@ public class saveLoad : MonoBehaviour {
         yield return new WaitForSeconds(duration);
         IM.ReleaseControl(ID);
     }
+<<<<<<< HEAD
+=======
+
+    public void openTutorial() {
+        IM.ReleaseControl(ID);
+        tutorial.SetActive(true);
+        menu.SetActive(false);
+        tutorial.GetComponent<Tutorial>().resetFrame();
+    }
+>>>>>>> master
 }
