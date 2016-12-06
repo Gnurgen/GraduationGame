@@ -20,16 +20,29 @@ public class LoadingScreen : MonoBehaviour {
 
         if (GameManager.progress == 0)
         {
-            LoadToScene = "Tutorial"; 
+            LoadToScene = "Tutorial";
             StartCoroutine(tutLevel());
         }
         else if (GameManager.progress <= GameManager.numberOfLevels) // Number of levels before Boss level 
         {
             LoadToScene = "Final";
             SceneManager.LoadSceneAsync("Final", LoadSceneMode.Additive);
-           
+
             //SceneManager.MoveGameObjectToScene(GameManager.events.gameObject, SceneManager.GetSceneByName("Final"));
         }
+
+        else if (GameManager.progress == 55)
+        {
+            LoadToScene = "FilmLvl";
+            StartCoroutine(tutLevel());
+        }
+
+        else if (GameManager.progress == 66)
+        {
+            LoadToScene = "BossLevel";
+            StartCoroutine(tutLevel());
+        }
+
         else  // Boss Level
         {
             LoadToScene = "BossLevel";

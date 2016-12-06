@@ -33,6 +33,20 @@ public class StartMenu : MonoBehaviour {
      
     }
 
+    public void loadMovieLvl()
+    {
+        PlayerPrefs.SetInt("Progress", 55);
+        GameManager.progress = 55;
+        GameManager.LoadNextLevel();
+    }
+
+    public void loadBossLvl()
+    {
+        PlayerPrefs.SetInt("Progress", 66);
+        GameManager.progress = 66;
+        GameManager.LoadNextLevel();
+    }
+
     IEnumerator playVideo()
     {
         Handheld.PlayFullScreenMovie("Sequence 01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
