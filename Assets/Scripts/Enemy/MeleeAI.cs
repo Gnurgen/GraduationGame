@@ -11,6 +11,7 @@ public class MeleeAI : EnemyStats {
     public GameObject Weapon;
 	public GameObject target;
     public bool reset = true;
+    public float delay = 3f;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
@@ -43,7 +44,7 @@ public class MeleeAI : EnemyStats {
 
     void OnEnable()
     {
-        StartCoroutine(Waiting(3));
+        StartCoroutine(Waiting(delay));
     }
 
     public bool isInTransition;
