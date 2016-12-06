@@ -6,7 +6,7 @@ using System;
 public class AstarCalculator : MonoBehaviour {
 
     public float nodeSize;
-
+    public GameObject A_Star;
     
     void Start()
     {
@@ -25,7 +25,18 @@ public class AstarCalculator : MonoBehaviour {
         if(GameManager.progress > 0 && GameManager.progress <= GameManager.numberOfLevels)
             RecalculateSize();
     }
-
+    void RecalculateSize()
+    {
+        GameObject p = Instantiate(A_Star);
+        AstarPath pA = p.GetComponent<AstarPath>();
+        MapGenerator mg = FindObjectOfType<MapGenerator>();
+        GridGraph g = (GridGraph)pA.graphs[0];
+        g.center = new Vector3(mg.mapSize.xMin + ((mg.mapSize.xMax - mg.mapSize.xMin) * 0.5f), 0, mg.mapSize.yMin - ((mg.mapSize.yMax - mg.mapSize.yMin) * 0.5f));
+        g.width = (int)(mg.mapSize.width / nodeSize);
+        g.depth = (int)(mg.mapSize.height / nodeSize);
+        g.UpdateSizeFromWidthDepth();
+        pA.Scan();
+    }
     //void Scan()
     //{
     //    GameObject[] triggers = GameObject.FindGameObjectsWithTag("TriggerBox");
@@ -97,15 +108,5 @@ public class AstarCalculator : MonoBehaviour {
     //    }
     //}
 
-    void RecalculateSize()
-    {
-        AstarPath p = FindObjectOfType<AstarPath>();
-        MapGenerator mg = FindObjectOfType<MapGenerator>();
-        GridGraph g = (GridGraph)p.graphs[0];
-        g.center = new Vector3(mg.mapSize.xMin + ((mg.mapSize.xMax - mg.mapSize.xMin) * 0.5f), 0, mg.mapSize.yMin - ((mg.mapSize.yMax - mg.mapSize.yMin) * 0.5f));
-        g.width = (int)(mg.mapSize.width / nodeSize);
-        g.depth = (int)(mg.mapSize.height / nodeSize);
-        g.UpdateSizeFromWidthDepth();
-        p.Scan();
-    }
+
 }

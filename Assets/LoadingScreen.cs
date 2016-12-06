@@ -85,8 +85,6 @@ public class LoadingScreen : MonoBehaviour {
         if (mapProgress >= totalprogress && !loadComplete && MapGenerated)
         {
             loadComplete = true;
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(LoadToScene));
-        StartCoroutine(waitingForInput(LoadToScene == "Final"));
         }
 
         saFrame++;
