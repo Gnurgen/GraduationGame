@@ -9,6 +9,12 @@ public class StartMenu : MonoBehaviour {
     public Sprite dK, eN;
     public  GameObject language;
     public GameObject fade;
+    [Header("Images")]
+    public GameObject startG;
+    public GameObject loadG, Options;
+    [Header("Text")]
+    public GameObject music;
+    public GameObject sound, lang, credits, instructions;
 
     private float showTime = 2;
 
@@ -61,6 +67,7 @@ public class StartMenu : MonoBehaviour {
         if (isDK == true)
         {
             Debug.Log("dansk");
+            changeButtonsDK();
             language.GetComponent<Image>().overrideSprite = eN;
             isDK = false;
             GameManager.game.language = GameManager.Language.Danish;
@@ -68,6 +75,7 @@ public class StartMenu : MonoBehaviour {
         else if (isDK == false)
         {
             Debug.Log("engelsk");
+            changeButtonsENG();
             language.GetComponent<Image>().overrideSprite = dK;
             isDK = true;
             GameManager.game.language = GameManager.Language.English;
@@ -78,5 +86,21 @@ public class StartMenu : MonoBehaviour {
     {
         fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
         yield return new WaitForSeconds(showTime);
+    }
+
+    void changeButtonsDK() {
+        music.GetComponent<Text>().text = "Musik";
+        sound.GetComponent<Text>().text = "Lyd";
+        lang.GetComponent<Text>().text = "Sprog";
+        credits.GetComponent<Text>().text = "Rulletekster";
+        instructions.GetComponent<Text>().text = "Instruktioner";
+    }
+    void changeButtonsENG()
+    {
+        music.GetComponent<Text>().text = "Music";
+        sound.GetComponent<Text>().text = "Sound";
+        lang.GetComponent<Text>().text = "Language";
+        credits.GetComponent<Text>().text = "Credits";
+        instructions.GetComponent<Text>().text = "Instructions";
     }
 }
