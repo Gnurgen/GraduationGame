@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class saveLoad : MonoBehaviour {
     //Variables to be saved
-    public GameObject menu;
+    public GameObject menu, tutorial;
     //Manager 
     InputManager IM;
     private int ID;
@@ -55,7 +55,8 @@ public class saveLoad : MonoBehaviour {
     }
 
     public void openTutorial() {
-        GameObject.Find("Tutorial").SetActive(true);
-        GameObject.Find("OptionsMenu").SetActive(false);
+        IM.ReleaseControl(ID);
+        tutorial.SetActive(true);
+        menu.SetActive(false);
     }
 }

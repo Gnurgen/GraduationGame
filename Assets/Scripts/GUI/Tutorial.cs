@@ -8,8 +8,11 @@ public class Tutorial : MonoBehaviour {
     public Sprite[] tutorials;
     public GameObject prev, next;
     private int currentFrame = 0;
+    private GameObject tutText;
 
     void Start() {
+        tutText = GameObject.Find("TutorialText");
+        tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(0);
         gameObject.GetComponent<Image>().overrideSprite = tutorials[0];
         prev.SetActive(false);
 
@@ -25,6 +28,7 @@ public class Tutorial : MonoBehaviour {
     public void nextFrame() {
         currentFrame++;
         Debug.Log(currentFrame);
+        tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(currentFrame);
         gameObject.GetComponent<Image>().overrideSprite = tutorials[currentFrame];        
         if (currentFrame != 0)
             prev.SetActive(true);
@@ -35,6 +39,7 @@ public class Tutorial : MonoBehaviour {
     public void prevFrame()
     {
         currentFrame--;
+        tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(currentFrame);
         Debug.Log(currentFrame);
         gameObject.GetComponent<Image>().overrideSprite = tutorials[currentFrame];
         if (currentFrame != tutorials.Length)
