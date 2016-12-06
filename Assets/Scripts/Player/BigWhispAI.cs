@@ -72,14 +72,15 @@ public class BigWhispAI : MonoBehaviour {
         while(Vector3.Distance(player.position, elevatorPosition) > elevatorDistance)
         {
             GameObject wisp = Instantiate(pathWhisp) as GameObject;
-            wisp.GetComponent<PathWhispAI>().Activate(path);
+            Vector3 start = Random.insideUnitSphere * 1.5f;
+            wisp.GetComponent<PathWhispAI>().Activate(path, transform.position + new Vector3(start.x, 1, start.z));
             yield return new WaitForSeconds(spawnFrequency);
         }
         for(int i = 0; i < activatorWhisps; i++)
         {
             Vector2 rand = Random.insideUnitCircle * 3;
             GameObject actWisp = Instantiate(activator) as GameObject;
-            actWisp.GetComponent<WhispActivationAI>().Activate(new Vector3(elevatorPosition.x, 1, elevatorPosition.z), new Vector3(elevatorPosition.x + rand.x + elevatorDistance, 1, elevatorPosition.z + rand.y + elevatorDistance));
+            actWisp.GetComponent<WhispActivationAI>().Activate(new Vector3(elevatorPosition.x, 1, elevatorPosition.z), new Vector3(elevatorPosition.x + rand.x * elevatorDistance, 1, elevatorPosition.z + rand.y * elevatorDistance));
             yield return null;
         }
         yield return new WaitForSeconds(1f);
