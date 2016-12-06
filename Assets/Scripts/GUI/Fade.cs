@@ -20,6 +20,7 @@ public class Fade : MonoBehaviour {
         GameManager.events.OnFadeToWhite += fadeToWhite;
         GameManager.events.OnFadeFromBlackToTransparent += fadeFromBlackToTransparent;
         GameManager.events.OnFadeFromWhiteToTransparent += fadeFromWhiteToTransparent;
+        GameManager.events.OnPlayerDeath += FlashWhite;
     }
     private IEnumerator IEFade(int color) // 0 = black, 1 = White, 2 = Transparent
     {
@@ -46,6 +47,21 @@ public class Fade : MonoBehaviour {
                 break;
         }
     }
+    public void FlashWhite(GameObject go)
+    {
+        Color col = Color.white;
+        col.a = 0.4f;
+        fadeImg.color = col;
+        StartCoroutine(FlashFrame(col));
+    }
+
+    private IEnumerator FlashFrame(Color col)
+    {
+        fadeImg.color = col;
+        yield return null;
+        fadeImg.color = alpha;
+    }
+
     public void fadeToBlack() {
         startColor = alpha;
         endColor = black;

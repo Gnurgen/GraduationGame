@@ -30,10 +30,8 @@ public class WhispGuidingAI : MonoBehaviour {
     private Transform elevator;
     private PKFxFX effectControl;
     private float scatter;
-    private Path path;
-    private bool waiting;
-    private int index;
-    private Vector3 guidingPoint;
+    private Vector3 guidingDir;
+    private Vector3 dir;
 
     void Start()
     {
@@ -49,18 +47,8 @@ public class WhispGuidingAI : MonoBehaviour {
     {
         effectControl.StopEffect();
         GameManager.events.GuideWhispScatter(gameObject);
+        guidingDir = elevator.position - player.position;
         seeker.StartPath(player.position, elevator.position, ReceivePath);
-        waiting = true;
-        yield return new WaitForSeconds(1f);
-        while (waiting || path == null)
-        {
-            if (!waiting)
-            {
-                seeker.StartPath(player.position, elevator.position, ReceivePath);
-                waiting = true;
-            }
-            yield return null;
-        }
         transform.position = spear.position;
         scatter = endScatter;
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
@@ -72,9 +60,9 @@ public class WhispGuidingAI : MonoBehaviour {
             scatter += scatterRate * Time.deltaTime;
             yield return null;
         }
-        StartCoroutine(Guiding());
         while (scatter > endScatter)
         {
+            transform.position = new Vector3(player.position.x + guidingDir.x, 1, player.position.z + guidingDir.z);
             effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
             scatter -= scatterRate * Time.deltaTime;
             yield return null;
@@ -82,17 +70,20 @@ public class WhispGuidingAI : MonoBehaviour {
         scatter = endScatter;
         GameManager.events.GuideWhispScatterStop(gameObject);
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
+        StartCoroutine(Guiding());
         yield break;
     }
 
     IEnumerator Guiding()
     {
         GameManager.events.GuideWhispFollowPath(gameObject);
-        while(index < path.vectorPath.Count && Vector3.Distance(transform.position, elevator.position) > activationDistance)
+        while(Vector3.Distance(transform.position, elevator.position) > activationDistance)
         {
-            transform.position = guidingPoint;
+            transform.position = new Vector3(player.position.x + guidingDir.x, 1, player.position.z + guidingDir.z);
             yield return null;
         }
+        dir = (elevator.position - player.position).normalized;
+        transform.position = elevator.position + new Vector3(dir.x * activationDistance, 1, dir.z * activationDistance);
         StartCoroutine(ActivatingElevator());
         yield break;
     }
@@ -120,30 +111,16 @@ public class WhispGuidingAI : MonoBehaviour {
 
     void ReceivePath(Path path)
     {
-        waiting = false;
-        this.path = path;
-        print(path.vectorPath.Count);
-        index = 0;
-        StartCoroutine(PathFollower());
-    }
-
-    IEnumerator PathFollower()
-    {
-        while(index < path.vectorPath.Count)
+        if (path.vectorPath.Count > 2)
         {
-            Vector3 dir = (path.vectorPath[index] - player.position).normalized;
-            guidingPoint = player.position + new Vector3(dir.x * guidingRange, 1, dir.z * guidingRange);
-            float dist = (Vector3.Distance(transform.position, path.vectorPath[index]));
-            for (int i = index; i < path.vectorPath.Count; i++)
-            {
-                if(Vector3.Distance(transform.position, path.vectorPath[i]) < dist)
-                {
-                    index = i;
-                    dist = Vector3.Distance(transform.position, path.vectorPath[i]);
-                }
-            }
-            yield return null;
+            dir = (path.vectorPath[2] - player.position).normalized;
         }
-        yield break;
+        else
+        {
+            dir = (path.vectorPath[1] - player.position).normalized;
+        }
+        guidingDir = new Vector3(dir.x * guidingRange, 1, dir.z * guidingRange);
+        if(Vector3.Distance(transform.position, elevator.position) > activationDistance)
+            seeker.StartPath(player.position, elevator.position, ReceivePath);
     }
 }
