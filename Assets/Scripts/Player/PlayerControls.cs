@@ -25,6 +25,8 @@ public class PlayerControls : MonoBehaviour {
     private bool ControlDuringDash = false, AbilitiesDuringDash = false;
     [SerializeField]
     private float abilityTouchOffset, abilityTouchMoveDistance;
+    [SerializeField]
+    private AnimationCurve adsr;
     private bool ResumeMovementAfterAbility = false;
     public GameObject ClickFeedBack;
 
