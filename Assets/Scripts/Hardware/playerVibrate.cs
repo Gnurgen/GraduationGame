@@ -2,27 +2,29 @@
 using System.Collections;
 
 public class playerVibrate : MonoBehaviour {
-#if UNITY_EDITOR
-    void Start()
-    {
-        print("LOL");
-    }
 
-#elif UNITY_ANDROID
-    public long enemyHitVibration = 10000;
+    public bool useVibrations = false;
+
+    public long enemyHitVibration = 200;
     public long elevatorVibration = 100;
     private InputManager IM;
     private EventManager EM;
     int ID;
 
     void Start () {
-        IM = GameManager.input;
-        ID = IM.GetID();
-        EM = GameManager.events;
 
-        EM.OnEnemyAttackHit += vibrateHit;
-        EM.OnLoadComplete += vibrateElevatorActivation;
-        EM.OnCameraShake += vibrateCameraShake;
+        GameManager.useVibrations = useVibrations;
+
+        if(GameManager.useVibrations)
+        {
+            IM = GameManager.input;
+            ID = IM.GetID();
+            EM = GameManager.events;
+
+            EM.OnEnemyAttackHit += vibrateHit;
+            EM.OnLoadComplete += vibrateElevatorActivation;
+            EM.OnCameraShake += vibrateCameraShake;
+        }
 	}
 
     void vibrateHit(GameObject ID, float dmg)
@@ -39,5 +41,4 @@ public class playerVibrate : MonoBehaviour {
     {
         Vibrator.Vibrate((long)(seconds * 1000f));
     }
-#endif
 }
