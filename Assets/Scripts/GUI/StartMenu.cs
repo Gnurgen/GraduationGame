@@ -40,6 +40,11 @@ public class StartMenu : MonoBehaviour {
      
     }
 
+    public void UseVibration()
+    {
+        GameManager.useVibrations = GameObject.FindObjectOfType<Toggle>().isOn;
+    }
+
     IEnumerator playVideo()
     {
         Handheld.PlayFullScreenMovie("Sequence 01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
