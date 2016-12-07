@@ -107,7 +107,6 @@ public class MapGenerator : MonoBehaviour {
         progressCoords = new int[] { 0, 0 };
         completed = false;
         roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
-
         List<GameObject> objectList = Resources.LoadAll("Room").Cast<GameObject>().Where(g => g.GetComponent<RoomBuilder>().roomLevel <= mapLevel).ToList();
 
         for (i = 0; i < objectList.Count; i++)
