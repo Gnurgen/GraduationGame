@@ -7,13 +7,14 @@ public class InputManager : MonoBehaviour {
 	// ----- Method wrappers for subscribing to input -----
 	public delegate void Vector2Delegate(Vector2 points);
 	public delegate void SwipeDelegate(Swipe swipe);
-    // REMOVE THIS
+    // Click feedback
     public GameObject effect;
-
     IEnumerator PlayEffect(Vector2 pos)
     {
         GameObject obj = Instantiate(effect) as GameObject;
-        obj.transform.position = GetWorldPoint(pos);
+        Vector3 pos3 = GetWorldPoint(pos);
+        obj.transform.position = pos3 + (Camera.main.transform.position - pos3).normalized * 1.5f;
+        //obj.GetComponent<PKFxFX>().SetAttribute(new PKFxManager("SymbolColor"));
         obj.GetComponent<PKFxFX>().StartEffect();
         yield return new WaitForSeconds(0.5f);
         Destroy(obj);
@@ -141,7 +142,6 @@ public class InputManager : MonoBehaviour {
                 switch (Input.touches[i].phase)
                 {
                 case TouchPhase.Began:
-                    StartCoroutine(PlayEffect(Input.touches[i].position));
                     currentTouchSession.AddTouchBegin(Input.touches[i]);
                     lastValidFirstMovePoint = Input.touches[i].position;
                     OnFirstTouchBegin(Input.touches[i]);
@@ -149,13 +149,11 @@ public class InputManager : MonoBehaviour {
                 case TouchPhase.Moved:
                     if (Vector2.Distance(Input.touches[i].position, lastValidFirstMovePoint) > distanceToMove)
                     {
-                            StartCoroutine(PlayEffect(Input.touches[i].position));
                             lastValidFirstMovePoint = Input.touches[i].position;
                         OnFirstTouchMove(Input.touches[i]);
                     }
                     break;
                 case TouchPhase.Ended:
-                        StartCoroutine(PlayEffect(Input.touches[i].position));
                         currentTouchSession.AddTouchEnd(Input.touches[i]);
                     OnFirstTouchEnd(Input.touches[i]);
                     AdvancedInputAnalysis();
@@ -511,8 +509,9 @@ public class InputManager : MonoBehaviour {
 	}
 
 	void OnTap(Touch t)
-	{
-		if (tapMethods.Count > 0) {
+    {
+        StartCoroutine(PlayEffect(t.position));
+        if (tapMethods.Count > 0) {
 			if (owner < 0) {
 				foreach (MethodVectorID mvi in tapMethods) {
 					mvi.method (t.position);
