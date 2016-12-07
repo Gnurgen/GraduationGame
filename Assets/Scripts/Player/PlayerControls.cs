@@ -74,7 +74,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (state == State.Dashing || state == State.Moving)
         {
-            float colCheckDist = state==State.Dashing ? 0.6f : 0.3f;
+            float colCheckDist = state == State.Dashing ? (transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime).magnitude : (transform.forward * moveSpeed * Time.fixedDeltaTime).magnitude;
             if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, colCheckDist, 1 << coneBlock))
             {
                 if (state == State.Dashing)
@@ -114,7 +114,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (state == State.Moving)
             yield break;
-        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward * moveSpeed * Time.deltaTime).magnitude, 1 << coneBlock))
+        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward * moveSpeed * Time.fixedDeltaTime).magnitude, 1 << coneBlock))
         {
             StartCoroutine(Idle());
             yield break;
@@ -160,7 +160,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (state == State.Dashing)
         yield break;
-        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward*moveSpeed*dashSpeedMultiplier*Time.deltaTime).magnitude, 1 << coneBlock))
+        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward*moveSpeed*dashSpeedMultiplier*Time.fixedDeltaTime).magnitude, 1 << coneBlock))
         {
             StartCoroutine(Moving());
             yield break;
@@ -251,7 +251,7 @@ public class PlayerControls : MonoBehaviour {
 
     void Tap(Vector2 p)
     {
-        if ((state != State.Dashing || ControlDuringDash) && curTouchCooldown<=0f)
+        if (state != State.Dashing || ControlDuringDash)
         {
             curTouchCooldown = touchCooldown;
             MoveToPoint = im.GetWorldPoint(p);

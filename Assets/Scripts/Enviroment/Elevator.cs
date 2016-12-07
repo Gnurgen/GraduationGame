@@ -6,7 +6,7 @@ using System;
 
 public class Elevator : MonoBehaviour
 {
-    public GameObject invisibleWalls;
+    public GameObject invisibleWalls, invisibleWalls2;
     private GameObject fade;
     
     CapsuleCollider CC;
@@ -33,6 +33,7 @@ public class Elevator : MonoBehaviour
         mat.color = col;
         CC = GetComponent<CapsuleCollider>();
         invisibleWalls.SetActive(false);
+        invisibleWalls2.SetActive(false);
         CC.enabled = false;
     }
     
@@ -59,13 +60,20 @@ public class Elevator : MonoBehaviour
     {
         if (col.tag == "Player" && spiritLevelBar.GetProgress() == 1)
         {
+            invisibleWalls2.SetActive(true);
             invisibleWalls.SetActive(true);
             player.transform.parent = gameObject.transform;
+<<<<<<< HEAD
             StartCoroutine(elevatorLift());
             CC.enabled = false;
+=======
+            CC.enabled = false; 
+            StartCoroutine(elevatorLift());
+>>>>>>> 3143b72260451fdb1db3adf660de81933750534d
         }
         else if (InvisWall && col.tag == "Enemy")
         {
+            col.GetComponent<Health>().decreaseHealth(100,col.transform.position-transform.position,3);
             GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, 10f);
         }
 
@@ -74,6 +82,7 @@ public class Elevator : MonoBehaviour
     {
         if (InvisWall && col.tag == "Enemy")
         {
+            col.GetComponent<Health>().decreaseHealth(100, col.transform.position - transform.position, 3);
             GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, 10f);
         }
     }

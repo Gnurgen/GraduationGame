@@ -53,6 +53,7 @@ public class SpearControl : MonoBehaviour {
         StopEffects();
         GameManager.events.SpearDrawAbilityEnd(gameObject);
         effectControl.StopEffect();
+        GameManager.player.GetComponent<FlyingSpear>().currentCooldown = 0;
         Destroy(gameObject);
 
     }
@@ -94,6 +95,7 @@ public class SpearControl : MonoBehaviour {
             GameManager.events.SpearDrawAbilityEnd(gameObject);
             StopEffects();
             HitTarget(col.gameObject);
+            GameManager.player.GetComponent<FlyingSpear>().currentCooldown = 0;
             Destroy(gameObject);
         }
     }
