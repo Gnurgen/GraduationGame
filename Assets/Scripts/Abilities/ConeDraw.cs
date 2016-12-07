@@ -98,7 +98,7 @@ void Update()
         {
             normRamp = normRamp < 1f ? normRamp + Time.deltaTime / rampUp : 1;
             float rampedScale = 2f + normRamp / 2f;
-            Vector3 curColor = new Vector3(normRamp*3f/4f, 0, 1f-normRamp/2f); //   0r, 0g, 1b        0.75r, 0g, 0.5b
+            Vector3 curColor = new Vector3(normRamp*3f/4f, 0, 1f-normRamp/2f);
             Vector3 curSubCol = Vector3.one * (1f - normRamp / 2f);
             for (int x = 0; x<activeTris+1; ++x)
             {
@@ -145,8 +145,6 @@ void Update()
         fx.GetAttribute(direction).ValueFloat3 = baseParticleDirection;
         fx.GetAttribute(power).ValueFloat = baseParticlePower;
         fx.GetAttribute(subColor).ValueFloat3 = baseSubCol;
-        //fx.StopEffect();
-        //GameManager.pool.PoolObj(obj);
     }
 
     private void setParticleFireValue(GameObject obj)
@@ -159,8 +157,6 @@ void Update()
         fx.GetAttribute(direction).ValueFloat3 = particleFireDirection;
         fx.GetAttribute(power).ValueFloat = fireParticlePower;
         fx.GetAttribute(subColor).ValueFloat3 = chargedSubCol;
-        //fx.KillEffect();
-        //fx.StartEffect();
     }
 
    
@@ -193,8 +189,6 @@ void Update()
         im.OnFirstTouchMoveUnsub(ID);
         im.OnFirstTouchEndUnsub(ID);
         // Actually use the ability with the drawn points
-       
-        
         normRamp = 0;
         drawnParts = 0;
         if (doDraw)//If ability was not cancelled
@@ -210,7 +204,7 @@ void Update()
             }
             for (int x = 0; x<activeTris+1; ++x)
             {
-                ray = new Ray(transform.position + (Vector3.up * .5f), particleDirection[x]);
+                ray = new Ray(transform.position + Vector3.up * .5f, particleDirection[x]-Vector3.up*.5f);
                 eHit = Physics.RaycastAll(ray, particleDirection[x].magnitude, 1<<layerEnemy);
                 for(int k = 0; k<eHit.Length; ++k)
                 {
@@ -235,8 +229,6 @@ void Update()
                     if (coneTravel>=coneDest)
                     {
                         resetParticleValue(conePart[x]);
-                        // NEW TEST
-                        //particlePos[x] = conePart[x].transform.position;
                         conePart[x].transform.position = particleDisable;
 
                         doneParticles++;
@@ -259,8 +251,6 @@ void Update()
         for (int x = 0; x < conePart.Count; ++x)
         {
             resetParticleValue(conePart[x]);
-            // NEW TEST
-            //particlePos[x] = conePart[x].transform.position;
             conePart[x].transform.position = particleDisable;
         }
         yield break;
@@ -334,12 +324,7 @@ void Update()
             damage = baseDamage;
             for (int x = 0; x < conePart.Count; ++x)
             {
-                // NEW TEST
-                //particlePos[x] = conePart[x].transform.position;
                 conePart[x].transform.position = particleDisable;
-
-                //conePart[x].GetComponent<PKFxFX>().StopEffect();
-                //GameManager.pool.PoolObj(conePart[x]);
             }
             drawnParts = 0;
             activeTris = 0;
@@ -373,14 +358,12 @@ void Update()
             {
                 float phi = clockwise ? coneResolution - l * _2pi / coneResolution : l * _2pi / coneResolution;
                 Vector3 curPart = myRot * new Vector3(Mathf.Cos(phi), 0, -Mathf.Sin(phi));
-                ray = new Ray(transform.position, curPart);
+                ray = new Ray(transform.position+Vector3.up*0.5f, curPart);
                 if (Physics.Raycast(ray, out hit, length, onlyHitLayermask))
                 {
                     Vector3 point = curPart * hit.distance;
                     point.y = 0.5f;
                     particlePos[count] = transform.position + point;
-                    //conePart[count].transform.position = transform.position + point;
-                    //conePart[count].transform.LookAt(transform.position);
                     particleLength[count] = hit.distance;
                 }
                 else
@@ -388,31 +371,19 @@ void Update()
                     Vector3 point = curPart * length;
                     point.y = 0.5f;
                     particlePos[count] = transform.position + point;
-                    //conePart[count].transform.position = transform.position + point;
-                    //conePart[count].transform.LookAt(transform.position);
                     particleLength[count] = length;
                     
                 }
                 conePart[count].transform.position = particlePos[count];
                 conePart[count].transform.LookAt(transform.position);
                 particleDirection[count] = conePart[count].transform.position - transform.position;
-                //if (count > drawnParts)
-                //{
-                //    conePart[count].transform.position = particlePos[count];
-                //    //conePart[count].SetActive(true);
-                //    //conePart[count].GetComponent<PKFxFX>().StartEffect();
-                //}
                 count++;
             }
             if (drawnParts > activeTris)
             {
                 for (int x = conePart.Count - 1; x != activeTris - 1; --x)
                 {
-                    // NEW TEST
-                    //particlePos[x] = conePart[x].transform.position;
                     conePart[x].transform.position = particleDisable;
-                    //conePart[x].GetComponent<PKFxFX>().StopEffect();
-                    //GameManager.pool.PoolObj(conePart[x]);
                 }
             }
             drawnParts = activeTris;
