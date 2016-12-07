@@ -15,6 +15,7 @@ public class GenerateHealthScript : MonoBehaviour {
         for (int i = 0; i < healthBars.Length; i++) {
             healthBar = Instantiate(HealthBarPrefab);
             healthBar.transform.SetParent(canvas);
+            healthBar.transform.SetAsFirstSibling();
             healthBar.transform.localRotation = Quaternion.Euler(0,0,0);
             healthBars[i] = healthBar;
         }
