@@ -11,6 +11,7 @@ public class Elevator : MonoBehaviour
     
     CapsuleCollider CC;
     Material mat;
+    private bool InvisWall;
     private GameObject player;
     private float preLift = 2;
     private float underLift = 3;
@@ -28,6 +29,7 @@ public class Elevator : MonoBehaviour
         Color col = new Color(0.3f, 0.3f, 0.3f);
         mat.color = col;
         CC = GetComponent<CapsuleCollider>();
+        invisibleWalls.SetActive(false);
         CC.enabled = false;
     }
    
@@ -61,12 +63,27 @@ public class Elevator : MonoBehaviour
             StartCoroutine(elevatorLift());
             CC.enabled = false; 
         }
+        if (InvisWall && col.tag == "Enemy")
+        {
+            GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, 10f);
+        }
+
     }
+    void OnTriggerStay(Collider col) 
+    {
+        if (InvisWall && col.tag == "Enemy")
+        {
+            GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, 10f);
+        }
+    }
+   
 
     IEnumerator elevatorLift()
     {
+    
         yield return new WaitForSeconds(preLift);
         GameManager.events.ElevatorMoveStart();
+
         float newPos = gameObject.transform.position.y + Time.deltaTime * speed;
         float newPosStart = newPos;
         GameManager.events.FadeToBlack();
