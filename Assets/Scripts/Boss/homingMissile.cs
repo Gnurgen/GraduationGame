@@ -9,7 +9,7 @@ public class homingMissile : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.KeypadMinus))
         {
-            GameObject HMP = Instantiate(HomingMissilePrefab, transform.position, Quaternion.identity) as GameObject;
+            //GameObject HMP = Instantiate(HomingMissilePrefab, transform.position, Quaternion.identity) as GameObject;
           //  HMP.GetComponent<HomingMissleAI>().SetParameters(Speed,Damage);
         }
 	}

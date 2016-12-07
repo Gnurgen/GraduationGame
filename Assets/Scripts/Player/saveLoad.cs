@@ -44,7 +44,7 @@ public class saveLoad : MonoBehaviour {
     }
     void terminateTouch()
     {
-        Debug.Log("Terminate Touch");
+
         IM.TakeControl(ID);
     }
 
@@ -53,4 +53,13 @@ public class saveLoad : MonoBehaviour {
         yield return new WaitForSeconds(duration);
         IM.ReleaseControl(ID);
     }
+
+    /*
+    public void openTutorial() {
+        IM.ReleaseControl(ID);
+        tutorial.SetActive(true);
+        menu.SetActive(false);
+        tutorial.GetComponent<Tutorial>().resetFrame();
+    }*/
+
 }
