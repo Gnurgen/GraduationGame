@@ -2,6 +2,13 @@
 using System.Collections;
 
 public class playerVibrate : MonoBehaviour {
+#if UNITY_EDITOR
+    void Start()
+    {
+        print("LOL");
+    }
+
+#elif UNITY_ANDROID
     public long enemyHitVibration = 10000;
     public long elevatorVibration = 100;
     private InputManager IM;
@@ -20,22 +27,17 @@ public class playerVibrate : MonoBehaviour {
 
     void vibrateHit(GameObject ID, float dmg)
     {
-#if UNITY_ANDROID
         Vibrator.Vibrate(enemyHitVibration);
-#endif
     }
 
     void vibrateElevatorActivation()
     {
-#if UNITY_ANDROID
         Vibrator.Vibrate(elevatorVibration);
-#endif
     }
 
     void vibrateCameraShake(float seconds)
     {
-#if UNITY_ANDROID
         Vibrator.Vibrate((long)(seconds * 1000f));
-#endif
     }
+#endif
 }
