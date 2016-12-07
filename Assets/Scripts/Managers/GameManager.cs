@@ -24,6 +24,7 @@ public class GameManager {
   
     private Menu _menu;
     private static int _score, _experience, _playerLevel, _progress;
+    private static bool _useVibrations;
 
     public GameManager()
     {
@@ -41,9 +42,6 @@ public class GameManager {
         //menu.gameObject.SetActive(false);
 
     }
-
-
-
 
     public static int score
     {
@@ -104,6 +102,17 @@ public class GameManager {
         set
         {
             _numberOfLevels = value;
+        }
+    }
+    public static bool useVibrations
+    {
+        get
+        {
+            return _useVibrations;
+        }
+        set
+        {
+            _useVibrations = value;
         }
     }
 
