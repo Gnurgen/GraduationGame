@@ -13,6 +13,8 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID ANT_WISP_LOOP_PLAY = 3952016716U;
+        static const AkUniqueID ANT_WISP_LOOP_STOP = 1626834006U;
         static const AkUniqueID BOSS_BEAM_PLAY = 3074393677U;
         static const AkUniqueID BOSS_BEAM_STOP = 4191587739U;
         static const AkUniqueID BOSS_BEAM_TARGET_PLAY = 1433984317U;
@@ -38,6 +40,7 @@ namespace AK
         static const AkUniqueID DRAW_ABILITY_STOP = 2972852827U;
         static const AkUniqueID ELEVATOR_PLAY = 482819944U;
         static const AkUniqueID ELEVATOR_STOP = 2818913498U;
+        static const AkUniqueID ELEVATOR_STOPPING_PLAY = 638450059U;
         static const AkUniqueID ENEMY_AGGRO_PLAY = 2317625885U;
         static const AkUniqueID ENEMY_DEATH_PLAY = 4192965245U;
         static const AkUniqueID ENEMY_MELEE_HIT_PLAYER_PLAY = 1233116581U;
@@ -88,12 +91,15 @@ namespace AK
             namespace STATE
             {
                 static const AkUniqueID AFTER_BOSS = 1362486867U;
+                static const AkUniqueID BEFORE_BOSS = 3173468884U;
                 static const AkUniqueID IN_ABILITY_CONTROL = 3853226033U;
                 static const AkUniqueID IN_ABILITY_WHEEL = 878736223U;
                 static const AkUniqueID IN_BATTLE = 210928257U;
+                static const AkUniqueID IN_BOSS_BATTLE = 4195558437U;
                 static const AkUniqueID IN_ENDING_CUTSCENE = 3858937137U;
                 static const AkUniqueID IN_INTRO_CUTSCENE = 2874168282U;
                 static const AkUniqueID IN_LOADING_SCREEN = 3834966784U;
+                static const AkUniqueID IN_LOADING_SCREEN_AFTER_INTRO_CUTSCENE = 2108726247U;
                 static const AkUniqueID IN_MAIN_MENU = 1415091186U;
                 static const AkUniqueID IN_SPLASH = 3959165662U;
                 static const AkUniqueID OUT_OF_BATTLE = 304575330U;

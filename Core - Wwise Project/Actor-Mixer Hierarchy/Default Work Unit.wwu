@@ -5452,6 +5452,30 @@
 								</State>
 							</CustomState>
 							<CustomState>
+								<StateRef Name="In_Main_Menu" ID="{30AAF2FF-C440-41EE-863A-7B205A9F269D}"/>
+								<State Name="Custom State" ID="{8127EA96-2D95-4D0E-995A-C80F3B430D5D}" ShortID="268945242">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Splash" ID="{1AAFDD8E-EC8E-43FB-9EE1-624DB9F91356}"/>
+								<State Name="Custom State" ID="{B368EBD7-5C4B-40BA-8A0B-86C253BA300E}" ShortID="603664613">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Intro_Cutscene" ID="{FF09B547-76FF-48B8-AFD8-C42D9E47136E}"/>
+								<State Name="Custom State" ID="{59DFF6F4-4D8D-4A98-8BBA-94A9F89D0113}" ShortID="728673169">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
 								<StateRef Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
 								<State Name="Custom State" ID="{EB730E67-CB69-4DC0-A419-AB01577EA12E}" ShortID="300495557">
 									<PropertyList>
@@ -5869,7 +5893,7 @@
 										<Property Name="PositioningType" Type="int16" Value="1"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-10</Value>
+												<Value>-9</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -5922,6 +5946,141 @@
 										<ActiveSource Name="Wisp Spawn Loop" ID="{2A125D8D-4CC1-4C5E-87D9-36C5F9FF0F42}" Platform="Linked"/>
 									</ActiveSourceList>
 								</Sound>
+								<Sound Name="Ant Wisp Loop" ID="{3A44256F-825E-4024-A228-0F2B8D79B9F1}" ShortID="77877268" Type="SoundFX">
+									<PropertyList>
+										<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+										<Property Name="OverridePositioning" Type="bool" Value="True"/>
+										<Property Name="Pitch" Type="int32">
+											<ValueList>
+												<Value>1200</Value>
+											</ValueList>
+										</Property>
+										<Property Name="PositioningType" Type="int16" Value="1"/>
+										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>-10</Value>
+											</ValueList>
+										</Property>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="Attenuation">
+											<Custom CreatedFrom="{9379710B-A6EE-4514-9BF0-D819DBE3785D}">
+												<Attenuation Name="Wisp (Custom)" ID="{1FB9E1C3-07AB-4AE6-B5AB-29DA0A773D03}" ShortID="28216799">
+													<PropertyList>
+														<Property Name="RadiusMax" Type="Real64" Value="8"/>
+													</PropertyList>
+													<CurveUsageInfoList>
+														<VolumeDryUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																<Curve Name="VolumeDry" ID="{D0F1FDCE-AE16-4ECF-AFB7-FF643B46F443}">
+																	<PropertyList>
+																		<Property Name="Flags" Type="int32" Value="3"/>
+																	</PropertyList>
+																	<PointList>
+																		<Point>
+																			<XPos>0</XPos>
+																			<YPos>0</YPos>
+																			<Flags>5</Flags>
+																			<SegmentShape>Log1</SegmentShape>
+																		</Point>
+																		<Point>
+																			<XPos>1</XPos>
+																			<YPos>-3</YPos>
+																			<Flags>0</Flags>
+																			<SegmentShape>Log2</SegmentShape>
+																		</Point>
+																		<Point>
+																			<XPos>8</XPos>
+																			<YPos>-200</YPos>
+																			<Flags>37</Flags>
+																		</Point>
+																	</PointList>
+																</Curve>
+															</CurveUsageInfo>
+														</VolumeDryUsage>
+														<VolumeWetGameUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+														</VolumeWetGameUsage>
+														<VolumeWetUserUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="UseVolumeDry"/>
+														</VolumeWetUserUsage>
+														<LowPassFilterUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																<Curve Name="LowPassFilter" ID="{BA313EE4-D100-4930-BE8A-B9E632CE1CAE}">
+																	<PropertyList>
+																		<Property Name="Flags" Type="int32" Value="65537"/>
+																	</PropertyList>
+																	<PointList>
+																		<Point>
+																			<XPos>0</XPos>
+																			<YPos>0</YPos>
+																			<Flags>5</Flags>
+																			<SegmentShape>Exp2</SegmentShape>
+																		</Point>
+																		<Point>
+																			<XPos>8</XPos>
+																			<YPos>30</YPos>
+																			<Flags>37</Flags>
+																		</Point>
+																	</PointList>
+																</Curve>
+															</CurveUsageInfo>
+														</LowPassFilterUsage>
+														<HighPassFilterUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+														</HighPassFilterUsage>
+														<SpreadUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
+																<Curve Name="Spread" ID="{A33CA365-96C1-4614-91E5-EE57E6FB7C7D}">
+																	<PropertyList>
+																		<Property Name="Flags" Type="int32" Value="1"/>
+																	</PropertyList>
+																	<PointList>
+																		<Point>
+																			<XPos>0</XPos>
+																			<YPos>65</YPos>
+																			<Flags>5</Flags>
+																			<SegmentShape>Log3</SegmentShape>
+																		</Point>
+																		<Point>
+																			<XPos>8</XPos>
+																			<YPos>0</YPos>
+																			<Flags>37</Flags>
+																		</Point>
+																	</PointList>
+																</Curve>
+															</CurveUsageInfo>
+														</SpreadUsage>
+														<FocusUsage>
+															<CurveUsageInfo Platform="Linked" CurveToUse="None"/>
+														</FocusUsage>
+													</CurveUsageInfoList>
+												</Attenuation>
+											</Custom>
+										</Reference>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="SFX" ID="{81064A31-8B87-4288-990F-22A6A30286EA}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+										<Reference Name="UserAuxSend0">
+											<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Wisp Loop" ID="{5C4FC02E-6EA7-4BF4-BEED-60245582FA11}" ShortID="934191368">
+											<Language>SFX</Language>
+											<AudioFile>Wisp Loop.wav</AudioFile>
+											<ConvertedFileIDList>
+												<File ID="590688327"/>
+											</ConvertedFileIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Wisp Loop" ID="{5C4FC02E-6EA7-4BF4-BEED-60245582FA11}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
 							</ChildrenList>
 							<StateInfo>
 								<StateGroupList>
@@ -5941,6 +6100,47 @@
 								</CustomStateList>
 							</StateInfo>
 						</ActorMixer>
+						<Sound Name="Elevator Stopping" ID="{03069ADE-9738-4127-B4F0-924FDBE3564C}" ShortID="443333130" Type="SoundFX">
+							<PropertyList>
+								<Property Name="Lowpass" Type="int16">
+									<ValueList>
+										<Value>45</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Pitch" Type="int32">
+									<ValueList>
+										<Value>-800</Value>
+									</ValueList>
+								</Property>
+								<Property Name="Volume" Type="Real64">
+									<ValueList>
+										<Value>-3</Value>
+									</ValueList>
+								</Property>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Start Game Button" ID="{A09986DD-AF31-4030-A378-42922C5B5426}" ShortID="652195424">
+									<PropertyList>
+										<Property Name="FadeInDuration" Type="Real64" Value="5.73296130952377E-02"/>
+										<Property Name="FadeInShape" Type="int16" Value="0"/>
+										<Property Name="TrimBegin" Type="Real64" Value="0.158758928571429"/>
+									</PropertyList>
+									<Language>SFX</Language>
+									<AudioFile>Start Game Button.wav</AudioFile>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Start Game Button" ID="{A09986DD-AF31-4030-A378-42922C5B5426}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
 					</ChildrenList>
 					<StateInfo>
 						<StateGroupList>
