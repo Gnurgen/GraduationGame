@@ -57,7 +57,7 @@ public class Occluder : MonoBehaviour {
 
     }
 
-    void OnTriggerStay(Collider col)
+    /*void OnTriggerStay(Collider col)
     {
         if (col.tag != "Player" && col.tag != "Enemy" && hasHid == true)
         {
@@ -68,6 +68,6 @@ public class Occluder : MonoBehaviour {
         {
             col.GetComponent<MeshRenderer>().enabled = true;
         }
-    }
+    }*/
 
 }

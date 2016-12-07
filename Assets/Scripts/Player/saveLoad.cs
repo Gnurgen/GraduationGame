@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class saveLoad : MonoBehaviour {
     //Variables to be saved
-    public GameObject menu, tutorial;
+    public GameObject menu;
     //Manager 
     InputManager IM;
     private int ID;
@@ -44,6 +44,7 @@ public class saveLoad : MonoBehaviour {
     }
     void terminateTouch()
     {
+
         IM.TakeControl(ID);
     }
 
@@ -51,12 +52,5 @@ public class saveLoad : MonoBehaviour {
     {
         yield return new WaitForSeconds(duration);
         IM.ReleaseControl(ID);
-    }
-
-    public void openTutorial() {
-        IM.ReleaseControl(ID);
-        tutorial.SetActive(true);
-        menu.SetActive(false);
-        tutorial.GetComponent<Tutorial>().resetFrame();
     }
 }

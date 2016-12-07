@@ -30,11 +30,13 @@ public class StartElevator : MonoBehaviour {
             transform.position = Vector3.Lerp(startPos, EndPos, step);
             yield return null;
         }
+        transform.position = EndPos;
         GameManager.events.ElevatorMoveStop();
         player.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
         player.transform.parent = null;
         enabled = false;
-	}
+        yield break;
+    }
     
     
 }

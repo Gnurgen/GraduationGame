@@ -106,19 +106,21 @@ public class SpearControl : MonoBehaviour {
         {
             // Max damage and effect
             GameObject imp = GameManager.pool.GenerateObject("p_FlyingSpearBigImpact");
-            imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.5f);
+            imp.GetComponent<PKFxFX>().StartEffect();
+            imp.transform.position = target.transform.position + Vector3.up + (target.transform.position - transform.position).normalized * 0.5f;
             StartCoroutine(DelayedPool(imp, 1));
         }
         else
         {
             GameObject imp = GameManager.pool.GenerateObject("p_FlyingSpearImpact");
-            if(target.tag == "Boss")
+            imp.GetComponent<PKFxFX>().StartEffect();
+            if (target.tag == "Boss")
             {
-                imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.7f);
+                imp.transform.position = target.transform.position + Vector3.up + (target.transform.position - transform.position).normalized * 0.7f;
             }
             else
             {
-                imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.5f);
+                imp.transform.position = target.transform.position + Vector3.up + (target.transform.position - transform.position).normalized * 0.5f;
             }
             StartCoroutine(DelayedPool(imp, 1));
         }
@@ -127,6 +129,7 @@ public class SpearControl : MonoBehaviour {
     IEnumerator DelayedPool(GameObject obj, float delay)
     {
         yield return new WaitForSeconds(delay);
+        obj.GetComponent<PKFxFX>().StopEffect();
         GameManager.pool.PoolObj(obj);
     }
 
