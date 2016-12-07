@@ -112,6 +112,13 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Moving()
     {
+        if (state == State.Moving)
+            yield break;
+        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward * moveSpeed * Time.deltaTime).magnitude, 1 << coneBlock))
+        {
+            StartCoroutine(Idle());
+            yield break;
+        }
         state = State.Moving;
         em.PlayerMove(gameObject);
         while (state == State.Moving && Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized)>0)
@@ -151,6 +158,13 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Dashing()
     {
+        if (state == State.Dashing)
+        yield break;
+        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward*moveSpeed*dashSpeedMultiplier*Time.deltaTime).magnitude, 1 << coneBlock))
+        {
+            StartCoroutine(Moving());
+            yield break;
+        }
         state = State.Dashing;
         em.PlayerDashBegin(gameObject);
         while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk && 
