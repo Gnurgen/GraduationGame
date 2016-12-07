@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class ConeDraw : MonoBehaviour {
 
@@ -58,7 +59,12 @@ public class ConeDraw : MonoBehaviour {
     RaycastHit[] eHit;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        GameManager.events.OnLoadComplete += newStart;
+    }
+    private void newStart()
+    {
         baseDamage = damage;
         coneParticlePref = Resources.Load<GameObject>("Pool/p_ConeParticle");
         coneHitParticlePref = Resources.Load<GameObject>("Pool/p_FlyingSpearImpact");
@@ -70,7 +76,7 @@ public class ConeDraw : MonoBehaviour {
         conePart = new List<GameObject>();
         particleLength = new List<float>();
         particleDirection = new List<Vector3>();
-        for (int x = 0; x<coneResolution; ++x)
+        for (int x = 0; x < coneResolution; ++x)
         {
             GameManager.pool.PoolObj(Instantiate(coneHitParticlePref));
             GameManager.pool.PoolObj(Instantiate(coneHitParticlePrefBig));
@@ -85,8 +91,8 @@ public class ConeDraw : MonoBehaviour {
         layerEnemyhit = LayerMask.NameToLayer("EnemyHit");
         particlePos = new Vector3[coneResolution];
     }
-	
-    void Update()
+
+void Update()
     {
         if (doDraw)
         {

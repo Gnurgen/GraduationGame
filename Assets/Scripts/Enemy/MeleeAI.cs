@@ -44,7 +44,7 @@ public class MeleeAI : EnemyStats {
 
     void OnEnable()
     {
-        StartCoroutine(Waiting(delay));
+        GameManager.events.OnLoadComplete += Waiting;
     }
 
     public bool isInTransition;
@@ -74,16 +74,10 @@ public class MeleeAI : EnemyStats {
         target = newTarget;
     }
 
-    IEnumerator Waiting(float sec)
+    void Waiting()
     {
-        while(sec > 0)
-        {
-            sec -= Time.deltaTime;
-            yield return null;
-        }
         startPosition = transform.position;
         StartCoroutine(Idle());
-        yield break;
     }
 
 	IEnumerator Idle()
