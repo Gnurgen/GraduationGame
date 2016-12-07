@@ -42,7 +42,7 @@ public class StartMenu : MonoBehaviour {
 
     IEnumerator playVideo()
     {
-        Handheld.PlayFullScreenMovie("Sequence 01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
+        Handheld.PlayFullScreenMovie("Intro_01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFit);
         Debug.Log("Now playing video file on android device (skipping video on unity play!)");
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
