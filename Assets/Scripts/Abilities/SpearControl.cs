@@ -25,7 +25,7 @@ public class SpearControl : MonoBehaviour {
     private float pushForce;
     private PKFxFX effectControl;
     private float globalScale;
-    private SphereCollider collider;
+    private new SphereCollider collider;
     private int currentUpgrades;
     private float xColorDelta;
     private float yColorDelta;
@@ -34,7 +34,6 @@ public class SpearControl : MonoBehaviour {
 
     IEnumerator Fly()
     {
-       
         while(index < points.Length)
         {
             transform.position = Vector3.MoveTowards(transform.position, points[index], speed * Time.deltaTime);
@@ -45,19 +44,27 @@ public class SpearControl : MonoBehaviour {
                 index += 1;
                 if(index > 4)
                 {
-                    effects[index - 5].GetComponent<PKFxFX>().StopEffect();
+                    //effects[index - 5].GetComponent<PKFxFX>().StopEffect();
+                    effects[index - 5].transform.position = new Vector3(0, -100000, 0);
                 }
             }
             yield return null;
         }
-        foreach(GameObject go in effects)
-        {
-            go.GetComponent<PKFxFX>().StopEffect();
-        }
+        StopEffects();
         GameManager.events.SpearDrawAbilityEnd(gameObject);
         effectControl.StopEffect();
+        GameManager.player.GetComponent<FlyingSpear>().currentCooldown = 0;
         Destroy(gameObject);
 
+    }
+
+    void StopEffects()
+    {
+        foreach (GameObject go in effects)
+        {
+            //go.GetComponent<PKFxFX>().StopEffect();
+            go.transform.position = new Vector3(0, -100000, 0);
+        }
     }
 
     void OnTriggerEnter(Collider col)
@@ -85,32 +92,37 @@ public class SpearControl : MonoBehaviour {
         }
         else if(col.tag == "Boss")
         {
+            GameManager.events.SpearDrawAbilityEnd(gameObject);
+            StopEffects();
             HitTarget(col.gameObject);
+            GameManager.player.GetComponent<FlyingSpear>().currentCooldown = 0;
             Destroy(gameObject);
         }
     }
 
     private void HitTarget(GameObject target)
     {
-        target.GetComponent<Health>().decreaseHealth(damage, Vector3.zero, pushForce);
+        target.GetComponent<Health>().decreaseHealth(damage, target.transform.position-transform.position, pushForce);
         GameManager.events.SpearDrawAbilityHit(target);
         if(currentUpgrades >= maxUpgrades)
         {
             // Max damage and effect
             GameObject imp = GameManager.pool.GenerateObject("p_FlyingSpearBigImpact");
-            imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.5f);
+            imp.GetComponent<PKFxFX>().StartEffect();
+            imp.transform.position = target.transform.position + Vector3.up + (target.transform.position - transform.position).normalized * 0.5f;
             StartCoroutine(DelayedPool(imp, 1));
         }
         else
         {
             GameObject imp = GameManager.pool.GenerateObject("p_FlyingSpearImpact");
-            if(target.tag == "Boss")
+            imp.GetComponent<PKFxFX>().StartEffect();
+            if (target.tag == "Boss")
             {
-                imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.7f);
+                imp.transform.position = target.transform.position + Vector3.up + (target.transform.position - transform.position).normalized * 0.7f;
             }
             else
             {
-                imp.transform.position = transform.position + (target.transform.position - transform.position).normalized * (Vector3.Distance(transform.position, target.transform.position) * 0.5f);
+                imp.transform.position = target.transform.position + Vector3.up + (target.transform.position - transform.position).normalized * 0.5f;
             }
             StartCoroutine(DelayedPool(imp, 1));
         }
@@ -119,6 +131,7 @@ public class SpearControl : MonoBehaviour {
     IEnumerator DelayedPool(GameObject obj, float delay)
     {
         yield return new WaitForSeconds(delay);
+        obj.GetComponent<PKFxFX>().StopEffect();
         GameManager.pool.PoolObj(obj);
     }
 

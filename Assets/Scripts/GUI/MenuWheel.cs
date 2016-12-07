@@ -52,9 +52,7 @@ public class MenuWheel : MonoBehaviour {
         IM = GameManager.input;
         ID = IM.GetID();
         IM.OnFirstTouchBeginSub(checkIfCenter, ID);
-        IM.OnSecondTouchBeginSub(checkIfCenter, ID);
         IM.OnFirstTouchEndSub(OnRelease, ID);
-        IM.OnSecondTouchEndSub(OnRelease, ID);
         IM.OnFirstTouchMoveSub(updateMouse, ID);
         Wheel.SetActive(false);
     }

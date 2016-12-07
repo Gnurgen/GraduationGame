@@ -5,6 +5,7 @@ using System.Collections;
 public class SpiritLvlBar : MonoBehaviour
 {
     private float scale;
+
     private void Start()
     {
         gameObject.GetComponent<Image>().fillAmount = 0;
@@ -15,8 +16,13 @@ public class SpiritLvlBar : MonoBehaviour
             scale = (1 - (float)current / max) / percent;
         if (scale > 1)
             scale = 1;
+
         gameObject.GetComponent<Image>().fillAmount = scale;
     }
 
+    public float GetProgress()
+    {
+        return scale;
+    }
     
 }

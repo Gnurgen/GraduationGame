@@ -13,9 +13,6 @@ public class InputTester : MonoBehaviour {
         im.OnFirstTouchBeginSub(FirstDown, id);
         im.OnFirstTouchMoveSub(FirstMove, id);
         im.OnFirstTouchEndSub(FirstEnd, id);
-        im.OnSecondTouchBeginSub(SecondDown, id);
-        im.OnSecondTouchMoveSub(SecondMove, id);
-        im.OnSecondTouchEndSub(SecondEnd, id);
         im.OnTapSub(Tap, id);
         im.OnDoubleTapSub(DoubleTap, id);
         im.OnSwipeSub(Swipe, id);

@@ -22,7 +22,6 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnEnemyAggro += EnemyChatterPlay;
         GameManager.events.OnEnemyAggro += CheckState;
 
-        GameManager.events.OnEnemyAggroLost += EnemyChatterStop;
         GameManager.events.OnEnemyAggroLost += CheckState;
 
         GameManager.events.OnEnemyDeath += EnemyDeathPlay;
@@ -37,7 +36,7 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnPlayerDashBegin += DashPlay;
         GameManager.events.OnPlayerAttackHit += PlayerAttackHitPlaySub;
         GameManager.events.OnPlayerDeath += PlayerDeathPlay;
-        GameManager.events.OnPlayerDeath += EnemyChatterStop;
+       
         //  GameManager.events.OnPlayerMove += PlayerMovePlay; // IS MISSING //MAYBE NOT
         //  GameManager.events.OnPlayerIdle += PlayerMoveStop; // IS MISSING
         GameManager.events.OnConeAbilityStart += ConeAbilityInteractPlay;
@@ -257,7 +256,7 @@ public class AudioManager : MonoBehaviour {
     public void SpearAbilityStart(GameObject GO)
     {
         //When drawing the Line ability (continuous sound)
-        AkSoundEngine.PostEvent("Draw_Ability_Control_Play", GO);
+        AkSoundEngine.PostEvent("Draw_Ability_Control_Play", GSB);
         AkSoundEngine.RenderAudio();
     }
     public void SpearAbilityEnd(GameObject GO)
@@ -276,13 +275,16 @@ public class AudioManager : MonoBehaviour {
         }
         else
         {
-            Debug.LogError(GO.tag + "is wrong tag and event doesn't play audio");
+            AkSoundEngine.SetSwitch("Target", "Indestructable", GO);
+            AkSoundEngine.PostEvent("Spear_Target_Play", GO);
+            AkSoundEngine.RenderAudio();
+            Debug.LogError(GO.tag + "is wrong tag and use _Indestructable_ as default");
         }
     }
     public void SpearAbilityUsed(GameObject GO)
     {
         //When finnished drawing the Line ability 
-        AkSoundEngine.PostEvent("Draw_Ability_Control_Stop", GO);
+        AkSoundEngine.PostEvent("Draw_Ability_Control_Stop", GSB);
         //When Line ability is activated and playing(Continuous sound)
         AkSoundEngine.PostEvent("Draw_Ability_Play", GO);
         AkSoundEngine.RenderAudio();
@@ -290,7 +292,7 @@ public class AudioManager : MonoBehaviour {
     public void SpearAbilityCancel(GameObject GO)
     {
         //When finnished drawing the Line ability 
-        AkSoundEngine.PostEvent("Draw_Ability_Control_Stop", GO);
+        AkSoundEngine.PostEvent("Draw_Ability_Control_Stop", GSB);
         AkSoundEngine.RenderAudio();
         
     }
@@ -327,13 +329,13 @@ public class AudioManager : MonoBehaviour {
     public void ConeAbilityInteractPlay(GameObject GO)
     {
         //When drawing the Cone Ability (Continuous sound)
-        AkSoundEngine.PostEvent("Cone_Ability_Control_Play", GO);
+        AkSoundEngine.PostEvent("Cone_Ability_Control_Play", GSB);
         AkSoundEngine.RenderAudio();
     }
     public void ConeAbilityInteractStop(GameObject GO)
     {
         //When stops drawing the Cone Ability 
-        AkSoundEngine.PostEvent("Cone_Ability_Control_Stop", GO);
+        AkSoundEngine.PostEvent("Cone_Ability_Control_Stop", GSB);
         AkSoundEngine.RenderAudio();
     }
     // ######################################################################################################################################
@@ -350,13 +352,6 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.RenderAudio();
     }
 
-    public void EnemyChatterStop(GameObject GO)
-    {
-        //Enemies random growls stops 
-        AggroedEnemies--;
-        AkSoundEngine.PostEvent("Enemy_Aggro_Stop", GO);
-        AkSoundEngine.RenderAudio();
-    }
     public void EnemyMeleeHitPlayerPlay(GameObject GO)
     {
         //When Enemies hit the player

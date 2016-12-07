@@ -8,18 +8,24 @@ public class MusicState : MonoBehaviour {
     public string Scene;
     void Start()
     {
+        Application.targetFrameRate = 30;
         StartCoroutine(VENTFISSE());
     }
 	void OnLevelWasLoaded() // change music in menu/splash screens. Doesnt know when merging scenes
     {
+       
         Scene =   SceneManager.GetActiveScene().name;
         print(Scene);
-       
         if(Scene == "Menu")
         {
+            AkSoundEngine.StopAll();
+            AkSoundEngine.PostEvent("Environmental_Ambience_Play", gameObject);
+            AkSoundEngine.PostEvent("Music_System_Play", gameObject);
             AkSoundEngine.SetState("Game_State", "In_Main_Menu");
+            AkSoundEngine.RenderAudio();
         }
-        if(Scene == "LoadingScreen")
+    
+        if (Scene == "LoadingScreen")
         {
             AkSoundEngine.SetState("Game_State", "In_Loading_Screen");
             if (GameManager.events != null)
@@ -41,9 +47,24 @@ public class MusicState : MonoBehaviour {
         if (Scene == "Splash")
         {
             AkSoundEngine.SetState("Environment", "Small");
-            AkSoundEngine.SetState("Game_State", "None");
+            AkSoundEngine.SetState("Game_State", "In_Splash");
             AkSoundEngine.PostEvent("Environmental_Ambience_Play", gameObject);
             AkSoundEngine.PostEvent("Music_System_Play", gameObject);
+            AkSoundEngine.RenderAudio();
         }
     }
+
+    public void MenuButton()
+    {
+        AkSoundEngine.PostEvent("Button_Menu_Play", gameObject);
+        AkSoundEngine.RenderAudio();
+    }
+    public void MenuStartGameButton()
+    {
+        AkSoundEngine.PostEvent("Button_Start_Game_Play", gameObject);
+        AkSoundEngine.RenderAudio();
+    }
+
+
+
 }

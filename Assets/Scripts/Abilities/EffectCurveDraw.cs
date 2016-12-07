@@ -49,7 +49,7 @@ public class EffectCurveDraw : MonoBehaviour {
         if (effectIndex < effects.Count)
         {
             effects[effectIndex].transform.position = pos;
-            effects[effectIndex].GetComponent<PKFxFX>().StartEffect();
+            //effects[effectIndex].GetComponent<PKFxFX>().StartEffect();
             effects[effectIndex].GetComponent<PKFxFX>().SetAttribute(new PKFxManager.Attribute("Area", new Vector3(0, 0, dir.magnitude * 0.5f)));
             effects[effectIndex].GetComponent<PKFxFX>().SetAttribute(new PKFxManager.Attribute("FireColor", new Vector3(0.5f, 0.5f, 1f)));
             effects[effectIndex].GetComponent<PKFxFX>().SetAttribute(new PKFxManager.Attribute("Fire", dir.magnitude));

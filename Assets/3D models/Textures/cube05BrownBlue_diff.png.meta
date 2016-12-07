@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 3717e6cb9de87b04e9d3e87e67fbcfc5
 timeCreated: 1481136588
+=======
+guid: b94acb1c3a9551045b63153d1b36f314
+timeCreated: 1480883785
+>>>>>>> master
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -37,7 +42,11 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+<<<<<<< HEAD
   allowsAlphaSplitting: 0
+=======
+  allowsAlphaSplitting: 1
+>>>>>>> master
   spriteMode: 0
   spriteExtrude: 1
   spriteMeshType: 1
@@ -48,7 +57,16 @@ TextureImporter:
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: -1
+<<<<<<< HEAD
   buildTargetSettings: []
+=======
+  buildTargetSettings:
+  - buildTarget: Android
+    maxTextureSize: 512
+    textureFormat: -1
+    compressionQuality: 100
+    allowsAlphaSplitting: 1
+>>>>>>> master
   spriteSheet:
     serializedVersion: 2
     sprites: []

@@ -140,37 +140,31 @@ public class EventManager : MonoBehaviour
     }
     public void ConeAbilityStart(GameObject Id)
     {
-        print("ConeAbility START");
         if (OnConeAbilityStart != null)
             OnConeAbilityStart(Id);
     }
     public void ConeAbilityUsed(GameObject Id)
     {
-        print("ConeAbility USED");
         if (OnConeAbilityUsed != null)
             OnConeAbilityUsed(Id);
     }
     public void ConeAbilityCharged(GameObject Id)
     {
-        print("ConeAbility CHARGED");
         if (OnConeAbilityCharged != null)
             OnConeAbilityCharged(Id);
     }
     public void ConeAbilityHit(GameObject Id)
     {
-        print("ConeAbility HIT");
         if (OnConeAbilityHit != null)
             OnConeAbilityHit(Id);
     }
     public void ConeAbilityEnd(GameObject Id)
     {
-        print("ConeAbility END");
         if (OnConeAbilityEnd != null)
             OnConeAbilityEnd(Id);
     }
     public void ConeAbilityCancel(GameObject Id)
     {
-        print("ConeAbility CANCEL");
         if (OnConeAbilityCancel != null)
             OnConeAbilityCancel(Id);
     }
@@ -335,6 +329,9 @@ public class EventManager : MonoBehaviour
     public event RoomAction OnRoomEnter;
     public event RoomAction OnRoomExit;
 
+    public delegate void CameraAction(float shake);
+    public event CameraAction OnCameraShake;
+
     public delegate void MapAction();
     public event MapAction OnMapComplete;
     public event MapAction OnElevatorActivated;
@@ -432,6 +429,11 @@ public class EventManager : MonoBehaviour
         if (OnResourcePickup != null)
             OnObjDestroyed(go);
     }
+    public void CameraShake(float shake)
+    {
+        if (OnCameraShake != null)
+            OnCameraShake(shake);
+    }
 
     //##############################################################################################################################################################
     //#############################################################################             ####################################################################
@@ -469,6 +471,7 @@ public class EventManager : MonoBehaviour
 
     public void LoadingProgress(float progress)
     {
+        print(progress * 100f + " %");
         if (OnLoadingProgress != null)
             OnLoadingProgress(progress);
     }

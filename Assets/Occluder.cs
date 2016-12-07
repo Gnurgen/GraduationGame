@@ -57,17 +57,17 @@ public class Occluder : MonoBehaviour {
 
     }
 
-    void OnTriggerStay(Collider col)
+    /*void OnTriggerStay(Collider col)
     {
-        if (col.transform.parent.parent.tag == "Indestructable" && hasHid == true)
+        if (col.tag != "Player" && col.tag != "Enemy" && hasHid == true)
         {
-            col.GetComponentInChildren<MeshRenderer>().enabled = false;
+            col.GetComponent<MeshRenderer>().enabled = false;
         }
 
-        if(col.transform.parent.parent.tag == "Indestructable" && hasHid == false)
+        if(col.tag != "Player" && col.tag != "Enemy" && hasHid == false)
         {
-            col.GetComponentInChildren<MeshRenderer>().enabled = true;
+            col.GetComponent<MeshRenderer>().enabled = true;
         }
-    }
+    }*/
 
 }

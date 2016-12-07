@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: d2b4e03f3696d25409e066a8928bf1b1
-timeCreated: 1480420397
+guid: 910127f6dd62174469d48db610238a17
+timeCreated: 1480940801
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -48,12 +48,7 @@ TextureImporter:
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: -1
-  buildTargetSettings:
-  - buildTarget: Android
-    maxTextureSize: 512
-    textureFormat: -1
-    compressionQuality: 50
-    allowsAlphaSplitting: 0
+  buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
     sprites: []

@@ -9,6 +9,12 @@ public class StartMenu : MonoBehaviour {
     public Sprite dK, eN;
     public  GameObject language;
     public GameObject fade;
+     [Header("Text")]
+    public GameObject music;
+    public GameObject sound, lang, credits, instructions;
+    [Header("Start Menu")]
+    public GameObject Shop;
+    public GameObject Reset, Endless;
 
     private float showTime = 2;
 
@@ -24,6 +30,7 @@ public class StartMenu : MonoBehaviour {
         GameManager.progress = 0;
         PlayerPrefs.SetInt("Progress", 0);
         GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
+        Resources.UnloadUnusedAssets();
     }
 
     public void newGame() {
@@ -33,15 +40,43 @@ public class StartMenu : MonoBehaviour {
      
     }
 
+    public void UseVibration()
+    {
+        GameManager.useVibrations = GameObject.FindObjectOfType<Toggle>().isOn;
+    }
+
     IEnumerator playVideo()
     {
-        Handheld.PlayFullScreenMovie("Sequence 01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
+        Handheld.PlayFullScreenMovie("Intro_01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFit);
         Debug.Log("Now playing video file on android device (skipping video on unity play!)");
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         GameManager.LoadNextLevel();
 
     }
+    public void IncreaseProgress()
+    {
+        GameManager.progress += 1;
+        
+        if (GameManager.progress < GameManager.numberOfLevels)
+        {
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Level "+ GameManager.progress +" Progress";
+            GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
+        }
+        else if (GameManager.progress == GameManager.numberOfLevels)
+        {
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Boss Progress";
+            GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
+        }
+        else if(GameManager.progress > GameManager.numberOfLevels)
+        {
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Tutorial Progress";
+            GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
+            GameManager.progress = 0;
+        }
+        PlayerPrefs.SetInt("Progress", GameManager.progress);
+    }
+
 
     public void loadGame()
     {
@@ -60,15 +95,15 @@ public class StartMenu : MonoBehaviour {
     public void changeLanguage() {
         if (isDK == true)
         {
-            Debug.Log("dansk");
-            language.GetComponent<Image>().overrideSprite = eN;
+            changeButtonsDK();
+            language.GetComponent<Image>().overrideSprite = dK;
             isDK = false;
             GameManager.game.language = GameManager.Language.Danish;
         }
         else if (isDK == false)
         {
-            Debug.Log("engelsk");
-            language.GetComponent<Image>().overrideSprite = dK;
+            changeButtonsENG();
+            language.GetComponent<Image>().overrideSprite = eN;
             isDK = true;
             GameManager.game.language = GameManager.Language.English;
         }
@@ -78,5 +113,27 @@ public class StartMenu : MonoBehaviour {
     {
         fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
         yield return new WaitForSeconds(showTime);
+    }
+
+    void changeButtonsDK() {
+        music.GetComponent<Text>().text = "Musik";
+        sound.GetComponent<Text>().text = "Lyd";
+        lang.GetComponent<Text>().text = "Sprog";
+        credits.GetComponent<Text>().text = "Rulletekster";
+        instructions.GetComponent<Text>().text = "Instruktioner";
+        Shop.GetComponent<Text>().text = "BUTIK";
+        Reset.GetComponent<Text>().text = "NULSTIL";
+        Endless.GetComponent<Text>().text = "ENDELØS UDFORDRING";
+    }
+    void changeButtonsENG()
+    {
+        music.GetComponent<Text>().text = "Music";
+        sound.GetComponent<Text>().text = "Sound";
+        lang.GetComponent<Text>().text = "Language";
+        credits.GetComponent<Text>().text = "Credits";
+        instructions.GetComponent<Text>().text = "Instructions";
+        Shop.GetComponent<Text>().text = "SHOP";
+        Reset.GetComponent<Text>().text = "RESET";
+        Endless.GetComponent<Text>().text = "ENDLESS CHALLENGE";
     }
 }

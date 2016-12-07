@@ -21,43 +21,26 @@ public class GameManager {
     private GameObject _spear;
     private PoolManager _poolManager; 
     private GameObject _managers;
-    private static GameObject _activeCheckPoint;
+  
     private Menu _menu;
     private static int _score, _experience, _playerLevel, _progress;
+    private static bool _useVibrations;
 
     public GameManager()
     {
         Debug.Log("GameManager constructed");
         _instance = this;
         _managers = GameObject.Find("Managers");
-        _managers.SendMessage("Subscribe");
+        if (_managers != null)
+        {
+            _managers.SendMessage("Subscribe");
+            events.OnLevelUp += PlayerLevelUp;
+            events.OnMenuOpen += showMenu;
+            events.OnMenuClose += hideMenu;
+            events.OnLoadNextLevel += LoadNextLevel;
+        }
         //menu.gameObject.SetActive(false);
-        events.OnLevelUp += PlayerLevelUp;
-        events.OnMenuOpen += showMenu;
-        events.OnMenuClose += hideMenu;
-        events.OnLoadNextLevel += LoadNextLevel;
-        events.OnPlayerDeath += PlayerDeath;
-        _activeCheckPoint = null;
-    }
 
-
-    public static void PlayerDeath(GameObject go)
-    {
-        events.FadeToBlack();
-        //player.SetActive(true);
-        //move player?? ++Setplayer active
-        if (_activeCheckPoint == null)
-        {
-            _instance = null;
-            events.LoadNextlevel();
-            
-        }
-        else
-        {
-            player.SetActive(true);
-            events.FadeFromBlackToTransparent();
-            player.transform.position = _activeCheckPoint.transform.position;
-        }
     }
 
     public static int score
@@ -119,6 +102,17 @@ public class GameManager {
         set
         {
             _numberOfLevels = value;
+        }
+    }
+    public static bool useVibrations
+    {
+        get
+        {
+            return _useVibrations;
+        }
+        set
+        {
+            _useVibrations = value;
         }
     }
 
@@ -271,16 +265,7 @@ public class GameManager {
             return game.Spear;
         }
     }
-    public GameObject activeCheckpoint
-    {
-        get
-        {
-            return _activeCheckPoint;
-        }
-        set {
-            _activeCheckPoint = value;
-        }
-    }
+   
     private Menu menu
     {
         get

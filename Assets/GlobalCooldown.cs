@@ -10,8 +10,8 @@ public class GlobalCooldown : MonoBehaviour {
     ConeDraw CD;
 	// Use this for initialization
 	void Start () {
-        GameManager.events.OnConeAbilityUsed += Cooldown;
-        GameManager.events.OnSpearDrawAbilityUsed += Cooldown;
+        //GameManager.events.OnConeAbilityUsed += Cooldown;
+        //GameManager.events.OnSpearDrawAbilityUsed += Cooldown;
         FS = GetComponent<FlyingSpear>();
         CD = GetComponent<ConeDraw>();
     }

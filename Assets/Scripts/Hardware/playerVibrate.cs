@@ -2,31 +2,39 @@
 using System.Collections;
 
 public class playerVibrate : MonoBehaviour {
-    public long vibrateForMiliSeconds = 100;
+
+    public long enemyHitVibration = 200;
+    public long elevatorVibration = 100;
     private InputManager IM;
     private EventManager EM;
     int ID;
 
     void Start () {
-        IM = GameManager.input;
-        ID = IM.GetID();
-        EM = GameManager.events;
 
-        EM.OnEnemyAttackHit += AddStandardVibration;
-        //EM.OnEnemyAttackHit += vibrateForSec;
+        if(GameManager.useVibrations)
+        {
+            IM = GameManager.input;
+            ID = IM.GetID();
+            EM = GameManager.events;
+
+            EM.OnEnemyAttackHit += vibrateHit;
+            EM.OnLoadComplete += vibrateElevatorActivation;
+            EM.OnCameraShake += vibrateCameraShake;
+        }
 	}
 
-
-    void AddStandardVibration(GameObject ID, float dmg)
+    void vibrateHit(GameObject ID, float dmg)
     {
-        Handheld.Vibrate();
+        Vibrator.Vibrate(enemyHitVibration);
     }
 
-    /*void vibrateForSec(GameObject ID, float dmg)
+    void vibrateElevatorActivation()
     {
-        Debug.Log("Vibrate!");
-#if UNITY_ANDROID
-        Vibrator.Vibrate(vibrateForMiliSeconds);
-#endif
+        Vibrator.Vibrate(elevatorVibration);
     }
-*/}
+
+    void vibrateCameraShake(float seconds)
+    {
+        Vibrator.Vibrate((long)(seconds * 1000f));
+    }
+}
