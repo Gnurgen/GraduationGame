@@ -18,7 +18,7 @@ public class GenerateHealthScript : MonoBehaviour {
             healthBar.transform.localRotation = Quaternion.Euler(0,0,0);
             healthBars[i] = healthBar;
         }
-        Invoke("moveAllHealthBars",5f);
+        GameManager.events.OnLoadComplete += moveAllHealthBars;
     }
     public void moveAllHealthBars()
     {

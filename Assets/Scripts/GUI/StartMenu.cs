@@ -48,6 +48,29 @@ public class StartMenu : MonoBehaviour {
         GameManager.LoadNextLevel();
 
     }
+    public void IncreaseProgress()
+    {
+        GameManager.progress += 1;
+        
+        if (GameManager.progress < GameManager.numberOfLevels)
+        {
+            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Level "+ GameManager.progress +" Progress";
+            GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
+        }
+        else if (GameManager.progress == GameManager.numberOfLevels)
+        {
+            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Boss Progress";
+            GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
+        }
+        else if(GameManager.progress > GameManager.numberOfLevels)
+        {
+            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Tutorial Progress";
+            GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
+            GameManager.progress = 0;
+        }
+        PlayerPrefs.SetInt("Progress", GameManager.progress);
+    }
+
 
     public void loadGame()
     {
