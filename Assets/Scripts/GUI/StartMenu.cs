@@ -54,17 +54,17 @@ public class StartMenu : MonoBehaviour {
         
         if (GameManager.progress < GameManager.numberOfLevels)
         {
-            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Level "+ GameManager.progress +" Progress";
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Level "+ GameManager.progress +" Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
         }
         else if (GameManager.progress == GameManager.numberOfLevels)
         {
-            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Boss Progress";
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Boss Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
         }
         else if(GameManager.progress > GameManager.numberOfLevels)
         {
-            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Tutorial Progress";
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Tutorial Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
             GameManager.progress = 0;
         }
@@ -89,17 +89,15 @@ public class StartMenu : MonoBehaviour {
     public void changeLanguage() {
         if (isDK == true)
         {
-            Debug.Log("dansk");
             changeButtonsDK();
-            language.GetComponent<Image>().overrideSprite = eN;
+            language.GetComponent<Image>().overrideSprite = dK;
             isDK = false;
             GameManager.game.language = GameManager.Language.Danish;
         }
         else if (isDK == false)
         {
-            Debug.Log("engelsk");
             changeButtonsENG();
-            language.GetComponent<Image>().overrideSprite = dK;
+            language.GetComponent<Image>().overrideSprite = eN;
             isDK = true;
             GameManager.game.language = GameManager.Language.English;
         }
