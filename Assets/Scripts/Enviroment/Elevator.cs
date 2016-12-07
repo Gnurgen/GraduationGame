@@ -6,12 +6,15 @@ using System;
 
 public class Elevator : MonoBehaviour
 {
-    public GameObject invisibleWalls, invisibleWalls2;
+   
+    float height;
     private GameObject fade;
+
+    Vector3 prevPlayerPos;
     
     CapsuleCollider CC;
     Material mat;
-    private bool InvisWall;
+    private bool InvisWall = false, outside = false;
     private GameObject player;
     private float preLift = 2;
     private float underLift = 3;
@@ -32,8 +35,7 @@ public class Elevator : MonoBehaviour
         Color col = new Color(0.3f, 0.3f, 0.3f);
         mat.color = col;
         CC = GetComponent<CapsuleCollider>();
-        invisibleWalls.SetActive(false);
-        invisibleWalls2.SetActive(false);
+       
         CC.enabled = false;
     }
     
@@ -58,18 +60,14 @@ public class Elevator : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Player" && spiritLevelBar.GetProgress() == 1)
+        if (col.tag == player.tag && spiritLevelBar.GetProgress() == 1)
         {
-            invisibleWalls2.SetActive(true);
-            invisibleWalls.SetActive(true);
             player.transform.parent = gameObject.transform;
-<<<<<<< HEAD
-            StartCoroutine(elevatorLift());
-            CC.enabled = false;
-=======
-            CC.enabled = false; 
-            StartCoroutine(elevatorLift());
->>>>>>> 3143b72260451fdb1db3adf660de81933750534d
+            
+            if(!InvisWall)
+                StartCoroutine(elevatorLift());
+            //CC.enabled = false;
+            InvisWall = true;
         }
         else if (InvisWall && col.tag == "Enemy")
         {
@@ -86,8 +84,23 @@ public class Elevator : MonoBehaviour
             GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, 10f);
         }
     }
+    void OnTriggerExit(Collider col)
+    {
+        if(col.tag == player.tag)
+        {
+            outside = true;
+        }
+    }
    
-
+    void LateUpdate()
+    {
+        if(InvisWall && outside)
+        {
+            player.transform.localPosition = prevPlayerPos;
+            outside = false;
+        }
+        prevPlayerPos = player.transform.localPosition;
+    }
     IEnumerator elevatorLift()
     {
     
