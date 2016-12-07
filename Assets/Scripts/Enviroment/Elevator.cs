@@ -63,13 +63,8 @@ public class Elevator : MonoBehaviour
             invisibleWalls2.SetActive(true);
             invisibleWalls.SetActive(true);
             player.transform.parent = gameObject.transform;
-<<<<<<< HEAD
-            StartCoroutine(elevatorLift());
-            CC.enabled = false;
-=======
             CC.enabled = false; 
             StartCoroutine(elevatorLift());
->>>>>>> 3143b72260451fdb1db3adf660de81933750534d
         }
         else if (InvisWall && col.tag == "Enemy")
         {
