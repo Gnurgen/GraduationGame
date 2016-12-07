@@ -117,7 +117,7 @@ public class BossAI : MonoBehaviour {
     {
         if (col.tag == "Player")
         {
-            Activate();
+         //   Activate();
             Destroy(GetComponent<SphereCollider>());
         }
     }
@@ -140,7 +140,7 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage1()
     {
-        print("PHASE ONE");
+        
         laserAbility.DeActivate();
         currentLaserDelay = stage1LaserDelay;
         currentMeteorDelay = stage1MeteorDelay;
@@ -165,7 +165,7 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage2()
     {
-        print("PHASE TWO");
+
         GameManager.events.BossPhaseChange(gameObject);
         laserAbility.DeActivate();
         currentLaserDelay = stage2LaserDelay;
@@ -191,7 +191,7 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage3()
     {
-        print("PHASE THREE");
+
         GameManager.events.BossPhaseChange(gameObject);
         laserAbility.DeActivate();
         currentLaserDelay = stage3LaserDelay;
@@ -217,7 +217,7 @@ public class BossAI : MonoBehaviour {
 
     IEnumerator Stage4()
     {
-        print("PHASE FOUR");
+     
         GameManager.events.BossPhaseChange(gameObject);
         currentLaserDelay = stage4LaserDelay;
         currentMeteorDelay = stage4MeteorDelay;
@@ -236,7 +236,7 @@ public class BossAI : MonoBehaviour {
             }
             yield return new WaitForFixedUpdate();
         }
-        print("YOU WON");
+       
         GameManager.events.BossDeath(gameObject);
         
         yield break;

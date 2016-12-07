@@ -2,13 +2,15 @@
 using System.Collections;
 
 public class SpiritRock : MonoBehaviour {
+
+    /* DET ER SLUT NU! 
     public GameObject blueFlame;
     public GameObject[] spiritRocks;
     private bool isLit = false;
     private GameObject room;
   
     void Start() {
-        GameManager.events.OnMapGenerated += getAllSpiritStones;
+        GameManager.events.OnLoadComplete += getAllSpiritStones;
         room = gameObject.transform.parent.gameObject;
         getAllSpiritStones();
     }
@@ -48,5 +50,5 @@ public class SpiritRock : MonoBehaviour {
         spiritRocks = GameObject.FindGameObjectsWithTag("CheckPoint");
     }
 
-        
+        */
 }

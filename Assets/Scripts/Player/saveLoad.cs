@@ -44,7 +44,7 @@ public class saveLoad : MonoBehaviour {
     }
     void terminateTouch()
     {
-        Debug.Log("Terminate Touch");
+
         IM.TakeControl(ID);
     }
 

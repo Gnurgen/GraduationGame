@@ -7,7 +7,7 @@ TextureImporter:
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -29,15 +29,15 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
-    filterMode: -1
-    aniso: 16
+    filterMode: 0
+    aniso: 0
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 0
+  allowsAlphaSplitting: 1
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
@@ -50,10 +50,10 @@ TextureImporter:
   textureType: 8
   buildTargetSettings:
   - buildTarget: Android
-    maxTextureSize: 512
+    maxTextureSize: 2048
     textureFormat: -1
     compressionQuality: 50
-    allowsAlphaSplitting: 0
+    allowsAlphaSplitting: 1
   spriteSheet:
     serializedVersion: 2
     sprites: []

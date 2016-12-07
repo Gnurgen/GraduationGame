@@ -10,7 +10,8 @@ public class MeleeAI : EnemyStats {
 
     public GameObject Weapon;
 	public GameObject target;
-    public string state;
+    public bool reset = true;
+    public float delay = 3f;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
@@ -43,7 +44,7 @@ public class MeleeAI : EnemyStats {
 
     void OnEnable()
     {
-        StartCoroutine(Waiting(3));
+        GameManager.events.OnLoadComplete += Waiting;
     }
 
     public bool isInTransition;
@@ -73,22 +74,14 @@ public class MeleeAI : EnemyStats {
         target = newTarget;
     }
 
-    IEnumerator Waiting(float sec)
+    void Waiting()
     {
-        state = "waiting";
-        while(sec > 0)
-        {
-            sec -= Time.deltaTime;
-            yield return null;
-        }
         startPosition = transform.position;
         StartCoroutine(Idle());
-        yield break;
     }
 
 	IEnumerator Idle()
 	{
-        state = "idle";
         target = null;
         animator.SetBool("Run", false);
         for (;;)
@@ -122,7 +115,11 @@ public class MeleeAI : EnemyStats {
 
     IEnumerator Reset()
     {
-        state = "reset";
+        if (!reset)
+        {
+            StartCoroutine(Idle());
+            yield break;
+        }
         GameManager.events.EnemyAggroLost(gameObject);
         animator.SetBool("Run", true);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
@@ -180,7 +177,6 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Chasing()
 	{
-        state = "chasing";
         animator.SetBool("Run", true);
         for (;;)
         {
@@ -248,7 +244,6 @@ public class MeleeAI : EnemyStats {
 
 	IEnumerator Attacking()
     {
-        state = "attacking";
         for (;;)
         {
             if (!onPause)
@@ -276,7 +271,7 @@ public class MeleeAI : EnemyStats {
                         GameManager.events.EnemyAttack(gameObject);
                         currentAttackSpeed = attackSpeed;
                         animator.SetTrigger("Attack");
-                        yield return new WaitForFixedUpdate();
+                        yield return new WaitForEndOfFrame();
                         animator.SetBool("Run", false);
                         Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
                         while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))

@@ -14,21 +14,22 @@ public class EnemyTracker : MonoBehaviour {
     private int currentEnemiesAlive;
     private bool guideSpawned;
 
+
+    SpiritLvlBar spiritLevelBar;
 	// Use this for initialization
 	void Start () {
         GameManager.events.OnResourcePickup += OnPickUp;
-        guideSpawned = false;
-        StartCoroutine(GetTotalEnemies());
+        GameManager.events.OnMapGenerated += GetTotalEnemies;
+        guideSpawned = GameManager.progress > GameManager.numberOfLevels;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
     void OnPickUp(GameObject go, int blob)
     {
         currentEnemiesAlive -= 1;
+        if( spiritLevelBar == null)
+            spiritLevelBar = GameObject.Find("SpiritBar").GetComponent<SpiritLvlBar>();
+        spiritLevelBar.updateBar(allEnemies, currentEnemiesAlive, percentageToKill);
         if(!guideSpawned && ((float)currentEnemiesAlive / (float)allEnemies) <= (1 - percentageToKill))
         {
             Instantiate(guidingWhisp, GameManager.spear.transform.position, Quaternion.identity);
@@ -37,11 +38,9 @@ public class EnemyTracker : MonoBehaviour {
     }
 
 
-    IEnumerator GetTotalEnemies()
+    private void GetTotalEnemies()
     {
-        yield return new WaitForSeconds(5f);
         allEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
         currentEnemiesAlive = allEnemies;
-        yield break;
     }
 }

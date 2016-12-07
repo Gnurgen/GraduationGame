@@ -14,17 +14,21 @@ public class SplashScreens : MonoBehaviour {
     }
     IEnumerator splashing()
     {
-        fade.GetComponent<Image>().CrossFadeAlpha(0,2,true);
-        yield return new WaitForSeconds(fadingTime+showTime);
+        splashScreens[1].SetActive(false);
+        splashScreens[2].SetActive(false);
+        fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
+        yield return new WaitForSeconds(fadingTime + showTime);
         fade.GetComponent<Image>().CrossFadeAlpha(1, 2, true);
         yield return new WaitForSeconds(fadingTime);
         splashScreens[0].SetActive(false);
+        splashScreens[1].SetActive(true);
 
         fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
         yield return new WaitForSeconds(fadingTime + showTime);
         fade.GetComponent<Image>().CrossFadeAlpha(1, 2, true);
         yield return new WaitForSeconds(fadingTime);
         splashScreens[1].SetActive(false);
+        splashScreens[2].SetActive(true);
 
         fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
         AkSoundEngine.SetState("Game_State", "In_Main_Menu"); // Start sound
@@ -38,7 +42,6 @@ public class SplashScreens : MonoBehaviour {
     {
         if(Input.GetKeyDown(KeyCode.Mouse0) || Input.touchCount > 1)
         {
-            AkSoundEngine.SetState("Game_State", "In_Main_Menu");
             SceneManager.LoadScene("Menu");
         }
 

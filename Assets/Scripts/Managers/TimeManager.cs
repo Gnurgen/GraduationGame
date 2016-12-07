@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class TimeManager : MonoBehaviour {
     private float prevTimeScale, tarTimeScale, _normTime = 0;
@@ -27,10 +28,29 @@ public class TimeManager : MonoBehaviour {
         GameManager.events.OnWheelOpen += SlowTime;
         GameManager.events.OnWheelSelect += NormalTime;
         GameManager.events.OnDrawComplete += NormalTime;
+        //GameManager.events.OnEnemyDeath += FreezeTime;
     }
 
+    private void FreezeTime(GameObject enemyID)
+    {
+        StartCoroutine(FreezeFrame(5));
+    }
 
-	void Update () {
+    private IEnumerator FreezeFrame(int frames)
+    {
+        Time.timeScale = 0.25f;
+        int curFrames = 0;
+        while (frames > curFrames)
+        {
+            Time.timeScale = 0.25f;
+            curFrames++;
+            yield return null;
+        }
+
+        Time.timeScale = 1;
+    }
+
+    void Update () {
         if(_doTimeChange)
         {
             _normTime +=  Time.unscaledDeltaTime / _timeChangeDuration; //normalize change curation based on unscale time
@@ -81,5 +101,11 @@ public class TimeManager : MonoBehaviour {
         tarTimeScale = t;
         prevTimeScale = Time.timeScale;
         _doTimeChange = true;
+    }
+    public void SetTimeScaleInstant(float t)
+    {
+        if (t < 0f)
+            t = 0f;
+        Time.timeScale = t;
     }
 }

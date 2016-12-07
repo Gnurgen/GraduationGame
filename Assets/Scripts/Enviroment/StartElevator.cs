@@ -10,8 +10,6 @@ public class StartElevator : MonoBehaviour {
     private Vector3 EndPos, startPos;
 	void Start () {
         player = GameManager.player;
-        fade = GameObject.Find("Fade");
-        fade.GetComponent<Fade>().fadeFromBlack(3);
         EndPos = new Vector3(transform.position.x, -3.45f, transform.position.z);
         startPos = new Vector3 (transform.position.x, -6.45f, transform.position.z);
         transform.position = startPos;
@@ -21,24 +19,24 @@ public class StartElevator : MonoBehaviour {
 
     private void MoveUp()
     {
-        print("MOVBING UPBITCHES");
+      
         StartCoroutine(MoveElevatorUp());
     }
 
     IEnumerator MoveElevatorUp() {
-        GameManager.events.ElevatorMoveStart();
-
         while (step <= 1)
         {
             step += speed * Time.deltaTime;
             transform.position = Vector3.Lerp(startPos, EndPos, step);
             yield return null;
         }
+        transform.position = EndPos;
         GameManager.events.ElevatorMoveStop();
         player.transform.position = new Vector3(player.transform.position.x, 0, player.transform.position.z);
         player.transform.parent = null;
         enabled = false;
-	}
+        yield break;
+    }
     
     
 }

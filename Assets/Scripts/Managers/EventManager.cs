@@ -7,8 +7,7 @@ public class EventManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        if (FindObjectOfType<GameOverFade>() == null)
-            Instantiate(Resources.Load<GameObject>("Prefabs/GameOverFade"));
+        
     }
 
     // Update is called once per frame
@@ -89,6 +88,7 @@ public class EventManager : MonoBehaviour
     public event PlayerAction OnPlayerIdle;
     public event PlayerAction OnConeAbilityStart;
     public event PlayerAction OnConeAbilityUsed;
+    public event PlayerAction OnConeAbilityCharged;
     public event PlayerAction OnConeAbilityHit;
     public event PlayerAction OnConeAbilityEnd;
     public event PlayerAction OnConeAbilityCancel;
@@ -147,6 +147,11 @@ public class EventManager : MonoBehaviour
     {
         if (OnConeAbilityUsed != null)
             OnConeAbilityUsed(Id);
+    }
+    public void ConeAbilityCharged(GameObject Id)
+    {
+        if (OnConeAbilityCharged != null)
+            OnConeAbilityCharged(Id);
     }
     public void ConeAbilityHit(GameObject Id)
     {
@@ -440,17 +445,25 @@ public class EventManager : MonoBehaviour
     public void LoadNextlevel()
     {
         if (OnLoadNextLevel!= null)
+        {
+            print("LOADING NEXT LEVEL");
             OnLoadNextLevel();
+
+        }
     }
 
     public void LoadComplete()
     {
         if (OnLoadComplete != null)
+        {
+            print("LOAD COMPLETE");
             OnLoadComplete();
+        }
     }
 
     public void LoadingProgress(float progress)
     {
+        print(progress * 100f + " %");
         if (OnLoadingProgress != null)
             OnLoadingProgress(progress);
     }

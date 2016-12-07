@@ -19,9 +19,9 @@ public class GameManager {
     private TimeManager _timeManager;
     private GameObject _player;
     private GameObject _spear;
-    private PoolManager _poolManager;
+    private PoolManager _poolManager; 
     private GameObject _managers;
-    private static GameObject _activeCheckPoint;
+  
     private Menu _menu;
     private static int _score, _experience, _playerLevel, _progress;
 
@@ -30,29 +30,20 @@ public class GameManager {
         Debug.Log("GameManager constructed");
         _instance = this;
         _managers = GameObject.Find("Managers");
-        _managers.SendMessage("Subscribe");
+        if (_managers != null)
+        {
+            _managers.SendMessage("Subscribe");
+            events.OnLevelUp += PlayerLevelUp;
+            events.OnMenuOpen += showMenu;
+            events.OnMenuClose += hideMenu;
+            events.OnLoadNextLevel += LoadNextLevel;
+        }
         //menu.gameObject.SetActive(false);
-        events.OnLevelUp += PlayerLevelUp;
-        events.OnMenuOpen += showMenu;
-        events.OnMenuClose += hideMenu;
-        events.OnLoadNextLevel += LoadNextLevel;
+
     }
 
-    public static void GameOver(bool CheckPoint)
-    {
-        player.SetActive(true);
-        //move player?? ++Setplayer active
-        if (!CheckPoint)
-        {
-            _instance = null;
-            events.LoadNextlevel();
-            
-        }
-        else
-        {
-            player.transform.position = _activeCheckPoint.transform.position;
-        }
-    }
+
+
 
     public static int score
     {
@@ -191,6 +182,8 @@ public class GameManager {
     {
         get
         {
+            if (_instance == null)
+                new GameManager();
             return game.eventManager;
         }
     }
@@ -263,16 +256,7 @@ public class GameManager {
             return game.Spear;
         }
     }
-    public GameObject activeCheckpoint
-    {
-        get
-        {
-            return _activeCheckPoint;
-        }
-        set {
-            _activeCheckPoint = value;
-        }
-    }
+   
     private Menu menu
     {
         get
@@ -323,8 +307,8 @@ public class GameManager {
     public static void LoadNextLevel()
     {
         progress = PlayerPrefs.GetInt("Progress");
-
-        SceneManager.LoadScene("LoadingScreen");
+        _instance = null;
+        SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
         // LOADING SCREEN TAKES IT FROM HERE
 
 /*
