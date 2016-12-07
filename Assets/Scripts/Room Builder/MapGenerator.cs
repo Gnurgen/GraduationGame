@@ -20,7 +20,7 @@ public class MapGenerator : MonoBehaviour {
 
     private List<GameObject>[,,,,] roomsByDoors;
     private List<GameObject>[] list = new List<GameObject>[4];
-    private List<GameObject>[] prefabs = new List<GameObject>[2];
+    private List<GameObject>[] prefabs = new List<GameObject>[3];
     private List<GameObject> rooms;
     private RoomGridEntry[,] mapGrid;
     private RoomTile[] tiles;
@@ -108,8 +108,10 @@ public class MapGenerator : MonoBehaviour {
 
         i = GameManager.progress > 0 ? Mathf.Min(GameManager.progress, RoomBuilder.MAX_LEVEL) : mapLevel;
 
+        Debug.Log("Map Level: " + i);
+
         if (prefabs[0] == null)
-            prefabs[0] = Resources.LoadAll("Room").Cast<GameObject>().ToList();
+            prefabs[0] = Resources.LoadAll("Room/All").Cast<GameObject>().ToList();
 
         if (prefabs[i] == null)
             prefabs[i] = Resources.LoadAll("Room/Level" + i).Cast<GameObject>().ToList();
@@ -398,11 +400,11 @@ public class MapGenerator : MonoBehaviour {
     private void clearMemory()
     {
         list = new List<GameObject>[4];
+        prefabs = new List<GameObject>[3];
         roomsByDoors = null;
         mapGrid = null;
         tiles = null;
         mask = null;
-        prefabs = null;
         Resources.UnloadUnusedAssets();
     }
 
