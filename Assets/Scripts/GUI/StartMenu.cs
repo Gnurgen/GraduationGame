@@ -9,12 +9,12 @@ public class StartMenu : MonoBehaviour {
     public Sprite dK, eN;
     public  GameObject language;
     public GameObject fade;
-    [Header("Images")]
-    public GameObject startG;
-    public GameObject loadG, Options;
-    [Header("Text")]
+     [Header("Text")]
     public GameObject music;
     public GameObject sound, lang, credits, instructions;
+    [Header("Start Menu")]
+    public GameObject Shop;
+    public GameObject Reset, Endless;
 
     private float showTime = 2;
 
@@ -94,6 +94,9 @@ public class StartMenu : MonoBehaviour {
         lang.GetComponent<Text>().text = "Sprog";
         credits.GetComponent<Text>().text = "Rulletekster";
         instructions.GetComponent<Text>().text = "Instruktioner";
+        Shop.GetComponent<Text>().text = "BUTIK";
+        Reset.GetComponent<Text>().text = "NULSTIL";
+        Endless.GetComponent<Text>().text = "ENDELØS UDFORDRING";
     }
     void changeButtonsENG()
     {
@@ -102,5 +105,8 @@ public class StartMenu : MonoBehaviour {
         lang.GetComponent<Text>().text = "Language";
         credits.GetComponent<Text>().text = "Credits";
         instructions.GetComponent<Text>().text = "Instructions";
+        Shop.GetComponent<Text>().text = "SHOP";
+        Reset.GetComponent<Text>().text = "RESET";
+        Endless.GetComponent<Text>().text = "ENDLESS CHALLENGE";
     }
 }
