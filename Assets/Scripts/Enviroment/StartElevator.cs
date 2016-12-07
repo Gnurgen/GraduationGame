@@ -10,8 +10,8 @@ public class StartElevator : MonoBehaviour {
     private Vector3 EndPos, startPos;
 	void Start () {
         player = GameManager.player;
-        EndPos = new Vector3(transform.position.x, -3.45f, transform.position.z);
-        startPos = new Vector3 (transform.position.x, -6.45f, transform.position.z);
+        EndPos = new Vector3(transform.position.x, -3.8f, transform.position.z);
+        startPos = new Vector3 (transform.position.x, -6.8f, transform.position.z);
         transform.position = startPos;
         GameManager.events.OnLoadComplete += MoveUp;
         player.transform.localPosition = Vector3.zero + Vector3.up * 0.453073f; //the float is 0.5 - kumos height in the local position
