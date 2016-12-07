@@ -16,18 +16,7 @@ public class FlyingSpear : MonoBehaviour {
 
 
 
-    private float _currentCooldown;
-    public float currentCooldown
-    {
-        get
-        {
-            return _currentCooldown;
-        }
-        set
-        {
-            _currentCooldown = value;
-        }
-    }
+    public float currentCooldown;
     private InputManager IM;
     private EventManager EM;
     private EffectCurveDraw LR;
@@ -50,12 +39,13 @@ public class FlyingSpear : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        _currentCooldown -= Time.deltaTime;
+        currentCooldown -= Time.deltaTime;
 	}
 
     public void UseAbility(Vector3 p)
     {
         currentDrawLength = 0;
+        currentCooldown = 10000f;
         shouldDraw = true;
         drawnPoints = new List<Vector3>();
         LR.AddPoint(transform.position);

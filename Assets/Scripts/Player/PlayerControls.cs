@@ -219,7 +219,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (used)
         {
-            ability1.currentCooldown = abilityCooldown;
+            //ability1.currentCooldown = abilityCooldown;
             ability2.currentCooldown = abilityCooldown;
         }
         ab1 = false; ab2 = false;
