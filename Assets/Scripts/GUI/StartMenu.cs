@@ -30,6 +30,7 @@ public class StartMenu : MonoBehaviour {
         GameManager.progress = 0;
         PlayerPrefs.SetInt("Progress", 0);
         GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
+        Resources.UnloadUnusedAssets();
     }
 
     public void newGame() {
