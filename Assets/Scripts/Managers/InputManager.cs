@@ -103,6 +103,7 @@ public class InputManager : MonoBehaviour {
 	// Initialize the two touch sessions
 	void Awake () 
 	{
+        Input.multiTouchEnabled = false;
 		currentTouchSession = new TouchSession ();
 		firstTouchBeginMethods = new List<MethodVectorID> ();
 		firstTouchMoveMethods = new List<MethodVectorID> ();
