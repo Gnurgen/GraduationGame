@@ -7,6 +7,17 @@ public class InputManager : MonoBehaviour {
 	// ----- Method wrappers for subscribing to input -----
 	public delegate void Vector2Delegate(Vector2 points);
 	public delegate void SwipeDelegate(Swipe swipe);
+    // REMOVE THIS
+    public GameObject effect;
+
+    IEnumerator PlayEffect(Vector2 pos)
+    {
+        GameObject obj = Instantiate(effect) as GameObject;
+        obj.transform.position = GetWorldPoint(pos);
+        obj.GetComponent<PKFxFX>().StartEffect();
+        yield return new WaitForSeconds(0.5f);
+        Destroy(obj);
+    }
 
 	// ----- Mouse Variables -----
 	private bool mouseIsDown;
@@ -39,7 +50,6 @@ public class InputManager : MonoBehaviour {
 
 	// ----- Keeps track of current and previous input -----
 	private TouchSession currentTouchSession;
-	private TouchSession previousTouchSession;
 
 	// ----- Limits the number of move points sent -----
 	private Vector2 lastValidFirstMovePoint;
@@ -52,27 +62,18 @@ public class InputManager : MonoBehaviour {
 	private List<MethodVectorID> firstTouchBeginMethods;
 	private List<MethodVectorID> firstTouchMoveMethods;
 	private List<MethodVectorID> firstTouchEndMethods;
-	private List<MethodVectorID> secondTouchBeginMethods;
-	private List<MethodVectorID> secondTouchMoveMethods;
-	private List<MethodVectorID> secondTouchEndMethods;
 	private List<MethodVectorID> tapMethods;
 	private List<MethodVectorID> doubleTapMethods;
 	private List<MethodSwipeID>  swipeMethods;
     private List<MethodVectorID> firstTouchBeginMethodsAdd;
     private List<MethodVectorID> firstTouchMoveMethodsAdd;
     private List<MethodVectorID> firstTouchEndMethodsAdd;
-    private List<MethodVectorID> secondTouchBeginMethodsAdd;
-    private List<MethodVectorID> secondTouchMoveMethodsAdd;
-    private List<MethodVectorID> secondTouchEndMethodsAdd;
     private List<MethodVectorID> tapMethodsAdd;
     private List<MethodVectorID> doubleTapMethodsAdd;
     private List<MethodSwipeID> swipeMethodsAdd;
     private List<int> firstTouchBeginMethodsRemove;
     private List<int> firstTouchMoveMethodsRemove;
     private List<int> firstTouchEndMethodsRemove;
-    private List<int> secondTouchBeginMethodsRemove;
-    private List<int> secondTouchMoveMethodsRemove;
-    private List<int> secondTouchEndMethodsRemove;
     private List<int> tapMethodsRemove;
     private List<int> doubleTapMethodsRemove;
     private List<int> swipeMethodsRemove;
@@ -103,13 +104,9 @@ public class InputManager : MonoBehaviour {
 	void Awake () 
 	{
 		currentTouchSession = new TouchSession ();
-		previousTouchSession = new TouchSession ();
 		firstTouchBeginMethods = new List<MethodVectorID> ();
 		firstTouchMoveMethods = new List<MethodVectorID> ();
 		firstTouchEndMethods = new List<MethodVectorID> ();
-		secondTouchBeginMethods = new List<MethodVectorID> ();
-		secondTouchMoveMethods = new List<MethodVectorID> ();
-		secondTouchEndMethods = new List<MethodVectorID> ();
 		tapMethods = new List<MethodVectorID> ();
 		doubleTapMethods = new List<MethodVectorID> ();
 		swipeMethods = new List<MethodSwipeID> ();
@@ -117,9 +114,6 @@ public class InputManager : MonoBehaviour {
         firstTouchBeginMethodsAdd = new List<MethodVectorID>();
         firstTouchMoveMethodsAdd = new List<MethodVectorID>();
         firstTouchEndMethodsAdd = new List<MethodVectorID>();
-        secondTouchBeginMethodsAdd = new List<MethodVectorID>();
-        secondTouchMoveMethodsAdd = new List<MethodVectorID>();
-        secondTouchEndMethodsAdd = new List<MethodVectorID>();
         tapMethodsAdd = new List<MethodVectorID>();
         doubleTapMethodsAdd = new List<MethodVectorID>();
         swipeMethodsAdd = new List<MethodSwipeID>();
@@ -127,9 +121,6 @@ public class InputManager : MonoBehaviour {
         firstTouchBeginMethodsRemove = new List<int>();
         firstTouchMoveMethodsRemove = new List<int>();
         firstTouchEndMethodsRemove = new List<int>();
-        secondTouchBeginMethodsRemove = new List<int>();
-        secondTouchMoveMethodsRemove = new List<int>();
-        secondTouchEndMethodsRemove = new List<int>();
         tapMethodsRemove = new List<int>();
         doubleTapMethodsRemove = new List<int>();
         swipeMethodsRemove = new List<int>();
@@ -139,11 +130,40 @@ public class InputManager : MonoBehaviour {
 		previousMouseTap = false;
 		mouseTap = false;
 		mouseAnalysed = true;
-        fingersTouching = 0;
 	}
 
-	void Update () { 
-		foreach (Touch t in Input.touches) {
+	void Update () {
+        for(int i = 0; i < Input.touches.Length; i++)
+        {
+            if (currentTouchSession.TouchID() == Input.touches[i].fingerId || currentTouchSession.IsCleanSession())
+            {
+                switch (Input.touches[i].phase)
+                {
+                case TouchPhase.Began:
+                    StartCoroutine(PlayEffect(Input.touches[i].position));
+                    currentTouchSession.AddTouchBegin(Input.touches[i]);
+                    lastValidFirstMovePoint = Input.touches[i].position;
+                    OnFirstTouchBegin(Input.touches[i]);
+                    break;
+                case TouchPhase.Moved:
+                    if (Vector2.Distance(Input.touches[i].position, lastValidFirstMovePoint) > distanceToMove)
+                    {
+                            StartCoroutine(PlayEffect(Input.touches[i].position));
+                            lastValidFirstMovePoint = Input.touches[i].position;
+                        OnFirstTouchMove(Input.touches[i]);
+                    }
+                    break;
+                case TouchPhase.Ended:
+                        StartCoroutine(PlayEffect(Input.touches[i].position));
+                        currentTouchSession.AddTouchEnd(Input.touches[i]);
+                    OnFirstTouchEnd(Input.touches[i]);
+                    AdvancedInputAnalysis();
+                    currentTouchSession.CleanSession();
+                    break;
+                }
+            }
+        }
+		/*foreach (Touch t in Input.touches) {
 			switch (t.phase) {
 			case TouchPhase.Began:
                     fingersTouching += 1;
@@ -151,10 +171,6 @@ public class InputManager : MonoBehaviour {
 					currentTouchSession.AddFirstTouchBegin (t);
 					lastValidFirstMovePoint = t.position;
 					OnFirstTouchBegin (t);
-				} else if (currentTouchSession.SecondTouchID () == -1) {
-					currentTouchSession.AddSecondTouchBegin (t);
-					lastValidSecondMovePoint = t.position;
-					OnSecondTouchBegin (t);
 				}
 				break;
 			case TouchPhase.Moved:
@@ -162,35 +178,26 @@ public class InputManager : MonoBehaviour {
 					lastValidFirstMovePoint = t.position;
 					OnFirstTouchMove (t);
 
-				} else if (t.fingerId == currentTouchSession.SecondTouchID () && Vector2.Distance (t.position, lastValidSecondMovePoint) > distanceToMove && currentTouchSession.SecondFingerTouching()) {
-					lastValidSecondMovePoint = t.position;
-					OnSecondTouchMove (t);
-				}
+				} 
 				break;
 			case TouchPhase.Ended:
                     fingersTouching -= 1;
 				if (t.fingerId == currentTouchSession.FirstTouchID () && currentTouchSession.FirstFingerTouching()) {
 					currentTouchSession.AddFirstTouchEnd (t);
 					OnFirstTouchEnd (t);
-				} else if (t.fingerId == currentTouchSession.SecondTouchID () && currentTouchSession.SecondFingerTouching()) {
-					currentTouchSession.AddSecondTouchEnd (t);
-					OnSecondTouchEnd (t);
-				}
-
-                    if (fingersTouching == 0) // The last finger has lifted, do advanced input analysis
-                    {
-                        AdvancedInputAnalysis();
-                        // Rotate the sessions so the current session becomes the previous one,
-                        // and the previous one becomes the current one, but cleaned so its ready for new input.
-                        TouchSession temp = previousTouchSession;
-                        previousTouchSession = currentTouchSession;
-                        currentTouchSession = temp;
-                        currentTouchSession.CleanSession();
-                    }
+				} 
+                if (fingersTouching == 0) // The last finger has lifted, do advanced input analysis
+                {
+                    AdvancedInputAnalysis();
+                    // Rotate the sessions so the current session becomes the previous one,
+                    // and the previous one becomes the current one, but cleaned so its ready for new input.
+                    currentTouchSession.CleanSession();
+                }
 
 				break;
 			}
-		}
+            
+		}*/
 
 		// Support for mouse input.
 		if (!mouseIsDown && !mouseAnalysed) {
@@ -262,36 +269,6 @@ public class InputManager : MonoBehaviour {
             firstTouchBeginMethodsAdd.Clear();
         }
 
-        if (secondTouchBeginMethodsRemove.Count > 0)
-        {
-            foreach (int ID in secondTouchBeginMethodsRemove)
-            {
-                index = -1;
-                for (int i = 0; i < secondTouchBeginMethods.Count; i++)
-                {
-                    if (secondTouchBeginMethods[i].id == ID)
-                    {
-                        index = i;
-                    }
-                }
-                if (index >= 0)
-                {
-                    secondTouchBeginMethods.RemoveAt(index);
-                }
-            }
-            secondTouchBeginMethodsRemove.Clear();
-        }
-
-        if (secondTouchBeginMethodsAdd.Count > 0)
-        {
-            foreach (MethodVectorID mvi in secondTouchBeginMethodsAdd)
-            {
-                secondTouchBeginMethods.Add(mvi);
-            }
-            secondTouchBeginMethodsAdd.Clear();
-        }
-
-
         if (firstTouchMoveMethodsRemove.Count > 0)
         {
             foreach (int ID in firstTouchMoveMethodsRemove)
@@ -321,35 +298,6 @@ public class InputManager : MonoBehaviour {
             firstTouchMoveMethodsAdd.Clear();
         }
 
-        if (secondTouchMoveMethodsRemove.Count > 0)
-        {
-            foreach (int ID in secondTouchMoveMethodsRemove)
-            {
-                index = -1;
-                for (int i = 0; i < secondTouchMoveMethods.Count; i++)
-                {
-                    if (secondTouchMoveMethods[i].id == ID)
-                    {
-                        index = i;
-                    }
-                }
-                if (index >= 0)
-                {
-                    secondTouchMoveMethods.RemoveAt(index);
-                }
-            }
-            secondTouchMoveMethodsRemove.Clear();
-        }
-
-        if (secondTouchMoveMethodsAdd.Count > 0)
-        {
-            foreach (MethodVectorID mvi in secondTouchMoveMethodsAdd)
-            {
-                secondTouchMoveMethods.Add(mvi);
-            }
-            secondTouchMoveMethodsAdd.Clear();
-        }
-
         if (firstTouchEndMethodsRemove.Count > 0)
         {
             foreach (int ID in firstTouchEndMethodsRemove)
@@ -377,35 +325,6 @@ public class InputManager : MonoBehaviour {
                 firstTouchEndMethods.Add(mvi);
             }
             firstTouchEndMethodsAdd.Clear();
-        }
-
-        if (secondTouchEndMethodsRemove.Count > 0)
-        {
-            foreach (int ID in secondTouchEndMethodsRemove)
-            {
-                index = -1;
-                for (int i = 0; i < secondTouchEndMethods.Count; i++)
-                {
-                    if (secondTouchEndMethods[i].id == ID)
-                    {
-                        index = i;
-                    }
-                }
-                if (index >= 0)
-                {
-                    secondTouchEndMethods.RemoveAt(index);
-                }
-            }
-            secondTouchEndMethodsRemove.Clear();
-        }
-
-        if (secondTouchEndMethodsAdd.Count > 0)
-        {
-            foreach (MethodVectorID mvi in secondTouchEndMethodsAdd)
-            {
-                secondTouchEndMethods.Add(mvi);
-            }
-            secondTouchEndMethodsAdd.Clear();
         }
 
         if (tapMethodsRemove.Count > 0)
@@ -500,36 +419,17 @@ public class InputManager : MonoBehaviour {
     void AdvancedInputAnalysis()
 	{
 		// Analyse first touch finger
-		if(IsTap(currentTouchSession.GetFirstTouch()))
+		if(IsTap(currentTouchSession.GetTouch()))
 		{
-			OnTap (currentTouchSession.GetFirstTouch().end);
-			if(previousTouchSession.FirstTouchID() != -1 && IsTap(previousTouchSession.GetFirstTouch()) && IsDoubleTap(previousTouchSession.GetFirstTouch(), currentTouchSession.GetFirstTouch()))
-            {
-                OnDoubleTap (previousTouchSession.GetFirstTouch().end, currentTouchSession.GetFirstTouch().end);
-			}
-		} else if(IsSwipe(currentTouchSession.GetFirstTouch()))
+			OnTap (currentTouchSession.GetTouch().end);
+		} else if(IsSwipe(currentTouchSession.GetTouch()))
         {
-            OnSwipe (currentTouchSession.GetFirstTouch().begin, currentTouchSession.GetFirstTouch().end);
-		}
-		// Analyse second touch finger
-		if(currentTouchSession.SecondTouchID() != -1)
-		{
-			if(IsTap(currentTouchSession.GetSecondTouch()))
-			{
-				OnTap (currentTouchSession.GetSecondTouch().end);
-				if(previousTouchSession.SecondTouchID() != -1 && IsTap(previousTouchSession.GetSecondTouch()) && IsDoubleTap(previousTouchSession.GetSecondTouch(), currentTouchSession.GetSecondTouch()))
-				{
-					OnDoubleTap (previousTouchSession.GetSecondTouch().end, currentTouchSession.GetSecondTouch().end);
-				}
-			} else if(IsSwipe(currentTouchSession.GetSecondTouch()))
-			{
-				OnSwipe (currentTouchSession.GetSecondTouch().begin, currentTouchSession.GetSecondTouch().end);
-			}
+            OnSwipe (currentTouchSession.GetTouch().begin, currentTouchSession.GetTouch().end);
 		}
 	}
 
     /*
-	 * Helper methods to determine when an interaction is a tap, doubletap or a swipe.
+	 * Helper methods to determine when an interaction is a tap or a swipe.
 	*/
     #region Methods
     bool IsTap(SingleTouchSession sts)
@@ -537,20 +437,15 @@ public class InputManager : MonoBehaviour {
 		return sts.endTime - sts.beginTime < tapTime && Vector2.Distance (sts.begin.position, sts.end.position) < tapDistance;
 	}
 
-	bool IsMouseTap()
-	{
-		return mouseEndTime - mouseBeginTime < swipeTime && Vector3.Distance (mouseBegin, mouseEnd) < tapDistance;
-	}
-
-	bool IsDoubleTap(SingleTouchSession sts1, SingleTouchSession sts2)
-	{
-		return sts2.endTime - sts1.beginTime < doubleTapTime && Vector2.Distance(sts1.end.position, sts2.end.position) < tapDistance;
-	}
-
 	bool IsSwipe(SingleTouchSession sts)
 	{
 		return sts.endTime -sts.beginTime < swipeTime && Vector2.Distance(sts.begin.position, sts.end.position) > swipeMinDistance;
 	}
+
+    bool IsMouseTap()
+    {
+        return mouseEndTime - mouseBeginTime < swipeTime && Vector3.Distance(mouseBegin, mouseEnd) < tapDistance;
+    }
 
 	bool IsMouseSwipe()
 	{
@@ -580,23 +475,6 @@ public class InputManager : MonoBehaviour {
         }
 	}
 
-	void OnSecondTouchBegin(Touch t)
-	{
-		if (secondTouchBeginMethods.Count > 0) {
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in secondTouchBeginMethods) {
-					mvi.method (t.position);
-				}
-			} else {
-				foreach (MethodVectorID mvi in secondTouchBeginMethods) {
-					if (mvi.id == owner) {
-						mvi.method (t.position);
-					}
-				}
-			}
-        }
-	}
-
 	void OnFirstTouchMove(Touch t)
 	{
 		if (firstTouchMoveMethods.Count > 0) {
@@ -614,23 +492,6 @@ public class InputManager : MonoBehaviour {
         }
 	}
 
-	void OnSecondTouchMove(Touch t)
-	{
-		if (secondTouchMoveMethods.Count > 0) {
-            if (owner < 0) {
-				foreach (MethodVectorID mvi in secondTouchMoveMethods) {
-					mvi.method (t.position);
-				}
-			} else {
-				foreach (MethodVectorID mvi in secondTouchMoveMethods) {
-					if (mvi.id == owner) {
-						mvi.method (t.position);
-					}
-				}
-			}
-        }
-	}
-
 	void OnFirstTouchEnd(Touch t)
 	{
 		if (firstTouchEndMethods.Count > 0) {
@@ -640,23 +501,6 @@ public class InputManager : MonoBehaviour {
 				}
 			} else {
 				foreach (MethodVectorID mvi in firstTouchEndMethods) {
-					if (mvi.id == owner) {
-						mvi.method (t.position);
-					}
-				}
-			}
-        }
-	}
-
-	void OnSecondTouchEnd(Touch t)
-	{
-		if (secondTouchEndMethods.Count > 0) {
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in secondTouchEndMethods) {
-					mvi.method (t.position);
-				}
-			} else {
-				foreach (MethodVectorID mvi in secondTouchEndMethods) {
 					if (mvi.id == owner) {
 						mvi.method (t.position);
 					}
@@ -962,78 +806,6 @@ public class InputManager : MonoBehaviour {
         firstTouchEndMethodsRemove.Add(ID);
 	}
 
-	public void OnSecondTouchBeginSub(Vector2Delegate vd, int ID)
-	{
-		bool exists = false;
-		for(int i = 0; i < secondTouchBeginMethods.Count; i++)
-		{
-			if(secondTouchBeginMethods[i].id == ID)
-			{
-				exists = true;
-			}
-		}
-		if(!exists)
-		{
-			MethodVectorID mvi = new MethodVectorID ();
-			mvi.id = ID;
-			mvi.method = vd;
-            secondTouchBeginMethodsAdd.Add (mvi);
-		}
-	}
-
-	public void OnSecondTouchBeginUnsub(int ID)
-	{
-        secondTouchBeginMethodsRemove.Add(ID);
-	}
-
-	public void OnSecondTouchMoveSub(Vector2Delegate vd, int ID)
-	{
-		bool exists = false;
-		for(int i = 0; i < secondTouchMoveMethods.Count; i++)
-		{
-			if(secondTouchMoveMethods[i].id == ID)
-			{
-				exists = true;
-			}
-		}
-		if(!exists)
-		{
-			MethodVectorID mvi = new MethodVectorID ();
-			mvi.id = ID;
-			mvi.method = vd;
-            secondTouchMoveMethodsAdd.Add (mvi);
-		}
-	}
-
-	public void OnSecondTouchMoveUnsub(int ID)
-	{
-        secondTouchMoveMethodsRemove.Add(ID);
-	}
-
-	public void OnSecondTouchEndSub(Vector2Delegate vd, int ID)
-	{
-		bool exists = false;
-		for(int i = 0; i < secondTouchEndMethods.Count; i++)
-		{
-			if(secondTouchEndMethods[i].id == ID)
-			{
-				exists = true;
-			}
-		}
-		if(!exists)
-		{
-			MethodVectorID mvi = new MethodVectorID ();
-			mvi.id = ID;
-			mvi.method = vd;
-            secondTouchEndMethodsAdd.Add (mvi);
-		}
-	}
-
-	public void OnSecondTouchEndUnsub(int ID)
-	{
-        secondTouchEndMethodsRemove.Add(ID);
-	}
-
 	public void OnTapSub(Vector2Delegate vd, int ID)
 	{
 		bool exists = false;
@@ -1114,94 +886,56 @@ public class InputManager : MonoBehaviour {
     public class TouchSession
 	{
 
-		private bool hasFirstTouch;
-		private SingleTouchSession firstTouch;
-        private bool firstTouching;
-		private bool hasSecondTouch;
-		private SingleTouchSession secondTouch;
-        private bool secondTouching;
+		private bool hasTouch;
+		private SingleTouchSession touch;
+        private bool touching;
 
 		public TouchSession()
 		{
-			hasFirstTouch = false;
-            firstTouching = false;
-			hasSecondTouch = false;
-            secondTouching = false;
+			hasTouch = false;
+            touching = false;
 		}
 
-		public void AddFirstTouchBegin(Touch t)
+		public void AddTouchBegin(Touch t)
 		{
 			SingleTouchSession sts = new SingleTouchSession ();
 			sts.begin = t;
 			sts.beginTime = Time.unscaledTime;
-			firstTouch = sts;
-			hasFirstTouch = true;
-            firstTouching = true;
+			touch = sts;
+			hasTouch = true;
+            touching = true;
 		}
 
-		public void AddFirstTouchEnd(Touch t)
+		public void AddTouchEnd(Touch t)
 		{
-			firstTouch.end = t;
-			firstTouch.endTime = Time.unscaledTime;
-            firstTouching = false;
+			touch.end = t;
+			touch.endTime = Time.unscaledTime;
+            touching = false;
 		}
 
-		public void AddSecondTouchBegin(Touch t)
+		public int TouchID()
 		{
-			SingleTouchSession sts = new SingleTouchSession ();
-			sts.begin = t;
-			sts.beginTime = Time.unscaledTime;
-			secondTouch = sts;
-			hasSecondTouch = true;
-            secondTouching = true;
+			return hasTouch ? touch.begin.fingerId : -1;
 		}
 
-		public void AddSecondTouchEnd(Touch t)
+		public SingleTouchSession GetTouch()
 		{
-			secondTouch.end = t;
-			secondTouch.endTime = Time.unscaledTime;
-            secondTouching = false;
-		}
-
-		public int FirstTouchID()
-		{
-			return hasFirstTouch ? firstTouch.begin.fingerId : -1;
-		}
-
-		public int SecondTouchID()
-		{
-			return hasSecondTouch ? secondTouch.begin.fingerId : -1;
-		}
-
-		public SingleTouchSession GetFirstTouch()
-		{
-			return firstTouch;
-		}
-
-		public SingleTouchSession GetSecondTouch()
-		{
-			return secondTouch;
+			return touch;
 		}
 
 		public void CleanSession()
 		{
-			hasFirstTouch = false;
-			hasSecondTouch = false;
+			hasTouch = false;
 		}
 
 		public bool IsCleanSession()
 		{
-			return !hasFirstTouch && !hasSecondTouch;
+			return !hasTouch;
 		}
 
         public bool FirstFingerTouching()
         {
-            return firstTouching;
-        }
-
-        public bool SecondFingerTouching()
-        {
-            return secondTouching;
+            return touching;
         }
 	}
     #endregion

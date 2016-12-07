@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: c7218aac1110a39498d8665b6ee7b3b3
-timeCreated: 1480684132
+guid: 7e2141badd76b8d468b8f9c296b0d2c9
+timeCreated: 1481115584
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName: {}
@@ -37,13 +37,13 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
-  allowsAlphaSplitting: 1
+  allowsAlphaSplitting: 0
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 13, y: 13, z: 20, w: 11}
   spritePixelsToUnits: 100
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -53,7 +53,7 @@ TextureImporter:
     maxTextureSize: 512
     textureFormat: -1
     compressionQuality: 100
-    allowsAlphaSplitting: 1
+    allowsAlphaSplitting: 0
   spriteSheet:
     serializedVersion: 2
     sprites: []
