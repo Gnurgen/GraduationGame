@@ -329,6 +329,9 @@ public class EventManager : MonoBehaviour
     public event RoomAction OnRoomEnter;
     public event RoomAction OnRoomExit;
 
+    public delegate void CameraAction(float shake);
+    public event CameraAction OnCameraShake;
+
     public delegate void MapAction();
     public event MapAction OnMapComplete;
     public event MapAction OnElevatorActivated;
@@ -425,6 +428,11 @@ public class EventManager : MonoBehaviour
     {
         if (OnResourcePickup != null)
             OnObjDestroyed(go);
+    }
+    public void CameraShake(float shake)
+    {
+        if (OnCameraShake != null)
+            OnCameraShake(shake);
     }
 
     //##############################################################################################################################################################
