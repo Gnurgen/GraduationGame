@@ -36,6 +36,7 @@ public class PlayerControls : MonoBehaviour {
     private float currentDashDistance;
     private Vector3 MoveToPoint;
     private float currentDashCooldown;
+    private float touchCooldown = .125f, curTouchCooldown;
 
     // --- Abilities ---
     private Vector3 touchStart, touchEnd, touchCur;
@@ -73,14 +74,21 @@ public class PlayerControls : MonoBehaviour {
     {
         if (state == State.Dashing || state == State.Moving)
         {
-            if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, .3f, 1 << coneBlock))
-                StartCoroutine(Idle());
+            float colCheckDist = state==State.Dashing ? 0.6f : 0.3f;
+            if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, colCheckDist, 1 << coneBlock))
+            {
+                if (state == State.Dashing)
+                    StartCoroutine(Moving());
+                else
+                    StartCoroutine(Idle());
+            }
         }
         body.velocity = Vector3.zero;
     }
     void Update()
     {
         currentDashCooldown -= Time.deltaTime;
+        curTouchCooldown -= Time.deltaTime;
     }
 
     IEnumerator Idle()
@@ -97,7 +105,6 @@ public class PlayerControls : MonoBehaviour {
         }
         if (state == State.Ability)
         {
-            StartCoroutine(Ability());
             yield break;
         }
         yield break;
@@ -114,7 +121,6 @@ public class PlayerControls : MonoBehaviour {
         }
         if (state == State.Ability)
         {
-            StartCoroutine(Ability());
             yield break;
         }
         else if (state == State.Moving)
@@ -131,7 +137,7 @@ public class PlayerControls : MonoBehaviour {
 
             yield return null;
         }
-        switch (state)
+        switch (prevstate)
         {
             case State.Dashing: StartCoroutine(Dashing());
                 break;
@@ -161,7 +167,6 @@ public class PlayerControls : MonoBehaviour {
         em.PlayerDashEnd(gameObject);
         if (state == State.Ability)
         {
-            StartCoroutine(Ability());
             yield break;
         }
         if ((transform.position - MoveToPoint).magnitude > .2f && state!=State.Idle)
@@ -178,7 +183,7 @@ public class PlayerControls : MonoBehaviour {
     void Begin(Vector2 p)
     {
         touchStart = im.GetWorldPoint(p);
-        prevstate = state;
+        prevstate = ResumeMovementAfterAbility? state : State.Idle;
         if ((touchStart - transform.position).magnitude < abilityTouchOffset && ability1.currentCooldown <= 0)
             ab1 = true;
         else if (ability2.currentCooldown <=0)
@@ -191,8 +196,8 @@ public class PlayerControls : MonoBehaviour {
         {
             
             body.velocity = Vector3.zero;
-            state = State.Ability;
-            if(ab1)
+            StartCoroutine(Ability());
+            if (ab1)
             {
                 ability1.UseAbility(touchStart);
                 GameManager.events.SpearDrawAbilityStart(gameObject);
@@ -218,15 +223,6 @@ public class PlayerControls : MonoBehaviour {
             ability2.currentCooldown = abilityCooldown;
         }
         ab1 = false; ab2 = false;
-        if (ResumeMovementAfterAbility)
-        {
-            state = prevstate;
-        }
-        else
-        {
-            
-            state = State.Idle;
-        }
     }
 
     void disableMovement()
@@ -241,8 +237,9 @@ public class PlayerControls : MonoBehaviour {
 
     void Tap(Vector2 p)
     {
-        if (state != State.Dashing || ControlDuringDash)
+        if ((state != State.Dashing || ControlDuringDash) && curTouchCooldown<=0f)
         {
+            curTouchCooldown = touchCooldown;
             MoveToPoint = im.GetWorldPoint(p);
             MoveToPoint.y = transform.position.y;
             ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
