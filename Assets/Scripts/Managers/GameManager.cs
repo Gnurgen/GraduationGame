@@ -42,9 +42,6 @@ public class GameManager {
 
     }
 
-
-
-
     public static int score
     {
         get

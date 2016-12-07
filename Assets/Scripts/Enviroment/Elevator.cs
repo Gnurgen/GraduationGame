@@ -19,8 +19,11 @@ public class Elevator : MonoBehaviour
     int ID;
     float speed = 1;
     int tilesInvis = 0;
+    private SpiritLvlBar spiritLevelBar;
+
     void Start()
     {
+        spiritLevelBar = GameObject.Find("SpiritBar").GetComponent<SpiritLvlBar>();
         mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
         GameManager.events.OnElevatorActivated += ActivateME;
         player = GameManager.player;
@@ -32,8 +35,6 @@ public class Elevator : MonoBehaviour
         invisibleWalls.SetActive(false);
         CC.enabled = false;
     }
-   
-
     
     private void ActivateME()
     {
@@ -56,14 +57,14 @@ public class Elevator : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Player")
+        if (col.tag == "Player" && spiritLevelBar.GetProgress() == 1)
         {
             invisibleWalls.SetActive(true);
             player.transform.parent = gameObject.transform;
             StartCoroutine(elevatorLift());
-            CC.enabled = false; 
+            CC.enabled = false;
         }
-        if (InvisWall && col.tag == "Enemy")
+        else if (InvisWall && col.tag == "Enemy")
         {
             GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, 10f);
         }
