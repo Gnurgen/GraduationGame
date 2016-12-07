@@ -14,7 +14,7 @@ public class Credits : MonoBehaviour {
         newPos = gameObject.transform.localPosition.y;
         while (newPos < 7500)
         {
-            newPos += speed * Time.deltaTime;
+            newPos += speed ;
             gameObject.transform.localPosition = new Vector3(0, newPos, 0);
             yield return null;
         }
