@@ -30,6 +30,7 @@ public class MapGenerator : MonoBehaviour {
     private int[] mask;
     private int[] startRoom;
     private int[] endRoom;
+    private int[] progressCoords;
     private int roomRollOdds;
     private int progress;
     private int totalProgress;
@@ -95,13 +96,15 @@ public class MapGenerator : MonoBehaviour {
         int[] hashIndex;
         RoomBuilder room;
 
-        for (i = 0; i < rooms.Count; i++)
-            if (rooms[i] != null)
-                DestroyImmediate(rooms[i]);
-        rooms.Clear();
+        clear();
+        //for (i = 0; i < rooms.Count; i++)
+        //    if (rooms[i] != null)
+        //        DestroyImmediate(rooms[i]);
+        //rooms.Clear();
 
         progress = 0;
         totalProgress = 0;
+        progressCoords = new int[] { 0, 0 };
         completed = false;
         roomsByDoors = new List<GameObject>[4, 2, 2, 2, 2];
         Debug.Log("DET ER NOK LIGE HER DET LAGGER FOR 5 MINUTTER PÅ TABLET");
@@ -365,7 +368,7 @@ public class MapGenerator : MonoBehaviour {
         if (progress == totalProgress)
         {
             completed = true;
-            clear();
+            //clear();
 
             GameManager.events.MapGenerated();
             GameObject.Find("Canvas").GetComponent<GenerateHealthScript>().moveAllHealthBars();
@@ -376,12 +379,16 @@ public class MapGenerator : MonoBehaviour {
 
     private void clear()
     {
-        list = new List<GameObject>[4];
+        for (int i = 0; i < rooms.Count; i++)
+            if (rooms[i] != null)
+                DestroyImmediate(rooms[i]);
+        rooms.Clear();
+        /*list = new List<GameObject>[4];
         roomsByDoors = null;
         mapGrid = null;
         tiles = null;
         mask = null;
-        Resources.UnloadUnusedAssets();
+        Resources.UnloadUnusedAssets();*/
     }
 
     private void updateRoom(int i, int j){
