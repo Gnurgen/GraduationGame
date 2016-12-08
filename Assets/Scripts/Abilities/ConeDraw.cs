@@ -8,7 +8,6 @@ public class ConeDraw : MonoBehaviour {
     [SerializeField]
     private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime, rampUp, maxDamageInrease, 
         maxParticleDrawSize = 4f, maxParticleFireSize = 6f;
-    private InputManager im;
     private bool drawing = false, clockwise = true;
     private Vector3 start, end, cur, lookDir;
     private const int coneResolution = 90;
@@ -69,8 +68,7 @@ public class ConeDraw : MonoBehaviour {
         coneParticlePref = Resources.Load<GameObject>("Pool/p_ConeParticle");
         coneHitParticlePref = Resources.Load<GameObject>("Pool/p_FlyingSpearImpact");
         coneHitParticlePrefBig = Resources.Load<GameObject>("Pool/p_FlyingSpearBigImpact");
-        im = GameManager.input;
-        ID = im.GetID();
+        ID = GameManager.input.GetID();
         onlyHitLayermask = 1 << LayerMask.NameToLayer("ConeBlocker");
         conePart = new List<GameObject>();
         particleLength = new List<float>();
@@ -190,14 +188,14 @@ public class ConeDraw : MonoBehaviour {
 
     IEnumerator Ability()
     {
-        im.OnFirstTouchMoveSub(GetMove, ID);
-        im.OnFirstTouchEndSub(GetEnd, ID);
-        im.TakeControl(ID);
+        GameManager.input.OnFirstTouchMoveSub(GetMove, ID);
+        GameManager.input.OnFirstTouchEndSub(GetEnd, ID);
+        GameManager.input.TakeControl(ID);
         drawing = true;
         yield return StartCoroutine(DrawCone());
-        im.ReleaseControl(ID);
-        im.OnFirstTouchMoveUnsub(ID);
-        im.OnFirstTouchEndUnsub(ID);
+        GameManager.input.ReleaseControl(ID);
+        GameManager.input.OnFirstTouchMoveUnsub(ID);
+        GameManager.input.OnFirstTouchEndUnsub(ID);
         // Actually use the ability with the drawn points
         normRamp = 0;
         drawnParts = 0;
@@ -326,7 +324,7 @@ public class ConeDraw : MonoBehaviour {
 
     void GetMove(Vector2 p)
     {
-        cur = im.GetWorldPoint(p);
+        cur = GameManager.input.GetWorldPoint(p);
         float y = (int)Quaternion.FromToRotation((cur - transform.position), (start - transform.position)).eulerAngles.y;
         doDraw = coneDrawAnalysis(y);
 
