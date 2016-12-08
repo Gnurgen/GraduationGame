@@ -89,6 +89,7 @@ State	ID	Name	State Group			Notes
 	4284352190	Large	Environment			
 
 Custom State	ID	Name	State Group	Owner		Notes
+	28907358	Out_Of_Battle	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music Gongs		
 	29233574	In_Loading_Screen	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\SFX		
 	53224168	In_Splash	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\SFX		
 	79677499	In_Loading_Screen	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player		
@@ -99,7 +100,6 @@ Custom State	ID	Name	State Group	Owner		Notes
 	268945242	In_Main_Menu	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat		
 	300495557	In_Loading_Screen	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat		
 	383698093	In_Ending_Cutscene	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System		
-	396397624	Out_Of_Battle	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Gongs		
 	404139458	In_Intro_Cutscene	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\SFX		
 	416086302	In_Ability_Wheel	Game_State	\Interactive Music Hierarchy\Default Work Unit\Music_System		
 	430255708	In_Battle	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\SFX\Spirit		
@@ -135,6 +135,7 @@ Source plug-ins	ID	Name	Type		Wwise Object Path	Notes
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	772512	Boss Pain_4	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Boss Pain_4_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Pain Switch\Boss Pain\Boss Pain_4		26017
+	9252935	In Game Music Rhythm	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\In Game Music Rhythm_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music Rhythm		2383551
 	27411979	Enemy Aggro_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Aggro_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Enemy Aggro\Enemy Aggro_1		17308
 	34954691	Enemy Pain	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Pain_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Pain Switch\Enemy Pain\Enemy Pain		4764
 	43422530	Enemy Pain_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Pain_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Pain Switch\Enemy Pain\Enemy Pain_3		5641
@@ -146,7 +147,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	91948562	Ambience_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Ambience_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_3		578856
 	105078837	Enemy Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact_3		5862
 	108351414	Enemy Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Enemy Impact\Enemy Impact_2		6060
-	117927810	In Game Music - Gongs	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\In Game Music - Gongs_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Gongs		974943
 	127406643	Wisp Elevator	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Wisp Elevator_B64DBA74.wem		\Actor-Mixer Hierarchy\Default Work Unit\SFX\Spirit\Wisp Elevator		22230
 	128627066	Boss Voice_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Boss Voice_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Boss Voice\Boss Voice_2		28432
 	163235136	Player Impact_2	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Player Impact_2_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Melee Player Impact\Player Impact_2		6317
@@ -156,8 +156,8 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	195241671	Enemy Aggro	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Aggro_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Enemy Aggro\Enemy Aggro		19444
 	203288734	Spear Throw	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Spear Throw_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Spear Throw\Spear Throw		105748
 	217260536	Boss Voice_4	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Boss Voice_4_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Boss Voice\Boss Voice_4		31161
-	236484631	In Game Music - Main	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\In Game Music - Main_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Main		1325070
 	239801717	Ambience_4	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Ambience_4_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Small\Ambience_4		617251
+	247817987	In Game Music Main	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\In Game Music Main_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music Main		1944717
 	259374390	Boss Pain_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Boss Pain_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Pain Switch\Boss Pain\Boss Pain_3		28900
 	266930967	Enemy Death_4	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Death_4_486D6BD2.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Enemy Death\Enemy Death_4		20160
 	292452142	Enemy Death	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Death_62B3973E.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Enemy Death\Enemy Death		14989
@@ -172,6 +172,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	399983031	Player Impact_4	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Player Impact_4_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Melee Player Impact\Player Impact_4		6991
 	402631603	Thunder_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Thunder_3_4FF9A7F6.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Death\Thunder_3		197799
 	406216983	Player Impact	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Player Impact_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Melee Player Impact\Player Impact		7114
+	408512498	In Game Music Boss	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\In Game Music Boss_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music Boss		2237802
 	411008274	Boss Moving	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Elevator_0ED39DC9.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Boss Moving		71109
 	425836869	Ambience	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Ambience_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Ambience\Ambience\Environmental Ambience\Big\Ambience		682303
 	450165256	Player Impact_3	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Player Impact_3_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Hits\Enemy Melee Player Impact\Player Impact_3		7604
@@ -182,7 +183,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	494802499	Player_Respawn	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Player_Respawn_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Player_Respawn		6090
 	500779542	Music_After_Boss	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Music_After_Boss_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\Music_After_Boss\Music_After_Boss\Music_After_Boss		8291
 	532644430	Music_In_Intro_Cutscene	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Music_In_Intro_Cutscene_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\Music_In_Intro_Cutscene\Music_In_Intro_Cutscene\Music_In_Intro_Cutscene		30259
-	547466270	In Game Music - Rhythm	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\In Game Music - Rhythm_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music - Rhythm		1634068
 	549665878	Cone Ability	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Cone Ability_0B3C3E28.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Attacks\Cone Ability		51536
 	552069994	Boss Voice_7	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Boss Voice_7_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Boss Voice\Boss Voice_7		35727
 	554798888	Boss Impact_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Boss Impact_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player\Hits\Spear Target\Spear Boss Impact\Boss Impact_1		5860
@@ -232,5 +232,6 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	1060079075	Thunder_1	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Thunder_1_C47F2D1B.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Boss\Thunder\Thunder_1		153716
 	1061720448	Boss Pain_5	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Boss Pain_5_3BEED7F1.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Pain Switch\Boss Pain\Boss Pain_5		26090
 	1062194609	Enemy Swing Rock	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Swing Rock_4C73367A.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Enemy\Attacks\Enemy Melee\Enemy Rock Swing\Enemy Swing Rock		6241
+	1067088688	In Game Music Gongs	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\In Game Music Gongs_0ED39DC9.wem		\Interactive Music Hierarchy\Default Work Unit\Music_System\In Game Music\In Game Music\In Game Music Gongs		1270512
 	1070000756	Enemy Death_6	C:\Users\dadiu\Documents\GraduationGame\Core - Wwise Project\.cache\Mac\SFX\Enemy Death_6_2ABDAD33.wem		\Actor-Mixer Hierarchy\Default Work Unit\Combat\Voices\Enemy Death\Enemy Death_6		19982
 

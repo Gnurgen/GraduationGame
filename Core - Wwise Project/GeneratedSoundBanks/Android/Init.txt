@@ -43,4 +43,5 @@ Auxiliary Bus	ID	Name			Wwise Object Path	Notes
 Effect plug-ins	ID	Name	Type				Notes
 	987112962	Wwise RoomVerb (Custom)	Wwise RoomVerb			
 	1459522457	Brick_Wall_Minus_1dB_Peak_Fast_Release	Wwise Peak Limiter			
+	3672549550	Master_Soft	McDSP ML1			
 
