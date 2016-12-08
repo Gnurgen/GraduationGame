@@ -109,7 +109,7 @@ public class MapGenerator : MonoBehaviour {
         i = GameManager.progress > 0 ? Mathf.Min(GameManager.progress, RoomBuilder.MAX_LEVEL) : mapLevel;
 
         if (i == 2)
-            i = Random.Range(2, 3);
+            i = Random.Range(2, 4);
 
         if (prefabs[0] == null)
             prefabs[0] = Resources.LoadAll("Room/All").Cast<GameObject>().ToList();
