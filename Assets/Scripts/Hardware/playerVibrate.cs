@@ -3,8 +3,6 @@ using System.Collections;
 
 public class playerVibrate : MonoBehaviour {
 
-    public bool useVibrations = false;
-
     public long enemyHitVibration = 200;
     public long elevatorVibration = 100;
     private InputManager IM;
@@ -12,8 +10,6 @@ public class playerVibrate : MonoBehaviour {
     int ID;
 
     void Start () {
-
-        GameManager.useVibrations = useVibrations;
 
         if(GameManager.useVibrations)
         {

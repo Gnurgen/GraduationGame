@@ -21,6 +21,8 @@
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
+				<Event Id="3952016716" Name="Ant_Wisp_Loop_Play" ObjectPath="\Events\Default Work Unit\Ant_Wisp_Loop_Play" MaxAttenuation="8.000000"/>
+				<Event Id="1626834006" Name="Ant_Wisp_Loop_Stop" ObjectPath="\Events\Default Work Unit\Ant_Wisp_Loop_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="3074393677" Name="Boss_Beam_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Play" MaxAttenuation="5.000000"/>
 				<Event Id="4191587739" Name="Boss_Beam_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1433984317" Name="Boss_Beam_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Play"/>
@@ -46,6 +48,7 @@
 				<Event Id="2972852827" Name="Draw_Ability_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="482819944" Name="Elevator_Play" ObjectPath="\Events\Default Work Unit\Elevator_Play"/>
 				<Event Id="2818913498" Name="Elevator_Stop" ObjectPath="\Events\Default Work Unit\Elevator_Stop" MaxAttenuation="0.000000"/>
+				<Event Id="638450059" Name="Elevator_Stopping_Play" ObjectPath="\Events\Default Work Unit\Elevator_Stopping_Play"/>
 				<Event Id="2317625885" Name="Enemy_Aggro_Play" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Play"/>
 				<Event Id="4192965245" Name="Enemy_Death_Play" ObjectPath="\Events\Default Work Unit\Enemy_Death_Play"/>
 				<Event Id="1233116581" Name="Enemy_Melee_Hit_Player_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Hit_Player_Play" MaxAttenuation="15.000000"/>
@@ -315,6 +318,10 @@
 				<File Id="633893142" Language="SFX">
 					<ShortName>Enemy Death_1.wav</ShortName>
 					<Path>SFX\Enemy Death_1_C47F2D1B.wem</Path>
+				</File>
+				<File Id="652195424" Language="SFX">
+					<ShortName>Start Game Button.wav</ShortName>
+					<Path>SFX\Start Game Button_B42A8445.wem</Path>
 				</File>
 				<File Id="661626982" Language="SFX">
 					<ShortName>Enemy Aggro_3.wav</ShortName>

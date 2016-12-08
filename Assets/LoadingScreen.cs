@@ -76,9 +76,9 @@ public class LoadingScreen : MonoBehaviour {
 
     private void Loading(float loadp) // FOR FINAL SCENE
     {
-       
+        ImgAni.fillAmount = 1f;
         // Daniels MAPPROGRESS SAVED
-                mapProgress = loadp;
+        mapProgress = loadp;
 
         loadingProgress.fillAmount = mapProgress / totalprogress;
 

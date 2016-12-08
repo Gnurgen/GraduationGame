@@ -4,11 +4,6 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class Outtro : MonoBehaviour {
-  
-    public GameObject[] frames;
-    public GameObject fade;
-    private float showTime = 2;
-    private float fadingTime = 2;
 
     void Start()
     {
@@ -16,34 +11,15 @@ public class Outtro : MonoBehaviour {
     }
     IEnumerator next()
     {
-        frames[0].GetComponent<Image>().CrossFadeAlpha(0, fadingTime, true);
-        yield return new WaitForSeconds(showTime);
-        frames[1].GetComponent<Image>().CrossFadeAlpha(0, fadingTime, true);
-        yield return new WaitForSeconds(showTime);
-        frames[2].GetComponent<Image>().CrossFadeAlpha(0, fadingTime, true);
-        yield return new WaitForSeconds(showTime);
-        frames[3].GetComponent<Image>().CrossFadeAlpha(0, fadingTime, true);
-        yield return new WaitForSeconds(showTime);
-        frames[4].GetComponent<Image>().CrossFadeAlpha(0, fadingTime, true);
-        yield return new WaitForSeconds(showTime);
-        frames[5].GetComponent<Image>().CrossFadeAlpha(0, fadingTime, true);
-        yield return new WaitForSeconds(showTime);
-        frames[6].GetComponent<Image>().CrossFadeAlpha(0, fadingTime, true);
-        yield return new WaitForSeconds(showTime);
+        Handheld.PlayFullScreenMovie("Outro_04.mp4", Color.black, FullScreenMovieControlMode.Hidden, FullScreenMovieScalingMode.AspectFit);
+        Debug.Log("Now playing video file on android device (skipping video on unity play!)");
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(10);
         clearData();
         SceneManager.LoadScene("Menu");
     }
-    void Update()
-    {
-        if (Input.touchCount > 1)
-        {
-            SkipCutscene();
-        }
-    }
-    public void SkipCutscene()
-    {
-        SceneManager.LoadScene("Menu");
-    }
+
     public void clearData()
     {
         GameManager.progress = 0;

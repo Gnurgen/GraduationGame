@@ -1,71 +1,175 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class PlayerHealthBar : MonoBehaviour {
-    //Publics for Game Designer
- //   public float timeBetweenFade = 2.0f;
- //   public float fadeInDuration = 1.0f;
- //   public float fadeOutDuration = 10.0f;
+
+    // ENEMY TRACKER
+    [SerializeField]
+    private float percentageToKill;
+    [SerializeField]
+    private GameObject guidingWhisp;
+
+    [SerializeField]
+    private float hpRegenSpeed = .1f, sRegenSpeed = .1f;
+    [SerializeField]
+    private bool FlashRedFull = false, FlashWhiteFull;
+    [SerializeField]
+    private int HPFlashFrames, SpiritFlashFrames;
+    private int allEnemies;
+    private int currentEnemiesAlive;
+    private bool guideSpawned;
+
+
+    [SerializeField]
+    private Image hpBar, hpBar_Fill, hpBar_Flash, sBar, sBar_Fill, sBar_Flash;
 
     //Private stuff
     private float currentVal, maxVal;
-    private GameObject actor;
-    private float scale;
+    private GameObject player;
+    private float spiritScale = 0, aniSpiritScale = 0;
+    private float hpScale = 1, aniHPScale = 1;
     private float minSize = 0;
     private float maxSize = 1;
 
     //Input manager and Event manager
-    private InputManager IM;
     private EventManager EM;
-    int ID;
 
     void Start() {
-        IM = GameManager.input;
-        ID = IM.GetID();
+
+        sBar_Flash.fillAmount = 0;
+        hpBar_Flash.fillAmount = 0;
         EM = GameManager.events;
+        player = GameManager.player;
 
-            
-            actor = GameManager.player;
-            EM.OnEnemyAttackHit += updateVal;
-            EM.OnResourcePickup += updateVal;
-            maxVal = currentVal = actor.GetComponent<Health>().health;
+        EM.OnLoadComplete += GetTotalEnemies;
+
+        EM.OnEnemyAttackHit += TakeDamage;
+        EM.OnResourcePickup += SpiritPickUp;
+
+        maxVal = currentVal = player.GetComponent<Health>().health;
+
+        guideSpawned = GameManager.progress > GameManager.numberOfLevels;
     }
 
-    void updateVal(GameObject ID, float dmg) {
-
-        StartCoroutine(UpdateHP());
-    }
-    void updateVal(GameObject ID, int heal)
+    void Update()
     {
-        StartCoroutine(UpdateHP());
-    }
-    
-    
-
-    IEnumerator UpdateHP()
-    {
-        yield return new WaitForEndOfFrame();
-        currentVal = actor.GetComponent<Health>().health;
-        scale = 1 - ((maxVal - currentVal) / maxVal);
-        if (currentVal >= 0)
+        if (hpScale != aniHPScale) // HP
         {
-            gameObject.GetComponent<Image>().fillAmount = scale;
+            if (Mathf.Abs(aniHPScale - hpScale) > hpRegenSpeed * Time.deltaTime * 0.5f)
+            {
+                if (hpScale < aniHPScale) // DAMAGE TAKEN !
+                {
+                    aniHPScale = aniHPScale - (hpRegenSpeed * Time.deltaTime);
+                    hpBar.fillAmount = hpScale;
+                    hpBar_Fill.color = Color.red;
+                    hpBar_Fill.fillAmount = aniHPScale;
+                }
+                else if (hpScale > aniHPScale) // HEALING
+                {
+                    aniHPScale = aniHPScale + (hpRegenSpeed * Time.deltaTime);
+                    hpBar.fillAmount = aniHPScale;
+                    hpBar_Fill.color = Color.grey; // DarkGreen
+                    hpBar_Fill.fillAmount = hpScale;
+                }
+            }
+            else    // DO nothing
+            {
+                aniHPScale = hpScale;
+                hpBar_Fill.color = Color.white; //hpBar's color
+            }
+        }
+        if (spiritScale > aniSpiritScale) // SPIRIT BAR
+        {
+            aniSpiritScale += sRegenSpeed * Time.deltaTime;
+            sBar_Fill.fillAmount = spiritScale;
+            sBar.fillAmount = aniSpiritScale;
+        }
+        else
+        {
+            aniSpiritScale = spiritScale;
         }
     }
-    /*
-    IEnumerator fadeHealthBar()
+    
+
+    private void GetTotalEnemies()
     {
-       imgLeft.GetComponent<Image>().CrossFadeAlpha(1, fadeInDuration, true);
-       imgRight.GetComponent<Image>().CrossFadeAlpha(1, fadeInDuration, true);
-        yield return new WaitForSeconds(timeBetweenFade);
-        imgLeft.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
-       imgRight.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
+        allEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        currentEnemiesAlive = allEnemies;
     }
 
-    void levelupHealthbar(int lvl) {
-        maxHealth = player.GetComponent<Health>().maxHealth;
-        currentHealth = maxHealth;
-        updatePlayerHealth(gameObject, 0);
-    }*/
+    private void SpiritPickUp(GameObject GO, int amount)
+    {
+        StartCoroutine(UpdatePickUp());
+    }
+    private void TakeDamage(GameObject enemyID, float dmg)
+    {
+        StartCoroutine(UpdateDamage());
+    }
+
+    private IEnumerator UpdatePickUp()
+    {
+        yield return new WaitForEndOfFrame();
+        //HP 
+        currentVal = player.GetComponent<Health>().health;
+        hpScale = 1 - ((maxVal - currentVal) / maxVal);
+
+        //Spirit
+        currentEnemiesAlive -= 1;
+        if (percentageToKill != 0)
+            spiritScale = (1 - (float)currentEnemiesAlive / allEnemies) / percentageToKill;
+        if (spiritScale > 1)
+            spiritScale = 1;
+        if (!guideSpawned && ((float)currentEnemiesAlive / (float)allEnemies) <= (1 - percentageToKill))
+        {
+            Instantiate(guidingWhisp, GameManager.spear.transform.position, Quaternion.identity);
+            guideSpawned = true;
+        }
+
+        if (FlashWhiteFull)
+            sBar_Flash.fillAmount = 1;
+        else
+            sBar_Flash.fillAmount = spiritScale;
+        sBar_Flash.color = Color.white;
+        int frame = SpiritFlashFrames;
+        while (frame > 0)
+        {
+            Color col = new Color(1, 1, 1, (float)frame / SpiritFlashFrames);
+            sBar_Flash.color = col;
+            frame--;
+            yield return null;
+        }
+        hpBar_Flash.color = Color.clear;
+    }
+    
+  
+    private IEnumerator UpdateDamage()
+    {
+        yield return new WaitForEndOfFrame();
+        currentVal = player.GetComponent<Health>().health;
+        hpScale = 1 - ((maxVal - currentVal) / maxVal);
+
+        if(FlashRedFull)
+            hpBar_Flash.fillAmount = 1;
+        else
+            hpBar_Flash.fillAmount = aniHPScale;
+        hpBar_Flash.color = Color.red;
+        int frame = HPFlashFrames;
+        while (frame > 0)
+        {
+            Color col = new Color(1, 0, 0, (float)frame /HPFlashFrames);
+            hpBar_Flash.color = col;
+            frame--;
+            yield return null;
+        }
+        hpBar_Flash.color = Color.clear;
+
+    }
+
+    public float GetProgress()
+    {
+        return spiritScale;
+    }
+    
 }
