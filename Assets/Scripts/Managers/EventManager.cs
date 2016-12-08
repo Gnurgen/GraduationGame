@@ -350,6 +350,8 @@ public class EventManager : MonoBehaviour
     public event WhispAction OnGuideWhispScatterStop;
     public event WhispAction OnGuideWhispFollowPath;
     public event WhispAction OnGuideWhispFollowPathStop;
+    public event WhispAction OnWhispAntSpawn;
+    public event WhispAction OnWhispAntDespawn;
     public event WhispAction OnWhispEnterElevator;
 
     public void ElevatorMoveStart()
@@ -386,6 +388,16 @@ public class EventManager : MonoBehaviour
     {
         if (OnWhispEnterElevator != null)
             OnWhispEnterElevator(GO);
+    }
+    public void WhispAntSpawn(GameObject GO)
+    {
+        if (OnWhispAntSpawn != null)
+            OnWhispAntSpawn(GO);
+    }
+    public void WhispAntDespawn(GameObject GO)
+    {
+        if (OnWhispAntDespawn != null)
+            OnWhispAntDespawn(GO);
     }
 
     public void RoomComplete(int i)
