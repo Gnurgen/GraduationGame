@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class Credits : MonoBehaviour {
-    public GameObject sprite1, sprite2, theEnd, canvas;
+public class FancyCredits : MonoBehaviour {
+    public GameObject sprite1, sprite2, theEnd;
     private float newPos;
     [SerializeField]
     private float speed = 5;
@@ -12,11 +13,22 @@ public class Credits : MonoBehaviour {
         sprite1.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
         sprite2.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
         theEnd.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
+        startScrolling();
     }
-    public void startScrolling() {
+    private void Update()
+    {
+        if (Input.GetMouseButton(0))
+            speed = 50;
+        else
+            speed = 5;
+    }
+    
+    public void startScrolling()
+    {
         StartCoroutine(scrolling());
     }
-    IEnumerator scrolling() {
+    IEnumerator scrolling()
+    {
         gameObject.transform.localPosition = new Vector3(0, -500, 0);
         newPos = gameObject.transform.localPosition.y;
         while (newPos < 10901)
@@ -24,10 +36,8 @@ public class Credits : MonoBehaviour {
             if (newPos > 7200)
             {
                 fadeinSprite();
-                
             }
-       
-            newPos += speed ;
+            newPos += speed;
             gameObject.transform.localPosition = new Vector3(0, newPos, 0);
             yield return null;
         }
@@ -35,14 +45,12 @@ public class Credits : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
         theEnd.GetComponent<Image>().CrossFadeAlpha(1, 1, false);
         yield return new WaitForSeconds(1.1f);
-        canvas.GetComponent<StartMenu>().selectMenu(0);
-        theEnd.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
-        sprite1.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
-        sprite2.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
+        SceneManager.LoadScene(1);
         yield return null;
     }
 
-    private void fadeinSprite() {
+    private void fadeinSprite()
+    {
         sprite1.GetComponent<Image>().CrossFadeAlpha(1, 1, true);
         sprite2.GetComponent<Image>().CrossFadeAlpha(1, 1, true);
     }
