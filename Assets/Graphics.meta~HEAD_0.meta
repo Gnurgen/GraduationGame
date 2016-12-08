@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Graphics.meta~HEAD_0.meta
 guid: 909f7a8d0276da74f83a0316f5d6031e
 timeCreated: 1481209917
+=======
+guid: b5d07d1d3da092b46906652550b4542e
+timeCreated: 1481212932
+>>>>>>> e95fe9563a4b464dfa605be85ba00c87e1fef5ee:Assets/Graphics.meta~HEAD_0.meta
 licenseType: Pro
 DefaultImporter:
   userData: 
