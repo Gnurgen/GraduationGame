@@ -13,7 +13,7 @@ public class AutoTest {
         hc.SetHealth(ih);
 
         ih.ClearReceivedCalls();
-        hc.DecreaseHealth(true, 10, 5, 0, 0, 0, 0);
+        hc.DecreaseHealth(true, 10, 5, 20, 0, 0, 0, 0);
         ih.Received().SetHealth(Arg.Is<float>(x => x == 5));
 	}
 
@@ -25,7 +25,7 @@ public class AutoTest {
         hc.SetHealth(ih);
 
         ih.ClearReceivedCalls();
-        hc.DecreaseHealth(false, 10, 5, 0, 0, 0, 0);
+        hc.DecreaseHealth(false, 10, 5, 20, 0, 0, 0, 0);
         ih.DidNotReceiveWithAnyArgs().SetHealth(0);
     }
 

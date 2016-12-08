@@ -646,6 +646,42 @@
 						</Action>
 					</ChildrenList>
 				</Event>
+				<Event Name="Ant_Wisp_Loop_Play" ID="{7F8F9792-D134-4DB1-A934-E4C93D982AF1}">
+					<ChildrenList>
+						<Action Name="Play" ID="{1515FFC8-CAEA-4E7E-A619-478142227FE9}" ShortID="628532959" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{A71AFDA8-B1C0-4297-84AE-8249E4CC2AA7}" Global="false">
+									<ObjectRef Name="Ant Wisp Loop" ID="{3A44256F-825E-4024-A228-0F2B8D79B9F1}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Ant_Wisp_Loop_Stop" ID="{B480B9C3-1766-4232-B65D-3F0F4CCA1A86}">
+					<ChildrenList>
+						<Action Name="Stop" ID="{2B76305F-6357-4003-92F1-9099024885B5}" ShortID="739842534" Type="Stop" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.3"/>
+							</PropertyList>
+							<ElementList>
+								<Element ID="{A249F5BA-A283-4FC0-B237-6F18DC5360B0}" Global="false">
+									<ObjectRef Name="Ant Wisp Loop" ID="{3A44256F-825E-4024-A228-0F2B8D79B9F1}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Elevator_Stopping_Play" ID="{F72AC59E-22DB-4DEE-A210-D6AD940A0F78}">
+					<ChildrenList>
+						<Action Name="Play" ID="{7EA644B2-1364-4FF1-9C31-5BE16FCD11FC}" ShortID="1023462846" Type="Play" Scope="One" Global="false">
+							<ElementList>
+								<Element ID="{735B4AAF-C40A-41FC-8319-777238E223A9}" Global="false">
+									<ObjectRef Name="Elevator Stopping" ID="{03069ADE-9738-4127-B4F0-924FDBE3564C}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+								</Element>
+							</ElementList>
+						</Action>
+					</ChildrenList>
+				</Event>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>

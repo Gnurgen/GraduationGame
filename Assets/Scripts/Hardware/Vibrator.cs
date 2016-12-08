@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Vibrator : MonoBehaviour {
-#if UNITY_ANDROID
+
     private static readonly AndroidJavaObject Service =
         new AndroidJavaClass("com.unity3d.player.UnityPlayer")      // Get the Unity Player.
         .GetStatic<AndroidJavaObject>("currentActivity")            // Get the Current Activity from the Unity Player.
@@ -25,5 +25,4 @@ public class Vibrator : MonoBehaviour {
     {
         Service.Call("vibrate", pattern, repeat);
     }
-#endif
 }

@@ -74,7 +74,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (state == State.Dashing || state == State.Moving)
         {
-            float colCheckDist = state==State.Dashing ? 0.6f : 0.3f;
+            float colCheckDist = state == State.Dashing ? (transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime).magnitude : (transform.forward * moveSpeed * Time.fixedDeltaTime).magnitude;
             if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, colCheckDist, 1 << coneBlock))
             {
                 if (state == State.Dashing)
@@ -114,7 +114,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (state == State.Moving)
             yield break;
-        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward * moveSpeed * Time.deltaTime).magnitude, 1 << coneBlock))
+        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward * moveSpeed * Time.fixedDeltaTime).magnitude, 1 << coneBlock))
         {
             StartCoroutine(Idle());
             yield break;
@@ -160,7 +160,7 @@ public class PlayerControls : MonoBehaviour {
     {
         if (state == State.Dashing)
         yield break;
-        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward*moveSpeed*dashSpeedMultiplier*Time.deltaTime).magnitude, 1 << coneBlock))
+        if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, (transform.forward*moveSpeed*dashSpeedMultiplier*Time.fixedDeltaTime).magnitude, 1 << coneBlock))
         {
             StartCoroutine(Moving());
             yield break;
@@ -198,15 +198,18 @@ public class PlayerControls : MonoBehaviour {
     {
         touchStart = im.GetWorldPoint(p);
         prevstate = ResumeMovementAfterAbility? state : State.Idle;
-        if ((touchStart - transform.position).magnitude < abilityTouchOffset && ability1.currentCooldown <= 0)
-            ab1 = true;
-        else if (ability2.currentCooldown <=0)
-            ab2 = true;
+        if(AbilitiesDuringDash || state != State.Dashing)
+        {
+            if ((touchStart - transform.position).magnitude < abilityTouchOffset && ability1.currentCooldown <= 0)
+                ab1 = true;
+            else if (ability2.currentCooldown <=0)
+                ab2 = true;
+        }
     } 
     void Move(Vector2 p)
     {
         touchCur = im.GetWorldPoint(p);
-        if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance)
+        if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance && (ab1 || ab2))
         {
             
             body.velocity = Vector3.zero;
@@ -251,7 +254,7 @@ public class PlayerControls : MonoBehaviour {
 
     void Tap(Vector2 p)
     {
-        if ((state != State.Dashing || ControlDuringDash) && curTouchCooldown<=0f)
+        if (state != State.Dashing || ControlDuringDash)
         {
             curTouchCooldown = touchCooldown;
             MoveToPoint = im.GetWorldPoint(p);

@@ -9,11 +9,14 @@ State	ID	Name	State Group			Notes
 	878736223	In_Ability_Wheel	Game_State			
 	1362486867	After_Boss	Game_State			
 	1415091186	In_Main_Menu	Game_State			
+	2108726247	In_Loading_Screen_After_Intro_Cutscene	Game_State			
 	2874168282	In_Intro_Cutscene	Game_State			
+	3173468884	Before_Boss	Game_State			
 	3834966784	In_Loading_Screen	Game_State			
 	3853226033	In_Ability_Control	Game_State			
 	3858937137	In_Ending_Cutscene	Game_State			
 	3959165662	In_Splash	Game_State			
+	4195558437	In_Boss_Battle	Game_State			
 	748895195	None	Environment			
 	1846755610	Small	Environment			
 	4284352190	Large	Environment			
@@ -40,4 +43,5 @@ Auxiliary Bus	ID	Name			Wwise Object Path	Notes
 Effect plug-ins	ID	Name	Type				Notes
 	987112962	Wwise RoomVerb (Custom)	Wwise RoomVerb			
 	1459522457	Brick_Wall_Minus_1dB_Peak_Fast_Release	Wwise Peak Limiter			
+	3672549550	Master_Soft	McDSP ML1			
 

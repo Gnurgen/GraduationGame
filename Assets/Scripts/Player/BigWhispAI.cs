@@ -25,6 +25,7 @@ public class BigWhispAI : MonoBehaviour {
 
 	void Start()
     {
+        
         pm = GameManager.pool;
         player = GameManager.player.transform;
         startPosition = new Vector3(player.position.x, 1, player.position.z);

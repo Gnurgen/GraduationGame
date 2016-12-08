@@ -9,12 +9,19 @@ public class StartMenu : MonoBehaviour {
     public Sprite dK, eN;
     public  GameObject language;
     public GameObject fade;
-    [Header("Images")]
-    public GameObject startG;
-    public GameObject loadG, Options;
-    [Header("Text")]
+     [Header("Text")]
     public GameObject music;
     public GameObject sound, lang, credits, instructions;
+    [Header("Start Menu")]
+    public GameObject Shop;
+    public GameObject Reset, Endless;
+    [Header("Shop")]
+    public GameObject skulls;
+    public GameObject items;
+    public GameObject content;
+    public GameObject popup, popup2;
+    public GameObject[] kranier;
+    public GameObject popular, best;
 
     private float showTime = 2;
 
@@ -40,12 +47,25 @@ public class StartMenu : MonoBehaviour {
      
     }
 
+    public void PlayBoss()
+    {
+        GameManager.progress = 3;
+        PlayerPrefs.SetInt("Progress", 3);
+        GameManager.LoadNextLevel();
+    }
+
+    public void UseVibration()
+    {
+        GameManager.useVibrations = GameObject.FindObjectOfType<Toggle>().isOn;
+    }
+
     IEnumerator playVideo()
     {
-        Handheld.PlayFullScreenMovie("Sequence 01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
+        Handheld.PlayFullScreenMovie("Intro_01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFit);
         Debug.Log("Now playing video file on android device (skipping video on unity play!)");
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+        AkSoundEngine.SetState("Game_State", "In_Loading_Screen_After_Intro_Cutscene");
         GameManager.LoadNextLevel();
 
     }
@@ -53,19 +73,19 @@ public class StartMenu : MonoBehaviour {
     {
         GameManager.progress += 1;
         
-        if (GameManager.progress < GameManager.numberOfLevels)
+        if (GameManager.progress < GameManager.numberOfLevels + 1)
         {
-            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Level "+ GameManager.progress +" Progress";
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Level "+ GameManager.progress +" Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
         }
-        else if (GameManager.progress == GameManager.numberOfLevels)
+        else if (GameManager.progress == GameManager.numberOfLevels + 1)
         {
-            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Boss Progress";
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Boss Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
         }
-        else if(GameManager.progress > GameManager.numberOfLevels)
+        else if(GameManager.progress  > GameManager.numberOfLevels + 1)
         {
-            GameObject.Find("IDK").GetComponentInChildren<Text>().text = "Tutorial Progress";
+            GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Tutorial Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
             GameManager.progress = 0;
         }
@@ -90,17 +110,15 @@ public class StartMenu : MonoBehaviour {
     public void changeLanguage() {
         if (isDK == true)
         {
-            Debug.Log("dansk");
             changeButtonsDK();
-            language.GetComponent<Image>().overrideSprite = eN;
+            language.GetComponent<Image>().overrideSprite = dK;
             isDK = false;
             GameManager.game.language = GameManager.Language.Danish;
         }
         else if (isDK == false)
         {
-            Debug.Log("engelsk");
             changeButtonsENG();
-            language.GetComponent<Image>().overrideSprite = dK;
+            language.GetComponent<Image>().overrideSprite = eN;
             isDK = true;
             GameManager.game.language = GameManager.Language.English;
         }
@@ -118,6 +136,19 @@ public class StartMenu : MonoBehaviour {
         lang.GetComponent<Text>().text = "Sprog";
         credits.GetComponent<Text>().text = "Rulletekster";
         instructions.GetComponent<Text>().text = "Instruktioner";
+        Shop.GetComponent<Text>().text = "BUTIK";
+        Reset.GetComponent<Text>().text = "NULSTIL";
+        Endless.GetComponent<Text>().text = "ENDELØS UDFORDRING";
+        skulls.GetComponent<Text>().text = "KRANIER";
+        items.GetComponent<Text>().text = "GENSTANDE";
+        content.GetComponent<Text>().text = "INDHOLD";
+        popup.GetComponent<Text>().text = "DETTE ER IKKE EN RIGTIG BUTIK...";
+        popup2.GetComponent<Text>().text = "DETTE INDHOLD ER IKKE BLEVET TILFØJET ENDNU...";
+        foreach (GameObject i in kranier) {
+        i.GetComponent<Text>().text = "Krystal Kranier";
+        }
+        best.GetComponent<Text>().text = "Best til Pris";
+        popular.GetComponent<Text>().text = "Mest Solgte";
     }
     void changeButtonsENG()
     {
@@ -126,5 +157,20 @@ public class StartMenu : MonoBehaviour {
         lang.GetComponent<Text>().text = "Language";
         credits.GetComponent<Text>().text = "Credits";
         instructions.GetComponent<Text>().text = "Instructions";
+        Shop.GetComponent<Text>().text = "SHOP";
+        Reset.GetComponent<Text>().text = "RESET";
+        Endless.GetComponent<Text>().text = "ENDLESS CHALLENGE";
+        skulls.GetComponent<Text>().text = "SKULLS";
+        items.GetComponent<Text>().text = "ITEMS";
+        content.GetComponent<Text>().text = "CONTENT";
+        popup.GetComponent<Text>().text = "THIS IS NOT A REAL SHOP...";
+        popup.GetComponent<Text>().text = "THIS CONTENT HAS NOT YET BEEN ADDED...";
+        foreach (GameObject i in kranier)
+        {
+            i.GetComponent<Text>().text = "Crystal Skulls";
+        }
+        best.GetComponent<Text>().text = "Best Value";
+        popular.GetComponent<Text>().text = "Most Popular";
+
     }
 }

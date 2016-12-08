@@ -21,33 +21,36 @@
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
+				<Event Id="3952016716" Name="Ant_Wisp_Loop_Play" ObjectPath="\Events\Default Work Unit\Ant_Wisp_Loop_Play" MaxAttenuation="10.000000"/>
+				<Event Id="1626834006" Name="Ant_Wisp_Loop_Stop" ObjectPath="\Events\Default Work Unit\Ant_Wisp_Loop_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="3074393677" Name="Boss_Beam_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Play" MaxAttenuation="5.000000"/>
 				<Event Id="4191587739" Name="Boss_Beam_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1433984317" Name="Boss_Beam_Target_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Play"/>
 				<Event Id="3661299883" Name="Boss_Beam_Target_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Target_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="2779408422" Name="Boss_Death_Play" ObjectPath="\Events\Default Work Unit\Boss_Death_Play"/>
+				<Event Id="2779408422" Name="Boss_Death_Play" ObjectPath="\Events\Default Work Unit\Boss_Death_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2275894560" Name="Boss_Moving_Play" ObjectPath="\Events\Default Work Unit\Boss_Moving_Play" MaxAttenuation="5.000000"/>
 				<Event Id="619153570" Name="Boss_Moving_Stop" ObjectPath="\Events\Default Work Unit\Boss_Moving_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="4185455702" Name="Boss_Phase_Change_Play" ObjectPath="\Events\Default Work Unit\Boss_Phase_Change_Play"/>
+				<Event Id="4185455702" Name="Boss_Phase_Change_Play" ObjectPath="\Events\Default Work Unit\Boss_Phase_Change_Play" MaxAttenuation="15.000000"/>
 				<Event Id="1049093090" Name="Boss_Presentation_Play" ObjectPath="\Events\Default Work Unit\Boss_Presentation_Play"/>
 				<Event Id="2907375116" Name="Boss_Rain_Play" ObjectPath="\Events\Default Work Unit\Boss_Rain_Play" MaxAttenuation="10.000000"/>
 				<Event Id="3906322206" Name="Button_Menu_Play" ObjectPath="\Events\Default Work Unit\Button_Menu_Play"/>
 				<Event Id="789154922" Name="Button_Start_Game_Play" ObjectPath="\Events\Default Work Unit\Button_Start_Game_Play"/>
 				<Event Id="3837168167" Name="Button_Wheel_Hover_Play" ObjectPath="\Events\Default Work Unit\Button_Wheel_Hover_Play"/>
 				<Event Id="378387809" Name="Button_Wheel_Select_Play" ObjectPath="\Events\Default Work Unit\Button_Wheel_Select_Play"/>
-				<Event Id="1005055766" Name="Cone_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Play" MaxAttenuation="15.000000"/>
+				<Event Id="1005055766" Name="Cone_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Play"/>
 				<Event Id="1735593128" Name="Cone_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Cone_Ability_Control_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1610256012" Name="Cone_Ability_Play" ObjectPath="\Events\Default Work Unit\Cone_Ability_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2017253371" Name="Corpse_Despawn_Play" ObjectPath="\Events\Default Work Unit\Corpse_Despawn_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2174485018" Name="Dash_Play" ObjectPath="\Events\Default Work Unit\Dash_Play" MaxAttenuation="15.000000"/>
-				<Event Id="669353839" Name="Draw_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Play" MaxAttenuation="15.000000"/>
+				<Event Id="669353839" Name="Draw_Ability_Control_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Play"/>
 				<Event Id="3386881389" Name="Draw_Ability_Control_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Control_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="1855658509" Name="Draw_Ability_Play" ObjectPath="\Events\Default Work Unit\Draw_Ability_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2972852827" Name="Draw_Ability_Stop" ObjectPath="\Events\Default Work Unit\Draw_Ability_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="482819944" Name="Elevator_Play" ObjectPath="\Events\Default Work Unit\Elevator_Play"/>
 				<Event Id="2818913498" Name="Elevator_Stop" ObjectPath="\Events\Default Work Unit\Elevator_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="2317625885" Name="Enemy_Aggro_Play" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Play"/>
-				<Event Id="4192965245" Name="Enemy_Death_Play" ObjectPath="\Events\Default Work Unit\Enemy_Death_Play"/>
+				<Event Id="638450059" Name="Elevator_Stopping_Play" ObjectPath="\Events\Default Work Unit\Elevator_Stopping_Play"/>
+				<Event Id="2317625885" Name="Enemy_Aggro_Play" ObjectPath="\Events\Default Work Unit\Enemy_Aggro_Play" MaxAttenuation="20.000000"/>
+				<Event Id="4192965245" Name="Enemy_Death_Play" ObjectPath="\Events\Default Work Unit\Enemy_Death_Play" MaxAttenuation="15.000000"/>
 				<Event Id="1233116581" Name="Enemy_Melee_Hit_Player_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Hit_Player_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2339069971" Name="Enemy_Melee_Play" ObjectPath="\Events\Default Work Unit\Enemy_Melee_Play" MaxAttenuation="15.000000"/>
 				<Event Id="4072057392" Name="Enemy_Ranged_Play" ObjectPath="\Events\Default Work Unit\Enemy_Ranged_Play" MaxAttenuation="15.000000"/>
@@ -66,19 +69,23 @@
 				<Event Id="2348472398" Name="Player_Death_Play" ObjectPath="\Events\Default Work Unit\Player_Death_Play" MaxAttenuation="15.000000"/>
 				<Event Id="1389849668" Name="Player_Respawn_Play" ObjectPath="\Events\Default Work Unit\Player_Respawn_Play" MaxAttenuation="15.000000"/>
 				<Event Id="2880001405" Name="Spear_Play" ObjectPath="\Events\Default Work Unit\Spear_Play" MaxAttenuation="15.000000"/>
-				<Event Id="2770920781" Name="Spear_Target_Play" ObjectPath="\Events\Default Work Unit\Spear_Target_Play"/>
+				<Event Id="2770920781" Name="Spear_Target_Play" ObjectPath="\Events\Default Work Unit\Spear_Target_Play" MaxAttenuation="15.000000"/>
 				<Event Id="3056915868" Name="Wheel_Close_Play" ObjectPath="\Events\Default Work Unit\Wheel_Close_Play"/>
 				<Event Id="2645717374" Name="Wheel_Open_Play" ObjectPath="\Events\Default Work Unit\Wheel_Open_Play"/>
-				<Event Id="461033142" Name="Wisp_Elevator_Play" ObjectPath="\Events\Default Work Unit\Wisp_Elevator_Play"/>
+				<Event Id="461033142" Name="Wisp_Elevator_Play" ObjectPath="\Events\Default Work Unit\Wisp_Elevator_Play" MaxAttenuation="15.000000"/>
 				<Event Id="209020650" Name="Wisp_Loop_Play" ObjectPath="\Events\Default Work Unit\Wisp_Loop_Play" MaxAttenuation="10.000000"/>
 				<Event Id="1654799124" Name="Wisp_Loop_Stop" ObjectPath="\Events\Default Work Unit\Wisp_Loop_Stop" MaxAttenuation="0.000000"/>
-				<Event Id="3241222100" Name="Wisp_Scatter_Play" ObjectPath="\Events\Default Work Unit\Wisp_Scatter_Play"/>
+				<Event Id="3241222100" Name="Wisp_Scatter_Play" ObjectPath="\Events\Default Work Unit\Wisp_Scatter_Play" MaxAttenuation="15.000000"/>
 				<Event Id="608683694" Name="Wisp_Scatter_Stop" ObjectPath="\Events\Default Work Unit\Wisp_Scatter_Stop" MaxAttenuation="0.000000"/>
 			</IncludedEvents>
 			<IncludedMemoryFiles>
 				<File Id="772512" Language="SFX">
 					<ShortName>Boss Pain_4.wav</ShortName>
 					<Path>SFX\Boss Pain_4_C47F2D1B.wem</Path>
+				</File>
+				<File Id="9252935" Language="SFX">
+					<ShortName>In Game Music Rhythm.wav</ShortName>
+					<Path>SFX\In Game Music Rhythm_0ED39DC9.wem</Path>
 				</File>
 				<File Id="27411979" Language="SFX">
 					<ShortName>Enemy Aggro_1.wav</ShortName>
@@ -124,10 +131,6 @@
 					<ShortName>Enemy Impact_2.wav</ShortName>
 					<Path>SFX\Enemy Impact_2_C47F2D1B.wem</Path>
 				</File>
-				<File Id="117927810" Language="SFX">
-					<ShortName>In Game Music - Gongs.wav</ShortName>
-					<Path>SFX\In Game Music - Gongs_0ED39DC9.wem</Path>
-				</File>
 				<File Id="127406643" Language="SFX">
 					<ShortName>Wisp Elevator.wav</ShortName>
 					<Path>SFX\Wisp Elevator_B64DBA74.wem</Path>
@@ -142,7 +145,7 @@
 				</File>
 				<File Id="164694367" Language="SFX">
 					<ShortName>Enemy Aggro_2.wav</ShortName>
-					<Path>SFX\Enemy Aggro_2_B7485A77.wem</Path>
+					<Path>SFX\Enemy Aggro_2_0DCE24FA.wem</Path>
 				</File>
 				<File Id="168374737" Language="SFX">
 					<ShortName>Indestructable Impact_3.wav</ShortName>
@@ -150,7 +153,7 @@
 				</File>
 				<File Id="180845942" Language="SFX">
 					<ShortName>Start Game Button.wav</ShortName>
-					<Path>SFX\Start Game Button_894D4FE3.wem</Path>
+					<Path>SFX\Start Game Button_3FDBB205.wem</Path>
 				</File>
 				<File Id="195241671" Language="SFX">
 					<ShortName>Enemy Aggro.wav</ShortName>
@@ -164,13 +167,13 @@
 					<ShortName>Boss Voice_4.wav</ShortName>
 					<Path>SFX\Boss Voice_4_C47F2D1B.wem</Path>
 				</File>
-				<File Id="236484631" Language="SFX">
-					<ShortName>In Game Music - Main.wav</ShortName>
-					<Path>SFX\In Game Music - Main_0ED39DC9.wem</Path>
-				</File>
 				<File Id="239801717" Language="SFX">
 					<ShortName>Ambience_4.wav</ShortName>
 					<Path>SFX\Ambience_4_C47F2D1B.wem</Path>
+				</File>
+				<File Id="247817987" Language="SFX">
+					<ShortName>In Game Music Main.wav</ShortName>
+					<Path>SFX\In Game Music Main_0ED39DC9.wem</Path>
 				</File>
 				<File Id="259374390" Language="SFX">
 					<ShortName>Boss Pain_3.wav</ShortName>
@@ -178,11 +181,11 @@
 				</File>
 				<File Id="266930967" Language="SFX">
 					<ShortName>Enemy Death_4.wav</ShortName>
-					<Path>SFX\Enemy Death_4_29EB8AE1.wem</Path>
+					<Path>SFX\Enemy Death_4_486D6BD2.wem</Path>
 				</File>
 				<File Id="292452142" Language="SFX">
 					<ShortName>Enemy Death.wav</ShortName>
-					<Path>SFX\Enemy Death_179E2D64.wem</Path>
+					<Path>SFX\Enemy Death_62B3973E.wem</Path>
 				</File>
 				<File Id="293405709" Language="SFX">
 					<ShortName>Boss Voice_3.wav</ShortName>
@@ -202,7 +205,7 @@
 				</File>
 				<File Id="353579754" Language="SFX">
 					<ShortName>Cone Charge.wav</ShortName>
-					<Path>SFX\Cone Charge_4DB0CD8C.wem</Path>
+					<Path>SFX\Cone Charge_8B34A6A3.wem</Path>
 				</File>
 				<File Id="358887198" Language="SFX">
 					<ShortName>Enemy Swing Rock_1.wav</ShortName>
@@ -228,6 +231,10 @@
 					<ShortName>Player Impact.wav</ShortName>
 					<Path>SFX\Player Impact_C47F2D1B.wem</Path>
 				</File>
+				<File Id="408512498" Language="SFX">
+					<ShortName>In Game Music Boss.wav</ShortName>
+					<Path>SFX\In Game Music Boss_0ED39DC9.wem</Path>
+				</File>
 				<File Id="411008274" Language="SFX">
 					<ShortName>Elevator.wav</ShortName>
 					<Path>SFX\Elevator_0ED39DC9.wem</Path>
@@ -242,11 +249,11 @@
 				</File>
 				<File Id="451392523" Language="SFX">
 					<ShortName>Boss Pain.wav</ShortName>
-					<Path>SFX\Boss Pain_9A23B0F8.wem</Path>
+					<Path>SFX\Boss Pain_A4221AB4.wem</Path>
 				</File>
 				<File Id="481168500" Language="SFX">
 					<ShortName>Boss Meteor Ability.wav</ShortName>
-					<Path>SFX\Boss Meteor Ability_6AD668AC.wem</Path>
+					<Path>SFX\Boss Meteor Ability_F3185043.wem</Path>
 				</File>
 				<File Id="482960185" Language="SFX">
 					<ShortName>Orb Spawn.wav</ShortName>
@@ -268,13 +275,9 @@
 					<ShortName>Music_In_Intro_Cutscene.wav</ShortName>
 					<Path>SFX\Music_In_Intro_Cutscene_0ED39DC9.wem</Path>
 				</File>
-				<File Id="547466270" Language="SFX">
-					<ShortName>In Game Music - Rhythm.wav</ShortName>
-					<Path>SFX\In Game Music - Rhythm_0ED39DC9.wem</Path>
-				</File>
 				<File Id="549665878" Language="SFX">
 					<ShortName>Cone Ability.wav</ShortName>
-					<Path>SFX\Cone Ability_951014EB.wem</Path>
+					<Path>SFX\Cone Ability_0B3C3E28.wem</Path>
 				</File>
 				<File Id="552069994" Language="SFX">
 					<ShortName>Boss Voice_7.wav</ShortName>
@@ -298,7 +301,7 @@
 				</File>
 				<File Id="590419896" Language="SFX">
 					<ShortName>Boss Voice_4.wav</ShortName>
-					<Path>SFX\Boss Voice_4_4C9AB180.wem</Path>
+					<Path>SFX\Boss Voice_4_54D52705.wem</Path>
 				</File>
 				<File Id="590688327" Language="SFX">
 					<ShortName>Wisp Loop.wav</ShortName>
@@ -316,9 +319,13 @@
 					<ShortName>Enemy Death_1.wav</ShortName>
 					<Path>SFX\Enemy Death_1_C47F2D1B.wem</Path>
 				</File>
+				<File Id="652195424" Language="SFX">
+					<ShortName>Start Game Button.wav</ShortName>
+					<Path>SFX\Start Game Button_B42A8445.wem</Path>
+				</File>
 				<File Id="661626982" Language="SFX">
 					<ShortName>Enemy Aggro_3.wav</ShortName>
-					<Path>SFX\Enemy Aggro_3_52D5A0C4.wem</Path>
+					<Path>SFX\Enemy Aggro_3_769B7103.wem</Path>
 				</File>
 				<File Id="667649109" Language="SFX">
 					<ShortName>Indestructable Impact_2.wav</ShortName>
@@ -330,7 +337,7 @@
 				</File>
 				<File Id="691930395" Language="SFX">
 					<ShortName>Enemy Pain_5.wav</ShortName>
-					<Path>SFX\Enemy Pain_5_37CFED36.wem</Path>
+					<Path>SFX\Enemy Pain_5_73EDB475.wem</Path>
 				</File>
 				<File Id="734602546" Language="SFX">
 					<ShortName>Boss Voice_9.wav</ShortName>
@@ -358,7 +365,7 @@
 				</File>
 				<File Id="773813844" Language="SFX">
 					<ShortName>Throw Ability.wav</ShortName>
-					<Path>SFX\Throw Ability_8F407A51.wem</Path>
+					<Path>SFX\Throw Ability_D952A00E.wem</Path>
 				</File>
 				<File Id="777751117" Language="SFX">
 					<ShortName>Enemy Aggro_4.wav</ShortName>
@@ -394,11 +401,11 @@
 				</File>
 				<File Id="922002007" Language="SFX">
 					<ShortName>Enemy Death_3.wav</ShortName>
-					<Path>SFX\Enemy Death_3_5CD90E40.wem</Path>
+					<Path>SFX\Enemy Death_3_D1069DC1.wem</Path>
 				</File>
 				<File Id="924366606" Language="SFX">
 					<ShortName>Boss Voice_5.wav</ShortName>
-					<Path>SFX\Boss Voice_5_78864D69.wem</Path>
+					<Path>SFX\Boss Voice_5_384DE01E.wem</Path>
 				</File>
 				<File Id="932996397" Language="SFX">
 					<ShortName>Boss Impact_2.wav</ShortName>
@@ -410,7 +417,7 @@
 				</File>
 				<File Id="961047036" Language="SFX">
 					<ShortName>Boss Pain_6.wav</ShortName>
-					<Path>SFX\Boss Pain_6_4847A79A.wem</Path>
+					<Path>SFX\Boss Pain_6_1F4A86FD.wem</Path>
 				</File>
 				<File Id="962076540" Language="SFX">
 					<ShortName>Player Impact_1.wav</ShortName>
@@ -422,7 +429,7 @@
 				</File>
 				<File Id="989674225" Language="SFX">
 					<ShortName>Boss Pain_7.wav</ShortName>
-					<Path>SFX\Boss Pain_7_A6113136.wem</Path>
+					<Path>SFX\Boss Pain_7_6BFB15E3.wem</Path>
 				</File>
 				<File Id="999833992" Language="SFX">
 					<ShortName>Ranged Attack.wav</ShortName>
@@ -438,7 +445,7 @@
 				</File>
 				<File Id="1017841641" Language="SFX">
 					<ShortName>Enemy Pain_2.wav</ShortName>
-					<Path>SFX\Enemy Pain_2_5192E65D.wem</Path>
+					<Path>SFX\Enemy Pain_2_885AD59A.wem</Path>
 				</File>
 				<File Id="1020289391" Language="SFX">
 					<ShortName>Ambience_2.wav</ShortName>
@@ -446,7 +453,7 @@
 				</File>
 				<File Id="1032698106" Language="SFX">
 					<ShortName>Enemy Death_5.wav</ShortName>
-					<Path>SFX\Enemy Death_5_85293506.wem</Path>
+					<Path>SFX\Enemy Death_5_E31B62EA.wem</Path>
 				</File>
 				<File Id="1051025274" Language="SFX">
 					<ShortName>Orb Loop.wav</ShortName>
@@ -458,15 +465,19 @@
 				</File>
 				<File Id="1061720448" Language="SFX">
 					<ShortName>Boss Pain_5.wav</ShortName>
-					<Path>SFX\Boss Pain_5_1C894E26.wem</Path>
+					<Path>SFX\Boss Pain_5_3BEED7F1.wem</Path>
 				</File>
 				<File Id="1062194609" Language="SFX">
 					<ShortName>Enemy Swing Rock.wav</ShortName>
 					<Path>SFX\Enemy Swing Rock_4C73367A.wem</Path>
 				</File>
+				<File Id="1067088688" Language="SFX">
+					<ShortName>In Game Music Gongs.wav</ShortName>
+					<Path>SFX\In Game Music Gongs_0ED39DC9.wem</Path>
+				</File>
 				<File Id="1070000756" Language="SFX">
 					<ShortName>Enemy Death_6.wav</ShortName>
-					<Path>SFX\Enemy Death_6_D94979E9.wem</Path>
+					<Path>SFX\Enemy Death_6_2ABDAD33.wem</Path>
 				</File>
 			</IncludedMemoryFiles>
 		</SoundBank>
