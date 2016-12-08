@@ -75,8 +75,7 @@ public class BigWhispAI : MonoBehaviour {
         while(Vector3.Distance(player.position, elevatorPosition) > elevatorDistance)
         {
             GameObject wisp = pm.GenerateObject("p_PathWhisp");
-            Vector3 start = Random.insideUnitSphere * 1.5f;
-            wisp.GetComponent<PathWhispAI>().Activate(path, transform.position + new Vector3(start.x, 1, start.z));
+            wisp.GetComponent<PathWhispAI>().Activate(path, transform.position, new Vector3(transform.position.x, -100, transform.position.z));
             yield return new WaitForSeconds(spawnFrequency);
         }
         for(int i = 0; i < activatorWhisps; i++)
