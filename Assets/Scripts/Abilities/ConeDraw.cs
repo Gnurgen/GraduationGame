@@ -203,7 +203,7 @@ public class ConeDraw : MonoBehaviour {
         {
             doDraw = false;
             GetComponent<PlayerControls>().EndAbility(true);
-            GameManager.events.ConeAbilityUsed(GameManager.player);
+            GameManager.events.ConeAbilityUsed(gameObject);
             for (int x = 0; x < activeTris + 1; ++x)
             {
                 conePart[x].transform.position = transform.position;
