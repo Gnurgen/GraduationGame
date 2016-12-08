@@ -34,24 +34,23 @@ public class PlayerHealthBar : MonoBehaviour {
     private float maxSize = 1;
 
     //Input manager and Event manager
-    private EventManager EM;
 
     void Start() {
 
         sBar_Flash.fillAmount = 0;
         hpBar_Flash.fillAmount = 0;
-        EM = GameManager.events;
         player = GameManager.player;
 
-        EM.OnLoadComplete += GetTotalEnemies;
-
-        EM.OnEnemyAttackHit += TakeDamage;
-        EM.OnResourcePickup += SpiritPickUp;
+        GameManager.events.OnLoadComplete += GetTotalEnemies;
+        GameManager.events.OnEnemyAttackHit += TakeDamage;
+        GameManager.events.OnResourcePickup += SpiritPickUp;
 
         maxVal = currentVal = player.GetComponent<Health>().health;
 
         guideSpawned = GameManager.progress > GameManager.numberOfLevels;
     }
+
+
 
     void Update()
     {

@@ -14,7 +14,6 @@ public class angle : MonoBehaviour {
 	void Update () {
       
         angles = Mathf.Atan2(transform.position.z - lol.transform.position.z, lol.transform.position.x - transform.position.x) * 180 / Mathf.PI;
-        print(angles);
         s1.transform.position =  Quaternion.AngleAxis(angles, Vector3.up) * -Vector3.forward + transform.position;
         s2.transform.position = Quaternion.AngleAxis(angles, Vector3.up) * Vector3.forward + transform.position;
     }

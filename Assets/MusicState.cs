@@ -45,7 +45,6 @@ public class MusicState : MonoBehaviour {
     {
         yield return new WaitForEndOfFrame();
         Scene = SceneManager.GetActiveScene().name;
-        print(Scene);
         if (Scene == "BossLevel")
         {
             AkSoundEngine.SetState("Game_State", "Before_Boss");
@@ -82,7 +81,5 @@ public class MusicState : MonoBehaviour {
         AkSoundEngine.PostEvent("Button_Start_Game_Play", gameObject);
         AkSoundEngine.RenderAudio();
     }
-
-
 
 }

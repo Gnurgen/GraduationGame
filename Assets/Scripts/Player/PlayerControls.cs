@@ -8,8 +8,6 @@ public class PlayerControls : MonoBehaviour {
     /// </summary>
 
    
-    private InputManager im;
-    private EventManager em;
     public enum State {Idle, Moving, Dashing, Ability};
     public State state;
     State prevstate;
@@ -31,7 +29,7 @@ public class PlayerControls : MonoBehaviour {
     public GameObject ClickFeedBack;
 
     private Vector3 prevPos;
-    private int id;
+    public int id;
     private bool shouldMove;
     private float currentDashDistance;
     private Vector3 MoveToPoint;
@@ -52,14 +50,12 @@ public class PlayerControls : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //ClickFeedBack = Instantiate(ClickFeedBack);
-        im = GameManager.input;
-        em = GameManager.events;
         body = GetComponent<Rigidbody>();
-        id = im.GetID();
-        im.OnTapSub(Tap, id);
-        im.OnFirstTouchBeginSub(Begin, id);
-        im.OnFirstTouchMoveSub(Move, id);
-        im.OnFirstTouchEndSub(End, id);
+        id = GameManager.input.GetID();
+        GameManager.input.OnTapSub(Tap, id);
+        GameManager.input.OnFirstTouchBeginSub(Begin, id);
+        GameManager.input.OnFirstTouchMoveSub(Move, id);
+        GameManager.input.OnFirstTouchEndSub(End, id);
         StartCoroutine(Idle());
         shouldMove = true;
         currentDashDistance = 0;
@@ -98,7 +94,7 @@ public class PlayerControls : MonoBehaviour {
         else
             ClickFeedBack = Instantiate(ClickFeedBack);
         state = State.Idle;
-        em.PlayerIdle(gameObject);
+        GameManager.events.PlayerIdle(gameObject);
         while(state == State.Idle)
         {
             yield return null;
@@ -120,7 +116,7 @@ public class PlayerControls : MonoBehaviour {
             yield break;
         }
         state = State.Moving;
-        em.PlayerMove(gameObject);
+        GameManager.events.PlayerMove(gameObject);
         while (state == State.Moving && Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized)>0)
         {
             body.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
@@ -166,7 +162,7 @@ public class PlayerControls : MonoBehaviour {
             yield break;
         }
         state = State.Dashing;
-        em.PlayerDashBegin(gameObject);
+        GameManager.events.PlayerDashBegin(gameObject);
         while (state == State.Dashing && currentDashDistance < maxDashDistance && (transform.position - MoveToPoint).magnitude > alwaysWalk && 
             Vector3.Dot(transform.forward, (MoveToPoint - transform.position).normalized) > 0)
         {
@@ -178,7 +174,7 @@ public class PlayerControls : MonoBehaviour {
         }
         currentDashCooldown = dashCooldown;
         currentDashDistance = 0;
-        em.PlayerDashEnd(gameObject);
+        GameManager.events.PlayerDashEnd(gameObject);
         if (state == State.Ability)
         {
             yield break;
@@ -196,7 +192,7 @@ public class PlayerControls : MonoBehaviour {
 
     void Begin(Vector2 p)
     {
-        touchStart = im.GetWorldPoint(p);
+        touchStart = GameManager.input.GetWorldPoint(p);
         prevstate = ResumeMovementAfterAbility? state : State.Idle;
         if(AbilitiesDuringDash || state != State.Dashing)
         {
@@ -208,7 +204,7 @@ public class PlayerControls : MonoBehaviour {
     } 
     void Move(Vector2 p)
     {
-        touchCur = im.GetWorldPoint(p);
+        touchCur = GameManager.input.GetWorldPoint(p);
         if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance && (ab1 || ab2))
         {
             
@@ -254,10 +250,10 @@ public class PlayerControls : MonoBehaviour {
 
     void Tap(Vector2 p)
     {
-        if (state != State.Dashing || ControlDuringDash)
+        if ((state != State.Dashing || ControlDuringDash) && gameObject.activeSelf)
         {
             curTouchCooldown = touchCooldown;
-            MoveToPoint = im.GetWorldPoint(p);
+            MoveToPoint = GameManager.input.GetWorldPoint(p);
             MoveToPoint.y = transform.position.y;
             ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
             ClickFeedBack.transform.position = MoveToPoint;
