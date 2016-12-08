@@ -47,10 +47,11 @@ public class StartMenu : MonoBehaviour {
 
     IEnumerator playVideo()
     {
-        Handheld.PlayFullScreenMovie("Sequence 01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFill);
+        Handheld.PlayFullScreenMovie("Intro_01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFit);
         Debug.Log("Now playing video file on android device (skipping video on unity play!)");
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+        AkSoundEngine.SetState("Game_State", "In_Loading_Screen_After_Intro_Cutscene");
         GameManager.LoadNextLevel();
 
     }
@@ -58,17 +59,17 @@ public class StartMenu : MonoBehaviour {
     {
         GameManager.progress += 1;
         
-        if (GameManager.progress < GameManager.numberOfLevels)
+        if (GameManager.progress < GameManager.numberOfLevels + 1)
         {
             GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Level "+ GameManager.progress +" Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
         }
-        else if (GameManager.progress == GameManager.numberOfLevels)
+        else if (GameManager.progress == GameManager.numberOfLevels + 1)
         {
             GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Boss Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = true;
         }
-        else if(GameManager.progress > GameManager.numberOfLevels)
+        else if(GameManager.progress  > GameManager.numberOfLevels + 1)
         {
             GameObject.Find("Endless").GetComponentInChildren<Text>().text = "Tutorial Progress";
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
