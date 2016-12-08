@@ -6,12 +6,15 @@ using System;
 
 public class Elevator : MonoBehaviour
 {
-    public GameObject invisibleWalls, invisibleWalls2;
+   
+    float height;
     private GameObject fade;
+
+    Vector3 prevPlayerPos;
     
     CapsuleCollider CC;
     Material mat;
-    private bool InvisWall;
+    private bool InvisWall = false, outside = false;
     private GameObject player;
     private float preLift = 2;
     private float underLift = 3;
@@ -19,11 +22,11 @@ public class Elevator : MonoBehaviour
     int ID;
     float speed = 1;
     int tilesInvis = 0;
-    private SpiritLvlBar spiritLevelBar;
+    private PlayerHealthBar playerHealthBar;
 
     void Start()
     {
-        spiritLevelBar = GameObject.Find("SpiritBar").GetComponent<SpiritLvlBar>();
+        playerHealthBar = GameObject.Find("PlayerHealthBarPanel").GetComponent<PlayerHealthBar>();
         mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
         GameManager.events.OnElevatorActivated += ActivateME;
         player = GameManager.player;
@@ -32,8 +35,7 @@ public class Elevator : MonoBehaviour
         Color col = new Color(0.3f, 0.3f, 0.3f);
         mat.color = col;
         CC = GetComponent<CapsuleCollider>();
-        invisibleWalls.SetActive(false);
-        invisibleWalls2.SetActive(false);
+       
         CC.enabled = false;
     }
     
@@ -58,15 +60,14 @@ public class Elevator : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == "Player" && spiritLevelBar.GetProgress() == 1)
+        if (col.tag == player.tag && playerHealthBar.GetProgress() == 1)
         {
-            invisibleWalls2.SetActive(true);
-            invisibleWalls.SetActive(true);
             player.transform.parent = gameObject.transform;
-
-            StartCoroutine(elevatorLift());
-            CC.enabled = false;
-
+            
+            if(!InvisWall)
+                StartCoroutine(elevatorLift());
+            //CC.enabled = false;
+            InvisWall = true;
         }
         else if (InvisWall && col.tag == "Enemy")
         {
@@ -83,8 +84,23 @@ public class Elevator : MonoBehaviour
             GameManager.events.PlayerAttackHit(GameManager.player, col.gameObject, 10f);
         }
     }
+    void OnTriggerExit(Collider col)
+    {
+        if(col.tag == player.tag)
+        {
+            outside = true;
+        }
+    }
    
-
+    void LateUpdate()
+    {
+        if(InvisWall && outside)
+        {
+            player.transform.localPosition = prevPlayerPos;
+            outside = false;
+        }
+        prevPlayerPos = player.transform.localPosition;
+    }
     IEnumerator elevatorLift()
     {
     

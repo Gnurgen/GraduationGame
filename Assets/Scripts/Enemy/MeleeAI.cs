@@ -228,9 +228,9 @@ public class MeleeAI : EnemyStats {
                         dir.z = 0;
                         if (dir.y > 180) //If point is to the right, convert degrees to minus
                             dir.y -= 360;
-                        if (dir.y > 1)
+                        if (dir.y > 5)
                             transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
-                        else if (dir.y < -1)
+                        else if (dir.y < -5)
                             transform.Rotate(Vector3.down * turnRate * Time.fixedDeltaTime);
                         else
                             transform.Rotate(dir);
@@ -273,8 +273,12 @@ public class MeleeAI : EnemyStats {
                         animator.SetTrigger("Attack");
                         yield return new WaitForEndOfFrame();
                         animator.SetBool("Run", false);
+                        while (animator.IsInTransition(0))
+                        {
+                            yield return null;
+                        }
                         Weapon.GetComponent<EnemyMeleeAttack>().Swing(true);
-                        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") || animator.IsInTransition(0))
+                        while (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
                         {
                             yield return null;
                         }
@@ -286,9 +290,9 @@ public class MeleeAI : EnemyStats {
                 dir.z = 0;
                 if (dir.y > 180) //If point is to the right, convert degrees to minus
                     dir.y -= 360;
-                if (dir.y > 1)
+                if (dir.y > 5)
                     transform.Rotate(Vector3.up * turnRate * Time.fixedDeltaTime);
-                else if (dir.y < -1)
+                else if (dir.y < -5)
                     transform.Rotate(Vector3.down * turnRate * Time.deltaTime);
                 else
                     transform.Rotate(dir);
