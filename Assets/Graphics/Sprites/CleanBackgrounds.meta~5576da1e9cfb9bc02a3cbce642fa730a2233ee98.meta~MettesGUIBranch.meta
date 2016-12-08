@@ -1,16 +1,11 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Graphics/Sprites/CleanBackgrounds.meta~5576da1e9cfb9bc02a3cbce642fa730a2233ee98.meta~MettesGUIBranch.meta
-guid: c29dd3fcf851da0409c39d0c7d1ef5ca
-timeCreated: 1481192268
-=======
 <<<<<<< HEAD
-guid: 128d97fad62d17b488505f7f8e4888b9
-timeCreated: 1481192905
+guid: 6e2590ed3d6275945b4f158693b8bf75
+timeCreated: 1481197160
 =======
-guid: a674039c82f47b3439838e64d5f3d1c6
-timeCreated: 1481191527
->>>>>>> 2df8dfb4a361771d6bc093092b37a37ae79bc288
->>>>>>> 043f59ea2c2156982a6cdd5a2034d6b4d179565f:Assets/Graphics/Sprites/CleanBackgrounds.meta~5576da1e9cfb9bc02a3cbce642fa730a2233ee98.meta
+guid: ac254603192166f41abc2c0bf96b3eb4
+timeCreated: 1481192379
+>>>>>>> b053480317529277e97b33eb22c8b69369d2bf48
 licenseType: Pro
 DefaultImporter:
   userData: 
