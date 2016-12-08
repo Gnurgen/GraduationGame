@@ -20,7 +20,7 @@ public class MapGenerator : MonoBehaviour {
 
     private List<GameObject>[,,,,] roomsByDoors;
     private List<GameObject>[] list = new List<GameObject>[4];
-    private List<GameObject>[] prefabs = new List<GameObject>[3];
+    private List<GameObject>[] prefabs = new List<GameObject>[4];
     private List<GameObject> rooms;
     private RoomGridEntry[,] mapGrid;
     private RoomTile[] tiles;
@@ -401,7 +401,7 @@ public class MapGenerator : MonoBehaviour {
     private void clearMemory()
     {
         list = new List<GameObject>[4];
-        prefabs = new List<GameObject>[3];
+        prefabs = new List<GameObject>[4];
         roomsByDoors = null;
         mapGrid = null;
         tiles = null;
