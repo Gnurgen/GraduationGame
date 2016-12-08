@@ -31,7 +31,7 @@ public class PlayerControls : MonoBehaviour {
     public GameObject ClickFeedBack;
 
     private Vector3 prevPos;
-    private int id;
+    public int id;
     private bool shouldMove;
     private float currentDashDistance;
     private Vector3 MoveToPoint;
