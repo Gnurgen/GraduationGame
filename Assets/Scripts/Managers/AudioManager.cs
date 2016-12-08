@@ -326,7 +326,8 @@ public class AudioManager : MonoBehaviour {
 
     private void ConeAbilityStop(GameObject GO)
     {
-        AkSoundEngine.PostEvent("Cone_Ability_Stop", GO);
+        AkSoundEngine.PostEvent("Cone_Ability_Control_Stop", GSB);
+        //AkSoundEngine.PostEvent("Cone_Ability_Stop", GSB);
     }
 
     private void ConeAbilityHitPlay(GameObject GO)
@@ -348,7 +349,8 @@ public class AudioManager : MonoBehaviour {
     public void ConeAbilityPlay(GameObject GO)
     {
         //When finnished drawing the cone Ability and activates 
-        AkSoundEngine.PostEvent("Cone_Ability_Play", GO);
+        AkSoundEngine.PostEvent("Cone_Ability_Control_Stop", GSB);
+        AkSoundEngine.PostEvent("Cone_Ability_Play", GSB);
         AkSoundEngine.RenderAudio();
     }
     public void ConeAbilityInteractPlay(GameObject GO)
