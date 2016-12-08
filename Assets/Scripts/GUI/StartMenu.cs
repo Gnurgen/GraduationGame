@@ -47,6 +47,13 @@ public class StartMenu : MonoBehaviour {
      
     }
 
+    public void PlayBoss()
+    {
+        GameManager.progress = 3;
+        PlayerPrefs.SetInt("Progress", 3);
+        GameManager.LoadNextLevel();
+    }
+
     public void UseVibration()
     {
         GameManager.useVibrations = GameObject.FindObjectOfType<Toggle>().isOn;

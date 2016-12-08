@@ -3,6 +3,8 @@ using System.Collections;
 using System;
 
 public class Health : MonoBehaviour, IHealth {
+    public const float EXECUTE = 0.2f;
+
     private float healthPerRes;
     private bool healthOnLevel = false;
     private bool vulnerable = true;
@@ -72,7 +74,7 @@ public class Health : MonoBehaviour, IHealth {
             ht = new HealthController();
             ht.SetHealth(this);
         }
-        ht.DecreaseHealth(vulnerable, health, dmg, forceDir.x, forceDir.y, forceDir.z, pushForce);
+        ht.DecreaseHealth(vulnerable, health, dmg, maxHealth, forceDir.x, forceDir.y, forceDir.z, pushForce);
         if(hpBar != null)
             hpBar.updateHealthBar();
     }
@@ -142,12 +144,11 @@ public class HealthController
 {
     IHealth h;
 
-    
-    public void DecreaseHealth(bool vulnerable, float health, float dmg, float forceX, float forceY, float forceZ, float pushForce)
+    public void DecreaseHealth(bool vulnerable, float health, float dmg, float maxHealth, float forceX, float forceY, float forceZ, float pushForce)
     {
         if (vulnerable)
         {
-            if(health - dmg <= 0)
+            if(health - dmg <= 0 || health/maxHealth <= Health.EXECUTE)
             {
                 h.SetHealth(0);
                 h.Dead();
@@ -162,14 +163,7 @@ public class HealthController
 
     public void IncreaseHealth(float health, float inc, float maxHealth)
     {
-        if(health + inc >= maxHealth)
-        {
-            h.SetHealth(maxHealth);
-        }
-        else
-        {
-            h.SetHealth(health + inc);
-        }
+        h.SetHealth(Mathf.Min(maxHealth,health + inc));
     }
 
 
