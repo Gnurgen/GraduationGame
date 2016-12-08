@@ -23,7 +23,7 @@ public class RangedAI : EnemyStats {
     private Vector3 targetPositionAtPath;
     private Path path;
     private int pathIndex;
-    private float nextPointDistance = 0.5f;
+    private float nextPointDistance = 1;
     private float recalcPathRange;
     private bool waitingForPath;
     private int behindPointCheck = 10;
@@ -34,6 +34,7 @@ public class RangedAI : EnemyStats {
     private SpawnRagdoll myDoll;
     private int taunts;
     private int aggros;
+    private RaycastHit hit;
 
     // Use this for initialization
     void Awake()
@@ -208,15 +209,19 @@ public class RangedAI : EnemyStats {
                 }
                 targetDist = Vector3.Distance(transform.position, target.transform.position);
                 // If the target has moved outside the aggro range, go to idle, if withing attack range, go to attacking
+
                 if (targetDist > aggroRange * resetRangeMult)
                 {
                     StartCoroutine(Reset());
                     yield break;
                 }
-                else if (targetDist < attackDist)
+                else if (targetDist < attackDist && Physics.Raycast(transform.position + Vector3.up, target.transform.position - transform.position, out hit))
                 {
-                    StartCoroutine(Attacking());
-                    yield break;
+                    if(hit.transform.tag == "Player")
+                    {
+                        StartCoroutine(Attacking());
+                        yield break;
+                    }
                 }
 
                 if (!waitingForPath && Vector3.Distance(targetPositionAtPath, target.transform.position) > recalcPathRange)
@@ -278,6 +283,15 @@ public class RangedAI : EnemyStats {
                 {
                     StartCoroutine(Chasing());
                     yield break;
+                }
+
+                if(Physics.Raycast(transform.position + Vector3.up, target.transform.position - transform.position, out hit))
+                {
+                    if(hit.transform.tag != "Player")
+                    {
+                        StartCoroutine(Chasing());
+                        yield break;
+                    }
                 }
 
                 Vector3 dir = (target.transform.position - transform.position).normalized;

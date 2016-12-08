@@ -4,24 +4,23 @@ using System.Collections;
 
 public class TutorialClose : MonoBehaviour {
     private Vector3 positionscale;
-    int ID;
+    InputManager IM;
+    public int ID;
     float speed = 20f;
     float newPosX, newPosY;
 
     void Start () {
         positionscale = new Vector3(1f, 0.2f, 0);
         GameManager.events.MapGenerated();
-        ID = GameManager.input.GetID();
         gameObject.SetActive(false);
     }
 
-    private void OnEnable()
+    public void openTutorial()
     {
-        if (GameManager.input != null)
-        {
-            terminateTouch();
-            GameManager.time.SetTimeScale(0f);
-        }
+        IM = GameManager.input;
+        terminateTouch();
+        GameManager.time.SetTimeScale(0f);
+        
     }
 
     public void movingAnimation()
@@ -57,12 +56,13 @@ public class TutorialClose : MonoBehaviour {
     }
 
     public void terminateTouch() {
-        GameManager.input.TakeControl(ID);
+        IM.TakeControl(ID);
+        GameManager.time.SetTimeScale(0f);
     }
 
     public void allowTouch()
     {
-        GameManager.input.ReleaseControl(ID);
+        IM.ReleaseControl(ID);
         GameManager.time.SetTimeScale(1f);
     }
 
