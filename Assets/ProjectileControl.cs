@@ -63,7 +63,7 @@ public class ProjectileControl : MonoBehaviour {
             GameObject eff = GameManager.pool.GenerateObject("p_EnemyRangedAttackHit");
             eff.transform.position = transform.position;
             eff.GetComponent<PKFxFX>().StartEffect();
-            StartCoroutine(DelayedPool(eff, 0.5f));
+            eff.GetComponent<PoolDelay>().DelayPool(0.5f);
             destroy();
         }
         else
@@ -72,16 +72,9 @@ public class ProjectileControl : MonoBehaviour {
             GameObject eff = GameManager.pool.GenerateObject("p_EnemyRangedAttackHit");
             eff.transform.position = transform.position;
             eff.GetComponent<PKFxFX>().StartEffect();
-            StartCoroutine(DelayedPool(eff, 0.5f));
+            eff.GetComponent<PoolDelay>().DelayPool(0.5f);
             destroy();
         }
-    }
-
-    IEnumerator DelayedPool(GameObject obj, float time)
-    {
-        yield return new WaitForSeconds(time);
-        obj.transform.position = new Vector3(0, -100000, 0);
-        GameManager.pool.PoolObj(obj);
     }
 
     void destroy()
