@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 4a1b6eb3e4a0e674189460bb83479bfa
 timeCreated: 1481190058
+=======
+guid: 8896c98f69558354d9370fb83d935bb8
+timeCreated: 1481191746
+>>>>>>> MettesGUIBranch
 licenseType: Pro
 DefaultImporter:
   userData: 
