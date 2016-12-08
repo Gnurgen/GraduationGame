@@ -7,17 +7,19 @@ public class InputManager : MonoBehaviour {
 	// ----- Method wrappers for subscribing to input -----
 	public delegate void Vector2Delegate(Vector2 points);
 	public delegate void SwipeDelegate(Swipe swipe);
+    
     // Click feedback
-    public GameObject effect;
     IEnumerator PlayEffect(Vector2 pos)
     {
-        GameObject obj = Instantiate(effect) as GameObject;
+        GameObject obj = GameManager.pool.GenerateObject("ClickFeedback");
         Vector3 pos3 = GetWorldPoint(pos);
         obj.transform.position = pos3 + (Camera.main.transform.position - pos3).normalized * 1.5f;
-        //obj.GetComponent<PKFxFX>().SetAttribute(new PKFxManager("SymbolColor"));
         obj.GetComponent<PKFxFX>().StartEffect();
-        yield return new WaitForSeconds(0.5f);
-        Destroy(obj);
+        yield return new WaitForSeconds(0.25f);
+        obj.GetComponent<PKFxFX>().StopEffect();
+        yield return new WaitForSeconds(0.25f);
+        obj.transform.position = new Vector3(0,-100000, 0);
+        GameManager.pool.PoolObj(obj);
     }
 
 	// ----- Mouse Variables -----
@@ -32,8 +34,6 @@ public class InputManager : MonoBehaviour {
 	private bool mouseAnalysed;
     private int fingersTouching;
 	// Current Interaction
-	private bool previousMouseTap;
-	private float previousMouseTapTime;
 
 	// ----- Inspector Variables -----
 	[SerializeField]
@@ -129,7 +129,6 @@ public class InputManager : MonoBehaviour {
 
         owner = -1;
 		idCount = 0;
-		previousMouseTap = false;
 		mouseTap = false;
 		mouseAnalysed = true;
 	}
@@ -205,16 +204,10 @@ public class InputManager : MonoBehaviour {
 			mouseTap = IsMouseTap ();
 			if (mouseTap) {
 				OnMouseTap (mouseEnd);
-				if (previousMouseTap && mouseEndTime - previousMouseTapTime < doubleTapTime) {
-					OnMouseDoubleTap (mouseEnd);
-				}
 			}
 			if (IsMouseSwipe ()) {
 				OnMouseSwipe (mouseBegin, mouseEnd);
 			}
-			previousMouseTap = mouseTap;
-			previousMouseTapTime = mouseEndTime;
-
 		} else {
 			if (Input.GetMouseButtonDown (0)) {
 				mouseIsDown = true;
@@ -526,23 +519,6 @@ public class InputManager : MonoBehaviour {
         }
 	}
 
-	void OnDoubleTap(Touch tp, Touch tc)
-	{
-		if (doubleTapMethods.Count > 0) {
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in doubleTapMethods) {
-					mvi.method (tc.position);
-				}
-			} else {
-				foreach (MethodVectorID mvi in doubleTapMethods) {
-					if (mvi.id == owner) {
-						mvi.method (tc.position);
-					}
-				}
-			}
-        }
-	}
-
 	void OnSwipe(Touch p1, Touch p2)
 	{
 		if (swipeMethods.Count > 0) {
@@ -625,32 +601,15 @@ public class InputManager : MonoBehaviour {
 
 	void OnMouseTap(Vector3 p)
 	{
-		if (tapMethods.Count > 0) {
+        if (tapMethods.Count > 0) {
 			Vector2 point = new Vector2 (p.x,p.y);
-			if (owner < 0) {
+            StartCoroutine(PlayEffect(point));
+            if (owner < 0) {
 				foreach (MethodVectorID mvi in tapMethods) {
 					mvi.method (point);
 				}
 			} else {
 				foreach (MethodVectorID mvi in tapMethods) {
-					if (mvi.id == owner) {
-						mvi.method (point);
-					}
-				}
-			}
-        }
-	}
-
-	void OnMouseDoubleTap(Vector3 p)
-	{
-		if (doubleTapMethods.Count > 0) {
-			Vector2 point = new Vector2 (p.x,p.y);
-			if (owner < 0) {
-				foreach (MethodVectorID mvi in doubleTapMethods) {
-					mvi.method (point);
-				}
-			} else {
-				foreach (MethodVectorID mvi in doubleTapMethods) {
 					if (mvi.id == owner) {
 						mvi.method (point);
 					}
