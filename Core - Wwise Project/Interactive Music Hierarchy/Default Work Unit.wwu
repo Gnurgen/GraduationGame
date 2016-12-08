@@ -833,7 +833,7 @@
 							<ChildrenList>
 								<MusicSegment Name="In Game Music" ID="{04B0F43E-4B2F-40C7-93BD-0A2482F35DDA}" ShortID="244515641">
 									<PropertyList>
-										<Property Name="EndPosition" Type="Real64" Value="80624.301466557"/>
+										<Property Name="EndPosition" Type="Real64" Value="118451.855742873"/>
 										<Property Name="GridFrequencyPreset" Type="int16" Value="53"/>
 										<Property Name="OverrideClockSettings" Type="bool" Value="True"/>
 										<Property Name="Tempo" Type="Real64" Value="94"/>
@@ -847,16 +847,105 @@
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
-										<MusicTrack Name="In Game Music - Gongs" ID="{03E7A61B-2B15-4858-9576-CFB523098E2A}" ShortID="824185056">
+										<MusicTrack Name="In Game Music Boss" ID="{653737D3-B132-4802-8F8E-F3ACED90CC7F}" ShortID="970938421">
+											<PropertyList>
+												<Property Name="MusicTrackType" Type="int16" Value="3"/>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="In Game Music - Gongs" ID="{9D29D911-F702-4ADA-8895-23EC47161E59}" ShortID="117927810">
+												<AudioFileSource Name="In Game Music Boss" ID="{79B36971-9027-4C63-8E9A-C3F5A4F33D28}" ShortID="408512498">
 													<Language>SFX</Language>
-													<AudioFile>In Game Music - Gongs.wav</AudioFile>
+													<AudioFile>In Game Music Boss.wav</AudioFile>
+												</AudioFileSource>
+											</ChildrenList>
+											<TransitionList>
+												<MusicTransition Name="Root" ID="{8762AA9A-5644-488E-A06A-EE3598DDE1D1}">
+													<PropertyList>
+														<Property Name="IsFolder" Type="bool" Value="True"/>
+													</PropertyList>
+													<ChildrenList>
+														<MusicTransition Name="Transition" ID="{9F143E84-FFB8-4F77-8A69-6B6ED59833B3}">
+															<PropertyList>
+																<Property Name="EnableDestinationFadeIn" Type="bool" Value="True"/>
+																<Property Name="EnableSourceFadeOut" Type="bool" Value="True"/>
+																<Property Name="ExitSourceAt" Type="int16" Value="3"/>
+															</PropertyList>
+															<TransitionInfo>
+																<SourceFadeOut>
+																	<MusicFade Name="Source Fade-out" ID="{4E151C67-41AD-481C-B9C0-E9201E7F7D60}">
+																		<PropertyList>
+																			<Property Name="FadeOffset" Type="Real64" Value="0.5"/>
+																			<Property Name="FadeTime" Type="Real64" Value="1"/>
+																			<Property Name="FadeType" Type="int16" Value="1"/>
+																		</PropertyList>
+																	</MusicFade>
+																</SourceFadeOut>
+																<DestinationFadeIn>
+																	<MusicFade Name="Destination Fade-in" ID="{3A4148B0-3C75-4CB8-9CFA-3D4EC0224B5A}">
+																		<PropertyList>
+																			<Property Name="FadeOffset" Type="Real64" Value="-0.5"/>
+																			<Property Name="FadeTime" Type="Real64" Value="1"/>
+																		</PropertyList>
+																	</MusicFade>
+																</DestinationFadeIn>
+															</TransitionInfo>
+														</MusicTransition>
+													</ChildrenList>
+													<TransitionInfo/>
+												</MusicTransition>
+											</TransitionList>
+											<SequenceList>
+												<MusicTrackSequence Name="" ID="{AF585192-EDAB-4852-AA5E-6B3E6AE47943}">
+													<ClipList>
+														<MusicClip Name="In Game Music Boss" ID="{9438995A-75D2-4381-8F2B-0DCA7E7B8EDD}">
+															<PropertyList>
+																<Property Name="EndTrimOffset" Type="Real64" Value="114893.625"/>
+																<Property Name="FadeInMode" Type="int16" Value="0"/>
+																<Property Name="FadeOutMode" Type="int16" Value="0"/>
+															</PropertyList>
+															<AudioSourceRef Name="In Game Music Boss" ID="{79B36971-9027-4C63-8E9A-C3F5A4F33D28}"/>
+														</MusicClip>
+													</ClipList>
+													<ReferenceList>
+														<Reference Name="TrackSequenceSwitch">
+															<ObjectRef Name="In_Boss_Battle" ID="{5A0C9EB3-DA32-4E91-AEBA-A0852E688F11}" WorkUnitID="{5791A00B-9E72-4E8C-BCEE-4A7BE2F1B78C}"/>
+														</Reference>
+													</ReferenceList>
+												</MusicTrackSequence>
+												<MusicTrackSequence Name="" ID="{24F9B6BC-B12B-485F-BBE7-27255F5CD5BB}">
+													<ReferenceList>
+														<Reference Name="TrackSequenceSwitch">
+															<ObjectRef Name="In_Battle" ID="{DBB5DC3C-9564-4B7F-9537-1FBA490F0703}" WorkUnitID="{5791A00B-9E72-4E8C-BCEE-4A7BE2F1B78C}"/>
+														</Reference>
+													</ReferenceList>
+												</MusicTrackSequence>
+												<MusicTrackSequence Name="" ID="{2D3509B8-E252-4508-857D-3419A71F77FA}">
+													<ReferenceList>
+														<Reference Name="TrackSequenceSwitch">
+															<ObjectRef Name="Out_Of_Battle" ID="{10976562-EC0F-47A9-8CF8-DC416E7D6159}" WorkUnitID="{5791A00B-9E72-4E8C-BCEE-4A7BE2F1B78C}"/>
+														</Reference>
+													</ReferenceList>
+												</MusicTrackSequence>
+											</SequenceList>
+											<TrackSwitch>
+												<SwitchGroupRef Name="Game_State" ID="{EDAB1CD6-5EF8-4F5E-A996-EA864D5DA94D}"/>
+												<DefaultSwitchRef Name="Out_Of_Battle" ID="{10976562-EC0F-47A9-8CF8-DC416E7D6159}"/>
+											</TrackSwitch>
+										</MusicTrack>
+										<MusicTrack Name="In Game Music Gongs" ID="{B67DCF34-6523-4B31-B812-54323E41DDB4}" ShortID="1073093640">
+											<ReferenceList>
+												<Reference Name="OutputBus">
+													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<AudioFileSource Name="In Game Music Gongs" ID="{25C44AD0-8E64-4001-B621-C1BE4E0E0A6F}" ShortID="1067088688">
+													<Language>SFX</Language>
+													<AudioFile>In Game Music Gongs.wav</AudioFile>
 												</AudioFileSource>
 											</ChildrenList>
 											<StateInfo>
@@ -868,7 +957,7 @@
 												<CustomStateList>
 													<CustomState>
 														<StateRef Name="Out_Of_Battle" ID="{10976562-EC0F-47A9-8CF8-DC416E7D6159}"/>
-														<State Name="Custom State" ID="{EC938984-E8F1-4C52-B078-847499473AFA}" ShortID="396397624">
+														<State Name="Custom State" ID="{64DD7E05-6540-425F-A6B2-F7CA19BDAF5F}" ShortID="28907358">
 															<PropertyList>
 																<Property Name="Volume" Type="Real64" Value="-6"/>
 															</PropertyList>
@@ -877,114 +966,108 @@
 												</CustomStateList>
 											</StateInfo>
 											<TransitionList>
-												<MusicTransition Name="Root" ID="{49961408-FDC6-46FC-8877-7A92CF391D9B}">
+												<MusicTransition Name="Root" ID="{67D3173C-7571-4A13-BDE0-9BEC3BEC8B03}">
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
-													<ChildrenList>
-														<MusicTransition Name="Transition" ID="{275A1896-5A18-4C1D-9F16-F7F162EF8646}">
-															<TransitionInfo/>
-														</MusicTransition>
-													</ChildrenList>
 													<TransitionInfo/>
 												</MusicTransition>
 											</TransitionList>
 											<SequenceList>
-												<MusicTrackSequence Name="" ID="{559A51C5-A038-414B-BB1D-F797F92DCCE7}">
+												<MusicTrackSequence Name="" ID="{0B66D650-F5D8-463E-A392-164BE02FF6A4}">
 													<ClipList>
-														<MusicClip Name="In Game Music - Gongs" ID="{8C173D56-B0EF-4238-A860-F0CA516FA3E4}">
+														<MusicClip Name="In Game Music Gongs" ID="{A372EC10-F3D0-4E90-A3DC-AED9CEBCD164}">
 															<PropertyList>
-																<Property Name="EndTrimOffset" Type="Real64" Value="79148.9375"/>
+																<Property Name="EndTrimOffset" Type="Real64" Value="114893.625"/>
+																<Property Name="FadeInMode" Type="int16" Value="0"/>
 																<Property Name="FadeOutMode" Type="int16" Value="0"/>
 															</PropertyList>
-															<AudioSourceRef Name="In Game Music - Gongs" ID="{9D29D911-F702-4ADA-8895-23EC47161E59}"/>
+															<AudioSourceRef Name="In Game Music Gongs" ID="{25C44AD0-8E64-4001-B621-C1BE4E0E0A6F}"/>
 														</MusicClip>
 													</ClipList>
 												</MusicTrackSequence>
 											</SequenceList>
 										</MusicTrack>
-										<MusicTrack Name="In Game Music - Main" ID="{5008414C-BDDF-4F69-801F-81D339D141FF}" ShortID="911970746">
+										<MusicTrack Name="In Game Music Main" ID="{96E631D7-A819-4955-BBDB-06FD4D8FE931}" ShortID="936580608">
 											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-												</Reference>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="In Game Music - Main" ID="{22661703-3FCF-477E-9868-A60C868C1A3A}" ShortID="236484631">
+												<AudioFileSource Name="In Game Music Main" ID="{8F5D5D1A-DF3F-4DF6-B5A4-EEB558B4F338}" ShortID="247817987">
 													<Language>SFX</Language>
-													<AudioFile>In Game Music - Main.wav</AudioFile>
+													<AudioFile>In Game Music Main.wav</AudioFile>
 												</AudioFileSource>
 											</ChildrenList>
 											<TransitionList>
-												<MusicTransition Name="Root" ID="{226C39DF-9D8E-42BC-8637-FCFB010339C4}">
+												<MusicTransition Name="Root" ID="{5BB3F139-F134-4268-8730-4638300C8AE9}">
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
-													<ChildrenList>
-														<MusicTransition Name="Transition" ID="{AFF3EFDD-2971-490C-B42D-32326EC0FEC6}">
-															<TransitionInfo/>
-														</MusicTransition>
-													</ChildrenList>
 													<TransitionInfo/>
 												</MusicTransition>
 											</TransitionList>
 											<SequenceList>
-												<MusicTrackSequence Name="" ID="{5D15CA03-14C0-45F7-8864-54EE4ECCB00C}">
+												<MusicTrackSequence Name="" ID="{906ED5C5-B8BF-49C9-9061-8BA6BE73D3EB}">
 													<ClipList>
-														<MusicClip Name="In Game Music - Main" ID="{813D7DD2-C9A6-4158-8285-70CAA3C22160}">
+														<MusicClip Name="In Game Music Main" ID="{1E1E92CA-8239-4686-AC21-B41D242904FC}">
 															<PropertyList>
-																<Property Name="EndTrimOffset" Type="Real64" Value="79148.9375"/>
+																<Property Name="EndTrimOffset" Type="Real64" Value="114893.625"/>
 																<Property Name="FadeInMode" Type="int16" Value="0"/>
 																<Property Name="FadeOutMode" Type="int16" Value="0"/>
 															</PropertyList>
-															<AudioSourceRef Name="In Game Music - Main" ID="{22661703-3FCF-477E-9868-A60C868C1A3A}"/>
+															<AudioSourceRef Name="In Game Music Main" ID="{8F5D5D1A-DF3F-4DF6-B5A4-EEB558B4F338}"/>
 														</MusicClip>
 													</ClipList>
 												</MusicTrackSequence>
 											</SequenceList>
 										</MusicTrack>
-										<MusicTrack Name="In Game Music - Rhythm" ID="{0D45EEF6-A9A0-4FEB-80F6-3410C37EF257}" ShortID="65335789">
+										<MusicTrack Name="In Game Music Rhythm" ID="{FC6599A5-60D7-4B8D-B4CF-2C1553D85BBF}" ShortID="602573181">
 											<PropertyList>
 												<Property Name="MusicTrackType" Type="int16" Value="3"/>
 											</PropertyList>
 											<ReferenceList>
-												<Reference Name="Conversion">
-													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
-												</Reference>
 												<Reference Name="OutputBus">
 													<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="In Game Music - Rhythm" ID="{90D63103-3EC5-4877-93F8-38075EC60AE7}" ShortID="547466270">
+												<AudioFileSource Name="In Game Music Rhythm" ID="{657B8418-B8FA-412F-824C-A6481C3D2D32}" ShortID="9252935">
 													<Language>SFX</Language>
-													<AudioFile>In Game Music - Rhythm.wav</AudioFile>
+													<AudioFile>In Game Music Rhythm.wav</AudioFile>
 												</AudioFileSource>
 											</ChildrenList>
 											<TransitionList>
-												<MusicTransition Name="Root" ID="{7E558AD7-BFDD-46B5-B84B-88B34AA8B0F2}">
+												<MusicTransition Name="Root" ID="{B38310E3-5F8C-46AF-A949-D31072C58F2C}">
 													<PropertyList>
 														<Property Name="IsFolder" Type="bool" Value="True"/>
 													</PropertyList>
 													<ChildrenList>
-														<MusicTransition Name="Transition" ID="{18A649FB-755E-4F6F-A314-051CCD45105C}">
+														<MusicTransition Name="Transition" ID="{86B7918D-C58D-4DB3-A8E2-385E7369CEEB}">
 															<PropertyList>
+																<Property Name="EnableDestinationFadeIn" Type="bool" Value="True"/>
 																<Property Name="EnableSourceFadeOut" Type="bool" Value="True"/>
-																<Property Name="ExitSourceAt" Type="int16" Value="2"/>
+																<Property Name="ExitSourceAt" Type="int16" Value="3"/>
 															</PropertyList>
 															<TransitionInfo>
 																<SourceFadeOut>
-																	<MusicFade Name="Source Fade-out" ID="{6834A25B-F1DC-4A5C-969E-4AA241D99B1C}">
+																	<MusicFade Name="Source Fade-out" ID="{3E1F6224-2C6F-4A44-A987-EECCA28D098A}">
 																		<PropertyList>
-																			<Property Name="FadeOffset" Type="Real64" Value="1"/>
-																			<Property Name="FadeTime" Type="Real64" Value="2"/>
+																			<Property Name="FadeOffset" Type="Real64" Value="0.5"/>
+																			<Property Name="FadeTime" Type="Real64" Value="1"/>
 																			<Property Name="FadeType" Type="int16" Value="1"/>
 																		</PropertyList>
 																	</MusicFade>
 																</SourceFadeOut>
+																<DestinationFadeIn>
+																	<MusicFade Name="Destination Fade-in" ID="{4159F817-048B-45A7-99BE-3864DAC7D268}">
+																		<PropertyList>
+																			<Property Name="FadeOffset" Type="Real64" Value="-0.5"/>
+																			<Property Name="FadeTime" Type="Real64" Value="1"/>
+																		</PropertyList>
+																	</MusicFade>
+																</DestinationFadeIn>
 															</TransitionInfo>
 														</MusicTransition>
 													</ChildrenList>
@@ -992,15 +1075,15 @@
 												</MusicTransition>
 											</TransitionList>
 											<SequenceList>
-												<MusicTrackSequence Name="" ID="{91E8BD38-79CB-4AEC-B524-F91D9A4F28F6}">
+												<MusicTrackSequence Name="" ID="{F4A89499-4B50-4C5B-BA3D-22631DEE582C}">
 													<ClipList>
-														<MusicClip Name="In Game Music - Rhythm" ID="{66B08C0A-4C67-4F5F-BF34-5E3EBC458BF9}">
+														<MusicClip Name="In Game Music Rhythm" ID="{B4ACC836-EDE8-4CD7-A570-43227BCB55FE}">
 															<PropertyList>
-																<Property Name="EndTrimOffset" Type="Real64" Value="79148.9375"/>
+																<Property Name="EndTrimOffset" Type="Real64" Value="114893.625"/>
 																<Property Name="FadeInMode" Type="int16" Value="0"/>
 																<Property Name="FadeOutMode" Type="int16" Value="0"/>
 															</PropertyList>
-															<AudioSourceRef Name="In Game Music - Rhythm" ID="{90D63103-3EC5-4877-93F8-38075EC60AE7}"/>
+															<AudioSourceRef Name="In Game Music Rhythm" ID="{657B8418-B8FA-412F-824C-A6481C3D2D32}"/>
 														</MusicClip>
 													</ClipList>
 													<ReferenceList>
@@ -1009,10 +1092,27 @@
 														</Reference>
 													</ReferenceList>
 												</MusicTrackSequence>
-												<MusicTrackSequence Name="" ID="{DFA84E72-195C-4D0A-8277-1BB1C0D497A8}">
+												<MusicTrackSequence Name="" ID="{5D8A7E6A-E842-4E4E-A083-EFFB07ECED1B}">
 													<ReferenceList>
 														<Reference Name="TrackSequenceSwitch">
 															<ObjectRef Name="Out_Of_Battle" ID="{10976562-EC0F-47A9-8CF8-DC416E7D6159}" WorkUnitID="{5791A00B-9E72-4E8C-BCEE-4A7BE2F1B78C}"/>
+														</Reference>
+													</ReferenceList>
+												</MusicTrackSequence>
+												<MusicTrackSequence Name="" ID="{77C3439B-B618-4D44-9B6C-2BAAE16AF1E0}">
+													<ClipList>
+														<MusicClip Name="In Game Music Rhythm" ID="{DDF63CB0-CC4E-4334-84D0-54431CACBDA5}">
+															<PropertyList>
+																<Property Name="EndTrimOffset" Type="Real64" Value="114893.625"/>
+																<Property Name="FadeInMode" Type="int16" Value="0"/>
+																<Property Name="FadeOutMode" Type="int16" Value="0"/>
+															</PropertyList>
+															<AudioSourceRef Name="In Game Music Rhythm" ID="{657B8418-B8FA-412F-824C-A6481C3D2D32}"/>
+														</MusicClip>
+													</ClipList>
+													<ReferenceList>
+														<Reference Name="TrackSequenceSwitch">
+															<ObjectRef Name="In_Boss_Battle" ID="{5A0C9EB3-DA32-4E91-AEBA-A0852E688F11}" WorkUnitID="{5791A00B-9E72-4E8C-BCEE-4A7BE2F1B78C}"/>
 														</Reference>
 													</ReferenceList>
 												</MusicTrackSequence>
@@ -1032,7 +1132,7 @@
 										<MusicCue Name="Exit Cue" ID="{B2A3EF1F-908A-4A12-ADEB-FC0E3DA0354B}">
 											<PropertyList>
 												<Property Name="CueType" Type="int16" Value="1"/>
-												<Property Name="TimeMs" Type="Real64" Value="68936.170212766"/>
+												<Property Name="TimeMs" Type="Real64" Value="109787.234042553"/>
 											</PropertyList>
 										</MusicCue>
 									</CueList>
@@ -1289,6 +1389,7 @@
 								<MusicTransition Name="Transition" ID="{CCB39871-DAB1-47D1-AF3F-C56EFC69553C}">
 									<PropertyList>
 										<Property Name="DestinationContextType" Type="int16" Value="2"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="0"/>
 										<Property Name="SourceContextType" Type="int16" Value="2"/>
 									</PropertyList>
 									<ReferenceList>
@@ -1304,6 +1405,7 @@
 								<MusicTransition Name="Transition" ID="{F0677FD5-A6AF-4EB5-A025-DFE6CCB62CF4}">
 									<PropertyList>
 										<Property Name="DestinationContextType" Type="int16" Value="2"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="0"/>
 										<Property Name="SourceContextType" Type="int16" Value="2"/>
 									</PropertyList>
 									<ReferenceList>
@@ -1319,7 +1421,7 @@
 								<MusicTransition Name="Transition" ID="{E26FFA63-F2EF-43FD-B408-193859A480FD}">
 									<PropertyList>
 										<Property Name="DestinationContextType" Type="int16" Value="2"/>
-										<Property Name="ExitSourceAt" Type="int16" Value="2"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="3"/>
 										<Property Name="SourceContextType" Type="int16" Value="2"/>
 									</PropertyList>
 									<ReferenceList>
@@ -1328,6 +1430,22 @@
 										</Reference>
 										<Reference Name="SourceContextObject">
 											<ObjectRef Name="In Game Music" ID="{14238F87-36AB-42EB-8958-C0D4CBF6A776}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+										</Reference>
+									</ReferenceList>
+									<TransitionInfo/>
+								</MusicTransition>
+								<MusicTransition Name="Transition" ID="{A11F4760-9E10-4DEC-866A-2261858BB3F4}">
+									<PropertyList>
+										<Property Name="DestinationContextType" Type="int16" Value="2"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="0"/>
+										<Property Name="SourceContextType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="DestinationContextObject">
+											<ObjectRef Name="Music_After_Boss" ID="{924F6AE6-083C-4E86-9F17-A83CE4820897}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+										</Reference>
+										<Reference Name="SourceContextObject">
+											<ObjectRef Name="Music_In_Intro_Cutscene" ID="{08E82D7F-CF75-45AE-BBF5-BD14433F8C70}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
 										</Reference>
 									</ReferenceList>
 									<TransitionInfo/>
@@ -1362,6 +1480,7 @@
 								<MusicTransition Name="Transition" ID="{3272004B-C81E-4739-B8ED-CB57B51A5C1B}">
 									<PropertyList>
 										<Property Name="DestinationContextType" Type="int16" Value="2"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="0"/>
 										<Property Name="SourceContextType" Type="int16" Value="2"/>
 									</PropertyList>
 									<ReferenceList>
@@ -1374,26 +1493,11 @@
 									</ReferenceList>
 									<TransitionInfo/>
 								</MusicTransition>
-								<MusicTransition Name="Transition" ID="{27AA651F-6553-4A37-AC2A-3F153AF14AFF}">
-									<PropertyList>
-										<Property Name="DestinationContextType" Type="int16" Value="2"/>
-										<Property Name="SourceContextType" Type="int16" Value="2"/>
-									</PropertyList>
-									<ReferenceList>
-										<Reference Name="DestinationContextObject">
-											<ObjectRef Name="In Game Music" ID="{14238F87-36AB-42EB-8958-C0D4CBF6A776}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
-										</Reference>
-										<Reference Name="SourceContextObject">
-											<ObjectRef Name="Music_In_Intro_Cutscene" ID="{08E82D7F-CF75-45AE-BBF5-BD14433F8C70}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
-										</Reference>
-									</ReferenceList>
-									<TransitionInfo/>
-								</MusicTransition>
 								<MusicTransition Name="Transition" ID="{F48386CF-3121-4853-8A1A-4E0217440C46}">
 									<PropertyList>
 										<Property Name="DestinationContextType" Type="int16" Value="2"/>
 										<Property Name="EnableSourceFadeOut" Type="bool" Value="True"/>
-										<Property Name="ExitSourceAt" Type="int16" Value="0"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="3"/>
 										<Property Name="SourceContextType" Type="int16" Value="2"/>
 									</PropertyList>
 									<ReferenceList>
@@ -1420,7 +1524,7 @@
 									<PropertyList>
 										<Property Name="DestinationContextType" Type="int16" Value="2"/>
 										<Property Name="EnableSourceFadeOut" Type="bool" Value="True"/>
-										<Property Name="ExitSourceAt" Type="int16" Value="0"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="3"/>
 										<Property Name="SourceContextType" Type="int16" Value="2"/>
 										<Property Name="UseTransitionObject" Type="bool" Value="True"/>
 									</PropertyList>
@@ -1452,6 +1556,38 @@
 										</DestinationFadeIn>
 									</TransitionInfo>
 								</MusicTransition>
+								<MusicTransition Name="Transition" ID="{8EC7C4BB-7905-4021-94DA-85C4953214F8}">
+									<PropertyList>
+										<Property Name="DestinationContextType" Type="int16" Value="2"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="0"/>
+										<Property Name="SourceContextType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="DestinationContextObject">
+											<ObjectRef Name="Main Menu Music" ID="{1AB4B790-639A-4A05-B12C-063837D87263}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+										</Reference>
+										<Reference Name="SourceContextObject">
+											<ObjectRef Name="Music_After_Boss" ID="{924F6AE6-083C-4E86-9F17-A83CE4820897}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+										</Reference>
+									</ReferenceList>
+									<TransitionInfo/>
+								</MusicTransition>
+								<MusicTransition Name="Transition" ID="{28C7CA24-46C3-410E-8210-57FF2705BD9C}">
+									<PropertyList>
+										<Property Name="DestinationContextType" Type="int16" Value="2"/>
+										<Property Name="ExitSourceAt" Type="int16" Value="3"/>
+										<Property Name="SourceContextType" Type="int16" Value="2"/>
+									</PropertyList>
+									<ReferenceList>
+										<Reference Name="DestinationContextObject">
+											<ObjectRef Name="In Game Music" ID="{14238F87-36AB-42EB-8958-C0D4CBF6A776}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+										</Reference>
+										<Reference Name="SourceContextObject">
+											<ObjectRef Name="In Game Music" ID="{14238F87-36AB-42EB-8958-C0D4CBF6A776}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+										</Reference>
+									</ReferenceList>
+									<TransitionInfo/>
+								</MusicTransition>
 							</ChildrenList>
 							<TransitionInfo/>
 						</MusicTransition>
@@ -1468,14 +1604,6 @@
 						<ArgumentRef Name="Game_State" ID="{EDAB1CD6-5EF8-4F5E-A996-EA864D5DA94D}"/>
 					</ArgumentList>
 					<EntryList>
-						<Entry>
-							<Path>
-								<PathElementRef Name="In_Main_Menu" ID="{30AAF2FF-C440-41EE-863A-7B205A9F269D}"/>
-							</Path>
-							<AudioNodeInfo>
-								<AudioNodeRef Name="Main Menu Music" ID="{1AB4B790-639A-4A05-B12C-063837D87263}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}" Platform="Linked"/>
-							</AudioNodeInfo>
-						</Entry>
 						<Entry>
 							<Path>
 								<PathElementRef Name="In_Intro_Cutscene" ID="{FF09B547-76FF-48B8-AFD8-C42D9E47136E}"/>
@@ -1538,6 +1666,22 @@
 							</Path>
 							<AudioNodeInfo>
 								<AudioNodeRef Name="In Game Music" ID="{14238F87-36AB-42EB-8958-C0D4CBF6A776}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}" Platform="Linked"/>
+							</AudioNodeInfo>
+						</Entry>
+						<Entry>
+							<Path>
+								<PathElementRef Name="In_Splash" ID="{1AAFDD8E-EC8E-43FB-9EE1-624DB9F91356}"/>
+							</Path>
+							<AudioNodeInfo>
+								<AudioNodeRef Name="Music_After_Boss" ID="{924F6AE6-083C-4E86-9F17-A83CE4820897}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}" Platform="Linked"/>
+							</AudioNodeInfo>
+						</Entry>
+						<Entry>
+							<Path>
+								<PathElementRef Name="In_Main_Menu" ID="{30AAF2FF-C440-41EE-863A-7B205A9F269D}"/>
+							</Path>
+							<AudioNodeInfo>
+								<AudioNodeRef Name="Main Menu Music" ID="{1AB4B790-639A-4A05-B12C-063837D87263}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}" Platform="Linked"/>
 							</AudioNodeInfo>
 						</Entry>
 					</EntryList>

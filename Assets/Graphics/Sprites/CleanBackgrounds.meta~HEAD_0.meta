@@ -1,11 +1,16 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: bc74319e8c956a84192f1c3a220c2df5
 timeCreated: 1481155901
 =======
 guid: 63c29032fa2ae924e8082545b9780f09
 timeCreated: 1481155842
 >>>>>>> master
+=======
+guid: bacd82d92f652e041b9ead4b9768c745
+timeCreated: 1481176024
+>>>>>>> origin/Audio
 licenseType: Pro
 DefaultImporter:
   userData: 
