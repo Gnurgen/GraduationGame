@@ -22,11 +22,11 @@ public class Elevator : MonoBehaviour
     int ID;
     float speed = 1;
     int tilesInvis = 0;
-    private SpiritLvlBar spiritLevelBar;
+    private PlayerHealthBar playerHealthBar;
 
     void Start()
     {
-        spiritLevelBar = GameObject.Find("SpiritBar").GetComponent<SpiritLvlBar>();
+        playerHealthBar = GameObject.Find("PlayerHealthBarPanel").GetComponent<PlayerHealthBar>();
         mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
         GameManager.events.OnElevatorActivated += ActivateME;
         player = GameManager.player;
@@ -60,7 +60,7 @@ public class Elevator : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag == player.tag && spiritLevelBar.GetProgress() == 1)
+        if (col.tag == player.tag && playerHealthBar.GetProgress() == 1)
         {
             player.transform.parent = gameObject.transform;
             
