@@ -17,6 +17,7 @@ public class PathWhispAI : MonoBehaviour {
         index = 2;
         transform.position = start;
         effectControl = GetComponent<PKFxFX>();
+        GameManager.events.WhispAntSpawn(gameObject);
         //effectControl.StartEffect();
 
         StartCoroutine(Spawn());
@@ -46,6 +47,7 @@ public class PathWhispAI : MonoBehaviour {
             yield return null;
         }
         //effectControl.StopEffect();
+        GameManager.events.WhispAntDespawn(gameObject);
         transform.position = new Vector3(0, -100000, 0);
         //Destroy(gameObject);
         GameManager.pool.PoolObj(gameObject);

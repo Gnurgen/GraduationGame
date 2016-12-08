@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class BossLaser : MonoBehaviour {
 
@@ -29,8 +30,17 @@ public class BossLaser : MonoBehaviour {
             lasers[i].StopEffect();
         }
         rotating = false;
+        GameManager.events.OnLoadNextLevel += StopLasers;
+    }
 
-	}
+    private void StopLasers()
+    {
+        for (int i = 0; i < laserSound.Length; i++)
+        {
+            if(laserSound[i].activeSelf)
+                GameManager.events.BossLaserDeactivation(laserSound[i]);
+        }
+    }
 
     void Update()
     {
