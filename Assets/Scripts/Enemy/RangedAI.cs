@@ -7,12 +7,14 @@ using Pathfinding;
 [RequireComponent(typeof(SpawnRagdoll))]
 public class RangedAI : EnemyStats {
 
+
     public GameObject projectile;
     public GameObject target;
     public bool reset = true;
     public float tooClose = 3;
     public float tooCloseSpeed = 2;
     public float projectileSpeed = 5;
+    public float resetRangeMult = 2;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
@@ -207,7 +209,7 @@ public class RangedAI : EnemyStats {
                 }
                 targetDist = Vector3.Distance(transform.position, target.transform.position);
                 // If the target has moved outside the aggro range, go to idle, if withing attack range, go to attacking
-                if (targetDist > aggroRange)
+                if (targetDist > aggroRange * resetRangeMult)
                 {
                     StartCoroutine(Reset());
                     yield break;
@@ -281,26 +283,28 @@ public class RangedAI : EnemyStats {
 
                 Vector3 dir = (target.transform.position - transform.position).normalized;
                 dir.y = 0;
-                if (targetDist < tooClose)
+                /*if (targetDist < tooClose)
                 {
                     animator.SetBool("Backwards", true);
                     body.position += -dir * tooCloseSpeed * Time.deltaTime;
 
-                }
+                }*/
 
                 // Check if facing the target, if not turn towards it, otherwise attack
                 if (Vector3.Dot(dir, transform.forward) >= 0.8f)
                 {
                     if (currentAttackSpeed < 0)
                     {
+                        currentAttackSpeed = attackSpeed;
+                        /*GameObject proj = GameManager.pool.GenerateObject("EnemyRangedAttack");
+                        proj.transform.position = transform.position+Vector3.up; // SO IT SPAWNS FROM THE HEAD
+                        proj.transform.rotation = transform.rotation;
+                        proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage, force);*/
+                        GameObject proj = GameManager.pool.GenerateObject("RangedAttack");
+                        yield return StartCoroutine(proj.GetComponent<ProjectileControl>().Activate(transform.position + transform.forward * 1.5f + Vector3.up, target.transform.position, this));
                         GameManager.events.EnemyRangedAttack(gameObject);
                         animator.SetTrigger("Attack");
                         animator.SetBool("Run", false);
-                        currentAttackSpeed = attackSpeed;
-                        GameObject proj = GameManager.pool.GenerateObject("EnemyRangedAttack");
-                        proj.transform.position = transform.position+Vector3.up; // SO IT SPAWNS FROM THE HEAD
-                        proj.transform.rotation = transform.rotation;
-                        proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage, force);
                     }
                 }
                 dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;

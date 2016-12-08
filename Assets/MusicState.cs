@@ -83,6 +83,4 @@ public class MusicState : MonoBehaviour {
         AkSoundEngine.RenderAudio();
     }
 
-
-
 }

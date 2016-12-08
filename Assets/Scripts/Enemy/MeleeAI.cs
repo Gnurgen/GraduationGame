@@ -12,6 +12,7 @@ public class MeleeAI : EnemyStats {
 	public GameObject target;
     public bool reset = true;
     public float delay = 3f;
+    public float resetRangeMult = 2;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
@@ -190,7 +191,7 @@ public class MeleeAI : EnemyStats {
                 }
                 targetDist = Vector3.Distance(transform.position, target.transform.position);
                 // If the target has moved outside the aggro range, go to idle, if withing attack range, go to attacking
-                if (targetDist > aggroRange)
+                if (targetDist > aggroRange * resetRangeMult)
                 {
                     StartCoroutine(Reset());
                     yield break;
