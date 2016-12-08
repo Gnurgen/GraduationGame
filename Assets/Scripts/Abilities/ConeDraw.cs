@@ -61,7 +61,8 @@ public class ConeDraw : MonoBehaviour {
     {
         GameManager.events.OnLoadComplete += newStart;
     }
-    private void newStart()
+
+    public void newStart()
     {
         doDraw = false;
         baseDamage = damage;
