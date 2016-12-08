@@ -31,7 +31,7 @@ public class saveLoad : MonoBehaviour {
     }
     public void openTutorial() {
         tutorial.SetActive(true);
-        IM.ReleaseControl(ID);
+        GameManager.input.ReleaseControl(ID);
         GameManager.time.SetTimeScale(1f);
         tutorial.GetComponent<TutorialClose>().openTutorial();
         menu.SetActive(false);
