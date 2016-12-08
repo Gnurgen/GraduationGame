@@ -1,6 +1,270 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{6BC8B132-88DF-44C6-9BEA-7213BA02FF3A}" SchemaVersion="72">
 	<SoundcasterSessions>
-		<WorkUnit Name="Default Work Unit" ID="{6BC8B132-88DF-44C6-9BEA-7213BA02FF3A}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{6BC8B132-88DF-44C6-9BEA-7213BA02FF3A}" PersistMode="Standalone">
+			<ChildrenList>
+				<SoundcasterSession Name="In Game" ID="{D141C358-3FCE-4354-AAD6-48C5DE222993}">
+					<ModuleList>
+						<Module>
+							<ObjectRef Name="Music_System_Play" ID="{C37B52F1-ECB5-455A-AE5B-84EE49B41A5B}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="0" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Music_System_Stop" ID="{DC53E408-289D-41A4-8A15-E60768DECBED}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="0" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Menu_Open_Play" ID="{00884564-CDA7-4A29-9113-52AC12CDD50D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="0" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Menu_Close_Play" ID="{6A146299-26B4-4358-988F-54B7615BA0D1}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="0" Y="3"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Spear_Play" ID="{7C0F2BDE-BF8C-48FA-BC4E-ECE3E9FF6787}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="0" Y="4"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Elevator_Stopping_Play" ID="{F72AC59E-22DB-4DEE-A210-D6AD940A0F78}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="0" Y="6"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Enemy_Melee_Play" ID="{9A3AE339-AA22-4191-BF52-A7183AF12366}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="0" Y="7"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Environmental_Ambience_Play" ID="{99462587-113B-4609-B0DD-7E0C2E76EDA7}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="1" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Environmental_Ambience_Stop" ID="{3D8DAC60-A1A6-48EF-A3B3-26AECC610F13}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="1" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Elevator_Play" ID="{23F18E27-D25C-467A-BDFE-C37B4C5B0687}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="1" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Elevator_Stop" ID="{E213FD8C-7178-4567-B58C-CD322738CC12}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="1" Y="3"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Spear_Target_Play" ID="{81FD7E0D-6A25-4B7E-B71B-23B11208C0CC}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="1" Y="4"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Enemy_Aggro_Play" ID="{A9DC77DA-FCE5-479B-BD0E-AA7030D844E0}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="1" Y="5"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Enemy_Ranged_Play" ID="{78ECDFF8-1800-4F10-BBBA-5FE068AD6A41}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="1" Y="6"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Wisp_Loop_Play" ID="{FB1D69AD-72B6-4816-860C-D00ECF5FF84F}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="2" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Wisp_Loop_Stop" ID="{EF5EB396-A2FA-49CA-A57E-B35207F86B90}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="2" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Enemy_Ranged_Projectile_Play" ID="{56A4CA32-BC70-4976-9E33-0E0035A91E42}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="2" Y="4"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Cone_Ability_Control_Play" ID="{D5BD6912-5CDF-4E56-91E5-77DC00C3A2D4}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="2" Y="5"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Corpse_Despawn_Play" ID="{97B51D5A-B439-4BBF-A36D-D9B5D0EAF82A}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="2" Y="6"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Draw_Ability_Control_Stop" ID="{CC4C940C-4B65-4D18-BA01-80AECB31171B}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="2" Y="7"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Wisp_Scatter_Play" ID="{249A3733-8C91-42BF-B199-8B837A654375}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="3" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Wisp_Scatter_Stop" ID="{BB1874C4-0D8F-46EF-8A23-B47F7D57FAE2}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="3" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Wisp_Elevator_Play" ID="{0B04255D-085C-4417-8548-CFB61A8F579E}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="3" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Enemy_Death_Play" ID="{DF609008-FE9B-43EB-A007-4946F727D3F9}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="3" Y="4"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Enemy_Ranged_Projectile_Stop" ID="{496284C8-3B63-4745-A8C1-3C23C147FA27}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="3" Y="5"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Cone_Ability_Control_Stop" ID="{BFF3440D-31E5-46A2-9F19-0CD0E95CF47D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="3" Y="6"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Dash_Play" ID="{D56AD03D-152A-46C6-B975-5C87C977D961}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="3" Y="7"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Draw_Ability_Play" ID="{0655D82E-0B50-48E6-828A-B88A558A2401}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="3" Y="8"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Pickup_Move_Play" ID="{6A5A77F4-5AE4-43A6-AC08-8B912105F71B}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="4" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Pickup_Move_Stop" ID="{0F5B201C-1E61-4917-9052-59299F0DA4BB}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="4" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Pickup_Play" ID="{60FA5104-5A49-4D24-ACE3-A1B1191DD73D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="4" Y="2"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Enemy_Melee_Hit_Player_Play" ID="{4615B66F-3842-4202-9FB7-D98B0F1E3B05}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="4" Y="3"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Enemy_Ranged_Target_Play" ID="{26ECDD07-D699-4C8F-8D22-E01EB6EA4421}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="4" Y="4"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Cone_Ability_Play" ID="{A2C2AE57-D02F-4BC3-B342-ACDF80A4D101}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="4" Y="5"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Draw_Ability_Control_Play" ID="{B69E6988-92CF-45F2-8CCA-9C23C28014E5}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="4" Y="6"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Draw_Ability_Stop" ID="{D3D4C2DE-7448-4B5E-A6E3-B8749BAD41FE}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="4" Y="7"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Ant_Wisp_Loop_Play" ID="{7F8F9792-D134-4DB1-A934-E4C93D982AF1}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="0"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Ant_Wisp_Loop_Stop" ID="{B480B9C3-1766-4232-B65D-3F0F4CCA1A86}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="1"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Beam_Play" ID="{B2DF52C3-BDB9-4352-966F-634CF2D78AC2}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="3"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Beam_Stop" ID="{F66F4FB0-EBC4-4A89-86DB-AFEB9F94E748}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="4"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Beam_Target_Play" ID="{42B4A28D-07A7-4C91-84D2-851045D4F441}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="5"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Beam_Target_Stop" ID="{1D90B352-097E-4395-9551-05E06D009842}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="6"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Death_Play" ID="{2E972207-79D0-4A27-9F8E-277AAC3A1ADF}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="7"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Moving_Play" ID="{7FF781E7-BB34-45F2-8D09-DD3351A20629}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="8"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Moving_Stop" ID="{0F0C318B-C04C-404B-8866-43D677357B20}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="9"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Phase_Change_Play" ID="{2FAD8D0D-3D1F-47A0-8ADA-AEAA30362052}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="10"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Presentation_Play" ID="{61E54836-4D28-402D-802D-5512D8F36181}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="11"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Boss_Rain_Play" ID="{C10CFA39-FD27-40E0-BF6C-8119142B101F}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="12"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Button_Menu_Play" ID="{786D9BDF-350E-4EBF-9251-E7D38FD9A30D}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="13"/>
+						</Module>
+						<Module>
+							<ObjectRef Name="Button_Start_Game_Play" ID="{70F51D59-0D5C-49CF-89D6-F2F2BE65AB1E}" WorkUnitID="{1ABAAD60-BF80-494A-B40C-8C25EBA0F9A6}"/>
+							<Position X="5" Y="14"/>
+						</Module>
+					</ModuleList>
+					<RTPCValueList ShowAll="true">
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Turbulence" ID="{EDA87B19-73AA-40A0-9F19-2073606DB710}"/>
+							<Value>6</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Month" ID="{09E2B445-C4A3-447F-B3CA-818A1D925EF7}"/>
+							<Value>6</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_RPM" ID="{A34890AB-B9D5-4526-A64D-5290C43EF2DC}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Fury" ID="{A2AE79DC-CA3A-46BA-9652-9986C322A87B}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Size" ID="{1329EBEF-A193-472E-A38C-64668B494879}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Storm" ID="{E93F8CDB-06D1-4737-ACAF-7CD44BBED783}"/>
+							<Value>75</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Presence" ID="{E3B7811A-7B2F-490F-B44F-5FE51B468041}"/>
+							<Value>75</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Music_Volume_Slider" ID="{1632FB2C-2A66-4B8E-8535-5B4403F30F44}"/>
+							<Value>74</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_TimeOfDay" ID="{536FA72C-8C7E-4C8B-AE03-EF34FDADC314}"/>
+							<Value>6</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Freefall" ID="{2F2DFE37-4F9E-4D94-83D8-53CCA39781AD}"/>
+							<Value>75</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="SS_Air_Fear" ID="{F72E0659-4346-4E1C-A1B1-DAB46A05101E}"/>
+							<Value>50</Value>
+						</RTPCValue>
+						<RTPCValue>
+							<GameParameterRef Name="Sound_Effects_Volume_Slider" ID="{418E8CBF-03EA-4F64-848E-215E05F51D8C}"/>
+							<Value>74</Value>
+						</RTPCValue>
+					</RTPCValueList>
+					<CurrentStateList ShowAll="true">
+						<CurrentStateRef Name="Large" ID="{C7F8A48F-2110-4892-A56D-98A7510AF00A}"/>
+						<CurrentStateRef Name="In_Boss_Battle" ID="{5A0C9EB3-DA32-4E91-AEBA-A0852E688F11}"/>
+					</CurrentStateList>
+					<CurrentSwitchList ShowAll="true">
+						<CurrentSwitchRef Name="Boss" ID="{3AE04429-4DB2-45CF-A26F-4D9228C4039F}"/>
+					</CurrentSwitchList>
+				</SoundcasterSession>
+			</ChildrenList>
+		</WorkUnit>
 	</SoundcasterSessions>
 </WwiseDocument>

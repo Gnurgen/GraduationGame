@@ -10,29 +10,25 @@ public class GenerateHealthScript : MonoBehaviour {
     public int amountOfHPBars = 20;
 
     void Start() {
-        canvas = GameObject.Find("Canvas").transform; // gameObject.transform
-  
+        canvas = GameObject.Find("Canvas").transform;
+        healthBars = new GameObject[amountOfHPBars];
+        for (int i = 0; i < healthBars.Length; i++) {
+            healthBar = Instantiate(HealthBarPrefab);
+            healthBar.transform.SetParent(canvas);
+            healthBar.transform.SetAsFirstSibling();
+            healthBar.transform.localRotation = Quaternion.Euler(0,0,0);
+            healthBars[i] = healthBar;
+        }
         GameManager.events.OnLoadComplete += moveAllHealthBars;
     }
     public void moveAllHealthBars()
     {
-        //for (int i = 0; i < healthBars.Length; i++)
-        //    healthBars[i].SetActive(true);
+        for (int i = 0; i < healthBars.Length; i++)
+            healthBars[i].SetActive(true);
 
         enemies = null;
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        // From Start()
-        healthBars = new GameObject[enemies.Length]; // amountOfHPBars
-        for (int i = 0; i < healthBars.Length; i++)
-        {
-            healthBar = Instantiate(HealthBarPrefab);
-            healthBar.transform.SetParent(canvas);
-            healthBar.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            healthBars[i] = healthBar;
-        }
-
-
+        
         if (GameObject.FindGameObjectsWithTag("Enemy") != null)
         {
             for (int i = 0; i < enemies.Length; i++)
