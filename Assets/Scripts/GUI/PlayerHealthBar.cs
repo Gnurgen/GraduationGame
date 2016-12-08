@@ -44,7 +44,6 @@ public class PlayerHealthBar : MonoBehaviour {
         player = GameManager.player;
 
         EM.OnLoadComplete += GetTotalEnemies;
-
         EM.OnEnemyAttackHit += TakeDamage;
         EM.OnResourcePickup += SpiritPickUp;
 
@@ -52,6 +51,8 @@ public class PlayerHealthBar : MonoBehaviour {
 
         guideSpawned = GameManager.progress > GameManager.numberOfLevels;
     }
+
+
 
     void Update()
     {
