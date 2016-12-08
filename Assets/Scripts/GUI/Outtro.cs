@@ -17,7 +17,7 @@ public class Outtro : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         yield return new WaitForSeconds(0.5f);
         clearData();
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Credits");
     }
 
     public void clearData()
