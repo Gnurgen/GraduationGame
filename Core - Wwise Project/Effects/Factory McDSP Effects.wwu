@@ -1808,10 +1808,10 @@
 								</Effect>
 								<Effect Name="Master_Soft" ID="{E14CA69D-8299-4981-89C9-ED2A9F0D2038}" PluginName="McDSP ML1" CompanyID="256" PluginID="103" PluginType="3">
 									<PropertyList>
-										<Property Name="Ceiling" Type="Real32" Value="-0.1"/>
+										<Property Name="Ceiling" Type="Real32" Value="-0.3"/>
 										<Property Name="Knee" Type="Real32" Value="15"/>
 										<Property Name="Mode" Type="int32" Value="1"/>
-										<Property Name="Threshold" Type="Real32" Value="-6"/>
+										<Property Name="Threshold" Type="Real32" Value="-12"/>
 									</PropertyList>
 								</Effect>
 							</ChildrenList>

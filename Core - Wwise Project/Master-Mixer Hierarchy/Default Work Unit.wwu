@@ -5,7 +5,10 @@
 			<ChildrenList>
 				<Bus Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}">
 					<ReferenceList>
-						<Reference Name="Effect0" PluginName="Wwise Peak Limiter" CompanyID="0" PluginID="110" PluginType="3">
+						<Reference Name="Effect0" PluginName="McDSP ML1" CompanyID="256" PluginID="103" PluginType="3">
+							<ObjectRef Name="Master_Soft" ID="{E14CA69D-8299-4981-89C9-ED2A9F0D2038}" WorkUnitID="{C495E5B0-5DF1-4961-BC6A-4C9887E70704}"/>
+						</Reference>
+						<Reference Name="Effect1" PluginName="Wwise Peak Limiter" CompanyID="0" PluginID="110" PluginType="3">
 							<ObjectRef Name="Brick_Wall_Minus_1dB_Peak_Fast_Release" ID="{2144284E-7ADD-4341-86A4-4E468BEC9A2D}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
 						</Reference>
 					</ReferenceList>
