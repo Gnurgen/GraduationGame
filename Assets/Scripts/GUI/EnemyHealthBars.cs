@@ -12,11 +12,10 @@ public class EnemyHealthBars : MonoBehaviour {
     private float minSize = 0.2f;
     private float maxHealth;
     private float health;
+    private float snapHealth = 0.2f;
     private float hightOfHealthbar = 300;
     private GameObject enemy, mainCamera;
     private int type;
-
-  
 
     void Awake()
     {
@@ -26,9 +25,8 @@ public class EnemyHealthBars : MonoBehaviour {
     void Start () {
         mainCamera = GameObject.Find("Main Camera");            
         gameObject.GetComponent<Image>().CrossFadeAlpha(0, fadeOutDuration, true);
-
-        
     }
+
     void Update()
     {
         if (enemy != null)
@@ -41,7 +39,7 @@ public class EnemyHealthBars : MonoBehaviour {
         StartCoroutine(fadeHealthBar());
         health = enemy.GetComponent<Health>().health;
         float fill = 1f - ((maxHealth - health) / maxHealth);
-        gameObject.GetComponent<Image>().fillAmount = fill >= 0.2f ? fill : 0.2f;
+        gameObject.GetComponent<Image>().fillAmount = fill > Health.EXECUTE ? fill : Health.EXECUTE;
         if (health <= 0)
             gameObject.SetActive(false);
     }
@@ -51,14 +49,12 @@ public class EnemyHealthBars : MonoBehaviour {
         gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, gameObject.transform.localPosition.y + hightOfHealthbar, gameObject.transform.localPosition.z);
     }
 
-
     public void getMyEnemy(GameObject myEnemy) {
         enemy = myEnemy;
         myEnemy.GetComponent<Health>().SetHealthBar(this);
         maxHealth = enemy.GetComponent<Health>().health;
         updateHealthBar();
     }
-
 
     IEnumerator fadeHealthBar()
     {
