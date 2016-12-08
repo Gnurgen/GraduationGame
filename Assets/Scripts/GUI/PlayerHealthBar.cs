@@ -43,7 +43,7 @@ public class PlayerHealthBar : MonoBehaviour {
         EM = GameManager.events;
         player = GameManager.player;
 
-        EM.OnMapGenerated += GetTotalEnemies;
+        EM.OnLoadComplete += GetTotalEnemies;
 
         EM.OnEnemyAttackHit += TakeDamage;
         EM.OnResourcePickup += SpiritPickUp;
