@@ -19,6 +19,7 @@ public class WhispActivationAI : MonoBehaviour {
 
     public void Activate(Vector3 center, Vector3 start)
     {
+        GameManager.events.GuideWhispScatter(gameObject);
         transform.position = start;
         effectControl = GetComponent<PKFxFX>();
         effectControl.StartEffect();
@@ -81,6 +82,7 @@ public class WhispActivationAI : MonoBehaviour {
             yield return null;
         }
         effectControl.StopEffect();
+        GameManager.events.GuideWhispScatterStop(gameObject);
         Destroy(gameObject);
         yield break;
     }

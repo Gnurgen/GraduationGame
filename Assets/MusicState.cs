@@ -27,6 +27,8 @@ public class MusicState : MonoBehaviour {
         if (Scene == "LoadingScreen")
         {
             AkSoundEngine.SetState("Game_State", "In_Loading_Screen");
+            AkSoundEngine.PostEvent("Environmental_Ambience_Play", gameObject);
+            AkSoundEngine.PostEvent("Music_System_Play", gameObject);
             if (GameManager.events != null)
             {
                 GameManager.events.OnLoadComplete += SetGameState;
@@ -47,7 +49,7 @@ public class MusicState : MonoBehaviour {
         Scene = SceneManager.GetActiveScene().name;
         if (Scene == "BossLevel")
         {
-            AkSoundEngine.SetState("Game_State", "Before_Boss");
+            AkSoundEngine.SetState("Game_State", "In_Loading_Screen_After_Intro_Cutscene");
             AkSoundEngine.SetState("Environment", "Large");
         }
         else

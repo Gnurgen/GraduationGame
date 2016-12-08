@@ -27,7 +27,7 @@ public class Fade : MonoBehaviour {
         float step = 0;
         while(step < duration)
         {
-            step += Time.deltaTime / duration;
+            step += Time.unscaledDeltaTime / duration;
             fadeImg.color = Color.Lerp(startColor, endColor, step);
             yield return null;
         }
