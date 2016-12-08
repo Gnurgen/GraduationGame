@@ -4,7 +4,6 @@ using System.Collections;
 
 public class TutorialClose : MonoBehaviour {
     private Vector3 positionscale;
-    InputManager IM;
     int ID;
     float speed = 20f;
     float newPosX, newPosY;
@@ -12,14 +11,13 @@ public class TutorialClose : MonoBehaviour {
     void Start () {
         positionscale = new Vector3(1f, 0.2f, 0);
         GameManager.events.MapGenerated();
-        IM = GameManager.input;
-        ID = IM.GetID();
+        ID = GameManager.input.GetID();
         gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        if (IM != null)
+        if (GameManager.input != null)
         {
             terminateTouch();
             GameManager.time.SetTimeScale(0f);
@@ -59,12 +57,12 @@ public class TutorialClose : MonoBehaviour {
     }
 
     public void terminateTouch() {
-        IM.TakeControl(ID);
+        GameManager.input.TakeControl(ID);
     }
 
     public void allowTouch()
     {
-        IM.ReleaseControl(ID);
+        GameManager.input.ReleaseControl(ID);
         GameManager.time.SetTimeScale(1f);
     }
 

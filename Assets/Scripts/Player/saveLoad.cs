@@ -6,11 +6,9 @@ public class saveLoad : MonoBehaviour {
     //Variables to be saved
     public GameObject menu, tutorial;
     //Manager 
-    InputManager IM;
     private int ID;
 
     void Awake() {
-        IM = GameManager.input;
         ID = GameManager.input.GetID();
     }
 
@@ -50,12 +48,12 @@ public class saveLoad : MonoBehaviour {
     void terminateTouch()
     {
 
-        IM.TakeControl(ID);
+        GameManager.input.TakeControl(ID);
     }
 
     IEnumerator allowTouch(float duration)
     {
         yield return new WaitForSeconds(duration);
-        IM.ReleaseControl(ID);
+        GameManager.input.ReleaseControl(ID);
     }
 }

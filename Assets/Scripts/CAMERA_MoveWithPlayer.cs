@@ -20,13 +20,11 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
     bool takeControl = false;
     float currentT, t;
 
-    private InputManager IM;
     private int ID;
 
     void Start()
     {
-        IM = GameManager.input;
-        ID = IM.GetID();
+        ID = GameManager.input.GetID();
 
         GameManager.events.OnBossDeath += shakeCamera;
     }
@@ -74,7 +72,7 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
         while (currentT < duration)
         {
 
-            IM.TakeControl(ID);
+            GameManager.input.TakeControl(ID);
             takeControl = true;
             currentT += Time.deltaTime;
             t = 1 - ((duration - currentT) / duration);            
@@ -85,8 +83,8 @@ public class CAMERA_MoveWithPlayer : MonoBehaviour
         yield break;
     }
     public void releaseControl() {
-       
-        IM.ReleaseControl(ID);
+
+        GameManager.input.ReleaseControl(ID);
         takeControl = false;
     }
 }

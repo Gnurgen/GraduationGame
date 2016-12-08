@@ -114,7 +114,6 @@ public class RangedAI : EnemyStats {
                 if (Vector3.Distance(transform.position, GameManager.player.transform.position) < aggroRange)
                 {
                     aggros++;
-                    Debug.Log("Aggros: " + aggros);
                     GameManager.events.EnemyAggro(gameObject);
                     target = GameManager.player;
                     path = null;

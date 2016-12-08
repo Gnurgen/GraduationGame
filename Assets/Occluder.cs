@@ -5,7 +5,6 @@ using System.Collections;
 public class Occluder : MonoBehaviour {
 
     float hideTime = 0.5f, hidTime;
-    bool hasLoaded = false;
     MeshFilter meshFilter;
     public bool hasDoor;
     public Mesh wallOcc, wallShow, wallDoorOcc, wallDoorShow;
