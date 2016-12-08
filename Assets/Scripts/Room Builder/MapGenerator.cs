@@ -349,7 +349,6 @@ public class MapGenerator : MonoBehaviour {
                             tiles[y + RoomUnit.TILE_RATIO * (l/3 - 1) - x - (l % 3)].gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
                     }
 
-                    /*
                     if (rotateMod > 0)
                     {
                         go.transform.Rotate(Vector3.up * -90 * rotateMod);
@@ -358,7 +357,6 @@ public class MapGenerator : MonoBehaviour {
                         for (l = 0; l < tiles.Length; l++)
                             tiles[l].transform.Rotate(Vector3.up * 90 * rotateMod);
                     }
-                    */
                     go.GetComponent<RoomBuilder>().HideWalls(i + 1 < mapGrid.GetLength(0) && mapGrid[i + 1, j] != null, j + 1 < mapGrid.GetLength(1) && mapGrid[i, j + 1] != null);
                     rooms.Add(go);
                 }
