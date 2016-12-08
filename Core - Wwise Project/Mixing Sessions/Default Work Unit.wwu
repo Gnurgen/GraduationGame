@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{8C5C7AC3-046A-4C82-978F-D3105BBC421F}" SchemaVersion="72">
 	<MixingSessions>
-		<WorkUnit Name="Default Work Unit" ID="{8C5C7AC3-046A-4C82-978F-D3105BBC421F}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{8C5C7AC3-046A-4C82-978F-D3105BBC421F}" PersistMode="Standalone">
+			<ChildrenList>
+				<MixingSession Name="In Game" ID="{2449A2E5-5C4E-4FD3-A88B-481471A845AB}">
+					<ObjectList>
+						<ObjectRef Name="Music_System" ID="{A4F52877-5710-4651-8A27-3C56936AEE9B}" WorkUnitID="{D6248A8B-CF4E-4C48-84DB-DA338E666CE3}"/>
+						<ObjectRef Name="Ambience" ID="{8C8D1030-ED93-494A-992E-B2EC9888C32A}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+						<ObjectRef Name="Combat" ID="{EC2FCF3E-295B-4B9C-80C4-88EC2F4CB298}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+						<ObjectRef Name="Boss" ID="{2FC5E253-7825-4C0C-832D-FDA8463B1F70}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+						<ObjectRef Name="Enemy" ID="{57CFCFA8-FBFD-4B42-9448-F2DBA1222280}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+						<ObjectRef Name="Player" ID="{1959CC9B-3C3C-47B1-BFB3-A2E87050B0DE}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+						<ObjectRef Name="Voices" ID="{9C2CB1DD-EAAA-44E2-ADDB-104D5642BD91}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+						<ObjectRef Name="SFX" ID="{BFCE14C4-5D9E-4DF2-B57D-8856307A995F}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+						<ObjectRef Name="Spirit" ID="{B705E89C-7363-48FA-B253-7FEBE3D9091F}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+						<ObjectRef Name="System" ID="{94EBE409-252D-439F-8395-31F933A0A4AA}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
+					</ObjectList>
+				</MixingSession>
+			</ChildrenList>
+		</WorkUnit>
 	</MixingSessions>
 </WwiseDocument>
