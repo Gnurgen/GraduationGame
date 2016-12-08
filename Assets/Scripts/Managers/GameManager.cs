@@ -42,7 +42,16 @@ public class GameManager {
         //menu.gameObject.SetActive(false);
 
     }
+    public static void resetGM()
+    {
+        _instance = null;
+        new GameManager();
+    }
 
+    public void newManager()
+    {
+        resetGM();
+    }
     public static int score
     {
         get
@@ -315,9 +324,10 @@ public class GameManager {
 
     public static void LoadNextLevel()
     {
+        Debug.Log("GAMEMANAGER LoadNextLevel: TOP");
         progress = PlayerPrefs.GetInt("Progress");
-        _instance = null;
         SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
+        Debug.Log("GAMEMANAGER LoadNextLevel: BUND");
         // LOADING SCREEN TAKES IT FROM HERE
 
 /*

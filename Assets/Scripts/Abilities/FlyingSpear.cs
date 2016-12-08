@@ -17,8 +17,6 @@ public class FlyingSpear : MonoBehaviour {
 
 
     public float currentCooldown;
-    private InputManager IM;
-    private EventManager EM;
     private EffectCurveDraw LR;
     private float currentDrawLength;
     private List<Vector3> drawnPoints;
@@ -31,10 +29,8 @@ public class FlyingSpear : MonoBehaviour {
         damage = baseDamage;
         currentCooldown = 0;
         currentDrawLength = 0;
-        IM = GameManager.input;
-        EM = GameManager.events;
         LR = GetComponent<EffectCurveDraw>();
-        ID = IM.GetID();
+        ID = GameManager.input.GetID();
 	}
 	
 	// Update is called once per frame
@@ -57,13 +53,13 @@ public class FlyingSpear : MonoBehaviour {
 
     IEnumerator Ability()
     {
-        IM.OnFirstTouchMoveSub(GetMove, ID);
-        IM.OnFirstTouchEndSub(GetEnd, ID);
-        IM.TakeControl(ID);
+        GameManager.input.OnFirstTouchMoveSub(GetMove, ID);
+        GameManager.input.OnFirstTouchEndSub(GetEnd, ID);
+        GameManager.input.TakeControl(ID);
         yield return StartCoroutine(DrawLine());
-        IM.ReleaseControl(ID);
-        IM.OnFirstTouchMoveUnsub(ID);
-        IM.OnFirstTouchEndUnsub(ID);
+        GameManager.input.ReleaseControl(ID);
+        GameManager.input.OnFirstTouchMoveUnsub(ID);
+        GameManager.input.OnFirstTouchEndUnsub(ID);
        
         GetComponent<PlayerControls>().EndAbility(true);
         // Actually use the ability with the drawn points
@@ -87,7 +83,7 @@ public class FlyingSpear : MonoBehaviour {
 
     void GetMove(Vector2 p)
     {
-        Vector3 worldPoint = IM.GetWorldPoint(p);
+        Vector3 worldPoint = GameManager.input.GetWorldPoint(p);
         if (currentDrawLength + Vector3.Distance(drawnPoints[drawnPoints.Count-1], worldPoint) < drawLength)
         {
             currentDrawLength += Vector3.Distance(drawnPoints[drawnPoints.Count - 1], worldPoint);
@@ -107,7 +103,7 @@ public class FlyingSpear : MonoBehaviour {
 
     void GetEnd(Vector2 p)
     {
-        Vector3 worldPoint = IM.GetWorldPoint(p);
+        Vector3 worldPoint = GameManager.input.GetWorldPoint(p);
         if (currentDrawLength + Vector3.Distance(drawnPoints[drawnPoints.Count - 1], worldPoint) < drawLength)
         {
             currentDrawLength += Vector3.Distance(drawnPoints[drawnPoints.Count - 1], worldPoint);
