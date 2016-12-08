@@ -15,6 +15,13 @@ public class StartMenu : MonoBehaviour {
     [Header("Start Menu")]
     public GameObject Shop;
     public GameObject Reset, Endless;
+    [Header("Shop")]
+    public GameObject skulls;
+    public GameObject items;
+    public GameObject content;
+    public GameObject popup, popup2;
+    public GameObject[] kranier;
+    public GameObject popular, best;
 
     private float showTime = 2;
 
@@ -38,6 +45,13 @@ public class StartMenu : MonoBehaviour {
         Time.timeScale = 1;
         StartCoroutine(playVideo());
      
+    }
+
+    public void PlayBoss()
+    {
+        GameManager.progress = 3;
+        PlayerPrefs.SetInt("Progress", 3);
+        GameManager.LoadNextLevel();
     }
 
     public void UseVibration()
@@ -125,6 +139,16 @@ public class StartMenu : MonoBehaviour {
         Shop.GetComponent<Text>().text = "BUTIK";
         Reset.GetComponent<Text>().text = "NULSTIL";
         Endless.GetComponent<Text>().text = "ENDELØS UDFORDRING";
+        skulls.GetComponent<Text>().text = "KRANIER";
+        items.GetComponent<Text>().text = "GENSTANDE";
+        content.GetComponent<Text>().text = "INDHOLD";
+        popup.GetComponent<Text>().text = "DETTE ER IKKE EN RIGTIG BUTIK...";
+        popup2.GetComponent<Text>().text = "DETTE INDHOLD ER IKKE BLEVET TILFØJET ENDNU...";
+        foreach (GameObject i in kranier) {
+        i.GetComponent<Text>().text = "Krystal Kranier";
+        }
+        best.GetComponent<Text>().text = "Best til Pris";
+        popular.GetComponent<Text>().text = "Mest Solgte";
     }
     void changeButtonsENG()
     {
@@ -136,5 +160,17 @@ public class StartMenu : MonoBehaviour {
         Shop.GetComponent<Text>().text = "SHOP";
         Reset.GetComponent<Text>().text = "RESET";
         Endless.GetComponent<Text>().text = "ENDLESS CHALLENGE";
+        skulls.GetComponent<Text>().text = "SKULLS";
+        items.GetComponent<Text>().text = "ITEMS";
+        content.GetComponent<Text>().text = "CONTENT";
+        popup.GetComponent<Text>().text = "THIS IS NOT A REAL SHOP...";
+        popup.GetComponent<Text>().text = "THIS CONTENT HAS NOT YET BEEN ADDED...";
+        foreach (GameObject i in kranier)
+        {
+            i.GetComponent<Text>().text = "Crystal Skulls";
+        }
+        best.GetComponent<Text>().text = "Best Value";
+        popular.GetComponent<Text>().text = "Most Popular";
+
     }
 }

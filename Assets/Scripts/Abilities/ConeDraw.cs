@@ -8,7 +8,6 @@ public class ConeDraw : MonoBehaviour {
     [SerializeField]
     private float maxConeLength, minConeLength, maxConeWidth, cancelAngle, coneAltitude, coneSpeed, damage, pushForce, stunTime, rampUp, maxDamageInrease, 
         maxParticleDrawSize = 4f, maxParticleFireSize = 6f;
-    private InputManager im;
     private bool drawing = false, clockwise = true;
     private Vector3 start, end, cur, lookDir;
     private const int coneResolution = 90;
@@ -69,8 +68,7 @@ public class ConeDraw : MonoBehaviour {
         coneParticlePref = Resources.Load<GameObject>("Pool/p_ConeParticle");
         coneHitParticlePref = Resources.Load<GameObject>("Pool/p_FlyingSpearImpact");
         coneHitParticlePrefBig = Resources.Load<GameObject>("Pool/p_FlyingSpearBigImpact");
-        im = GameManager.input;
-        ID = im.GetID();
+        ID = GameManager.input.GetID();
         onlyHitLayermask = 1 << LayerMask.NameToLayer("ConeBlocker");
         conePart = new List<GameObject>();
         particleLength = new List<float>();
@@ -82,9 +80,9 @@ public class ConeDraw : MonoBehaviour {
             conePart.Add(GameManager.pool.PoolObj(Instantiate(coneParticlePref)));
             conePart[x].SetActive(true);
             conePart[x].transform.position = particleDisable;
-            conePart[x].GetComponent<PKFxFX>().StartEffect();
             particleLength.Add(0f);
             particleDirection.Add(Vector3.zero);
+            conePart[x].GetComponent<PKFxFX>().StartEffect();
         }
         layerEnemy = LayerMask.NameToLayer("Enemy");
         layerEnemyhit = LayerMask.NameToLayer("EnemyHit");
@@ -169,32 +167,35 @@ public class ConeDraw : MonoBehaviour {
    
     public void UseAbility(Vector3 p)
     {
-        clockwise = true;
-        dirSat = false;
-        start = p;
-        doDraw = false;
-        drawnParts = 0;
-        abilityCharged = false;
-        firstAnalysis = false;
-        damage = baseDamage;
-        lookDir = start - transform.transform.position;
-        myRot.SetLookRotation(lookDir);
-        cRot.eulerAngles = myRot.eulerAngles + Vector3.up * (180f - cancelAngle);
-        Rot.eulerAngles = myRot.eulerAngles + Vector3.up * -90f;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        StartCoroutine(Ability());
+        if (ready)
+        {
+            clockwise = true;
+            dirSat = false;
+            start = p;
+            doDraw = false;
+            drawnParts = 0;
+            abilityCharged = false;
+            firstAnalysis = false;
+            damage = baseDamage;
+            lookDir = start - transform.transform.position;
+            myRot.SetLookRotation(lookDir);
+            cRot.eulerAngles = myRot.eulerAngles + Vector3.up * (180f - cancelAngle);
+            Rot.eulerAngles = myRot.eulerAngles + Vector3.up * -90f;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            StartCoroutine(Ability());
+        }
     }
 
     IEnumerator Ability()
     {
-        im.OnFirstTouchMoveSub(GetMove, ID);
-        im.OnFirstTouchEndSub(GetEnd, ID);
-        im.TakeControl(ID);
+        GameManager.input.OnFirstTouchMoveSub(GetMove, ID);
+        GameManager.input.OnFirstTouchEndSub(GetEnd, ID);
+        GameManager.input.TakeControl(ID);
         drawing = true;
         yield return StartCoroutine(DrawCone());
-        im.ReleaseControl(ID);
-        im.OnFirstTouchMoveUnsub(ID);
-        im.OnFirstTouchEndUnsub(ID);
+        GameManager.input.ReleaseControl(ID);
+        GameManager.input.OnFirstTouchMoveUnsub(ID);
+        GameManager.input.OnFirstTouchEndUnsub(ID);
         // Actually use the ability with the drawn points
         normRamp = 0;
         drawnParts = 0;
@@ -260,6 +261,7 @@ public class ConeDraw : MonoBehaviour {
             resetParticleValue(conePart[x]);
             conePart[x].transform.position = particleDisable;
         }
+        GameManager.events.ConeAbilityEnd(gameObject);
         yield break;
     }
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
@@ -285,7 +287,7 @@ public class ConeDraw : MonoBehaviour {
             go.layer = layerEnemy;
             GameManager.events.ConeAbilityHit(go);
             GameObject hitParticle = abilityCharged ? GameManager.pool.GenerateObject(bigImpact) : GameManager.pool.GenerateObject(impact);
-            hitParticle.transform.position = go.transform.position;
+            hitParticle.transform.position = go.transform.position + Vector3.one * .5f;
             hitParticle.GetComponent<PKFxFX>().StartEffect();
             yield return new WaitForSeconds(1.0f);
             GameManager.pool.PoolObj(hitParticle);
@@ -322,7 +324,7 @@ public class ConeDraw : MonoBehaviour {
 
     void GetMove(Vector2 p)
     {
-        cur = im.GetWorldPoint(p);
+        cur = GameManager.input.GetWorldPoint(p);
         float y = (int)Quaternion.FromToRotation((cur - transform.position), (start - transform.position)).eulerAngles.y;
         doDraw = coneDrawAnalysis(y);
 
