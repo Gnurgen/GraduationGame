@@ -14,6 +14,13 @@ public class SplashScreens : MonoBehaviour {
         StartCoroutine(PlaySplashVideo());
     }
 
+    void Update()
+    {
+        if(Input.GetMouseButtonDown(0) || Input.touchCount > 0)
+        {
+            SceneManager.LoadScene("Menu");
+        }
+    }
 
     private IEnumerator PlaySplashVideo()
     {
