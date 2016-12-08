@@ -14,7 +14,7 @@ public class TutorialRoomClear : MonoBehaviour {
         {
             mainCanvas.gameObject.SetActive(true);
             mainCanvas.overrideSprite = tutorialPic;
-            GameObject.Find("TutorialText").GetComponent<Text>().text = GameObject.Find("Door").GetComponent<TutorialTexts>().getTextSnipped(nr);
+            //GameObject.Find("TutorialText").GetComponent<Text>().text = GameObject.Find("Door").GetComponent<TutorialTexts>().getTextSnipped(nr);
             gameObject.SetActive(false);
         }
     }
