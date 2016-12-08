@@ -6,7 +6,8 @@ public class BossCamMoment : MonoBehaviour {
     private BossAI boss;
     private Vector3 bossT;
     public GameObject bossTop, bossMiddle, bossButtom, bossObj;
-    public GameObject playerHealthBar, bossHealtbar, playerHealthBarB, bossHealtbarB;
+    private Image[] playerImg;
+    public GameObject playerHealthBar, bossHealtbar, bossHealtbarB, options;
     private CAMERA_MoveWithPlayer cam;
     private Quaternion headA, headB;
 
@@ -20,11 +21,12 @@ public class BossCamMoment : MonoBehaviour {
         bossT = (bossTop.transform.position - (Camera.main.transform.forward * 15)) + new Vector3(0, 3, 0) ;
         boss = GameObject.Find("Boss").GetComponent<BossAI>();
         cam = Camera.main.GetComponent<CAMERA_MoveWithPlayer>();
+        playerImg = playerHealthBar.GetComponentsInChildren<Image>();
     }
-    void Update()
-    {
-
-   }
+    void fadePlayerBars(int i, float time) {
+        foreach (Image j in playerImg)
+            j.CrossFadeAlpha(i, time, true);
+    }
     void OnTriggerEnter(Collider col) 
     {
         if (col.tag == "Player") {
@@ -44,8 +46,8 @@ public class BossCamMoment : MonoBehaviour {
         yield break;
     }
     IEnumerator waitForMove() {
-        playerHealthBar.GetComponent<Image>().CrossFadeAlpha(0, 0.2f, true);
-        playerHealthBarB.GetComponent<Image>().CrossFadeAlpha(0, 0.2f, true);
+        fadePlayerBars(0, 0.2f);
+        options.GetComponent<Image>().CrossFadeAlpha(0, 0.2f, true);
         yield return StartCoroutine(cam.lookatWhatever(GameManager.player.transform.position, bossT,2));
         yield return new WaitForSeconds(1);
         yield return StartCoroutine(turnHead(180,2, bossTop));
@@ -58,8 +60,8 @@ public class BossCamMoment : MonoBehaviour {
         yield return new WaitForSeconds(2.5f);
         yield return StartCoroutine(cam.lookatWhatever(bossT,GameManager.player.transform.position, 2));
         cam.releaseControl();
-        playerHealthBar.GetComponent<Image>().CrossFadeAlpha(1, 1, true);
-        playerHealthBarB.GetComponent<Image>().CrossFadeAlpha(1, 1, true);
+        options.GetComponent<Image>().CrossFadeAlpha(1, 1, true);
+        fadePlayerBars(1, 1);
         bossHealtbar.GetComponent<Image>().CrossFadeAlpha(1, 1, true);
         bossHealtbarB.GetComponent<Image>().CrossFadeAlpha(1, 1, true);
 

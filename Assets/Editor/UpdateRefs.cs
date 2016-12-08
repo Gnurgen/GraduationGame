@@ -283,7 +283,7 @@ public class UpdateRefs : EditorWindow{
                             {
                                 for (l = 0; l < prefabs.Count; l++)
                                 {
-                                    if (roomTiles[j].referenceName == prefabs[l].GetComponent<RoomTile>().referenceName)
+                                    if (roomTiles[j].transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.mainTexture == prefabs[l].GetComponent<RoomTile>().transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.mainTexture)
                                     {
                                         replace(roomTiles[j].gameObject, prefabs[l]);
                                         count++;
@@ -292,7 +292,7 @@ public class UpdateRefs : EditorWindow{
                             }
                             else
                             {
-                                if (roomTiles[j].referenceName == go.GetComponent<RoomTile>().referenceName)
+                                if (roomTiles[j].transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.mainTexture == go.GetComponent<RoomTile>().transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.mainTexture)
                                 {
                                     replace(roomTiles[j].gameObject, go);
                                     count++;

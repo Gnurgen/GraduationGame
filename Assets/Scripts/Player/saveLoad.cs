@@ -33,9 +33,10 @@ public class saveLoad : MonoBehaviour {
     }
     public void openTutorial() {
         tutorial.SetActive(true);
-        menu.SetActive(false);
-        StartCoroutine(allowTouch(0.1f));
+        IM.ReleaseControl(ID);
         GameManager.time.SetTimeScale(1f);
+        tutorial.GetComponent<TutorialClose>().openTutorial();
+        menu.SetActive(false);
     }
     public void openMenu()
     {      

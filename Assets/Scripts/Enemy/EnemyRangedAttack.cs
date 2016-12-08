@@ -20,6 +20,8 @@ public class EnemyRangedAttack : MonoBehaviour {
         GetComponent<BoxCollider>().enabled = true;
         targetHit = false;
         step = 0;
+        AkSoundEngine.PostEvent("Enemy_Ranged_Projectile_Play", gameObject);
+        AkSoundEngine.RenderAudio();
     }
     
     void FixedUpdate()
@@ -64,6 +66,8 @@ public class EnemyRangedAttack : MonoBehaviour {
     }
     void PoolItSelf()
     {
+        AkSoundEngine.PostEvent("Enemy_Ranged_Projectile_Stop", gameObject);
+        AkSoundEngine.RenderAudio();
         transform.parent = null;
         GameManager.pool.PoolObj(gameObject);
     } 

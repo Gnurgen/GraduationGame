@@ -1,18 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Occluder : MonoBehaviour {
 
     float hideTime = 0.5f, hidTime;
+    bool hasLoaded = false;
     MeshFilter meshFilter;
     public bool hasDoor;
     public Mesh wallOcc, wallShow, wallDoorOcc, wallDoorShow;
 
-    public bool hasHid = false;
+    BoxCollider[] allBoxColls;
+    BoxCollider triggerCol;
+
+    void Awake()
+    {
+        allBoxColls = GetComponents<BoxCollider>();
+
+        for (int i = 0; i < allBoxColls.Length; i++)
+        {
+            if (allBoxColls[i].isTrigger)
+            {
+                triggerCol = allBoxColls[i];
+            }
+        }
+
+        GameObject objectHolder = new GameObject();
+        objectHolder.transform.SetParent(transform);
+        triggerCol.enabled = false;
+    }
 
     void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
+
+        GameManager.events.OnMapGenerated += EnableOnTrigger;
+        GameManager.events.OnLoadComplete += DisableTriggerOnLoad;
     }
 	// Update is called once per frame
 	void Update () {
@@ -32,6 +55,7 @@ public class Occluder : MonoBehaviour {
     {
         if(enable)
         {
+            transform.GetChild(0).gameObject.SetActive(true);
             if (!hasDoor)
             {
                 meshFilter.mesh = wallShow;
@@ -40,10 +64,10 @@ public class Occluder : MonoBehaviour {
             {
                 meshFilter.mesh = wallDoorShow;
             }
-            hasHid = false;
         }
         else if(!enable)
         {
+            transform.GetChild(0).gameObject.SetActive(false);
             if(!hasDoor)
             {
                 meshFilter.mesh = wallOcc;
@@ -52,22 +76,26 @@ public class Occluder : MonoBehaviour {
             {
                 meshFilter.mesh = wallDoorOcc;
             }
-            hasHid = true;
         }
 
     }
 
-    /*void OnTriggerStay(Collider col)
+    void OnTriggerStay(Collider col)
     {
-        if (col.tag != "Player" && col.tag != "Enemy" && hasHid == true)
+        if (col.tag == "Indestructable" && col.transform.parent.tag != "Indestructable")
         {
-            col.GetComponent<MeshRenderer>().enabled = false;
+            col.transform.SetParent(triggerCol.transform.GetChild(0));
         }
+    }
 
-        if(col.tag != "Player" && col.tag != "Enemy" && hasHid == false)
-        {
-            col.GetComponent<MeshRenderer>().enabled = true;
-        }
-    }*/
+    void DisableTriggerOnLoad()
+    {
+        triggerCol.enabled = false;
+    }
+
+    void EnableOnTrigger()
+    {
+        triggerCol.enabled = true;
+    }
 
 }
