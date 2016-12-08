@@ -198,15 +198,18 @@ public class PlayerControls : MonoBehaviour {
     {
         touchStart = im.GetWorldPoint(p);
         prevstate = ResumeMovementAfterAbility? state : State.Idle;
-        if ((touchStart - transform.position).magnitude < abilityTouchOffset && ability1.currentCooldown <= 0)
-            ab1 = true;
-        else if (ability2.currentCooldown <=0)
-            ab2 = true;
+        if(AbilitiesDuringDash || state != State.Dashing)
+        {
+            if ((touchStart - transform.position).magnitude < abilityTouchOffset && ability1.currentCooldown <= 0)
+                ab1 = true;
+            else if (ability2.currentCooldown <=0)
+                ab2 = true;
+        }
     } 
     void Move(Vector2 p)
     {
         touchCur = im.GetWorldPoint(p);
-        if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance)
+        if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance && (ab1 || ab2))
         {
             
             body.velocity = Vector3.zero;

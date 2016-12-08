@@ -41,7 +41,7 @@ public class EnemyHealthBars : MonoBehaviour {
         StartCoroutine(fadeHealthBar());
         health = enemy.GetComponent<Health>().health;
         float fill = 1f - ((maxHealth - health) / maxHealth);
-        gameObject.GetComponent<Image>().fillAmount = fill >= 0.1f ? fill : 0.1f;
+        gameObject.GetComponent<Image>().fillAmount = fill >= 0.2f ? fill : 0.2f;
         if (health <= 0)
             gameObject.SetActive(false);
     }

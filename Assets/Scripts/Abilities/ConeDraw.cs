@@ -82,9 +82,9 @@ public class ConeDraw : MonoBehaviour {
             conePart.Add(GameManager.pool.PoolObj(Instantiate(coneParticlePref)));
             conePart[x].SetActive(true);
             conePart[x].transform.position = particleDisable;
-            conePart[x].GetComponent<PKFxFX>().StartEffect();
             particleLength.Add(0f);
             particleDirection.Add(Vector3.zero);
+            conePart[x].GetComponent<PKFxFX>().StartEffect();
         }
         layerEnemy = LayerMask.NameToLayer("Enemy");
         layerEnemyhit = LayerMask.NameToLayer("EnemyHit");
@@ -169,20 +169,23 @@ public class ConeDraw : MonoBehaviour {
    
     public void UseAbility(Vector3 p)
     {
-        clockwise = true;
-        dirSat = false;
-        start = p;
-        doDraw = false;
-        drawnParts = 0;
-        abilityCharged = false;
-        firstAnalysis = false;
-        damage = baseDamage;
-        lookDir = start - transform.transform.position;
-        myRot.SetLookRotation(lookDir);
-        cRot.eulerAngles = myRot.eulerAngles + Vector3.up * (180f - cancelAngle);
-        Rot.eulerAngles = myRot.eulerAngles + Vector3.up * -90f;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-        StartCoroutine(Ability());
+        if (ready)
+        {
+            clockwise = true;
+            dirSat = false;
+            start = p;
+            doDraw = false;
+            drawnParts = 0;
+            abilityCharged = false;
+            firstAnalysis = false;
+            damage = baseDamage;
+            lookDir = start - transform.transform.position;
+            myRot.SetLookRotation(lookDir);
+            cRot.eulerAngles = myRot.eulerAngles + Vector3.up * (180f - cancelAngle);
+            Rot.eulerAngles = myRot.eulerAngles + Vector3.up * -90f;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            StartCoroutine(Ability());
+        }
     }
 
     IEnumerator Ability()
@@ -260,6 +263,7 @@ public class ConeDraw : MonoBehaviour {
             resetParticleValue(conePart[x]);
             conePart[x].transform.position = particleDisable;
         }
+        GameManager.events.ConeAbilityEnd(gameObject);
         yield break;
     }
     IEnumerator ApplyConeEffect(GameObject go, float delayTime)
@@ -285,7 +289,7 @@ public class ConeDraw : MonoBehaviour {
             go.layer = layerEnemy;
             GameManager.events.ConeAbilityHit(go);
             GameObject hitParticle = abilityCharged ? GameManager.pool.GenerateObject(bigImpact) : GameManager.pool.GenerateObject(impact);
-            hitParticle.transform.position = go.transform.position;
+            hitParticle.transform.position = go.transform.position + Vector3.one * .5f;
             hitParticle.GetComponent<PKFxFX>().StartEffect();
             yield return new WaitForSeconds(1.0f);
             GameManager.pool.PoolObj(hitParticle);
