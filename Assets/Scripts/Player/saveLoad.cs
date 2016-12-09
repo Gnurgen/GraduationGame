@@ -27,8 +27,8 @@ public class saveLoad : MonoBehaviour {
         GameManager.events.MenuClose();
         //GameManager.time.SetTimeScale(1f);
         GameManager.events.DrawComplete(10);
-        GameManager.input.ReleaseControl(ID);
         Time.timeScale = 1;
+        StartCoroutine(delayedRelease());
         menu.SetActive(false);
     }
     public void openTutorial() {
@@ -40,11 +40,22 @@ public class saveLoad : MonoBehaviour {
     {      
         menu.SetActive(true);
         GameManager.events.MenuOpen();
-        GameManager.time.SetTimeScale(0f);
+        Time.timeScale = 0;
         GameManager.input.TakeControl(ID);
     }
     public void loadStartMenu() {
-        Time.timeScale = 1;
+        closeMenu();
+        StartCoroutine(delayedLoad());
+        
+    }
+    IEnumerator delayedRelease()
+    {
+        yield return new WaitForSeconds(Time.deltaTime);
+        GameManager.input.ReleaseControl(ID);
+    }
+    IEnumerator delayedLoad()
+    {
+        yield return new WaitForSeconds(Time.deltaTime * 3f);
         SceneManager.LoadScene("Menu");
     }
 }
