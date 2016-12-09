@@ -122,8 +122,10 @@ public class LoadingScreen : MonoBehaviour {
         InfoText.text = "A L M O S T   D O N E";
         yield return new WaitForSecondsRealtime(5);
         LoadingText.text = "T O U C H   T O   C O N T I N U E";
-        if(finalScene)
+        if (finalScene)
             InfoText.text = "C H A M B E R S   S H U F F L E D";
+        else
+            InfoText.text = "";
         while (Input.touchCount < 1 && !Input.GetKey(KeyCode.Mouse0))
         {
             if (Input.touchCount < 1 && !Input.GetKey(KeyCode.Mouse0))

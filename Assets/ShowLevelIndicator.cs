@@ -55,20 +55,20 @@ public class ShowLevelIndicator : MonoBehaviour {
     {
         if(time > 0)
             yield return new WaitForSeconds(time);
-        /*while(!GameManager.input.ReleaseControl(id))
+        while(!GameManager.input.ReleaseControl(id))
         {
             yield return null;
-        }*/
+        }
         transform.parent.Find("Options").GetComponent<Button>().interactable = true;
     }
 
     IEnumerator TakeControl()
     {
         id = GameManager.input.GetID();
-        /*while(!GameManager.input.TakeControl(id))
+        while(!GameManager.input.TakeControl(id))
         {
             yield return null;
-        }*/
+        }
         yield break;
     }
 
