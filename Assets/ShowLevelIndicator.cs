@@ -10,16 +10,27 @@ public class ShowLevelIndicator : MonoBehaviour {
     Image img;
     [SerializeField]
     float fadeTime = 1;
+    bool hasControl;
+    int ID;
     // Use this for initialization
     void Start () {
         img = GetComponent<Image>();
         GameManager.events.OnLoadComplete += ShowLvlIndicator;
         GameManager.events.OnElevatorMoveStop += HideLvlIndicator;
-
+        ID = GameManager.input.GetID();
+        hasControl = false;
+    }
+    void Update()
+    {
+        if(!hasControl)
+        {
+            hasControl = GameManager.input.TakeControl(ID);
+        }
     }
 
     private void HideLvlIndicator()
     {
+        GameManager.input.ReleaseControl(ID);
         StartCoroutine(FadeImg(fadeTime));
     }
 
