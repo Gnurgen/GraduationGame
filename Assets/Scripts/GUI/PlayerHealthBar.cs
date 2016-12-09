@@ -191,13 +191,15 @@ public class PlayerHealthBar : MonoBehaviour {
             while(gb > 0.01f)
             {
                 gb -= Time.deltaTime;
-                sBar_Back.color = new Color(1f, gb, gb);
+                col = new Color(1f, gb, gb);
+                sBar_Back.color = col;
                 yield return null;
             }
             while (gb < 1f)
             {
                 gb += Time.deltaTime;
-                sBar_Back.color = new Color(1f, gb, gb);
+                col = new Color(1f, gb, gb);
+                sBar_Back.color = col;
                 yield return null;
             }
 

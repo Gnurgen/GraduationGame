@@ -30,7 +30,7 @@ public class PlayerDeathEvent : MonoBehaviour {
 
     private IEnumerator DeathEvent()
     {
-        AkSoundEngine.SetState("Game_State", "In_Loading_Screen_After_Intro_Cutscene");
+        AkSoundEngine.SetState("Game_State", "Death");
         GameManager.time.SetTimeScaleInstant(0.1f);
         yield return new WaitForSecondsRealtime(.5f);
         while (fov > 10)
