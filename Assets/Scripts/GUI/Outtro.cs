@@ -15,8 +15,9 @@ public class Outtro : MonoBehaviour {
         Debug.Log("Now playing video file on android device (skipping video on unity play!)");
         yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.5f);
         clearData();
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Credits");
     }
 
     public void clearData()

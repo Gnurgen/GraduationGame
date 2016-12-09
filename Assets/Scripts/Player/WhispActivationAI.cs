@@ -19,6 +19,7 @@ public class WhispActivationAI : MonoBehaviour {
 
     public void Activate(Vector3 center, Vector3 start)
     {
+        GameManager.events.GuideWhispScatter(gameObject);
         transform.position = start;
         effectControl = GetComponent<PKFxFX>();
         effectControl.StartEffect();
@@ -73,13 +74,15 @@ public class WhispActivationAI : MonoBehaviour {
     IEnumerator EnterCenter()
     {
         GameManager.events.WhispEnterElevator(gameObject);
-        center = new Vector3(center.x, 0, center.z);
+        Vector2 rand = Random.insideUnitCircle;
+        center = new Vector3(center.x + rand.x, 0, center.z + rand.y);
         while (Vector3.Distance(transform.position, center) > 0.1)
         {
             transform.position = Vector3.MoveTowards(transform.position, center, enterSpeed * Time.deltaTime);
             yield return null;
         }
         effectControl.StopEffect();
+        GameManager.events.GuideWhispScatterStop(gameObject);
         Destroy(gameObject);
         yield break;
     }

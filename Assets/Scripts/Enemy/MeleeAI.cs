@@ -12,6 +12,7 @@ public class MeleeAI : EnemyStats {
 	public GameObject target;
     public bool reset = true;
     public float delay = 3f;
+    public float resetRangeMult = 2;
     private float targetDist;
     private Animator animator;
     //private Animation animation;
@@ -29,6 +30,7 @@ public class MeleeAI : EnemyStats {
     private float currentAttackSpeed;
     private Rigidbody body;
     private SpawnRagdoll myDoll;
+    private int ignoreLayer;
 
    	// Use this for initialization
 	void Awake () {
@@ -40,6 +42,8 @@ public class MeleeAI : EnemyStats {
         body = GetComponent<Rigidbody>();
         mySpeed = moveSpeed;
         currentAttackSpeed = 0;
+        ignoreLayer =( 1 << LayerMask.NameToLayer("Enemy")) << LayerMask.NameToLayer("EnemyHit");
+        
 	}
 
     void OnEnable()
@@ -190,7 +194,7 @@ public class MeleeAI : EnemyStats {
                 }
                 targetDist = Vector3.Distance(transform.position, target.transform.position);
                 // If the target has moved outside the aggro range, go to idle, if withing attack range, go to attacking
-                if (targetDist > aggroRange)
+                if (targetDist > aggroRange * resetRangeMult)
                 {
                     StartCoroutine(Reset());
                     yield break;

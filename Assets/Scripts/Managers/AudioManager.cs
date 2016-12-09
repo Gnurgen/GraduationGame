@@ -63,15 +63,39 @@ public class AudioManager : MonoBehaviour {
         GameManager.events.OnGuideWhispScatterStop += WhispScatterStop;
         GameManager.events.OnGuideWhispFollowPath += WhispLoopPlay;
         GameManager.events.OnGuideWhispFollowPathStop += WhispLoopStop;
+        GameManager.events.OnWhispAntSpawn += WhispAntPlay;
+        GameManager.events.OnWhispAntDespawn += WhispAntStop;
+
         GameManager.events.OnElevatorMoveStart += ElevatorMovePlay;
         GameManager.events.OnElevatorMoveStop += ElevatorMoveStop;
 
+        GameManager.events.OnBossActivated += BossMusicStateSet;
         GameManager.events.OnBossMeteorActivation += BossRainPlay;
         GameManager.events.OnBossLaserActivation += BossBeamPlay;
         GameManager.events.OnBossLaserDeactivation += BossBeamStop;
     }
 
-    private void WhispLoopStop(GameObject GO)
+    private void BossMusicStateSet(GameObject Id)
+    {
+        Game_State = "In_Boss_Battle";
+        AkSoundEngine.SetState("Game_State",Game_State);
+        AkSoundEngine.RenderAudio();
+        
+    }
+
+    private void WhispAntStop(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Ant_Wisp_Loop_Stop ", GO);
+        AkSoundEngine.RenderAudio();
+    }
+
+    private void WhispAntPlay(GameObject GO)
+    {
+        AkSoundEngine.PostEvent("Ant_Wisp_Loop_Play", GO);
+        AkSoundEngine.RenderAudio();
+    }
+
+    public void WhispLoopStop(GameObject GO)
     {
         AkSoundEngine.PostEvent("Wisp_Loop_Stop", GO);
         AkSoundEngine.RenderAudio();
@@ -85,6 +109,7 @@ public class AudioManager : MonoBehaviour {
 
     private void ElevatorMoveStop()
     {
+        AkSoundEngine.PostEvent("Elevator_Stopping_Play",GSB);
         AkSoundEngine.PostEvent("Elevator_Stop", GSB);
         AkSoundEngine.RenderAudio();
     }
@@ -95,7 +120,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.RenderAudio();
     }
 
-    private void WhispLoopPlay(GameObject GO)
+    public void WhispLoopPlay(GameObject GO)
     {
         AkSoundEngine.PostEvent("Wisp_Loop_Play", GO);
         AkSoundEngine.RenderAudio();
@@ -301,7 +326,8 @@ public class AudioManager : MonoBehaviour {
 
     private void ConeAbilityStop(GameObject GO)
     {
-        AkSoundEngine.PostEvent("Cone_Ability_Stop", GO);
+        AkSoundEngine.PostEvent("Cone_Ability_Control_Stop", GSB);
+        //AkSoundEngine.PostEvent("Cone_Ability_Stop", GSB);
     }
 
     private void ConeAbilityHitPlay(GameObject GO)
@@ -323,7 +349,8 @@ public class AudioManager : MonoBehaviour {
     public void ConeAbilityPlay(GameObject GO)
     {
         //When finnished drawing the cone Ability and activates 
-        AkSoundEngine.PostEvent("Cone_Ability_Play", GO);
+        AkSoundEngine.PostEvent("Cone_Ability_Control_Stop", GSB);
+        AkSoundEngine.PostEvent("Cone_Ability_Play", GSB);
         AkSoundEngine.RenderAudio();
     }
     public void ConeAbilityInteractPlay(GameObject GO)
@@ -390,7 +417,6 @@ public class AudioManager : MonoBehaviour {
     {
         //Enemie Dies and stops his random growls
         AggroedEnemies--;
-        AkSoundEngine.PostEvent("Enemy_Aggro_Stop", GO);
         AkSoundEngine.PostEvent("Enemy_Death_Play", GO);
         AkSoundEngine.RenderAudio();
     }

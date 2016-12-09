@@ -5,9 +5,9 @@ public class EventManager : MonoBehaviour
 {
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        
+        GameManager.resetGM();
     }
 
     // Update is called once per frame
@@ -350,6 +350,8 @@ public class EventManager : MonoBehaviour
     public event WhispAction OnGuideWhispScatterStop;
     public event WhispAction OnGuideWhispFollowPath;
     public event WhispAction OnGuideWhispFollowPathStop;
+    public event WhispAction OnWhispAntSpawn;
+    public event WhispAction OnWhispAntDespawn;
     public event WhispAction OnWhispEnterElevator;
 
     public void ElevatorMoveStart()
@@ -386,6 +388,16 @@ public class EventManager : MonoBehaviour
     {
         if (OnWhispEnterElevator != null)
             OnWhispEnterElevator(GO);
+    }
+    public void WhispAntSpawn(GameObject GO)
+    {
+        if (OnWhispAntSpawn != null)
+            OnWhispAntSpawn(GO);
+    }
+    public void WhispAntDespawn(GameObject GO)
+    {
+        if (OnWhispAntDespawn != null)
+            OnWhispAntDespawn(GO);
     }
 
     public void RoomComplete(int i)
@@ -454,7 +466,6 @@ public class EventManager : MonoBehaviour
     {
         if (OnLoadNextLevel!= null)
         {
-            print("LOADING NEXT LEVEL");
             OnLoadNextLevel();
 
         }
@@ -464,14 +475,12 @@ public class EventManager : MonoBehaviour
     {
         if (OnLoadComplete != null)
         {
-            print("LOAD COMPLETE");
             OnLoadComplete();
         }
     }
 
     public void LoadingProgress(float progress)
     {
-        print(progress * 100f + " %");
         if (OnLoadingProgress != null)
             OnLoadingProgress(progress);
     }

@@ -107,7 +107,6 @@ public class RoomBuilder : MonoBehaviour {
 
     void Start()
     {
-        RoomTile[] tiles = GetComponentsInChildren<RoomTile>();
         Health[] enemies = GetComponentsInChildren<Health>();
         enemyCount = enemies.Length;
 

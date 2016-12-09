@@ -14,7 +14,6 @@ public class ConeAbility : MonoBehaviour {
     private GameObject coneParticle;
     Ray dmgRay;
     RaycastHit[] hit;
-    int cCounter = 0, cStart = 0;
     int enemy, enemyhit;
 
 

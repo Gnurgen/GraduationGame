@@ -25,6 +25,7 @@ public class BigWhispAI : MonoBehaviour {
 
 	void Start()
     {
+        GameManager.events.GuideWhispFollowPath(gameObject);
         pm = GameManager.pool;
         player = GameManager.player.transform;
         startPosition = new Vector3(player.position.x, 1, player.position.z);
@@ -39,7 +40,6 @@ public class BigWhispAI : MonoBehaviour {
     IEnumerator Spawn()
     {
         effectControl.StopEffect();
-        GameManager.events.GuideWhispScatter(gameObject);
         transform.position = spearPosition;
         scatter = endScatter;
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
@@ -59,7 +59,6 @@ public class BigWhispAI : MonoBehaviour {
             yield return null;
         }
         scatter = endScatter;
-        GameManager.events.GuideWhispScatterStop(gameObject);
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
         StartCoroutine(Spawning());
         yield break;
@@ -74,8 +73,7 @@ public class BigWhispAI : MonoBehaviour {
         while(Vector3.Distance(player.position, elevatorPosition) > elevatorDistance)
         {
             GameObject wisp = pm.GenerateObject("p_PathWhisp");
-            Vector3 start = Random.insideUnitSphere * 1.5f;
-            wisp.GetComponent<PathWhispAI>().Activate(path, transform.position + new Vector3(start.x, 1, start.z));
+            wisp.GetComponent<PathWhispAI>().Activate(path, transform.position, new Vector3(transform.position.x, -100, transform.position.z));
             yield return new WaitForSeconds(spawnFrequency);
         }
         for(int i = 0; i < activatorWhisps; i++)
