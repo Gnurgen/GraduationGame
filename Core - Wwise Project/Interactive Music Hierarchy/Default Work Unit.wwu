@@ -1338,7 +1338,7 @@
 					</ChildrenList>
 					<StateInfo>
 						<StateGroupList>
-							<StateGroupInfo>
+							<StateGroupInfo MusicSyncType="3">
 								<StateGroupRef Name="Game_State" ID="{EDAB1CD6-5EF8-4F5E-A996-EA864D5DA94D}"/>
 							</StateGroupInfo>
 						</StateGroupList>
@@ -1347,13 +1347,21 @@
 								<StateRef Name="In_Ability_Wheel" ID="{BD0C1C2D-7071-41C4-B29A-972EDB518CB7}"/>
 								<State Name="Custom State" ID="{3AAA9CF3-9FB3-4D07-84B4-8D012539DC6B}" ShortID="416086302">
 									<PropertyList>
-										<Property Name="Volume" Type="Real64" Value="-6"/>
+										<Property Name="Volume" Type="Real64" Value="-8"/>
 									</PropertyList>
 								</State>
 							</CustomState>
 							<CustomState>
 								<StateRef Name="In_Ending_Cutscene" ID="{FD711EA9-1883-459A-8A00-52C7B657A8EE}"/>
 								<State Name="Custom State" ID="{56AD07B9-B295-4503-A0B8-27779F196CEA}" ShortID="383698093">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="In_Loading_Screen_After_Intro_Cutscene" ID="{40A15F98-F715-4696-ADAF-15625BFE655B}"/>
+								<State Name="Custom State" ID="{F005EC37-97C5-47B1-873D-8F8C1FABBE7C}" ShortID="435530498">
 									<PropertyList>
 										<Property Name="Volume" Type="Real64" Value="-96"/>
 									</PropertyList>
@@ -1368,10 +1376,18 @@
 								</State>
 							</CustomState>
 							<CustomState>
+								<StateRef Name="Death" ID="{0DE927FE-8DAF-4D35-A343-0B1C430A9394}"/>
+								<State Name="Custom State" ID="{3B0E304F-19A3-408A-B106-252BB5AF4E5B}" ShortID="441717323">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
 								<StateRef Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
 								<State Name="Custom State" ID="{CCC750D3-5916-48FB-B409-55DF0BDA1954}" ShortID="707485395">
 									<PropertyList>
-										<Property Name="Volume" Type="Real64" Value="-6"/>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
 									</PropertyList>
 								</State>
 							</CustomState>

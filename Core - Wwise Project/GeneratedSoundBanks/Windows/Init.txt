@@ -6,6 +6,7 @@ State	ID	Name	State Group			Notes
 	210928257	In_Battle	Game_State			
 	304575330	Out_Of_Battle	Game_State			
 	748895195	None	Game_State			
+	779278001	Death	Game_State			
 	878736223	In_Ability_Wheel	Game_State			
 	1362486867	After_Boss	Game_State			
 	1415091186	In_Main_Menu	Game_State			

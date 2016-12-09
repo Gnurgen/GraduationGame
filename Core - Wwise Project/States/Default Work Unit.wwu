@@ -14,6 +14,9 @@
 					</ChildrenList>
 				</StateGroup>
 				<StateGroup Name="Game_State" ID="{EDAB1CD6-5EF8-4F5E-A996-EA864D5DA94D}">
+					<PropertyList>
+						<Property Name="DefaultTransitionTime" Type="Real64" Value="0.5"/>
+					</PropertyList>
 					<ChildrenList>
 						<State Name="None" ID="{CC932773-212D-4642-8291-AA75D8060298}"/>
 						<State Name="Out_Of_Battle" ID="{10976562-EC0F-47A9-8CF8-DC416E7D6159}"/>
@@ -29,7 +32,22 @@
 						<State Name="Before_Boss" ID="{6A53AE2C-B280-44B2-B1F6-BCB167E08290}"/>
 						<State Name="In_Loading_Screen_After_Intro_Cutscene" ID="{40A15F98-F715-4696-ADAF-15625BFE655B}"/>
 						<State Name="In_Boss_Battle" ID="{5A0C9EB3-DA32-4E91-AEBA-A0852E688F11}"/>
+						<State Name="Death" ID="{0DE927FE-8DAF-4D35-A343-0B1C430A9394}"/>
 					</ChildrenList>
+					<TransitionList>
+						<Transition>
+							<StartState Name="In_Battle" ID="{DBB5DC3C-9564-4B7F-9537-1FBA490F0703}"/>
+							<EndState Name="Death" ID="{0DE927FE-8DAF-4D35-A343-0B1C430A9394}"/>
+							<Time>2.7</Time>
+							<IsShared>false</IsShared>
+						</Transition>
+						<Transition>
+							<StartState Name="In_Boss_Battle" ID="{5A0C9EB3-DA32-4E91-AEBA-A0852E688F11}"/>
+							<EndState Name="Death" ID="{0DE927FE-8DAF-4D35-A343-0B1C430A9394}"/>
+							<Time>2.7</Time>
+							<IsShared>false</IsShared>
+						</Transition>
+					</TransitionList>
 				</StateGroup>
 			</ChildrenList>
 		</WorkUnit>
