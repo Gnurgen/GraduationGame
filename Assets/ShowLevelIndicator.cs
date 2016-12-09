@@ -10,32 +10,34 @@ public class ShowLevelIndicator : MonoBehaviour {
     Image img;
     [SerializeField]
     float fadeTime = 1;
-    bool hasControl;
-    int ID;
+    int id;
     // Use this for initialization
     void Start () {
         img = GetComponent<Image>();
         GameManager.events.OnLoadComplete += ShowLvlIndicator;
         GameManager.events.OnElevatorMoveStop += HideLvlIndicator;
-        ID = GameManager.input.GetID();
-        hasControl = false;
+        transform.parent.Find("Options").GetComponent<Button>().interactable = false;
     }
     void Update()
     {
-        if(!hasControl)
-        {
-            hasControl = GameManager.input.TakeControl(ID);
-        }
+        
     }
 
     private void HideLvlIndicator()
     {
-        GameManager.input.ReleaseControl(ID);
         StartCoroutine(FadeImg(fadeTime));
     }
 
     private IEnumerator FadeImg(float fadeTime)
     {
+        if(PlayerPrefs.GetInt("Progress") > 0)
+        {
+            StartCoroutine(DelayedRelease(0));
+        }
+        else
+        {
+            StartCoroutine(DelayedRelease(2));
+        }
         float step = 1;
         float c = 200f / 255f;
         Color col; 
@@ -49,8 +51,29 @@ public class ShowLevelIndicator : MonoBehaviour {
         img.enabled = false;
     }
 
+    IEnumerator DelayedRelease(float time)
+    {
+        if(time > 0)
+            yield return new WaitForSeconds(time);
+        while(!GameManager.input.ReleaseControl(id))
+        {
+            yield return null;
+        }
+        transform.parent.Find("Options").GetComponent<Button>().interactable = true;
+    }
+
+    IEnumerator TakeControl()
+    {
+        id = GameManager.input.GetID();
+        while(!GameManager.input.TakeControl(id))
+        {
+            yield return null;
+        }
+    }
+
     private void ShowLvlIndicator()
     {
+        StartCoroutine(TakeControl());
         img.sprite = imglvl[PlayerPrefs.GetInt("Progress")];
         img.enabled = true;
         if (PlayerPrefs.GetInt("Progress") == 0)
