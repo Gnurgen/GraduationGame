@@ -119,7 +119,8 @@ public class LoadingScreen : MonoBehaviour {
 
     private IEnumerator waitingForInput(bool finalScene)
     {
-       
+        InfoText.text = "A L M O S T   D O N E";
+        yield return new WaitForSecondsRealtime(5);
         LoadingText.text = "T O U C H   T O   C O N T I N U E";
         if(finalScene)
             InfoText.text = "C H A M B E R S   S H U F F L E D";
@@ -136,7 +137,8 @@ public class LoadingScreen : MonoBehaviour {
             }
             yield return null;
         }
-      
+
+        
         GameManager.events.LoadComplete();
         GameManager.input.ReleaseControl(IMID);
         GameManager.events.FadeFromBlackToTransparent();
