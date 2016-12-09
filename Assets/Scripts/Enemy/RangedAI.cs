@@ -69,10 +69,12 @@ public class RangedAI : EnemyStats {
         }
         else if (pauseFor > 0)
         {
+            animator.SetBool("PushPull", true);
             pauseFor -= Time.fixedDeltaTime;
             if (pauseFor <= 0)
             {
                 pauseFor = 0;
+                animator.SetBool("PushPull", false);
                 onPause = false;
             }
         }
@@ -99,7 +101,6 @@ public class RangedAI : EnemyStats {
     IEnumerator Idle()
     {
         stateTest = "Idle";
-        animator.SetBool("Backwards", false);
         animator.SetBool("Run", false);
         target = null;
         for (;;)
@@ -136,16 +137,17 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Reset()
     {
+        GameManager.events.EnemyAggroLost(gameObject);
+        animator.SetBool("Run", false);
+
         stateTest = "Reset";
         if (!reset)
         {
             StartCoroutine(Idle());
             yield break;
         }
-        animator.SetBool("Backwards", false);
-        animator.SetBool("Run", false);
+     
        
-        GameManager.events.EnemyAggroLost(gameObject);
         seeker.StartPath(transform.position, startPosition, ReceivePath);
         waitingForPath = true;
         while (waitingForPath)
@@ -202,7 +204,6 @@ public class RangedAI : EnemyStats {
     IEnumerator Chasing()
     {
         stateTest = "Chasing";
-        animator.SetBool("Backwards", false);
         animator.SetBool("Run", true);
         
         for (;;)
@@ -309,9 +310,10 @@ public class RangedAI : EnemyStats {
                     if (currentAttackSpeed < 0)
                     {
                         currentAttackSpeed = attackSpeed;
+                        animator.SetTrigger("Attack");
+                        animator.SetBool("Run", false);
                         proj = GameManager.pool.GenerateObject("RangedAttack");
                         proj.GetComponent<ProjectileControl>().Activate(transform.position + transform.forward * 1.5f + Vector3.up, target.transform.position, this);
-                        animator.SetBool("Run", false);
                     }
                 }
                 dir = Quaternion.FromToRotation(transform.forward, dir).eulerAngles;
