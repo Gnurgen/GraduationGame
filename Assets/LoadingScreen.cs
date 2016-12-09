@@ -128,26 +128,25 @@ public class LoadingScreen : MonoBehaviour {
             InfoText.text = "";
         while (Input.touchCount < 1 && !Input.GetKey(KeyCode.Mouse0))
         {
-            if (Input.touchCount < 1 && !Input.GetKey(KeyCode.Mouse0))
-            {
-                if (saFrame >= ShuffleAnimation.Length - 1)
-                    saFrame = 0;
-                else
-                    saFrame++;
-                ImgAni.sprite = ShuffleAnimation[saFrame];
-                yield return new WaitForSeconds(0.125f);
-            }
+            if (saFrame >= ShuffleAnimation.Length - 1)
+                saFrame = 0;
+            else
+                saFrame++;
+            ImgAni.sprite = ShuffleAnimation[saFrame];
             yield return null;
         }
 
         
         GameManager.events.LoadComplete();
-        GameManager.input.ReleaseControl(IMID);
+        yield return new WaitForEndOfFrame();
+        Destroy(GameObject.Find("LoadingCamera"));
+        GetComponent<Canvas>().enabled = false;
         GameManager.events.FadeFromBlackToTransparent();
+        yield return new WaitForSecondsRealtime(3);
+        GameManager.input.ReleaseControl(IMID);
         SceneManager.MergeScenes(SceneManager.GetSceneByName("LoadingScreen"), SceneManager.GetSceneByName(LoadToScene));
         yield return new WaitForEndOfFrame();
         Resources.UnloadUnusedAssets();
-        Destroy(GameObject.Find("LoadingCamera"));
         Destroy(gameObject);
         yield break;
     }

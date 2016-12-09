@@ -21,7 +21,7 @@ public class PathWhispAI : MonoBehaviour {
         this.end = end;
         transform.position = start;
         effectControl = GetComponent<PKFxFX>();
-        GameManager.events.WhispAntSpawn(gameObject);
+        //GameManager.events.WhispAntSpawn(gameObject);
         if (!subbed)
         {
             GameManager.events.OnLoadNextLevel += NextLevel;
@@ -33,7 +33,7 @@ public class PathWhispAI : MonoBehaviour {
 
     private void NextLevel()
     {
-        GameManager.events.WhispAntDespawn(gameObject);
+        //GameManager.events.WhispAntDespawn(gameObject);
     }
 
     IEnumerator Spawn()
@@ -76,7 +76,7 @@ public class PathWhispAI : MonoBehaviour {
             yield return null;
         }
         //effectControl.StopEffect();
-        GameManager.events.WhispAntDespawn(gameObject);
+        //GameManager.events.WhispAntDespawn(gameObject);
         transform.position = end;
         yield return new WaitForSeconds(2f);
         //Destroy(gameObject);

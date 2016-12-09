@@ -19,6 +19,7 @@ public class ProjectileControl : MonoBehaviour {
         this.owner = owner;
         damage = owner.damage;
         force = owner.force;
+        speed = owner.projectileSpeed;
         effectControl = gameObject.GetComponentInChildren<PKFxFX>();
         effectControl.StartEffect();
         direction = (new Vector3(target.x, 0, target.z) - new Vector3(start.x, 0, start.z)).normalized;

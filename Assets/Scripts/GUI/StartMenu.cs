@@ -34,6 +34,7 @@ public class StartMenu : MonoBehaviour {
         if (PlayerPrefs.GetInt("Progress") == 0)
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
         setLanguage();
+        setVibPref();
     }
 
     public void ResetProgress()
@@ -60,9 +61,14 @@ public class StartMenu : MonoBehaviour {
 
     public void UseVibration()
     {
-        GameManager.useVibrations = GameObject.FindObjectOfType<Toggle>().isOn;
+        GameManager.useVibrations = !GameManager.useVibrations;
+        GameObject.FindObjectOfType<Toggle>().isOn = GameManager.useVibrations;
     }
-
+    private void setVibPref()
+    {
+        GameObject.FindObjectOfType<Toggle>().isOn = true;
+        GameManager.useVibrations = true;
+    }
     IEnumerator playVideo()
     {
         Handheld.PlayFullScreenMovie("Intro_01.mp4", Color.black, FullScreenMovieControlMode.CancelOnInput, FullScreenMovieScalingMode.AspectFit);
