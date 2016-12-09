@@ -25,6 +25,7 @@ public class saveLoad : MonoBehaviour {
 
     public void closeMenu() {
         menu.SetActive(false);
+        GameManager.events.MenuClose();
         GameManager.time.SetTimeScale(1f);
         GameManager.events.DrawComplete(10);
         StartCoroutine(allowTouch(0.1f));
@@ -39,6 +40,7 @@ public class saveLoad : MonoBehaviour {
     public void openMenu()
     {      
         menu.SetActive(true);
+        GameManager.events.MenuOpen();
         GameManager.time.SetTimeScale(0f);
         terminateTouch();
     }

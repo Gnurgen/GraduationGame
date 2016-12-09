@@ -85,7 +85,7 @@
 				</File>
 				<File Id="8959918" Language="SFX">
 					<ShortName>Player Impact_3.wav</ShortName>
-					<Path>SFX\Player Impact_3_1BD63098.wem</Path>
+					<Path>SFX\Player Impact_3_8C81A18B.wem</Path>
 				</File>
 				<File Id="9252935" Language="SFX">
 					<ShortName>In Game Music Rhythm.wav</ShortName>
@@ -117,7 +117,7 @@
 				</File>
 				<File Id="64635592" Language="SFX">
 					<ShortName>Player Impact.wav</ShortName>
-					<Path>SFX\Player Impact_725DB249.wem</Path>
+					<Path>SFX\Player Impact_81ABF17F.wem</Path>
 				</File>
 				<File Id="73345813" Language="SFX">
 					<ShortName>Ambience_5.wav</ShortName>
@@ -129,7 +129,7 @@
 				</File>
 				<File Id="78657965" Language="SFX">
 					<ShortName>Player Impact_2.wav</ShortName>
-					<Path>SFX\Player Impact_2_784A5DE8.wem</Path>
+					<Path>SFX\Player Impact_2_9CF67DD7.wem</Path>
 				</File>
 				<File Id="91948562" Language="SFX">
 					<ShortName>Ambience_3.wav</ShortName>
@@ -137,7 +137,7 @@
 				</File>
 				<File Id="97460987" Language="SFX">
 					<ShortName>Player Impact_1.wav</ShortName>
-					<Path>SFX\Player Impact_1_0875AC2B.wem</Path>
+					<Path>SFX\Player Impact_1_71B95286.wem</Path>
 				</File>
 				<File Id="105078837" Language="SFX">
 					<ShortName>Enemy Impact_3.wav</ShortName>
@@ -201,7 +201,7 @@
 				</File>
 				<File Id="291287480" Language="SFX">
 					<ShortName>Corpse Despawn.wav</ShortName>
-					<Path>SFX\Corpse Despawn_65F426FC.wem</Path>
+					<Path>SFX\Corpse Despawn_95180E66.wem</Path>
 				</File>
 				<File Id="292452142" Language="SFX">
 					<ShortName>Enemy Death.wav</ShortName>
@@ -381,7 +381,7 @@
 				</File>
 				<File Id="749214813" Language="SFX">
 					<ShortName>Corpse Despawn.wav</ShortName>
-					<Path>SFX\Corpse Despawn_4BD329AF.wem</Path>
+					<Path>SFX\Corpse Despawn_4CD1D474.wem</Path>
 				</File>
 				<File Id="755640934" Language="SFX">
 					<ShortName>Cone Max Charge Loop.wav</ShortName>
@@ -421,11 +421,11 @@
 				</File>
 				<File Id="835225650" Language="SFX">
 					<ShortName>Corpse Despawn.wav</ShortName>
-					<Path>SFX\Corpse Despawn_4489B5F8.wem</Path>
+					<Path>SFX\Corpse Despawn_C674C173.wem</Path>
 				</File>
 				<File Id="843679925" Language="SFX">
 					<ShortName>Player Impact_4.wav</ShortName>
-					<Path>SFX\Player Impact_4_095509AA.wem</Path>
+					<Path>SFX\Player Impact_4_B2C2755E.wem</Path>
 				</File>
 				<File Id="858827689" Language="SFX">
 					<ShortName>Boss Voice_5.wav</ShortName>
@@ -497,7 +497,7 @@
 				</File>
 				<File Id="1058666328" Language="SFX">
 					<ShortName>Corpse Despawn.wav</ShortName>
-					<Path>SFX\Corpse Despawn_40BA061B.wem</Path>
+					<Path>SFX\Corpse Despawn_F5B4B76C.wem</Path>
 				</File>
 				<File Id="1060079075" Language="SFX">
 					<ShortName>Thunder_1.wav</ShortName>

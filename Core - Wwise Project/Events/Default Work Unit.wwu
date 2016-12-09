@@ -422,6 +422,9 @@
 				<Event Name="Pickup_Move_Play" ID="{6A5A77F4-5AE4-43A6-AC08-8B912105F71B}">
 					<ChildrenList>
 						<Action Name="Play" ID="{F988E0A2-9DCC-4470-A338-860D5AA1B8F5}" ShortID="227293748" Type="Play" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+							</PropertyList>
 							<ElementList>
 								<Element ID="{F1F7E25F-045E-4F90-ACA3-325DE700B504}" Global="false">
 									<ObjectRef Name="Orb Loop" ID="{6BD821A5-A9FB-4E36-BB98-56951D4CC11B}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
@@ -472,6 +475,9 @@
 				<Event Name="Enemy_Ranged_Projectile_Play" ID="{56A4CA32-BC70-4976-9E33-0E0035A91E42}">
 					<ChildrenList>
 						<Action Name="Play" ID="{8C59E210-9550-43CE-8AB0-B62BBE28673E}" ShortID="572083441" Type="Play" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.1"/>
+							</PropertyList>
 							<ElementList>
 								<Element ID="{36870D3B-20A0-48D1-9136-D96A22BDA134}" Global="false">
 									<ObjectRef Name="Ranged Projectile" ID="{7D000869-9AB1-4D04-80AA-4F98C18C5AB1}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
@@ -522,6 +528,9 @@
 				<Event Name="Wisp_Scatter_Play" ID="{249A3733-8C91-42BF-B199-8B837A654375}">
 					<ChildrenList>
 						<Action Name="Play" ID="{04064925-1293-4451-9DA5-295E01761255}" ShortID="719346560" Type="Play" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+							</PropertyList>
 							<ElementList>
 								<Element ID="{701045C6-7EC0-434C-BBC9-9698D03D75AE}" Global="false">
 									<ObjectRef Name="Wisp Spawn Loop" ID="{DA83063B-5E09-4843-B172-2150B365ECFA}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
@@ -534,7 +543,7 @@
 					<ChildrenList>
 						<Action Name="Stop" ID="{2E68FEB1-1FB3-48D8-8530-40FF28381B7B}" ShortID="576376656" Type="Stop" Scope="One" Global="false">
 							<PropertyList>
-								<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+								<Property Name="FadeTime" Type="Real64" Value="1"/>
 							</PropertyList>
 							<ElementList>
 								<Element ID="{93F47670-05D7-4427-B3A4-27E37D24ED06}" Global="false">
@@ -547,6 +556,9 @@
 				<Event Name="Wisp_Loop_Play" ID="{FB1D69AD-72B6-4816-860C-D00ECF5FF84F}">
 					<ChildrenList>
 						<Action Name="Play" ID="{6728D010-86BF-4B41-AFAB-ACEBB74F259C}" ShortID="588630245" Type="Play" Scope="One" Global="false">
+							<PropertyList>
+								<Property Name="FadeTime" Type="Real64" Value="0.5"/>
+							</PropertyList>
 							<ElementList>
 								<Element ID="{C73874CB-6B15-4CBB-8F7F-683BE38E9992}" Global="false">
 									<ObjectRef Name="Wisp Loop" ID="{F1338134-D965-4BF2-9FCD-811B8A735474}" WorkUnitID="{C3DC992A-59B9-4602-B4C3-400A278E316E}"/>
