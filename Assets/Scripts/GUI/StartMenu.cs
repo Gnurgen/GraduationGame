@@ -34,7 +34,7 @@ public class StartMenu : MonoBehaviour {
         if (PlayerPrefs.GetInt("Progress") == 0)
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
         setLanguage();
-        setVibPref();
+        //setVibPref();
     }
 
     public void ResetProgress()
