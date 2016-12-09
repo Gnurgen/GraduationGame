@@ -21,7 +21,7 @@
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<IncludedEvents>
-				<Event Id="3952016716" Name="Ant_Wisp_Loop_Play" ObjectPath="\Events\Default Work Unit\Ant_Wisp_Loop_Play" MaxAttenuation="10.000000"/>
+				<Event Id="3952016716" Name="Ant_Wisp_Loop_Play" ObjectPath="\Events\Default Work Unit\Ant_Wisp_Loop_Play" MaxAttenuation="8.000000"/>
 				<Event Id="1626834006" Name="Ant_Wisp_Loop_Stop" ObjectPath="\Events\Default Work Unit\Ant_Wisp_Loop_Stop" MaxAttenuation="0.000000"/>
 				<Event Id="3074393677" Name="Boss_Beam_Play" ObjectPath="\Events\Default Work Unit\Boss_Beam_Play" MaxAttenuation="5.000000"/>
 				<Event Id="4191587739" Name="Boss_Beam_Stop" ObjectPath="\Events\Default Work Unit\Boss_Beam_Stop" MaxAttenuation="0.000000"/>
@@ -83,6 +83,10 @@
 					<ShortName>Boss Pain_4.wav</ShortName>
 					<Path>SFX\Boss Pain_4_C47F2D1B.wem</Path>
 				</File>
+				<File Id="8959918" Language="SFX">
+					<ShortName>Player Impact_3.wav</ShortName>
+					<Path>SFX\Player Impact_3_1BD63098.wem</Path>
+				</File>
 				<File Id="9252935" Language="SFX">
 					<ShortName>In Game Music Rhythm.wav</ShortName>
 					<Path>SFX\In Game Music Rhythm_0ED39DC9.wem</Path>
@@ -111,6 +115,10 @@
 					<ShortName>Indestructable Impact_1.wav</ShortName>
 					<Path>SFX\Indestructable Impact_1_C47F2D1B.wem</Path>
 				</File>
+				<File Id="64635592" Language="SFX">
+					<ShortName>Player Impact.wav</ShortName>
+					<Path>SFX\Player Impact_725DB249.wem</Path>
+				</File>
 				<File Id="73345813" Language="SFX">
 					<ShortName>Ambience_5.wav</ShortName>
 					<Path>SFX\Ambience_5_C47F2D1B.wem</Path>
@@ -119,9 +127,17 @@
 					<ShortName>Enemy Pain_1.wav</ShortName>
 					<Path>SFX\Enemy Pain_1_C47F2D1B.wem</Path>
 				</File>
+				<File Id="78657965" Language="SFX">
+					<ShortName>Player Impact_2.wav</ShortName>
+					<Path>SFX\Player Impact_2_784A5DE8.wem</Path>
+				</File>
 				<File Id="91948562" Language="SFX">
 					<ShortName>Ambience_3.wav</ShortName>
 					<Path>SFX\Ambience_3_C47F2D1B.wem</Path>
+				</File>
+				<File Id="97460987" Language="SFX">
+					<ShortName>Player Impact_1.wav</ShortName>
+					<Path>SFX\Player Impact_1_0875AC2B.wem</Path>
 				</File>
 				<File Id="105078837" Language="SFX">
 					<ShortName>Enemy Impact_3.wav</ShortName>
@@ -182,6 +198,10 @@
 				<File Id="266930967" Language="SFX">
 					<ShortName>Enemy Death_4.wav</ShortName>
 					<Path>SFX\Enemy Death_4_486D6BD2.wem</Path>
+				</File>
+				<File Id="291287480" Language="SFX">
+					<ShortName>Corpse Despawn.wav</ShortName>
+					<Path>SFX\Corpse Despawn_65F426FC.wem</Path>
 				</File>
 				<File Id="292452142" Language="SFX">
 					<ShortName>Enemy Death.wav</ShortName>
@@ -331,6 +351,10 @@
 					<ShortName>Indestructable Impact_2.wav</ShortName>
 					<Path>SFX\Indestructable Impact_2_C47F2D1B.wem</Path>
 				</File>
+				<File Id="668581270" Language="SFX">
+					<ShortName>Corpse Despawn.wav</ShortName>
+					<Path>SFX\Corpse Despawn_03B0A1AC.wem</Path>
+				</File>
 				<File Id="674176128" Language="SFX">
 					<ShortName>Boss Voice_6.wav</ShortName>
 					<Path>SFX\Boss Voice_6_C47F2D1B.wem</Path>
@@ -354,6 +378,10 @@
 				<File Id="743145374" Language="SFX">
 					<ShortName>Wheel_Open.wav</ShortName>
 					<Path>SFX\Wheel_Open_ECAC36E8.wem</Path>
+				</File>
+				<File Id="749214813" Language="SFX">
+					<ShortName>Corpse Despawn.wav</ShortName>
+					<Path>SFX\Corpse Despawn_4BD329AF.wem</Path>
 				</File>
 				<File Id="755640934" Language="SFX">
 					<ShortName>Cone Max Charge Loop.wav</ShortName>
@@ -390,6 +418,14 @@
 				<File Id="830085422" Language="SFX">
 					<ShortName>Normal Button.wav</ShortName>
 					<Path>SFX\Normal Button_C47F2D1B.wem</Path>
+				</File>
+				<File Id="835225650" Language="SFX">
+					<ShortName>Corpse Despawn.wav</ShortName>
+					<Path>SFX\Corpse Despawn_4489B5F8.wem</Path>
+				</File>
+				<File Id="843679925" Language="SFX">
+					<ShortName>Player Impact_4.wav</ShortName>
+					<Path>SFX\Player Impact_4_095509AA.wem</Path>
 				</File>
 				<File Id="858827689" Language="SFX">
 					<ShortName>Boss Voice_5.wav</ShortName>
@@ -458,6 +494,10 @@
 				<File Id="1051025274" Language="SFX">
 					<ShortName>Orb Loop.wav</ShortName>
 					<Path>SFX\Orb Loop_0ED39DC9.wem</Path>
+				</File>
+				<File Id="1058666328" Language="SFX">
+					<ShortName>Corpse Despawn.wav</ShortName>
+					<Path>SFX\Corpse Despawn_40BA061B.wem</Path>
 				</File>
 				<File Id="1060079075" Language="SFX">
 					<ShortName>Thunder_1.wav</ShortName>
