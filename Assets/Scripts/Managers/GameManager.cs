@@ -286,12 +286,12 @@ public class GameManager {
 
     private void showMenu()
     {
-        menu.gameObject.SetActive(true);
+        //menu.gameObject.SetActive(true);
     }
 
     private void hideMenu()
     {
-        menu.gameObject.SetActive(false);
+        //menu.gameObject.SetActive(false);
     }
 
     private void PlayerLevelUp(int i)
