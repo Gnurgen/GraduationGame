@@ -14,8 +14,6 @@ public class InputTester : MonoBehaviour {
         im.OnFirstTouchMoveSub(FirstMove, id);
         im.OnFirstTouchEndSub(FirstEnd, id);
         im.OnTapSub(Tap, id);
-        im.OnDoubleTapSub(DoubleTap, id);
-        im.OnSwipeSub(Swipe, id);
     }
 	
 	// Update is called once per frame

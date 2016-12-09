@@ -9,6 +9,7 @@ public class MusicState : MonoBehaviour {
     void Start()
     {
         Application.targetFrameRate = 30;
+        Input.multiTouchEnabled = false;
         StartCoroutine(AtStartOfGame());
     }
 	void OnLevelWasLoaded() // change music in menu/splash screens. Doesnt know when merging scenes
