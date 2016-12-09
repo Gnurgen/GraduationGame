@@ -24,16 +24,15 @@ public class saveLoad : MonoBehaviour {
     }
 
     public void closeMenu() {
-        menu.SetActive(false);
         GameManager.events.MenuClose();
-        GameManager.time.SetTimeScale(1f);
+        //GameManager.time.SetTimeScale(1f);
         GameManager.events.DrawComplete(10);
-        StartCoroutine(allowTouch(0.1f));
+        GameManager.input.ReleaseControl(ID);
+        Time.timeScale = 1;
+        menu.SetActive(false);
     }
     public void openTutorial() {
         tutorial.SetActive(true);
-        GameManager.input.ReleaseControl(ID);
-        GameManager.time.SetTimeScale(1f);
         tutorial.GetComponent<TutorialClose>().openTutorial();
         menu.SetActive(false);
     }
@@ -42,21 +41,10 @@ public class saveLoad : MonoBehaviour {
         menu.SetActive(true);
         GameManager.events.MenuOpen();
         GameManager.time.SetTimeScale(0f);
-        terminateTouch();
+        GameManager.input.TakeControl(ID);
     }
     public void loadStartMenu() {
         Time.timeScale = 1;
         SceneManager.LoadScene("Menu");
-    }
-    void terminateTouch()
-    {
-
-        GameManager.input.TakeControl(ID);
-    }
-
-    IEnumerator allowTouch(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        GameManager.input.ReleaseControl(ID);
     }
 }

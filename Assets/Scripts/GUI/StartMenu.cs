@@ -133,8 +133,8 @@ public class StartMenu : MonoBehaviour {
     }
 
     void changeButtonsDK() {
-        NewGame.GetComponent<Text>().text = "NYT SPIL";
-        Load.GetComponent<Text>().text = "HENT SPIL";
+        NewGame.GetComponent<Text>().text = "NYT\nSPIL";
+        Load.GetComponent<Text>().text = "HENT\nSPIL";
         music.GetComponent<Text>().text = "Musik";
         sound.GetComponent<Text>().text = "Lyd";
         lang.GetComponent<Text>().text = "Sprog";
@@ -142,7 +142,7 @@ public class StartMenu : MonoBehaviour {
         instructions.GetComponent<Text>().text = "Instruktioner";
         Shop.GetComponent<Text>().text = "BUTIK";
         Reset.GetComponent<Text>().text = "NULSTIL";
-        Endless.GetComponent<Text>().text = "EVIGT SPIL";
+        Endless.GetComponent<Text>().text = "EVIGT\nSPIL";
         skulls.GetComponent<Text>().text = "KRANIER";
         items.GetComponent<Text>().text = "GENSTANDE";
         content.GetComponent<Text>().text = "INDHOLD";

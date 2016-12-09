@@ -120,6 +120,7 @@ public class InputManager : MonoBehaviour {
 	}
 
 	void Update () {
+        print(owner);
         for(int i = 0; i < Input.touches.Length; i++)
         {
             if (currentTouchSession.TouchID() == Input.touches[i].fingerId || currentTouchSession.IsCleanSession())
