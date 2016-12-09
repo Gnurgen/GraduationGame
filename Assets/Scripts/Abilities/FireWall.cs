@@ -82,7 +82,6 @@ public class FireWall : MonoBehaviour {
 
     IEnumerator LightFire()
     {
-        print(effects.Count);
         foreach (GameObject go in effects)
         {
             go.GetComponent<PKFxFX>().SetAttribute(new PKFxManager.Attribute("GlobalScale", 2f));

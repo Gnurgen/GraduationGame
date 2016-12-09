@@ -29,6 +29,7 @@ public class SplashScreens : MonoBehaviour {
         Debug.Log("Now playing video file on android device (skipping video on unity play!)");
         yield return new WaitForSeconds(1);
         titleScreen.GetComponent<Image>().CrossFadeAlpha(1, fadingTime, true);
+        AkSoundEngine.SetState("Game_State", "In_Main_Menu");
         yield return new WaitForSeconds(showTime);
         SceneManager.LoadScene("Menu");
     }

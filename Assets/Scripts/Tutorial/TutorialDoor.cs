@@ -5,13 +5,11 @@ using System.Collections;
 public class TutorialDoor : MonoBehaviour {
     float speed = 1;
     private float newPos;
-    private InputManager IM;
     int ID;
 
     private void Start()
     {
-        IM = GameManager.input;
-        ID = IM.GetID();
+        ID = GameManager.input.GetID();
 
     }
 
@@ -24,12 +22,12 @@ public class TutorialDoor : MonoBehaviour {
     {
         if (gameObject.transform.parent.transform.position.y < 0)
         {
-            IM.TakeControl(ID);
+            GameManager.input.TakeControl(ID);
             newPos = gameObject.transform.parent.transform.position.y + Time.deltaTime * speed;
             gameObject.transform.parent.transform.position = new Vector3(gameObject.transform.parent.transform.position.x, newPos, gameObject.transform.parent.transform.position.z);
         }
         else {
-            IM.ReleaseControl(ID);
+            GameManager.input.ReleaseControl(ID);
            
         }
     }

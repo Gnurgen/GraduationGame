@@ -18,7 +18,6 @@ public class Elevator : MonoBehaviour
     private GameObject player;
     private float preLift = 2;
     private float underLift = 3;
-    private InputManager IM;
     int ID;
     float speed = 1;
     int tilesInvis = 0;
@@ -30,8 +29,7 @@ public class Elevator : MonoBehaviour
         mat = transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<MeshRenderer>().material;
         GameManager.events.OnElevatorActivated += ActivateME;
         player = GameManager.player;
-        IM = GameManager.input;
-        ID = IM.GetID();
+        ID = GameManager.input.GetID();
         Color col = new Color(0.3f, 0.3f, 0.3f);
         mat.color = col;
         CC = GetComponent<CapsuleCollider>();
@@ -120,7 +118,6 @@ public class Elevator : MonoBehaviour
         GameManager.progress++;
         PlayerPrefs.SetInt("Progress", GameManager.progress);
         GameManager.events.LoadNextlevel();
-        print("progress playerpfres: " + PlayerPrefs.GetInt("Progress"));
         yield return null;
     }
 }

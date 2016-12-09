@@ -10,15 +10,9 @@ public class BossHealthBar : MonoBehaviour {
     private float scale;
 
     //Input manager and Event manager
-    private InputManager IM;
-    private EventManager EM;
-    int ID;
 
     void Start()
     {
-        IM = GameManager.input;
-        ID = IM.GetID();
-        EM = GameManager.events;
 
         if (GameObject.Find("Boss") == null)
         {
@@ -28,8 +22,8 @@ public class BossHealthBar : MonoBehaviour {
         else
         {
             actor = GameObject.Find("Boss");
-            EM.OnSpearDrawAbilityHit += updateVal;
-            EM.OnConeAbilityHit += updateVal;
+            GameManager.events.OnSpearDrawAbilityHit += updateVal;
+            GameManager.events.OnConeAbilityHit += updateVal;
             maxVal = currentVal = actor.GetComponent<Health>().health;
         }
     }

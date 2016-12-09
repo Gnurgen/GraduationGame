@@ -55,6 +55,7 @@ public class BossCamMoment : MonoBehaviour {
         StartCoroutine(turnHead(210, 1, bossButtom));
         StartCoroutine(turnHead(-180, 1, bossMiddle));
         GameManager.events.CameraShake(1.5f);
+        AkSoundEngine.PostEvent("Boss_Presentation_Play", bossObj);
         yield return StartCoroutine(cam.cameraShake(1.5f));
         boss.Activate();
         yield return new WaitForSeconds(2.5f);

@@ -49,7 +49,6 @@ public class TestMoveAtk : MonoBehaviour
 
     private void PostNextDragPoint()
     {
-        print("PostNextDragPoint");
         _dragDist = 0;
         Vector3 inputPos = curPos;
         inputPos.z = 1f;

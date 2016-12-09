@@ -9,11 +9,16 @@ public class Credits : MonoBehaviour {
     private float speed = 5;
     private void Start()
     {
+        Debug.Log("HI");
         sprite1.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
         sprite2.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
         theEnd.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
     }
     public void startScrolling() {
+        sprite1.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
+        sprite2.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
+        theEnd.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
+
         StartCoroutine(scrolling());
     }
     IEnumerator scrolling() {

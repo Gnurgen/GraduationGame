@@ -30,6 +30,7 @@ public class PlayerDeathEvent : MonoBehaviour {
 
     private IEnumerator DeathEvent()
     {
+        AkSoundEngine.SetState("Game_State", "In_Loading_Screen_After_Intro_Cutscene");
         GameManager.time.SetTimeScaleInstant(0.1f);
         yield return new WaitForSecondsRealtime(.5f);
         while (fov > 10)
@@ -49,6 +50,7 @@ public class PlayerDeathEvent : MonoBehaviour {
         }
         FindObjectOfType<Camera>().fieldOfView = fov;
         GameManager.time.SetTimeScaleInstant(1f);
+        AkSoundEngine.StopAll();
         GameManager.events.LoadNextlevel();
     }
 }

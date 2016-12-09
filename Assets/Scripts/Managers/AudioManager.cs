@@ -85,17 +85,17 @@ public class AudioManager : MonoBehaviour {
 
     private void WhispAntStop(GameObject GO)
     {
-        AkSoundEngine.PostEvent("Ant_Wisp_Loop_Play", GO);
+        AkSoundEngine.PostEvent("Ant_Wisp_Loop_Stop ", GO);
         AkSoundEngine.RenderAudio();
     }
 
     private void WhispAntPlay(GameObject GO)
     {
-        AkSoundEngine.PostEvent("Ant_Wisp_Loop_Stop", GO);
+        AkSoundEngine.PostEvent("Ant_Wisp_Loop_Play", GO);
         AkSoundEngine.RenderAudio();
     }
 
-    private void WhispLoopStop(GameObject GO)
+    public void WhispLoopStop(GameObject GO)
     {
         AkSoundEngine.PostEvent("Wisp_Loop_Stop", GO);
         AkSoundEngine.RenderAudio();
@@ -120,7 +120,7 @@ public class AudioManager : MonoBehaviour {
         AkSoundEngine.RenderAudio();
     }
 
-    private void WhispLoopPlay(GameObject GO)
+    public void WhispLoopPlay(GameObject GO)
     {
         AkSoundEngine.PostEvent("Wisp_Loop_Play", GO);
         AkSoundEngine.RenderAudio();
@@ -417,7 +417,6 @@ public class AudioManager : MonoBehaviour {
     {
         //Enemie Dies and stops his random growls
         AggroedEnemies--;
-        AkSoundEngine.PostEvent("Enemy_Aggro_Stop", GO);
         AkSoundEngine.PostEvent("Enemy_Death_Play", GO);
         AkSoundEngine.RenderAudio();
     }
