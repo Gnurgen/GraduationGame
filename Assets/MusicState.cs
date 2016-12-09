@@ -9,7 +9,7 @@ public class MusicState : MonoBehaviour {
     void Start()
     {
         Application.targetFrameRate = 30;
-        StartCoroutine(VENTFISSE());
+        StartCoroutine(AtStartOfGame());
     }
 	void OnLevelWasLoaded() // change music in menu/splash screens. Doesnt know when merging scenes
     {
@@ -26,6 +26,7 @@ public class MusicState : MonoBehaviour {
     
         if (Scene == "LoadingScreen")
         {
+            AkSoundEngine.StopAll();
             AkSoundEngine.SetState("Game_State", "In_Loading_Screen");
             AkSoundEngine.PostEvent("Environmental_Ambience_Play", gameObject);
             AkSoundEngine.PostEvent("Music_System_Play", gameObject);
@@ -59,7 +60,7 @@ public class MusicState : MonoBehaviour {
         }
     }
 
-    IEnumerator VENTFISSE()
+    IEnumerator AtStartOfGame()
     {
         yield return new WaitForEndOfFrame();
         Scene = SceneManager.GetActiveScene().name;

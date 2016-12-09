@@ -23,7 +23,7 @@ public class PlayerHealthBar : MonoBehaviour {
 
 
     [SerializeField]
-    private Image hpBar, hpBar_Fill, hpBar_Flash, sBar, sBar_Fill, sBar_Flash;
+    private Image hpBar, hpBar_Fill, hpBar_Flash, sBar, sBar_Fill, sBar_Flash, sBar_Back;
 
     //Private stuff
     private float currentVal, maxVal;
@@ -170,5 +170,39 @@ public class PlayerHealthBar : MonoBehaviour {
     {
         return spiritScale;
     }
+    bool animatingRed = false;
+    public void AnimateRed()
+    {
+        animatingRed = true;
+        StartCoroutine(EIAnimateRed());
     
+    }
+    public void StopAnimateRed()
+    {
+        animatingRed = false;
+    }
+
+    private IEnumerator EIAnimateRed()
+    {    
+        Color col;
+        float gb = 1;
+        while (animatingRed)
+        {
+            while(gb > 0.01f)
+            {
+                gb -= Time.deltaTime;
+                sBar_Back.color = new Color(1f, gb, gb);
+                yield return null;
+            }
+            while (gb < 1f)
+            {
+                gb += Time.deltaTime;
+                sBar_Back.color = new Color(1f, gb, gb);
+                yield return null;
+            }
+
+            yield return null;
+        }
+        yield break;
+    }
 }
