@@ -35,6 +35,9 @@ public class RangedAI : EnemyStats {
     private int taunts;
     private int aggros;
     private RaycastHit hit;
+    private GameObject proj;
+    public string stateTest;
+    private int ignoreLayer;
 
     // Use this for initialization
     void Awake()
@@ -49,6 +52,7 @@ public class RangedAI : EnemyStats {
         myDoll.myTag = "EnemyRangedRagdoll";
         taunts = 0;
         aggros = 0;
+        ignoreLayer = 1 << LayerMask.NameToLayer("Enemy");
     }
 
     void OnEnable()
@@ -81,6 +85,7 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Waiting(float sec)
     {
+        stateTest = "Waiting";
         while (sec > 0)
         {
             sec -= Time.deltaTime;
@@ -93,6 +98,7 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Idle()
     {
+        stateTest = "Idle";
         animator.SetBool("Backwards", false);
         animator.SetBool("Run", false);
         target = null;
@@ -130,6 +136,7 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Reset()
     {
+        stateTest = "Reset";
         if (!reset)
         {
             StartCoroutine(Idle());
@@ -194,6 +201,7 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Chasing()
     {
+        stateTest = "Chasing";
         animator.SetBool("Backwards", false);
         animator.SetBool("Run", true);
         
@@ -209,15 +217,14 @@ public class RangedAI : EnemyStats {
                 }
                 targetDist = Vector3.Distance(transform.position, target.transform.position);
                 // If the target has moved outside the aggro range, go to idle, if withing attack range, go to attacking
-
                 if (targetDist > aggroRange * resetRangeMult)
                 {
                     StartCoroutine(Reset());
                     yield break;
                 }
-                else if (targetDist < attackDist && Physics.Raycast(transform.position + Vector3.up, target.transform.position - transform.position, out hit))
+                else if (targetDist < attackDist && Physics.Raycast(transform.position + Vector3.up*0.5f, target.transform.position - transform.position, out hit))
                 {
-                    if(hit.transform.tag == "Player")
+                    if(hit.transform.tag == "Player" || hit.transform.tag == "Enemy")
                     {
                         StartCoroutine(Attacking());
                         yield break;
@@ -267,6 +274,7 @@ public class RangedAI : EnemyStats {
 
     IEnumerator Attacking()
     {
+        stateTest = "Attacking";
         for (;;)
         {
             if (!onPause)
@@ -284,39 +292,25 @@ public class RangedAI : EnemyStats {
                     StartCoroutine(Chasing());
                     yield break;
                 }
-
-                if(Physics.Raycast(transform.position + Vector3.up, target.transform.position - transform.position, out hit))
+                if (Physics.Raycast(transform.position + Vector3.up* 0.5f, target.transform.position - transform.position, out hit))
                 {
-                    if(hit.transform.tag != "Player")
+                    if (hit.transform.tag != "Player" && hit.transform.tag != "RangedAttack" && hit.transform.tag != "Enemy")
                     {
                         StartCoroutine(Chasing());
                         yield break;
                     }
                 }
-
                 Vector3 dir = (target.transform.position - transform.position).normalized;
                 dir.y = 0;
-                /*if (targetDist < tooClose)
-                {
-                    animator.SetBool("Backwards", true);
-                    body.position += -dir * tooCloseSpeed * Time.deltaTime;
-
-                }*/
-
+                dir = dir.normalized;
                 // Check if facing the target, if not turn towards it, otherwise attack
                 if (Vector3.Dot(dir, transform.forward) >= 0.8f)
                 {
                     if (currentAttackSpeed < 0)
                     {
                         currentAttackSpeed = attackSpeed;
-                        /*GameObject proj = GameManager.pool.GenerateObject("EnemyRangedAttack");
-                        proj.transform.position = transform.position+Vector3.up; // SO IT SPAWNS FROM THE HEAD
-                        proj.transform.rotation = transform.rotation;
-                        proj.GetComponent<EnemyRangedAttack>().SetParameters(projectileSpeed, gameObject, damage, force);*/
-                        GameObject proj = GameManager.pool.GenerateObject("RangedAttack");
-                        yield return StartCoroutine(proj.GetComponent<ProjectileControl>().Activate(transform.position + transform.forward * 1.5f + Vector3.up, target.transform.position, this));
-                        GameManager.events.EnemyRangedAttack(gameObject);
-                        animator.SetTrigger("Attack");
+                        proj = GameManager.pool.GenerateObject("RangedAttack");
+                        proj.GetComponent<ProjectileControl>().Activate(transform.position + transform.forward * 1.5f + Vector3.up, target.transform.position, this);
                         animator.SetBool("Run", false);
                     }
                 }
