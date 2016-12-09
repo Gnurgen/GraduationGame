@@ -2045,11 +2045,6 @@
 								</Sound>
 								<Sound Name="Boss Meteor Ability" ID="{0FD091CA-E86D-481F-8C69-1B29707AAA9C}" ShortID="366279976" Type="SoundFX">
 									<PropertyList>
-										<Property Name="InitialDelay" Type="Real64">
-											<ValueList>
-												<Value>2.3</Value>
-											</ValueList>
-										</Property>
 										<Property Name="OverridePositioning" Type="bool" Value="True"/>
 										<Property Name="PositioningType" Type="int16" Value="1"/>
 										<Property Name="Volume" Type="Real64">
@@ -2072,9 +2067,9 @@
 									<ChildrenList>
 										<AudioFileSource Name="Boss Meteor Ability" ID="{1FA4C1EF-AB7D-420E-B20F-EF2FE52515DB}" ShortID="481168500">
 											<PropertyList>
-												<Property Name="FadeInDuration" Type="Real64" Value="5.16428571428572E-02"/>
+												<Property Name="FadeInDuration" Type="Real64" Value="0.986952380952381"/>
 												<Property Name="FadeOutDuration" Type="Real64" Value="0.040166666666666"/>
-												<Property Name="TrimBegin" Type="Real64" Value="0.499214285714285"/>
+												<Property Name="TrimBegin" Type="Real64" Value="1.14761904761905"/>
 											</PropertyList>
 											<Language>SFX</Language>
 											<AudioFile>Boss Meteor Ability.wav</AudioFile>
@@ -6273,7 +6268,7 @@
 								<Property Name="PositioningType" Type="int16" Value="1"/>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-18</Value>
+										<Value>-16</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -6558,7 +6553,7 @@
 										</Property>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-14</Value>
+												<Value>-17</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
