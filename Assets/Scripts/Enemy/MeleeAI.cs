@@ -30,6 +30,7 @@ public class MeleeAI : EnemyStats {
     private float currentAttackSpeed;
     private Rigidbody body;
     private SpawnRagdoll myDoll;
+    private int ignoreLayer;
 
    	// Use this for initialization
 	void Awake () {
@@ -41,6 +42,8 @@ public class MeleeAI : EnemyStats {
         body = GetComponent<Rigidbody>();
         mySpeed = moveSpeed;
         currentAttackSpeed = 0;
+        ignoreLayer =( 1 << LayerMask.NameToLayer("Enemy")) << LayerMask.NameToLayer("EnemyHit");
+        
 	}
 
     void OnEnable()

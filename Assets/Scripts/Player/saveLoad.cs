@@ -24,37 +24,38 @@ public class saveLoad : MonoBehaviour {
     }
 
     public void closeMenu() {
-        menu.SetActive(false);
-        GameManager.time.SetTimeScale(1f);
+        GameManager.events.MenuClose();
+        //GameManager.time.SetTimeScale(1f);
         GameManager.events.DrawComplete(10);
-        StartCoroutine(allowTouch(0.1f));
+        Time.timeScale = 1;
+        StartCoroutine(delayedRelease());
+        menu.SetActive(false);
     }
     public void openTutorial() {
         tutorial.SetActive(true);
-        GameManager.input.ReleaseControl(ID);
-        GameManager.time.SetTimeScale(1f);
         tutorial.GetComponent<TutorialClose>().openTutorial();
         menu.SetActive(false);
     }
     public void openMenu()
     {      
         menu.SetActive(true);
-        GameManager.time.SetTimeScale(0f);
-        terminateTouch();
-    }
-    public void loadStartMenu() {
-        Time.timeScale = 1;
-        SceneManager.LoadScene("Menu");
-    }
-    void terminateTouch()
-    {
-
+        GameManager.events.MenuOpen();
+        Time.timeScale = 0;
         GameManager.input.TakeControl(ID);
     }
-
-    IEnumerator allowTouch(float duration)
+    public void loadStartMenu() {
+        closeMenu();
+        StartCoroutine(delayedLoad());
+        
+    }
+    IEnumerator delayedRelease()
     {
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(Time.deltaTime);
         GameManager.input.ReleaseControl(ID);
+    }
+    IEnumerator delayedLoad()
+    {
+        yield return new WaitForSeconds(Time.deltaTime * 3f);
+        SceneManager.LoadScene("Menu");
     }
 }

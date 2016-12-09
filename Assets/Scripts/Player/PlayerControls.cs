@@ -26,7 +26,7 @@ public class PlayerControls : MonoBehaviour {
     [SerializeField]
     private AnimationCurve adsr;
     private bool ResumeMovementAfterAbility = false;
-    public GameObject ClickFeedBack;
+    
 
     private Vector3 prevPos;
     public int id;
@@ -37,15 +37,17 @@ public class PlayerControls : MonoBehaviour {
     private float touchCooldown = .125f, curTouchCooldown;
 
     // --- Abilities ---
-    private Vector3 touchStart, touchEnd, touchCur;
+    private Vector3 touchStart, touchEnd, touchCur = Vector3.one*1000;
     private bool ab1 = false, ab2 = false;
     FlyingSpear ability1;
     ConeDraw ability2;
+    private Vector3 prevTouchPos;
 
     private Rigidbody body;
     RaycastHit[] hit;
     int coneBlock = 1;
     private bool hitWall = false;
+    private float abilitymoveDist;
 
     // Use this for initialization
     void Start () {
@@ -89,10 +91,6 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Idle()
     {
-        if(ClickFeedBack != null)
-            ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
-        else
-            ClickFeedBack = Instantiate(ClickFeedBack);
         state = State.Idle;
         GameManager.events.PlayerIdle(gameObject);
         while(state == State.Idle)
@@ -196,6 +194,7 @@ public class PlayerControls : MonoBehaviour {
         prevstate = ResumeMovementAfterAbility? state : State.Idle;
         if(AbilitiesDuringDash || state != State.Dashing)
         {
+            abilitymoveDist = 0;
             if ((touchStart - transform.position).magnitude < abilityTouchOffset && ability1.currentCooldown <= 0)
                 ab1 = true;
             else if (ability2.currentCooldown <=0)
@@ -204,10 +203,13 @@ public class PlayerControls : MonoBehaviour {
     } 
     void Move(Vector2 p)
     {
+        prevTouchPos = touchCur;
         touchCur = GameManager.input.GetWorldPoint(p);
-        if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance && (ab1 || ab2))
+        if (!(touchCur == prevTouchPos) || prevTouchPos == Vector3.zero)
+            abilitymoveDist += (prevTouchPos - touchCur).magnitude;
+        if (abilitymoveDist >= abilityTouchMoveDistance && (ab1 || ab2))
         {
-            
+            abilitymoveDist = 0;
             body.velocity = Vector3.zero;
             StartCoroutine(Ability());
             if (ab1)
@@ -255,9 +257,7 @@ public class PlayerControls : MonoBehaviour {
             curTouchCooldown = touchCooldown;
             MoveToPoint = GameManager.input.GetWorldPoint(p);
             MoveToPoint.y = transform.position.y;
-            ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
-            ClickFeedBack.transform.position = MoveToPoint;
-            ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
+            StartCoroutine(PlayEffect(MoveToPoint));
             transform.LookAt(MoveToPoint);
             if ((transform.position-MoveToPoint).magnitude >= minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing && currentDashDistance == 0)
             {
@@ -268,6 +268,18 @@ public class PlayerControls : MonoBehaviour {
                 StartCoroutine(Moving());
             }
         }
+    }
+
+    IEnumerator PlayEffect(Vector3 pos)
+    {
+        GameObject obj = GameManager.pool.GenerateObject("ClickFeedback");
+        obj.transform.position = pos + (Camera.main.transform.position - pos).normalized * 1.5f;
+        obj.GetComponent<PKFxFX>().StartEffect();
+        yield return new WaitForSeconds(0.25f);
+        obj.GetComponent<PKFxFX>().StopEffect();
+        yield return new WaitForSeconds(0.25f);
+        obj.transform.position = new Vector3(0, -100000, 0);
+        GameManager.pool.PoolObj(obj);
     }
 }
 

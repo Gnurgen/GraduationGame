@@ -13,6 +13,8 @@ public class StartMenu : MonoBehaviour {
     public GameObject music;
     public GameObject sound, lang, credits, instructions;
     [Header("Start Menu")]
+    public GameObject NewGame;
+    public GameObject Load;
     public GameObject Shop;
     public GameObject Reset, Endless;
     [Header("Shop")]
@@ -28,8 +30,10 @@ public class StartMenu : MonoBehaviour {
     void Start()
     {
         StartCoroutine(FadeinStartScreen());
+
         if (PlayerPrefs.GetInt("Progress") == 0)
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
+        setLanguage();
     }
 
     public void ResetProgress()
@@ -123,7 +127,13 @@ public class StartMenu : MonoBehaviour {
             GameManager.game.language = GameManager.Language.English;
         }
     }
-
+    private void setLanguage()
+    {
+        if (GameManager.game.language == GameManager.Language.Danish)
+            changeButtonsDK();
+        else
+            changeButtonsENG();
+    }
     IEnumerator FadeinStartScreen()
     {
         fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
@@ -131,6 +141,8 @@ public class StartMenu : MonoBehaviour {
     }
 
     void changeButtonsDK() {
+        NewGame.GetComponent<Text>().text = "NYT\nSPIL";
+        Load.GetComponent<Text>().text = "HENT\nSPIL";
         music.GetComponent<Text>().text = "Musik";
         sound.GetComponent<Text>().text = "Lyd";
         lang.GetComponent<Text>().text = "Sprog";
@@ -138,7 +150,7 @@ public class StartMenu : MonoBehaviour {
         instructions.GetComponent<Text>().text = "Instruktioner";
         Shop.GetComponent<Text>().text = "BUTIK";
         Reset.GetComponent<Text>().text = "NULSTIL";
-        Endless.GetComponent<Text>().text = "ENDELØS UDFORDRING";
+        Endless.GetComponent<Text>().text = "EVIGT\nSPIL";
         skulls.GetComponent<Text>().text = "KRANIER";
         items.GetComponent<Text>().text = "GENSTANDE";
         content.GetComponent<Text>().text = "INDHOLD";
@@ -152,6 +164,8 @@ public class StartMenu : MonoBehaviour {
     }
     void changeButtonsENG()
     {
+        NewGame.GetComponent<Text>().text = "NEW GAME";
+        Load.GetComponent<Text>().text = "LOAD";
         music.GetComponent<Text>().text = "Music";
         sound.GetComponent<Text>().text = "Sound";
         lang.GetComponent<Text>().text = "Language";
@@ -159,7 +173,7 @@ public class StartMenu : MonoBehaviour {
         instructions.GetComponent<Text>().text = "Instructions";
         Shop.GetComponent<Text>().text = "SHOP";
         Reset.GetComponent<Text>().text = "RESET";
-        Endless.GetComponent<Text>().text = "ENDLESS CHALLENGE";
+        Endless.GetComponent<Text>().text = "ENDLESS GAME";
         skulls.GetComponent<Text>().text = "SKULLS";
         items.GetComponent<Text>().text = "ITEMS";
         content.GetComponent<Text>().text = "CONTENT";

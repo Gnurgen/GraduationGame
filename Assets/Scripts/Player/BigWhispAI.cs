@@ -25,7 +25,7 @@ public class BigWhispAI : MonoBehaviour {
 
 	void Start()
     {
-        
+       
         pm = GameManager.pool;
         player = GameManager.player.transform;
         startPosition = new Vector3(player.position.x, 1, player.position.z);
@@ -39,8 +39,8 @@ public class BigWhispAI : MonoBehaviour {
 
     IEnumerator Spawn()
     {
-        effectControl.StopEffect();
         GameManager.events.GuideWhispScatter(gameObject);
+        effectControl.StopEffect();
         transform.position = spearPosition;
         scatter = endScatter;
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
@@ -60,15 +60,16 @@ public class BigWhispAI : MonoBehaviour {
             yield return null;
         }
         scatter = endScatter;
-        GameManager.events.GuideWhispScatterStop(gameObject);
         effectControl.SetAttribute(new PKFxManager.Attribute("Scatter", scatter));
+        GameManager.events.GuideWhispScatterStop(gameObject);
         StartCoroutine(Spawning());
         yield break;
     }
 
     IEnumerator Spawning()
     {
-        while(waiting)
+        GameManager.events.GuideWhispFollowPath(gameObject);
+        while (waiting)
         {
             yield return null;
         }

@@ -7,20 +7,6 @@ public class InputManager : MonoBehaviour {
 	// ----- Method wrappers for subscribing to input -----
 	public delegate void Vector2Delegate(Vector2 points);
 	public delegate void SwipeDelegate(Swipe swipe);
-    
-    // Click feedback
-    IEnumerator PlayEffect(Vector2 pos)
-    {
-        GameObject obj = GameManager.pool.GenerateObject("ClickFeedback");
-        Vector3 pos3 = GetWorldPoint(pos);
-        obj.transform.position = pos3 + (Camera.main.transform.position - pos3).normalized * 1.5f;
-        obj.GetComponent<PKFxFX>().StartEffect();
-        yield return new WaitForSeconds(0.25f);
-        obj.GetComponent<PKFxFX>().StopEffect();
-        yield return new WaitForSeconds(0.25f);
-        obj.transform.position = new Vector3(0,-100000, 0);
-        GameManager.pool.PoolObj(obj);
-    }
 
 	// ----- Mouse Variables -----
 	private bool mouseIsDown;
@@ -134,6 +120,7 @@ public class InputManager : MonoBehaviour {
 	}
 
 	void Update () {
+        print(owner);
         for(int i = 0; i < Input.touches.Length; i++)
         {
             if (currentTouchSession.TouchID() == Input.touches[i].fingerId || currentTouchSession.IsCleanSession())
@@ -503,10 +490,9 @@ public class InputManager : MonoBehaviour {
 
 	void OnTap(Touch t)
     {
-        StartCoroutine(PlayEffect(t.position));
         if (tapMethods.Count > 0) {
 			if (owner < 0) {
-				foreach (MethodVectorID mvi in tapMethods) {
+                foreach (MethodVectorID mvi in tapMethods) {
 					mvi.method (t.position);
 				}
 			} else {
@@ -603,9 +589,8 @@ public class InputManager : MonoBehaviour {
 	{
         if (tapMethods.Count > 0) {
 			Vector2 point = new Vector2 (p.x,p.y);
-            StartCoroutine(PlayEffect(point));
             if (owner < 0) {
-				foreach (MethodVectorID mvi in tapMethods) {
+                foreach (MethodVectorID mvi in tapMethods) {
 					mvi.method (point);
 				}
 			} else {

@@ -28,7 +28,6 @@ public class GameManager {
 
     public GameManager()
     {
-        Debug.Log("GameManager constructed");
         _instance = this;
         _managers = GameObject.Find("Managers");
         if (_managers != null)
@@ -287,12 +286,12 @@ public class GameManager {
 
     private void showMenu()
     {
-        menu.gameObject.SetActive(true);
+        //menu.gameObject.SetActive(true);
     }
 
     private void hideMenu()
     {
-        menu.gameObject.SetActive(false);
+        //menu.gameObject.SetActive(false);
     }
 
     private void PlayerLevelUp(int i)
@@ -324,10 +323,8 @@ public class GameManager {
 
     public static void LoadNextLevel()
     {
-        Debug.Log("GAMEMANAGER LoadNextLevel: TOP");
         progress = PlayerPrefs.GetInt("Progress");
         SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Single);
-        Debug.Log("GAMEMANAGER LoadNextLevel: BUND");
         // LOADING SCREEN TAKES IT FROM HERE
 
 /*

@@ -9,6 +9,7 @@ public class Tutorial : MonoBehaviour {
     public GameObject next, exit;
     private int currentFrame = 0;
     private GameObject tutText;
+    private Vector3 dark = Vector3.one * .7f;
 
     void Start() {
         tutText = GameObject.Find("TutorialText");
@@ -33,7 +34,6 @@ public class Tutorial : MonoBehaviour {
         {
             currentFrame = 0;
         }
-        Debug.Log(currentFrame);
         tutText.GetComponent<Text>().text = gameObject.GetComponent<TutorialTexts>().getTextSnipped(currentFrame);
         gameObject.GetComponent<Image>().overrideSprite = tutorials[currentFrame];        
         

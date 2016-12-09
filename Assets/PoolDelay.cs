@@ -11,6 +11,7 @@ public class PoolDelay : MonoBehaviour {
     IEnumerator DelayedPool(float time)
     {
         yield return new WaitForSeconds(time);
+        GetComponent<PKFxFX>().StopEffect();
         transform.position = new Vector3(0, -100000, 0);
         GameManager.pool.PoolObj(gameObject);
     }

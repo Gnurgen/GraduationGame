@@ -10,12 +10,17 @@ public class ShowLevelIndicator : MonoBehaviour {
     Image img;
     [SerializeField]
     float fadeTime = 1;
+    int id;
     // Use this for initialization
     void Start () {
         img = GetComponent<Image>();
         GameManager.events.OnLoadComplete += ShowLvlIndicator;
         GameManager.events.OnElevatorMoveStop += HideLvlIndicator;
-
+        transform.parent.Find("Options").GetComponent<Button>().interactable = false;
+    }
+    void Update()
+    {
+        
     }
 
     private void HideLvlIndicator()
@@ -25,6 +30,14 @@ public class ShowLevelIndicator : MonoBehaviour {
 
     private IEnumerator FadeImg(float fadeTime)
     {
+        if(PlayerPrefs.GetInt("Progress") > 0)
+        {
+            StartCoroutine(DelayedRelease(0));
+        }
+        else
+        {
+            StartCoroutine(DelayedRelease(2));
+        }
         float step = 1;
         float c = 200f / 255f;
         Color col; 
@@ -38,10 +51,32 @@ public class ShowLevelIndicator : MonoBehaviour {
         img.enabled = false;
     }
 
+    IEnumerator DelayedRelease(float time)
+    {
+        if(time > 0)
+            yield return new WaitForSeconds(time);
+        while(!GameManager.input.ReleaseControl(id))
+        {
+            yield return null;
+        }
+        transform.parent.Find("Options").GetComponent<Button>().interactable = true;
+    }
+
+    IEnumerator TakeControl()
+    {
+        id = GameManager.input.GetID();
+        while(!GameManager.input.TakeControl(id))
+        {
+            yield return null;
+        }
+    }
+
     private void ShowLvlIndicator()
     {
+        StartCoroutine(TakeControl());
         img.sprite = imglvl[PlayerPrefs.GetInt("Progress")];
-        if(PlayerPrefs.GetInt("Progress") == 0)
+        img.enabled = true;
+        if (PlayerPrefs.GetInt("Progress") == 0)
         {
             StartCoroutine(FadeImg(fadeTime+3));
         }
