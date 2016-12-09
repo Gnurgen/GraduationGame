@@ -26,7 +26,7 @@ public class PlayerControls : MonoBehaviour {
     [SerializeField]
     private AnimationCurve adsr;
     private bool ResumeMovementAfterAbility = false;
-    public GameObject ClickFeedBack;
+    
 
     private Vector3 prevPos;
     public int id;
@@ -89,10 +89,6 @@ public class PlayerControls : MonoBehaviour {
 
     IEnumerator Idle()
     {
-        if(ClickFeedBack != null)
-            ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
-        else
-            ClickFeedBack = Instantiate(ClickFeedBack);
         state = State.Idle;
         GameManager.events.PlayerIdle(gameObject);
         while(state == State.Idle)
@@ -255,9 +251,7 @@ public class PlayerControls : MonoBehaviour {
             curTouchCooldown = touchCooldown;
             MoveToPoint = GameManager.input.GetWorldPoint(p);
             MoveToPoint.y = transform.position.y;
-            ClickFeedBack.GetComponent<PKFxFX>().StopEffect();
-            ClickFeedBack.transform.position = MoveToPoint;
-            ClickFeedBack.GetComponent<PKFxFX>().StartEffect();
+            StartCoroutine(PlayEffect(MoveToPoint));
             transform.LookAt(MoveToPoint);
             if ((transform.position-MoveToPoint).magnitude >= minDashDistance && currentDashCooldown <= 0 && state!=State.Dashing && currentDashDistance == 0)
             {
@@ -268,6 +262,18 @@ public class PlayerControls : MonoBehaviour {
                 StartCoroutine(Moving());
             }
         }
+    }
+
+    IEnumerator PlayEffect(Vector3 pos)
+    {
+        GameObject obj = GameManager.pool.GenerateObject("ClickFeedback");
+        obj.transform.position = pos + (Camera.main.transform.position - pos).normalized * 1.5f;
+        obj.GetComponent<PKFxFX>().StartEffect();
+        yield return new WaitForSeconds(0.25f);
+        obj.GetComponent<PKFxFX>().StopEffect();
+        yield return new WaitForSeconds(0.25f);
+        obj.transform.position = new Vector3(0, -100000, 0);
+        GameManager.pool.PoolObj(obj);
     }
 }
 
