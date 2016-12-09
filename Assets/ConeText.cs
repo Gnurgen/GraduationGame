@@ -10,12 +10,13 @@ public class ConeText : MonoBehaviour {
     private const float flipTime = 1.5f;
     private const float tarScale = .01f;
     private float fadeVal = 0.3f;
+    [SerializeField]
+    AnimationCurve am;
 
 
 
-
-
-
+    private const string dk = "Tegn en halvcirkel for at lave en Åndevifte", en = "Draw a half circle to make a Spirit Fan";
+    private string myString;
 
     private float norm;
     private Vector3 faded, highlight = Vector3.one*.9f, dif, curCol;
@@ -40,7 +41,9 @@ public class ConeText : MonoBehaviour {
         imgRend = myImg.GetComponent<SpriteRenderer>();
         norm = 0;
         setCol(faded);
+        myString = GameManager.game.language == GameManager.Language.Danish ? dk : en;
         ResetPos();
+        myText.GetComponent<TextMesh>().text = myString;
     }
 	
 	// Update is called once per frame
@@ -53,8 +56,11 @@ public class ConeText : MonoBehaviour {
         myText.transform.position = myImg.transform.position;
         myText.transform.localScale = Vector3.one * resetScale;
         origPos = myText.transform.position;
+        origRot.SetLookRotation(myImg.transform.forward);
+        myText.transform.rotation = origRot;
         targetPos = dir + origPos;
         txtRend.enabled = false;
+        flipped = false;
     }
 
     private void setCol(Vector3 col)
@@ -72,9 +78,9 @@ public class ConeText : MonoBehaviour {
         txtRend.enabled = true;
         while (norm <= 1 && flipped)
         {
-            setPos(origPos + dir * norm, resScale + scaleDif * norm);
-            myText.transform.rotation = Quaternion.Lerp(origRot, tarRot, norm);
-            setCol(faded + dif * norm);
+            setPos(origPos + dir * am.Evaluate(norm), resScale + scaleDif * am.Evaluate(norm));
+            myText.transform.rotation = Quaternion.Lerp(origRot, tarRot, am.Evaluate(norm));
+            setCol(faded + dif * am.Evaluate(norm));
             norm += Time.deltaTime / flipTime;
             yield return new WaitForEndOfFrame();
         }
@@ -91,9 +97,9 @@ public class ConeText : MonoBehaviour {
         while (norm >= 0 && !flipped)
         {
             float unorm = (1f - norm);
-            setPos(targetPos - dir * unorm, flipScale - scaleDif * unorm);
-            myText.transform.rotation = Quaternion.Lerp(tarRot, origRot, unorm);
-            setCol(highlight - dif * unorm);
+            setPos(targetPos - dir * unorm, flipScale - scaleDif * am.Evaluate(unorm));
+            myText.transform.rotation = Quaternion.Lerp(tarRot, origRot, am.Evaluate(unorm) + .3f);
+            setCol(highlight - dif * am.Evaluate(unorm));
             norm -= Time.deltaTime / flipTime;
             yield return new WaitForEndOfFrame();
         }

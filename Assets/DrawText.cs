@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetWispText : MonoBehaviour {
+public class DrawText : MonoBehaviour {
 
     public GameObject myImg;
     public GameObject myText;
@@ -14,9 +14,9 @@ public class SetWispText : MonoBehaviour {
     AnimationCurve am;
 
 
-
-    private const string dk = "Når en fjende er dræbt vil en ånd blive\nindsamlet,som fylder et blåt ånde-meter\nop, som aktiverer en elevator", en = "When an enemy is dead a spirit is\ncollected and fills a blue spirit bar,\nwhich activates an elevator";
+    private const string dk = "Hold en finger på karakteren og tegn\nfor at bruge Flyvende Flamme", en = "Hold a finger on the character\nand draw to use Flying Flame";
     private string myString;
+
 
     private float norm;
     private Vector3 faded, highlight = Vector3.one * .9f, dif, curCol;
@@ -28,10 +28,6 @@ public class SetWispText : MonoBehaviour {
     private Vector3 resScale, flipScale, scaleDif;
     private Quaternion origRot, tarRot;
 
-
-
-
-
     // Use this for initialization
     void Start()
     {
@@ -40,8 +36,7 @@ public class SetWispText : MonoBehaviour {
         flipScale = new Vector3(tarScale, tarScale, tarScale);
         scaleDif = flipScale - resScale;
         dif = highlight - faded;
-
-        dir -= (Vector3.Scale(Camera.main.transform.up * 7, new Vector3(0, 1, 0)));
+        dir -= (Vector3.Scale(Camera.main.transform.up * 9, new Vector3(0, 1, 0)));
         txtRend = myText.GetComponent<MeshRenderer>();
         imgRend = myImg.GetComponent<SpriteRenderer>();
         norm = 0;
@@ -139,4 +134,5 @@ public class SetWispText : MonoBehaviour {
         }
 
     }
+
 }
