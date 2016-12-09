@@ -3,47 +3,34 @@ using System.Collections;
 
 public class ProjectileControl : MonoBehaviour {
 
-    public Vector3 startSize = new Vector3(0.1f, 0.1f, 0.1f);
-    public Vector3 endSize = new Vector3(0.5f, 0.5f, 0.5f);
-    public float chargeTime = 0.5f;
-    public float ignitionTime = 0.2f;
     public float speed = 3f;
 
     private Vector3 direction;
-    private Vector3 deltaScale;
     private PKFxFX effectControl;
     private RangedAI owner;
+    private float damage;
+    private float force;
+    private bool subbed = false;
 
-    public IEnumerator Spawn()
+    public void Activate(Vector3 start, Vector3 target, RangedAI owner)
     {
-        while(transform.localScale.magnitude < endSize.magnitude)
-        {
-            transform.localScale += deltaScale * Time.deltaTime;
-            yield return null;
-        }
-        effectControl.StartEffect();
-        yield return new WaitForSeconds(ignitionTime);
-        yield break;
-    }
-
-    public IEnumerator Activate(Vector3 start, Vector3 target, RangedAI owner)
-    {
+        if(!subbed)
+            GameManager.events.OnLoadNextLevel += KillSound;
         this.owner = owner;
+        damage = owner.damage;
+        force = owner.force;
         effectControl = gameObject.GetComponentInChildren<PKFxFX>();
-        direction = (target - start).normalized;
-        direction = new Vector3(direction.x, 0, direction.z);
-        transform.localScale = startSize;
-        deltaScale = (endSize - startSize) / chargeTime;
+        effectControl.StartEffect();
+        direction = (new Vector3(target.x, 0, target.z) - new Vector3(start.x, 0, start.z)).normalized;
         transform.position = start;
-        yield return StartCoroutine(Spawn());
         StartCoroutine(Launch());
-        yield break;
     }
 
     IEnumerator Launch()
     {
-        transform.GetChild(0).transform.position += direction * 0.1f * speed;
-        float t = 102f;
+        GameManager.events.EnemyRangedAttack(gameObject);
+        transform.GetChild(0).transform.localPosition = direction * 0.1f * speed;
+        float t = 30f;
         while(t > 0)
         {
             transform.position += direction * speed * Time.deltaTime;
@@ -54,17 +41,21 @@ public class ProjectileControl : MonoBehaviour {
         yield break;
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider col)
     {
         if(col.gameObject.tag == "Player")
         {
-            GameManager.events.EnemyAttackHit(gameObject, owner.damage);
-            col.gameObject.GetComponent<Health>().decreaseHealth(owner.damage, col.transform.position - transform.position, owner.force);
+            GameManager.events.EnemyAttackHit(gameObject, damage);
+            col.gameObject.GetComponent<Health>().decreaseHealth(damage, col.transform.position - transform.position, force);
             GameObject eff = GameManager.pool.GenerateObject("p_EnemyRangedAttackHit");
             eff.transform.position = transform.position;
             eff.GetComponent<PKFxFX>().StartEffect();
             eff.GetComponent<PoolDelay>().DelayPool(0.5f);
             destroy();
+        }
+        else if(col.gameObject.tag == "Enemy")
+        {
+            // Do nothing
         }
         else
         {
@@ -77,10 +68,16 @@ public class ProjectileControl : MonoBehaviour {
         }
     }
 
-    void destroy()
+    public void destroy()
     {
         effectControl.StopEffect();
         transform.position = new Vector3(0, -100000, 0);
-        GameManager.pool.PoolObj(gameObject);
+        GameManager.pool.PoolObj(gameObject); 
+    }
+
+    void KillSound()
+    {
+        AkSoundEngine.PostEvent("Enemy_Ranged_Projectile_Stop", gameObject);
+        AkSoundEngine.RenderAudio();
     }
 }
