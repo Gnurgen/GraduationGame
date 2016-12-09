@@ -41,7 +41,8 @@ public class ShowLevelIndicator : MonoBehaviour {
     private void ShowLvlIndicator()
     {
         img.sprite = imglvl[PlayerPrefs.GetInt("Progress")];
-        if(PlayerPrefs.GetInt("Progress") == 0)
+        img.enabled = true;
+        if (PlayerPrefs.GetInt("Progress") == 0)
         {
             StartCoroutine(FadeImg(fadeTime+3));
         }

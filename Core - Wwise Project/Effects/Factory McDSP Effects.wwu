@@ -1811,7 +1811,7 @@
 										<Property Name="Ceiling" Type="Real32" Value="-0.3"/>
 										<Property Name="Knee" Type="Real32" Value="15"/>
 										<Property Name="Mode" Type="int32" Value="1"/>
-										<Property Name="Threshold" Type="Real32" Value="-12"/>
+										<Property Name="Threshold" Type="Real32" Value="-15"/>
 									</PropertyList>
 								</Effect>
 							</ChildrenList>

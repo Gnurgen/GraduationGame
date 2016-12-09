@@ -92,6 +92,7 @@ namespace AK
             {
                 static const AkUniqueID AFTER_BOSS = 1362486867U;
                 static const AkUniqueID BEFORE_BOSS = 3173468884U;
+                static const AkUniqueID DEATH = 779278001U;
                 static const AkUniqueID IN_ABILITY_CONTROL = 3853226033U;
                 static const AkUniqueID IN_ABILITY_WHEEL = 878736223U;
                 static const AkUniqueID IN_BATTLE = 210928257U;

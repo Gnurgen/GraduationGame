@@ -75,6 +75,9 @@
 										<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="5"/>
 										<Property Name="Volume" Type="Real64">
+											<ValueList>
+												<Value>2</Value>
+											</ValueList>
 											<ModifierList>
 												<ModifierInfo>
 													<Modifier Name="" ID="{24095828-7174-494C-816F-1BFE80BC4A63}">
@@ -1521,6 +1524,11 @@
 												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="15"/>
 												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-2</Value>
+													</ValueList>
+												</Property>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
@@ -1532,6 +1540,13 @@
 											</ReferenceList>
 											<ChildrenList>
 												<Sound Name="Ambience" ID="{80C37766-26D3-47E6-95EE-BB1B521C53F4}" ShortID="99377818" Type="SoundFX">
+													<PropertyList>
+														<Property Name="Volume" Type="Real64">
+															<ValueList>
+																<Value>-1</Value>
+															</ValueList>
+														</Property>
+													</PropertyList>
 													<ReferenceList>
 														<Reference Name="Conversion">
 															<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
@@ -1596,6 +1611,11 @@
 												<Property Name="PlayMechanismSpecialTransitions" Type="bool" Value="True"/>
 												<Property Name="PlayMechanismSpecialTransitionsValue" Type="Real64" Value="15"/>
 												<Property Name="PlayMechanismStepOrContinuous" Type="int16" Value="0"/>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>1</Value>
+													</ValueList>
+												</Property>
 											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Conversion">
@@ -1990,7 +2010,7 @@
 										<Property Name="PositioningType" Type="int16" Value="1"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-4</Value>
+												<Value>-5</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -2114,7 +2134,7 @@
 											<PropertyList>
 												<Property Name="Volume" Type="Real64">
 													<ValueList>
-														<Value>-4</Value>
+														<Value>-5</Value>
 													</ValueList>
 												</Property>
 											</PropertyList>
@@ -2853,116 +2873,471 @@
 														</Reference>
 													</ReferenceList>
 													<ChildrenList>
-														<Sound Name="Player Impact" ID="{D54E459C-473D-4025-98B2-A5A3812BDC06}" ShortID="751303107" Type="SoundFX">
+														<BlendContainer Name="Player Impact" ID="{748F1E24-A4A5-4C1C-A0A2-ED7883971434}" ShortID="208178348">
 															<ReferenceList>
 																<Reference Name="Conversion">
-																	<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Player Impact" ID="{C4764C33-B0D8-4032-9013-C99AFB63BBB5}" ShortID="64635592">
-																	<Language>SFX</Language>
-																	<AudioFile>Player Impact.wav</AudioFile>
-																	<ConvertedFileIDList>
-																		<File ID="406216983"/>
-																	</ConvertedFileIDList>
-																</AudioFileSource>
+																<Sound Name="Corpse Despawn" ID="{7BA562A6-63BF-4AE4-A618-60B6C5928304}" ShortID="1059069039" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>65</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																		<Property Name="Pitch" Type="int32">
+																			<ValueList>
+																				<Value>900</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-14</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Corpse Despawn" ID="{20F19E48-EDA7-40DC-9DD4-DEA2987DBA22}" ShortID="1058666328">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.1875"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Corpse Despawn.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Corpse Despawn" ID="{20F19E48-EDA7-40DC-9DD4-DEA2987DBA22}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Player Impact" ID="{D54E459C-473D-4025-98B2-A5A3812BDC06}" ShortID="751303107" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-15</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Player Impact" ID="{C4764C33-B0D8-4032-9013-C99AFB63BBB5}" ShortID="64635592">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.158072916666667"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Player Impact.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Player Impact" ID="{C4764C33-B0D8-4032-9013-C99AFB63BBB5}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Player Impact" ID="{C4764C33-B0D8-4032-9013-C99AFB63BBB5}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Player Impact_1" ID="{59B3B79C-3D52-4EA1-8E2E-C11FC35BEBDE}" ShortID="500236026" Type="SoundFX">
+														</BlendContainer>
+														<BlendContainer Name="Player Impact_1" ID="{9A434A15-E1BC-4C98-B95B-45E7DBA46AB4}" ShortID="618122426">
 															<ReferenceList>
 																<Reference Name="Conversion">
-																	<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Player Impact_1" ID="{7DE9C0C6-C411-4D73-A496-F93764C41921}" ShortID="97460987">
-																	<Language>SFX</Language>
-																	<AudioFile>Player Impact_1.wav</AudioFile>
-																	<ConvertedFileIDList>
-																		<File ID="962076540"/>
-																	</ConvertedFileIDList>
-																</AudioFileSource>
+																<Sound Name="Corpse Despawn" ID="{997C28BF-55AC-4DC1-B28B-E56105346D19}" ShortID="705187685" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>65</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																		<Property Name="Pitch" Type="int32">
+																			<ValueList>
+																				<Value>900</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-14</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Corpse Despawn" ID="{D23E2B53-357A-403C-86DB-247932D11450}" ShortID="749214813">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.25"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Corpse Despawn.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Corpse Despawn" ID="{D23E2B53-357A-403C-86DB-247932D11450}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Player Impact_1" ID="{59B3B79C-3D52-4EA1-8E2E-C11FC35BEBDE}" ShortID="500236026" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-15</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Player Impact_1" ID="{7DE9C0C6-C411-4D73-A496-F93764C41921}" ShortID="97460987">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.112321428571429"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Player Impact_1.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Player Impact_1" ID="{7DE9C0C6-C411-4D73-A496-F93764C41921}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Player Impact_1" ID="{7DE9C0C6-C411-4D73-A496-F93764C41921}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Player Impact_2" ID="{146B1C9D-7FC9-43C0-A0A3-63448F5A0122}" ShortID="237236747" Type="SoundFX">
+														</BlendContainer>
+														<BlendContainer Name="Player Impact_2" ID="{DAF6465A-5E15-4EA7-B0E4-C2EB2706C6D7}" ShortID="457197651">
 															<ReferenceList>
 																<Reference Name="Conversion">
-																	<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Player Impact_2" ID="{EA632050-AD2C-49DF-9FA2-764FF7A875DC}" ShortID="78657965">
-																	<Language>SFX</Language>
-																	<AudioFile>Player Impact_2.wav</AudioFile>
-																	<ConvertedFileIDList>
-																		<File ID="163235136"/>
-																	</ConvertedFileIDList>
-																</AudioFileSource>
+																<Sound Name="Corpse Despawn" ID="{0D51055C-BC89-4713-A95F-E63EF6244F0C}" ShortID="456631833" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>65</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																		<Property Name="Pitch" Type="int32">
+																			<ValueList>
+																				<Value>900</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-14</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Corpse Despawn" ID="{0296DE6C-D156-48E5-9C1E-A980838CCE4B}" ShortID="291287480">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.263392857142857"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Corpse Despawn.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Corpse Despawn" ID="{0296DE6C-D156-48E5-9C1E-A980838CCE4B}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Player Impact_2" ID="{146B1C9D-7FC9-43C0-A0A3-63448F5A0122}" ShortID="237236747" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Player Impact_2" ID="{EA632050-AD2C-49DF-9FA2-764FF7A875DC}" ShortID="78657965">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.218723214285715"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Player Impact_2.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Player Impact_2" ID="{EA632050-AD2C-49DF-9FA2-764FF7A875DC}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Player Impact_2" ID="{EA632050-AD2C-49DF-9FA2-764FF7A875DC}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Player Impact_3" ID="{C6B6BE93-E36A-4A96-B7FA-1F78FC722497}" ShortID="350768487" Type="SoundFX">
+														</BlendContainer>
+														<BlendContainer Name="Player Impact_3" ID="{F879BE21-C473-48F3-9162-F049109C3222}" ShortID="387969182">
 															<ReferenceList>
 																<Reference Name="Conversion">
-																	<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Player Impact_3" ID="{CE9C6A19-185B-44CE-9A1E-91FFC03A0B1B}" ShortID="8959918">
-																	<Language>SFX</Language>
-																	<AudioFile>Player Impact_3.wav</AudioFile>
-																	<ConvertedFileIDList>
-																		<File ID="450165256"/>
-																	</ConvertedFileIDList>
-																</AudioFileSource>
+																<Sound Name="Corpse Despawn" ID="{FC93042A-4E16-49C7-A746-97981FED1D52}" ShortID="979370347" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>65</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																		<Property Name="Pitch" Type="int32">
+																			<ValueList>
+																				<Value>900</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-14</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Corpse Despawn" ID="{3D79935E-DC66-48E1-8C0A-2A5897ADF9A4}" ShortID="668581270">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.294642857142857"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Corpse Despawn.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Corpse Despawn" ID="{3D79935E-DC66-48E1-8C0A-2A5897ADF9A4}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Player Impact_3" ID="{C6B6BE93-E36A-4A96-B7FA-1F78FC722497}" ShortID="350768487" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Player Impact_3" ID="{CE9C6A19-185B-44CE-9A1E-91FFC03A0B1B}" ShortID="8959918">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.302857142857143"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Player Impact_3.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Player Impact_3" ID="{CE9C6A19-185B-44CE-9A1E-91FFC03A0B1B}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Player Impact_3" ID="{CE9C6A19-185B-44CE-9A1E-91FFC03A0B1B}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
-														<Sound Name="Player Impact_4" ID="{1DA192CC-5573-4754-BBD3-5CA79A50CE77}" ShortID="20492199" Type="SoundFX">
+														</BlendContainer>
+														<BlendContainer Name="Player Impact_4" ID="{F034713A-EC13-4AB1-91F0-58B97089679F}" ShortID="1042467149">
 															<ReferenceList>
 																<Reference Name="Conversion">
-																	<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																	<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
 																</Reference>
 																<Reference Name="OutputBus">
-																	<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																	<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
 																</Reference>
 															</ReferenceList>
 															<ChildrenList>
-																<AudioFileSource Name="Player Impact_4" ID="{C39E99DD-D2CA-4103-B183-5D31E4C61195}" ShortID="843679925">
-																	<Language>SFX</Language>
-																	<AudioFile>Player Impact_4.wav</AudioFile>
-																	<ConvertedFileIDList>
-																		<File ID="399983031"/>
-																	</ConvertedFileIDList>
-																</AudioFileSource>
+																<Sound Name="Corpse Despawn" ID="{3AEBEA75-D6FD-4147-8CD3-34346C72785A}" ShortID="686038198" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="Lowpass" Type="int16">
+																			<ValueList>
+																				<Value>65</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="OverridePositioning" Type="bool" Value="True"/>
+																		<Property Name="Pitch" Type="int32">
+																			<ValueList>
+																				<Value>900</Value>
+																			</ValueList>
+																		</Property>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-14</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Corpse Despawn" ID="{FA950C48-6A34-4D3D-AF8E-7321A9FBEED0}" ShortID="835225650">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="0.290178571428571"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Corpse Despawn.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Corpse Despawn" ID="{FA950C48-6A34-4D3D-AF8E-7321A9FBEED0}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
+																<Sound Name="Player Impact_4" ID="{1DA192CC-5573-4754-BBD3-5CA79A50CE77}" ShortID="20492199" Type="SoundFX">
+																	<PropertyList>
+																		<Property Name="PositioningType" Type="int16" Value="1"/>
+																		<Property Name="Volume" Type="Real64">
+																			<ValueList>
+																				<Value>-15</Value>
+																			</ValueList>
+																		</Property>
+																	</PropertyList>
+																	<ReferenceList>
+																		<Reference Name="Attenuation">
+																			<ObjectRef Name="Enemy Ranged Attack" ID="{2174965D-5AB0-46C2-B36A-3D9A05CF27D9}" WorkUnitID="{4F3E8139-3997-44F6-9221-89385FFC435E}"/>
+																		</Reference>
+																		<Reference Name="Conversion">
+																			<ObjectRef Name="Main" ID="{CD782C58-FA3A-4762-8329-8CC9EC7602B6}" WorkUnitID="{E9B11DFB-898F-4E24-B9B5-F73DCE83BE45}"/>
+																		</Reference>
+																		<Reference Name="OutputBus">
+																			<ObjectRef Name="Combat" ID="{7C4F8333-FA15-4C17-9501-B7548F62142A}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																		<Reference Name="UserAuxSend0">
+																			<ObjectRef Name="Hall" ID="{C8EC3382-E7DC-4854-A548-B0956AD76004}" WorkUnitID="{1BE2C95D-1AF5-4C91-A46C-F7EED58CB3B1}"/>
+																		</Reference>
+																	</ReferenceList>
+																	<ChildrenList>
+																		<AudioFileSource Name="Player Impact_4" ID="{C39E99DD-D2CA-4103-B183-5D31E4C61195}" ShortID="843679925">
+																			<PropertyList>
+																				<Property Name="FadeInDuration" Type="Real64" Value="9.31398809523808E-02"/>
+																			</PropertyList>
+																			<Language>SFX</Language>
+																			<AudioFile>Player Impact_4.wav</AudioFile>
+																		</AudioFileSource>
+																	</ChildrenList>
+																	<ActiveSourceList>
+																		<ActiveSource Name="Player Impact_4" ID="{C39E99DD-D2CA-4103-B183-5D31E4C61195}" Platform="Linked"/>
+																	</ActiveSourceList>
+																</Sound>
 															</ChildrenList>
-															<ActiveSourceList>
-																<ActiveSource Name="Player Impact_4" ID="{C39E99DD-D2CA-4103-B183-5D31E4C61195}" Platform="Linked"/>
-															</ActiveSourceList>
-														</Sound>
+														</BlendContainer>
 													</ChildrenList>
 												</RandomSequenceContainer>
 											</ChildrenList>
@@ -4900,7 +5275,7 @@
 										<Property Name="RandomAvoidRepeatingCount" Type="int32" Value="2"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>5</Value>
+												<Value>8</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -5631,6 +6006,14 @@
 								</State>
 							</CustomState>
 							<CustomState>
+								<StateRef Name="Death" ID="{0DE927FE-8DAF-4D35-A343-0B1C430A9394}"/>
+								<State Name="Custom State" ID="{812760D7-5988-4A83-9ADA-D44100E9A6A3}" ShortID="979014861">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
 								<StateRef Name="In_Loading_Screen" ID="{4C799F41-E840-4F2A-9B32-6EAC016B9257}"/>
 								<State Name="Custom State" ID="{EB730E67-CB69-4DC0-A419-AB01577EA12E}" ShortID="300495557">
 									<PropertyList>
@@ -5908,7 +6291,7 @@
 								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-7</Value>
+										<Value>-9</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -6025,7 +6408,7 @@
 										<Property Name="PositioningType" Type="int16" Value="1"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-20</Value>
+												<Value>-22</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -6140,7 +6523,7 @@
 										<Property Name="PositioningType" Type="int16" Value="1"/>
 										<Property Name="Volume" Type="Real64">
 											<ValueList>
-												<Value>-10</Value>
+												<Value>-14</Value>
 											</ValueList>
 										</Property>
 									</PropertyList>
@@ -6149,7 +6532,7 @@
 											<Custom CreatedFrom="{9379710B-A6EE-4514-9BF0-D819DBE3785D}">
 												<Attenuation Name="Wisp (Custom)" ID="{1FB9E1C3-07AB-4AE6-B5AB-29DA0A773D03}" ShortID="28216799">
 													<PropertyList>
-														<Property Name="RadiusMax" Type="Real64" Value="10"/>
+														<Property Name="RadiusMax" Type="Real64" Value="8"/>
 													</PropertyList>
 													<CurveUsageInfoList>
 														<VolumeDryUsage>
@@ -6166,13 +6549,13 @@
 																			<SegmentShape>Log1</SegmentShape>
 																		</Point>
 																		<Point>
-																			<XPos>1.25</XPos>
-																			<YPos>-3</YPos>
+																			<XPos>1</XPos>
+																			<YPos>-4</YPos>
 																			<Flags>0</Flags>
 																			<SegmentShape>Log2</SegmentShape>
 																		</Point>
 																		<Point>
-																			<XPos>10</XPos>
+																			<XPos>8</XPos>
 																			<YPos>-200</YPos>
 																			<Flags>37</Flags>
 																		</Point>
@@ -6200,7 +6583,7 @@
 																			<SegmentShape>Exp2</SegmentShape>
 																		</Point>
 																		<Point>
-																			<XPos>10</XPos>
+																			<XPos>8</XPos>
 																			<YPos>30</YPos>
 																			<Flags>37</Flags>
 																		</Point>
@@ -6225,7 +6608,7 @@
 																			<SegmentShape>Log3</SegmentShape>
 																		</Point>
 																		<Point>
-																			<XPos>10</XPos>
+																			<XPos>8</XPos>
 																			<YPos>0</YPos>
 																			<Flags>37</Flags>
 																		</Point>
@@ -6296,7 +6679,7 @@
 								</Property>
 								<Property Name="Volume" Type="Real64">
 									<ValueList>
-										<Value>-3</Value>
+										<Value>-2</Value>
 									</ValueList>
 								</Property>
 							</PropertyList>
@@ -6366,6 +6749,14 @@
 							<CustomState>
 								<StateRef Name="In_Intro_Cutscene" ID="{FF09B547-76FF-48B8-AFD8-C42D9E47136E}"/>
 								<State Name="Custom State" ID="{67E8DD71-954F-4DCC-99B4-BF0C94308CB6}" ShortID="404139458">
+									<PropertyList>
+										<Property Name="Volume" Type="Real64" Value="-96"/>
+									</PropertyList>
+								</State>
+							</CustomState>
+							<CustomState>
+								<StateRef Name="Death" ID="{0DE927FE-8DAF-4D35-A343-0B1C430A9394}"/>
+								<State Name="Custom State" ID="{C03259D2-54AD-4F26-A677-0D27F71E029C}" ShortID="274039187">
 									<PropertyList>
 										<Property Name="Volume" Type="Real64" Value="-96"/>
 									</PropertyList>

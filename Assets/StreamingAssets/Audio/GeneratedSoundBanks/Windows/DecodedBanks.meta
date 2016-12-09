@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/StreamingAssets/Audio/GeneratedSoundBanks/Windows/DecodedBanks.meta
 guid: 30345b55bbfc30e47a4a147b82b417c1
 folderAsset: yes
 timeCreated: 1478605190
+=======
+guid: 42797e54a5a46d148b8ac1f983b30ab1
+folderAsset: yes
+timeCreated: 1481244924
+>>>>>>> 2c580e5e97aec00be09cdceeec70510d478d456f:Assets/Graphics/Sprites/Cutscene.meta
 licenseType: Pro
 DefaultImporter:
   userData: 
