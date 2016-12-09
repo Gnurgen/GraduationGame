@@ -37,15 +37,17 @@ public class PlayerControls : MonoBehaviour {
     private float touchCooldown = .125f, curTouchCooldown;
 
     // --- Abilities ---
-    private Vector3 touchStart, touchEnd, touchCur;
+    private Vector3 touchStart, touchEnd, touchCur = Vector3.one*1000;
     private bool ab1 = false, ab2 = false;
     FlyingSpear ability1;
     ConeDraw ability2;
+    private Vector3 prevTouchPos;
 
     private Rigidbody body;
     RaycastHit[] hit;
     int coneBlock = 1;
     private bool hitWall = false;
+    private float abilitymoveDist;
 
     // Use this for initialization
     void Start () {
@@ -192,6 +194,7 @@ public class PlayerControls : MonoBehaviour {
         prevstate = ResumeMovementAfterAbility? state : State.Idle;
         if(AbilitiesDuringDash || state != State.Dashing)
         {
+            abilitymoveDist = 0;
             if ((touchStart - transform.position).magnitude < abilityTouchOffset && ability1.currentCooldown <= 0)
                 ab1 = true;
             else if (ability2.currentCooldown <=0)
@@ -200,10 +203,13 @@ public class PlayerControls : MonoBehaviour {
     } 
     void Move(Vector2 p)
     {
+        prevTouchPos = touchCur;
         touchCur = GameManager.input.GetWorldPoint(p);
-        if ((touchCur - touchStart).magnitude >= abilityTouchMoveDistance && (ab1 || ab2))
+        if (!(touchCur == prevTouchPos) || prevTouchPos == Vector3.zero)
+            abilitymoveDist += (prevTouchPos - touchCur).magnitude;
+        if (abilitymoveDist >= abilityTouchMoveDistance && (ab1 || ab2))
         {
-            
+            abilitymoveDist = 0;
             body.velocity = Vector3.zero;
             StartCoroutine(Ability());
             if (ab1)

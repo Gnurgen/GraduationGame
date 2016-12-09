@@ -5,6 +5,7 @@ public class playerVibrate : MonoBehaviour {
 
     public long enemyHitVibration = 200;
     public long elevatorVibration = 100;
+    public long elevatorEndVibration = 300;
     private InputManager IM;
     private EventManager EM;
     int ID;
@@ -20,6 +21,7 @@ public class playerVibrate : MonoBehaviour {
             EM.OnEnemyAttackHit += vibrateHit;
             EM.OnLoadComplete += vibrateElevatorActivation;
             EM.OnCameraShake += vibrateCameraShake;
+            EM.OnElevatorMoveStop += vibrateElevatorEnd;
         }
 	}
 
@@ -36,5 +38,10 @@ public class playerVibrate : MonoBehaviour {
     void vibrateCameraShake(float seconds)
     {
         Vibrator.Vibrate((long)(seconds * 1000f));
+    }
+
+    void vibrateElevatorEnd()
+    {
+        Vibrator.Vibrate(elevatorEndVibration);
     }
 }

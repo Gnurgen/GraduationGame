@@ -30,8 +30,10 @@ public class StartMenu : MonoBehaviour {
     void Start()
     {
         StartCoroutine(FadeinStartScreen());
+
         if (PlayerPrefs.GetInt("Progress") == 0)
             GameObject.Find("LoadGame").GetComponent<Button>().interactable = false;
+        setLanguage();
     }
 
     public void ResetProgress()
@@ -125,7 +127,13 @@ public class StartMenu : MonoBehaviour {
             GameManager.game.language = GameManager.Language.English;
         }
     }
-
+    private void setLanguage()
+    {
+        if (GameManager.game.language == GameManager.Language.Danish)
+            changeButtonsDK();
+        else
+            changeButtonsENG();
+    }
     IEnumerator FadeinStartScreen()
     {
         fade.GetComponent<Image>().CrossFadeAlpha(0, 2, true);
@@ -133,8 +141,8 @@ public class StartMenu : MonoBehaviour {
     }
 
     void changeButtonsDK() {
-        NewGame.GetComponent<Text>().text = "NYT SPIL";
-        Load.GetComponent<Text>().text = "HENT SPIL";
+        NewGame.GetComponent<Text>().text = "NYT\nSPIL";
+        Load.GetComponent<Text>().text = "HENT\nSPIL";
         music.GetComponent<Text>().text = "Musik";
         sound.GetComponent<Text>().text = "Lyd";
         lang.GetComponent<Text>().text = "Sprog";
@@ -142,7 +150,7 @@ public class StartMenu : MonoBehaviour {
         instructions.GetComponent<Text>().text = "Instruktioner";
         Shop.GetComponent<Text>().text = "BUTIK";
         Reset.GetComponent<Text>().text = "NULSTIL";
-        Endless.GetComponent<Text>().text = "EVIGT SPIL";
+        Endless.GetComponent<Text>().text = "EVIGT\nSPIL";
         skulls.GetComponent<Text>().text = "KRANIER";
         items.GetComponent<Text>().text = "GENSTANDE";
         content.GetComponent<Text>().text = "INDHOLD";
