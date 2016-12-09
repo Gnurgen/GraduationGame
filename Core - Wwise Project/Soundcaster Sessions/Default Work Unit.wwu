@@ -258,7 +258,7 @@
 					</RTPCValueList>
 					<CurrentStateList ShowAll="true">
 						<CurrentStateRef Name="Large" ID="{C7F8A48F-2110-4892-A56D-98A7510AF00A}"/>
-						<CurrentStateRef Name="In_Battle" ID="{DBB5DC3C-9564-4B7F-9537-1FBA490F0703}"/>
+						<CurrentStateRef Name="In_Boss_Battle" ID="{5A0C9EB3-DA32-4E91-AEBA-A0852E688F11}"/>
 					</CurrentStateList>
 					<CurrentSwitchList ShowAll="true">
 						<CurrentSwitchRef Name="Boss" ID="{3AE04429-4DB2-45CF-A26F-4D9228C4039F}"/>

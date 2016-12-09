@@ -116,6 +116,7 @@ Custom State	ID	Name	State Group	Owner		Notes
 	728673169	In_Intro_Cutscene	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat		
 	762456106	In_Ability_Wheel	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat\Player		
 	794233282	In_Ability_Wheel	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat		
+	897746478	In_Loading_Screen_After_Intro_Cutscene	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Ambience		
 	926452934	In_Ability_Wheel	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\SFX		
 	931578292	In_Intro_Cutscene	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Ambience		
 	979014861	Death	Game_State	\Actor-Mixer Hierarchy\Default Work Unit\Combat		

@@ -335,7 +335,7 @@
 											<Flags>5</Flags>
 										</Point>
 										<Point>
-											<XPos>1.5</XPos>
+											<XPos>0.5</XPos>
 											<YPos>0</YPos>
 											<Flags>0</Flags>
 											<SegmentShape>Log3</SegmentShape>
