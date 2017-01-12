@@ -219,11 +219,15 @@ public class ConeDraw : MonoBehaviour {
                     eHit[k].transform.gameObject.layer = layerEnemyhit;
                     if (eHit[k].transform.tag == "Boss")
                     {
-                        StartCoroutine(ApplyConeEffect(eHit[k].transform.gameObject, Vector3.Distance(transform.position, eHit[k].transform.position) / coneSpeed));
+                        StartCoroutine(ApplyConeEffect(eHit[k].transform.gameObject, 
+                                                       Vector3.Distance(transform.position, eHit[k].transform.position) / coneSpeed));
                     }
                     else
                     {
-                        StartCoroutine(ApplyConeEffect(eHit[k].transform.gameObject, Vector3.Distance(transform.position, eHit[k].transform.position + eHit[k].transform.GetComponent<EnemyStats>().velo * coneSpeed)/coneSpeed));
+                        StartCoroutine(ApplyConeEffect(eHit[k].transform.gameObject,
+                                                       Vector3.Distance(transform.position, eHit[k].transform.position + 
+                                                                        eHit[k].transform.GetComponent<EnemyStats>().velo 
+                                                                        * coneSpeed) / coneSpeed));
                     }
                 }
             }
@@ -245,7 +249,7 @@ public class ConeDraw : MonoBehaviour {
                     else
                     {
                         conePart[x].transform.position += conePart[x].transform.forward * coneSpeed * Time.deltaTime;
-                        conePart[x].GetComponent<PKFxFX>().GetAttribute(scale).ValueFloat =(particleFireScale * (coneTravel / coneDest));
+                        conePart[x].GetComponent<PKFxFX>().GetAttribute(scale).ValueFloat = particleFireScale * (coneTravel / coneDest);
                     }
                 }
                 yield return null;
@@ -276,7 +280,8 @@ public class ConeDraw : MonoBehaviour {
             }
             if (go.tag == "Enemy")
             {
-                go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized * pushForce, ForceMode.Impulse);
+                go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized * pushForce, 
+                                                      ForceMode.Impulse);
                 go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
                 go.GetComponent<EnemyStats>().PauseFor(stunTime);
             }
@@ -286,7 +291,8 @@ public class ConeDraw : MonoBehaviour {
             }
             go.layer = layerEnemy;
             GameManager.events.ConeAbilityHit(go);
-            GameObject hitParticle = abilityCharged ? GameManager.pool.GenerateObject(bigImpact) : GameManager.pool.GenerateObject(impact);
+            GameObject hitParticle = abilityCharged ? GameManager.pool.GenerateObject(bigImpact) 
+                : GameManager.pool.GenerateObject(impact);
             hitParticle.transform.position = go.transform.position + Vector3.one * .5f;
             hitParticle.GetComponent<PKFxFX>().StartEffect();
             yield return new WaitForSeconds(1.0f);
