@@ -276,7 +276,8 @@ public class ConeDraw : MonoBehaviour {
             }
             if (go.tag == "Enemy")
             {
-                go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized * pushForce, ForceMode.Impulse);
+                go.GetComponent<Rigidbody>().AddForce((go.transform.position - transform.position).normalized * pushForce, 
+                                                      ForceMode.Impulse);
                 go.GetComponent<EnemyStats>().decreaseHealth(damage, (go.transform.position - transform.position), pushForce);
                 go.GetComponent<EnemyStats>().PauseFor(stunTime);
             }
@@ -286,7 +287,8 @@ public class ConeDraw : MonoBehaviour {
             }
             go.layer = layerEnemy;
             GameManager.events.ConeAbilityHit(go);
-            GameObject hitParticle = abilityCharged ? GameManager.pool.GenerateObject(bigImpact) : GameManager.pool.GenerateObject(impact);
+            GameObject hitParticle = abilityCharged ? GameManager.pool.GenerateObject(bigImpact) 
+                : GameManager.pool.GenerateObject(impact);
             hitParticle.transform.position = go.transform.position + Vector3.one * .5f;
             hitParticle.GetComponent<PKFxFX>().StartEffect();
             yield return new WaitForSeconds(1.0f);
