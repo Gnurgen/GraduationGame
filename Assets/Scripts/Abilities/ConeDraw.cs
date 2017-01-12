@@ -219,11 +219,15 @@ public class ConeDraw : MonoBehaviour {
                     eHit[k].transform.gameObject.layer = layerEnemyhit;
                     if (eHit[k].transform.tag == "Boss")
                     {
-                        StartCoroutine(ApplyConeEffect(eHit[k].transform.gameObject, Vector3.Distance(transform.position, eHit[k].transform.position) / coneSpeed));
+                        StartCoroutine(ApplyConeEffect(eHit[k].transform.gameObject, 
+                                                       Vector3.Distance(transform.position, eHit[k].transform.position) / coneSpeed));
                     }
                     else
                     {
-                        StartCoroutine(ApplyConeEffect(eHit[k].transform.gameObject, Vector3.Distance(transform.position, eHit[k].transform.position + eHit[k].transform.GetComponent<EnemyStats>().velo * coneSpeed)/coneSpeed));
+                        StartCoroutine(ApplyConeEffect(eHit[k].transform.gameObject,
+                                                       Vector3.Distance(transform.position, eHit[k].transform.position + 
+                                                                        eHit[k].transform.GetComponent<EnemyStats>().velo 
+                                                                        * coneSpeed) / coneSpeed));
                     }
                 }
             }
@@ -245,7 +249,7 @@ public class ConeDraw : MonoBehaviour {
                     else
                     {
                         conePart[x].transform.position += conePart[x].transform.forward * coneSpeed * Time.deltaTime;
-                        conePart[x].GetComponent<PKFxFX>().GetAttribute(scale).ValueFloat =(particleFireScale * (coneTravel / coneDest));
+                        conePart[x].GetComponent<PKFxFX>().GetAttribute(scale).ValueFloat = particleFireScale * (coneTravel / coneDest);
                     }
                 }
                 yield return null;
