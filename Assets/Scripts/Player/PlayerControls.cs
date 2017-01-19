@@ -72,7 +72,9 @@ public class PlayerControls : MonoBehaviour {
     {
         if (state == State.Dashing || state == State.Moving)
         {
-            float colCheckDist = state == State.Dashing ? (transform.forward * moveSpeed * dashSpeedMultiplier * Time.fixedDeltaTime).magnitude : (transform.forward * moveSpeed * Time.fixedDeltaTime).magnitude;
+            float colCheckDist = state == State.Dashing ? (transform.forward * moveSpeed * 
+							   dashSpeedMultiplier * Time.fixedDeltaTime).magnitude : 
+		(transform.forward * moveSpeed * Time.fixedDeltaTime).magnitude;
             if (Physics.Raycast(transform.position + Vector3.up * .2f, transform.forward, colCheckDist, 1 << coneBlock))
             {
                 if (state == State.Dashing)
